@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sikb:sikb0102
+  xmlns:gco="http://www.isotc211.org/2005/gco"
+  xmlns:gmd="http://www.isotc211.org/2005/gmd"
+  xmlns:gsr="http://www.isotc211.org/2005/gsr"
+  xmlns:gss="http://www.isotc211.org/2005/gss"
+  xmlns:gts="http://www.isotc211.org/2005/gts"
+  xmlns:gml="http://www.opengis.net/gml/3.2"
+  xmlns:nen3610="http://www.ravi.nl/nen3610/2.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:sikb="http://www.sikb.nl/sikb0102/3.1.0"
+  xsi:schemaLocation="http://www.sikb.nl/sikb0102/3.1.0 ../../../../xsd/sikb/0102/3.1.0/sikb0102.xsd"
+  sikb:id="8cea8762-ecbd-4014-9533-1c98371185d2"   
+  versie="3.1.0"
+  timestamp="2001-12-17T09:30:47.0Z">
+  <sikb:project bronId="BC388" sikb:id="a7fa5d30-1877-47e8-b966-f6079fa7f11e">
+    <sikb:projectnaam>Schipluiden - Harnaschpolder</sikb:projectnaam>
+    <sikb:startdatum>2003-02-01</sikb:startdatum>
+    <sikb:einddatum>2003-08-02</sikb:einddatum>
+    <sikb:onderzoeksmeldingsnummer>4257</sikb:onderzoeksmeldingsnummer>
+    <sikb:onderzoektype>ABU</sikb:onderzoektype>
+    <sikb:omschrijving>In het kader van de aanleg van de Afvalwaterzuiveringsinstallatie Haagse Regio (AHR) heeft in de periode mei – oktober 2003 een opgraving plaatsgevonden van een Neolithisch nederzettingsterrein.</sikb:omschrijving>
+    <sikb:projectlocatieId>38e94b6f-6a25-42f7-88b6-017fc21bb676</sikb:projectlocatieId>
+    <sikb:bevoegdGezag>
+      <sikb:organisatieId>bc3dc3ec-ef03-424f-89a1-0f732d9799fd</sikb:organisatieId>
+      <sikb:persoonId>2ccd2d84-023f-4c53-9891-172b35736597</sikb:persoonId>
+    </sikb:bevoegdGezag>
+    <sikb:bevoegdGezag>
+      <sikb:organisatieId>bc3dc3ec-ef03-424f-89a1-0f732d9799fd</sikb:organisatieId>
+      <sikb:persoonId>2ccd2d84-023f-4c53-9891-172b35736597</sikb:persoonId>
+    </sikb:bevoegdGezag>
+    <sikb:uitvoerder>
+      <sikb:uitvoerdercode>HAZEN</sikb:uitvoerdercode>
+      <sikb:opgravingsleiderPersoonId>7bffe6f5-5fae-4dd2-b2b3-a373be617717</sikb:opgravingsleiderPersoonId>
+      <sikb:depotContactPersoonId>f84513e3-c2b6-44c0-94b1-f2bff01e7818</sikb:depotContactPersoonId>
+    </sikb:uitvoerder>
+    <sikb:uitvoerder>
+      <sikb:uitvoerdercode>SAGRO</sikb:uitvoerdercode>
+      <sikb:opgravingsleiderPersoonId>7bffe6f5-5fae-4dd2-b2b3-a373be617717</sikb:opgravingsleiderPersoonId>
+      <sikb:depotContactPersoonId>f84513e3-c2b6-44c0-94b1-f2bff01e7818</sikb:depotContactPersoonId>
+    </sikb:uitvoerder>
+  </sikb:project>
+  <sikb:organisatie bronId="4566" sikb:id="36cd6da1-8b0e-402c-91d1-91b7c61100bc">
+    <sikb:naam>Archol BV</sikb:naam>
+    <sikb:adres>
+      <sikb:straat>Reuvensplaats</sikb:straat>
+      <sikb:huisnummer>16</sikb:huisnummer>
+      <sikb:postcode>2300 RA</sikb:postcode>
+      <sikb:plaatsnaam>Leiden</sikb:plaatsnaam>
+      <sikb:gemeente>Leiden</sikb:gemeente>
+      <sikb:provincie>Zuid-Holland</sikb:provincie>
+      <sikb:land>Nederland</sikb:land>
+    </sikb:adres>
+    <sikb:telefoon>071-5273313</sikb:telefoon>
+    <sikb:email>info@archol.nl</sikb:email>
+  </sikb:organisatie>
+  <sikb:organisatie bronId="3543" sikb:id="bc3dc3ec-ef03-424f-89a1-0f732d9799fd">
+    <sikb:naam>Provincie Zuid-Holland, Bureau Cultuur</sikb:naam>
+    <sikb:adres>
+      <sikb:straat>Postbus 90602</sikb:straat>
+      <sikb:huisnummer>16</sikb:huisnummer>
+      <sikb:postcode>2509 LP</sikb:postcode>
+      <sikb:plaatsnaam>Den Haag</sikb:plaatsnaam>
+    </sikb:adres>
+  </sikb:organisatie>
+  <sikb:persoon sikb:id="7bffe6f5-5fae-4dd2-b2b3-a373be617717">
+    <sikb:naam>
+      <sikb:achternaam>Louwe Kooijmans</sikb:achternaam>
+      <sikb:initialen>L.P.</sikb:initialen>
+    </sikb:naam>
+    <sikb:telefoon>071-5273313</sikb:telefoon>
+    <sikb:email>info@archol.nl</sikb:email>
+  </sikb:persoon>
+  <sikb:persoon bronId="4564" sikb:id="2ccd2d84-023f-4c53-9891-172b35736597">
+    <sikb:naam>
+      <sikb:achternaam>Proos</sikb:achternaam>
+      <sikb:initialen>R.</sikb:initialen>
+    </sikb:naam>
+    <sikb:telefoon>070-4418445</sikb:telefoon>
+    <sikb:email>rhp.proos@pzh.nl</sikb:email>
+  </sikb:persoon>
+  <sikb:persoon bronId="6536" sikb:id="f84513e3-c2b6-44c0-94b1-f2bff01e7818">
+    <sikb:naam>
+      <sikb:achternaam>Allen</sikb:achternaam>
+      <sikb:initialen>A.</sikb:initialen>
+    </sikb:naam>
+    <sikb:telefoon>071-5273313</sikb:telefoon>
+    <sikb:email>info@archol.nl</sikb:email>
+  </sikb:persoon>
+  <sikb:projectlocatie bronId="9624" sikb:id="38e94b6f-6a25-42f7-88b6-017fc21bb676">
+    <sikb:provinciecode>28</sikb:provinciecode>
+    <sikb:gemeentecode>1842</sikb:gemeentecode>
+    <sikb:plaatscode>2807</sikb:plaatscode>
+    <sikb:toponiem>Harnaschpolder; Noordhoornse weg</sikb:toponiem>
+    <sikb:kaartblad>37E</sikb:kaartblad>
+    <sikb:geolocatieId>d9987be3-fdea-4047-be41-d8b9160c524b</sikb:geolocatieId>
+  </sikb:projectlocatie>
+  <sikb:archis bronId="8618" sikb:id="82016b0d-f50f-4cbb-9c08-6047fa1de4a3">
+    <sikb:sikbId>45644</sikb:sikbId>
+    <sikb:archisnummer>456556</sikb:archisnummer>
+    <sikb:archistype>Onderzoeksmeldingsnummer</sikb:archistype>
+  </sikb:archis>
+  <sikb:archis sikb:id="8f394632-9719-43ad-8100-57ee334c7a14">
+    <sikb:sikbId>34456</sikb:sikbId>
+    <sikb:archisnummer>436456</sikb:archisnummer>
+    <sikb:archistype>Waarnemingsnummer</sikb:archistype>
+  </sikb:archis>
+  <sikb:bestand bronId="boringen.dbf" sikb:id="fc1dff0b-1915-4ffc-9e7c-1b6bbdc501d5">
+    <sikb:digitaalmediumId>145b4fda-1df3-4d15-8941-f8020a070e7a</sikb:digitaalmediumId>
+    <sikb:bestandsnaam>boringen.dbf</sikb:bestandsnaam>
+    <sikb:bestandtype>databasetabel</sikb:bestandtype>
+    <sikb:bestandsinhoud>kopgegevens van boringen</sikb:bestandsinhoud>
+    <sikb:software>dbase IV</sikb:software>
+    <sikb:codeboek>datadictionary.pdf</sikb:codeboek>
+  </sikb:bestand>
+  <sikb:bestand bronId="KL8432.doc" sikb:id="04785ae0-7d5f-43b9-9bc4-d55bb9aa5617">
+    <sikb:digitaalmediumId>e77038a6-2285-422d-8340-ccebb037db17</sikb:digitaalmediumId>
+    <sikb:bestandsnaam>KL8432.doc</sikb:bestandsnaam>
+    <sikb:bestandtype>Word</sikb:bestandtype>
+    <sikb:bestandsinhoud>Beschrijving van sporen.</sikb:bestandsinhoud>
+    <sikb:software>Microsoft Word 2007</sikb:software>
+  </sikb:bestand>
+  <sikb:digitaalmedium bronId="34920" sikb:id="145b4fda-1df3-4d15-8941-f8020a070e7a">
+    <sikb:digitaalmediumtype>USB-stick</sikb:digitaalmediumtype>
+  </sikb:digitaalmedium>
+  <sikb:digitaalmedium bronId="52920" sikb:id="e77038a6-2285-422d-8340-ccebb037db17">
+    <sikb:informatie>De DVD heeft krassen en wordt niet door alle cd-rom speler gelezen.</sikb:informatie>
+    <sikb:digitaalmediumtype>DVD</sikb:digitaalmediumtype>
+  </sikb:digitaalmedium>
+  <sikb:document bronId="BC388" sikb:id="c049e4be-df47-4bb4-8b5c-81a608c992c7">
+    <sikb:documenttype>EINDRAP</sikb:documenttype>
+    <sikb:titel>Schipluiden, Een Neolithische nederzetting aan de Nederlandse Noordzeekust, c. 3500 cal BC</sikb:titel>
+    <sikb:auteur>Louwe Kooijmans</sikb:auteur>
+    <sikb:auteur>L.P. Jongste</sikb:auteur>
+    <sikb:jaar>2006</sikb:jaar>
+    <sikb:serie>Analecta Praehistorica Leidensia (APL) 37-38</sikb:serie>
+    <sikb:paginas>518</sikb:paginas>
+    <sikb:uitgever>R.U.L.</sikb:uitgever>
+    <sikb:uitgavePlaats>Leiden</sikb:uitgavePlaats>
+    <sikb:bestandId>fc1dff0b-1915-4ffc-9e7c-1b6bbdc501d5</sikb:bestandId>
+    <sikb:bestandId>04785ae0-7d5f-43b9-9bc4-d55bb9aa5617</sikb:bestandId>
+  </sikb:document>
+  <sikb:document bronId="45675" sikb:id="12de5b57-8752-4705-aafd-9949a306249b">
+    <sikb:documenttype>XXX</sikb:documenttype>
+    <sikb:titel>Publicatiewijzer Voor De Archeologie</sikb:titel>
+    <sikb:auteur>Marian Diepeveen-Jansen</sikb:auteur>
+    <sikb:auteur>J. Kaarsemaker</sikb:auteur>
+    <sikb:jaar>2004</sikb:jaar>
+    <sikb:paginas>126</sikb:paginas>
+    <sikb:uitgever>Amsterdam University Press</sikb:uitgever>
+    <sikb:uitgavePlaats>Amsterdam</sikb:uitgavePlaats>
+    <sikb:redacteur>M. Diepeveen-Jansen</sikb:redacteur>
+    <sikb:redacteur>J. Karsemaker</sikb:redacteur>
+    <sikb:isbn>9053566937</sikb:isbn>
+  </sikb:document>
+  <sikb:doos bronId="9425" sikb:id="b59c92e9-0924-464a-bfb9-0b2591fa0528">
+    <sikb:naam>9425</sikb:naam>
+    <sikb:bewaarTemperatuur>20</sikb:bewaarTemperatuur>
+    <sikb:lichtgevoelig>false</sikb:lichtgevoelig>
+    <sikb:breekbaar>false</sikb:breekbaar>
+  </sikb:doos>
+  <sikb:doos bronId="8542" sikb:id="8f0da90c-7aba-4a7d-a8e0-b1881cbce351">
+    <sikb:naam>8542</sikb:naam>
+    <sikb:bewaarTemperatuur>10</sikb:bewaarTemperatuur>
+    <sikb:bewaarVochtigheid>50-60%</sikb:bewaarVochtigheid>
+    <sikb:lichtgevoelig>true</sikb:lichtgevoelig>
+    <sikb:breekbaar>true</sikb:breekbaar>
+    <sikb:gevaarlijkeStoffen>Asbest</sikb:gevaarlijkeStoffen>
+  </sikb:doos>
+  <sikb:verpakkingseenheid bronId="678343" sikb:id="e34e9d15-20fe-4591-9dc0-43e50ca0934f">
+    <sikb:naam>678343</sikb:naam>
+    <sikb:doosId>b59c92e9-0924-464a-bfb9-0b2591fa0528</sikb:doosId>
+    <sikb:beginperiode>PREH</sikb:beginperiode>
+    <sikb:eindperiode>PREH</sikb:eindperiode>
+    <sikb:aantal>1</sikb:aantal>
+    <sikb:gewicht uom="gr">160</sikb:gewicht>
+  </sikb:verpakkingseenheid>
+  <sikb:verpakkingseenheid bronId="347691" sikb:id="c9f95c57-2c29-41d9-8dde-d44804ba6d49">
+    <sikb:naam>347961</sikb:naam>
+    <sikb:doosId>8f0da90c-7aba-4a7d-a8e0-b1881cbce351</sikb:doosId>
+    <sikb:beginperiode>PREH</sikb:beginperiode>
+    <sikb:eindperiode>PREH</sikb:eindperiode>
+    <sikb:aantal>2</sikb:aantal>
+    <sikb:gewicht uom="gr">150</sikb:gewicht>
+  </sikb:verpakkingseenheid>
+  <sikb:dossier bronId="AHR39-69" sikb:id="7752c3d8-a565-4d5b-a5b6-551c628bcd9f">
+    <sikb:naam>AHR39-69</sikb:naam>
+    <sikb:dossiertype>Archiefdoos</sikb:dossiertype>
+    <sikb:documentId>12de5b57-8752-4705-aafd-9949a306249b</sikb:documentId>
+  </sikb:dossier>
+  <sikb:dossier bronId="AHR39-13" sikb:id="09162d56-a3c6-46bd-835e-23f1ce0d2b8a">
+    <sikb:naam>AHR39-13</sikb:naam>
+    <sikb:dossiertype>Ordner</sikb:dossiertype>
+    <sikb:documentId>c049e4be-df47-4bb4-8b5c-81a608c992c7</sikb:documentId>
+  </sikb:dossier>
+  <sikb:boring bronId="34925" sikb:id="7b14d14a-dc67-4688-a555-475a83f18e97">
+    <sikb:geolocatieId>d9987be3-fdea-4047-be41-d8b9160c524b</sikb:geolocatieId>
+    <sikb:naam>34925</sikb:naam>
+  </sikb:boring>
+  <sikb:foto bronId="AHR39F347" sikb:id="c222573c-7e3d-4e92-bca1-98c14d17a247">
+    <sikb:naam>AHR39F347</sikb:naam>
+    <sikb:opnametype codereferentieId="f81d8042-88e9-4a11-9c7d-e5d6e19b8b16">COU</sikb:opnametype>
+    <sikb:opnamedatum>2003-06-09</sikb:opnamedatum>
+    <sikb:fotograaf>C. Breton</sikb:fotograaf>
+    <sikb:opnamemedium>DIG</sikb:opnamemedium>
+    <sikb:fotoonderwerp>coupe spoor 109</sikb:fotoonderwerp>
+    <sikb:bestandId>fc1dff0b-1915-4ffc-9e7c-1b6bbdc501d5</sikb:bestandId>
+    <sikb:vondstcontextId>f97ba6e2-1bea-4e94-8a4d-88df266697ca</sikb:vondstcontextId>
+    <sikb:vondstId>f42ee413-a67e-453c-a020-9fcfd7215043</sikb:vondstId>
+  </sikb:foto>
+  <sikb:foto bronId="AHR39F348" sikb:id="74d8d0ea-4662-458d-83f9-677bbb93ec79">
+    <sikb:naam>AHR39F348</sikb:naam>
+    <sikb:opnametype codereferentieId="f81d8042-88e9-4a11-9c7d-e5d6e19b8b16">COU</sikb:opnametype>
+    <sikb:opnamedatum>2003-06-09</sikb:opnamedatum>
+    <sikb:fotograaf>C. Breton</sikb:fotograaf>
+    <sikb:opnamemedium>DIG</sikb:opnamemedium>
+    <sikb:fotoonderwerp>vaas</sikb:fotoonderwerp>
+    <sikb:bestandId>04785ae0-7d5f-43b9-9bc4-d55bb9aa5617</sikb:bestandId>
+    <sikb:vondstId>f42ee413-a67e-453c-a020-9fcfd7215043</sikb:vondstId>
+  </sikb:foto>
+  <sikb:geolocatie sikb:id="1a7f30c0-44c5-4eee-9f08-6db3482b317c">
+    <sikb:geometrie xsi:type="gml:LineStringType" gml:id="HP_1" srsDimension="2" axisLabels="x y z" >
+      <gml:pos srsDimension="3" axisLabels="x y z">123456 987654 0</gml:pos>
+      <gml:pos srsDimension="3" axisLabels="x y z">123456 987654 -1.50</gml:pos>
+    </sikb:geometrie>
+  </sikb:geolocatie>
+  <sikb:geolocatie sikb:id="d9987be3-fdea-4047-be41-d8b9160c524b">
+    <sikb:geometrie xsi:type="gml:PointType" gml:id="HP_2" srsDimension="2" axisLabels="x y">
+      <gml:pos srsDimension="2" axisLabels="x y">81620 44832</gml:pos>
+    </sikb:geometrie>
+  </sikb:geolocatie>
+  <sikb:hoogtemeting bronId="90545" sikb:id="f23612a6-c688-40a0-92ce-729f4c7a09f4">
+    <sikb:geolocatieId>1a7f30c0-44c5-4eee-9f08-6db3482b317c</sikb:geolocatieId>
+    <sikb:naam>90545</sikb:naam>
+    <sikb:nap uom="m">-0.5</sikb:nap>
+    <sikb:methode>WP</sikb:methode>
+  </sikb:hoogtemeting>
+  <sikb:hoogtemeting bronId="36443" sikb:id="6d3954ca-f0a6-4998-9a5d-99c06695094c">
+    <sikb:geolocatieId>d9987be3-fdea-4047-be41-d8b9160c524b</sikb:geolocatieId>
+    <sikb:naam>36443</sikb:naam>
+    <sikb:nap uom="m">1.2</sikb:nap>
+    <sikb:methode>GPS</sikb:methode>
+  </sikb:hoogtemeting>
+  <sikb:monster bronId="559871" sikb:id="0cac88c2-d690-473c-a2d6-1b90e2cf65f4">
+    <sikb:naam>559871</sikb:naam>
+    <sikb:monstertype codereferentieId="f81d8042-88e9-4a11-9c7d-e5d6e19b8b16">MD</sikb:monstertype>
+    <sikb:monsterverwerking>14C-dateringen</sikb:monsterverwerking>
+    <sikb:vondstcontextId>f97ba6e2-1bea-4e94-8a4d-88df266697ca</sikb:vondstcontextId>
+    <sikb:beginperiode>MESOM</sikb:beginperiode>
+    <sikb:eindperiode>MESOM</sikb:eindperiode>
+    <sikb:verpakkingseenheidId>e34e9d15-20fe-4591-9dc0-43e50ca0934f</sikb:verpakkingseenheidId>
+  </sikb:monster>
+  <sikb:monster bronId="55343" sikb:id="35ee5f40-5ef2-4c46-bc12-169d787da2e7">
+    <sikb:naam>55343</sikb:naam>
+    <sikb:monstertype>MGR</sikb:monstertype>
+    <sikb:monsterverwerking>14C-dateringen</sikb:monsterverwerking>
+    <sikb:vondstcontextId>dec73ddd-67d0-4425-9809-f46496ddd25b</sikb:vondstcontextId>
+    <sikb:beginperiode>STEEN</sikb:beginperiode>
+    <sikb:eindperiode>STEEN</sikb:eindperiode>
+  </sikb:monster>
+  <sikb:planum bronId="8534" sikb:id="78876c26-738a-499e-97dc-b3cd7d36edc2">
+    <sikb:geolocatieId>1a7f30c0-44c5-4eee-9f08-6db3482b317c</sikb:geolocatieId>
+    <sikb:naam>8534</sikb:naam>
+    <sikb:putId>9f1eacf9-e62d-424a-9a0b-10e0c9814066</sikb:putId>
+    <sikb:planumtype>Profiel</sikb:planumtype>
+  </sikb:planum>
+  <sikb:planum bronId="8524" sikb:id="50087738-80d4-4823-bc32-cf79a3c1c30a">
+    <sikb:geolocatieId>d9987be3-fdea-4047-be41-d8b9160c524b</sikb:geolocatieId>
+    <sikb:naam>8524</sikb:naam>
+    <sikb:putId>6dd0261a-c3dd-48ae-868b-32d7d17192e6</sikb:putId>
+    <sikb:planumtype>Vlak</sikb:planumtype>
+  </sikb:planum>
+  <sikb:put bronId="456731" sikb:id="9f1eacf9-e62d-424a-9a0b-10e0c9814066">
+    <sikb:geolocatieId>1a7f30c0-44c5-4eee-9f08-6db3482b317c</sikb:geolocatieId>
+    <sikb:naam>456731</sikb:naam>
+  </sikb:put>
+  <sikb:put bronId="96554" sikb:id="6dd0261a-c3dd-48ae-868b-32d7d17192e6">
+    <sikb:geolocatieId>d9987be3-fdea-4047-be41-d8b9160c524b</sikb:geolocatieId>
+    <sikb:naam>96554</sikb:naam>
+  </sikb:put>
+  <sikb:segment bronId="90253" sikb:id="da757a1a-dd71-4c3e-b24c-d86aba1f78a5">
+    <sikb:geolocatieId>1a7f30c0-44c5-4eee-9f08-6db3482b317c</sikb:geolocatieId>
+    <sikb:naam>90253</sikb:naam>
+    <sikb:spoorId>0eec75c7-0766-4307-90c3-70f1a7fe0713</sikb:spoorId>
+  </sikb:segment>
+  <sikb:segment bronId="90367" sikb:id="a5392dd6-598f-40ce-bf1c-47c2718fc8a3">
+    <sikb:geolocatieId>d9987be3-fdea-4047-be41-d8b9160c524b</sikb:geolocatieId>
+    <sikb:naam>90367</sikb:naam>
+    <sikb:spoorId>6d2005c0-733b-49f2-94b2-fec71e3f58c6</sikb:spoorId>
+  </sikb:segment>
+  <sikb:spoor bronId="5899" sikb:id="0eec75c7-0766-4307-90c3-70f1a7fe0713">
+    <sikb:geolocatieId>1a7f30c0-44c5-4eee-9f08-6db3482b317c</sikb:geolocatieId>
+    <sikb:naam>5899</sikb:naam>
+    <sikb:grondspoortype>BEERPUT</sikb:grondspoortype>
+    <sikb:diepte uom="m">3.6</sikb:diepte>
+    <sikb:beginperiode>NTV</sikb:beginperiode>
+    <sikb:eindperiode>NTV</sikb:eindperiode>
+  </sikb:spoor>
+  <sikb:spoor bronId="5932" sikb:id="6d2005c0-733b-49f2-94b2-fec71e3f58c6">
+    <sikb:geolocatieId>d9987be3-fdea-4047-be41-d8b9160c524b</sikb:geolocatieId>
+    <sikb:naam>5932</sikb:naam>
+    <sikb:grondspoortype>KUIL.HAARDKL</sikb:grondspoortype>
+    <sikb:diepte uom="cm">50</sikb:diepte>
+    <sikb:beginperiode>NEOM</sikb:beginperiode>
+    <sikb:eindperiode>NEOM</sikb:eindperiode>
+  </sikb:spoor>
+  <sikb:stort bronId="954" sikb:id="3fae914c-c3a0-4b0e-a7d7-a0ffb25536c7">
+    <sikb:naam>954</sikb:naam>
+    <sikb:putId>9f1eacf9-e62d-424a-9a0b-10e0c9814066</sikb:putId>
+    <sikb:planumId>50087738-80d4-4823-bc32-cf79a3c1c30a</sikb:planumId>
+  </sikb:stort>
+  <sikb:stort bronId="923" sikb:id="705f9546-2e5d-46de-a245-0ea152731e64">
+    <sikb:naam>923</sikb:naam>
+    <sikb:putId>6dd0261a-c3dd-48ae-868b-32d7d17192e6</sikb:putId>
+    <sikb:planumId>78876c26-738a-499e-97dc-b3cd7d36edc2</sikb:planumId>
+  </sikb:stort>
+  <sikb:structuur bronId="785" sikb:id="53b7572f-1ebf-4298-a9b2-5520a0486360">
+    <sikb:naam>785</sikb:naam>
+    <sikb:beginperiode>ROMVB</sikb:beginperiode>
+    <sikb:eindperiode>ROMVB</sikb:eindperiode>
+    <sikb:structuurtype>BRUG</sikb:structuurtype>
+    <sikb:spoorId>0eec75c7-0766-4307-90c3-70f1a7fe0713</sikb:spoorId>
+  </sikb:structuur>
+  <sikb:structuur bronId="568" sikb:id="0b5275c9-325e-4ef9-a7de-018925e61f6e">
+    <sikb:naam>568</sikb:naam>
+    <sikb:beginperiode>ROMM</sikb:beginperiode>
+    <sikb:eindperiode>ROMM</sikb:eindperiode>
+    <sikb:structuurtype>WEG</sikb:structuurtype>
+    <sikb:spoorId>6d2005c0-733b-49f2-94b2-fec71e3f58c6</sikb:spoorId>
+  </sikb:structuur>
+  <sikb:tekening bronId="AHR39T022" sikb:id="1f4dbfb7-89b7-4cfa-80ca-295405fd1a77">
+    <sikb:naam>AHR39T022</sikb:naam>
+    <sikb:tekeningtype codereferentieId="f81d8042-88e9-4a11-9c7d-e5d6e19b8b16">COU</sikb:tekeningtype>
+    <sikb:tekeningmateriaal>houtvrij mm papier</sikb:tekeningmateriaal>
+    <sikb:tekeningformaat>A4</sikb:tekeningformaat>
+    <sikb:tekenaar>P.A. Pier</sikb:tekenaar>
+    <sikb:schaal>1:20</sikb:schaal>
+    <sikb:tekeningdatum>2003-06-08</sikb:tekeningdatum>
+    <sikb:tekeningonderwerp>spoor 109</sikb:tekeningonderwerp>
+    <sikb:bestandId>fc1dff0b-1915-4ffc-9e7c-1b6bbdc501d5</sikb:bestandId>
+    <sikb:vondstcontextId>f97ba6e2-1bea-4e94-8a4d-88df266697ca</sikb:vondstcontextId>
+    <sikb:vondstId>aded5187-cdb9-4a8d-91b0-95d08032d326</sikb:vondstId>
+  </sikb:tekening>
+  <sikb:vak bronId="8531" sikb:id="b6c62c43-7b9f-4ee4-baa1-27007dded175">
+    <sikb:geolocatieId>1a7f30c0-44c5-4eee-9f08-6db3482b317c</sikb:geolocatieId>
+    <sikb:naam>8531</sikb:naam>
+    <sikb:planumId>78876c26-738a-499e-97dc-b3cd7d36edc2</sikb:planumId>
+    <sikb:vaknummer>12</sikb:vaknummer>
+    <sikb:dikte uom="cm">90</sikb:dikte>
+    <sikb:nap uom="m">-0.5</sikb:nap>
+  </sikb:vak>
+  <sikb:vak bronId="2367" sikb:id="a38a97f9-ad8e-4a08-8bf6-5b82c6563d9f">
+    <sikb:geolocatieId>d9987be3-fdea-4047-be41-d8b9160c524b</sikb:geolocatieId>
+    <sikb:naam>2367</sikb:naam>
+    <sikb:planumId>50087738-80d4-4823-bc32-cf79a3c1c30a</sikb:planumId>
+    <sikb:vaknummer>13</sikb:vaknummer>
+    <sikb:dikte uom="cm">20</sikb:dikte>
+    <sikb:nap uom="m">0.5</sikb:nap>
+  </sikb:vak>
+  <sikb:veldvondst bronId="6734521" sikb:id="e74a8275-67f2-4489-ba64-10434a8cf7b1">
+    <sikb:naam>6734521</sikb:naam>
+    <sikb:vondstcontextId>f97ba6e2-1bea-4e94-8a4d-88df266697ca</sikb:vondstcontextId>
+    <sikb:verzamelwijze>ZF4</sikb:verzamelwijze>
+  </sikb:veldvondst>
+  <sikb:veldvondst bronId="782342" sikb:id="906d115d-a7b3-44a3-b4e2-10e696030e16">
+    <sikb:naam>782342</sikb:naam>
+    <sikb:vondstcontextId>dec73ddd-67d0-4425-9809-f46496ddd25b</sikb:vondstcontextId>
+    <sikb:verzamelwijze>HASCHA</sikb:verzamelwijze>
+  </sikb:veldvondst>
+  <sikb:vondst bronId="10665" sikb:id="aded5187-cdb9-4a8d-91b0-95d08032d326">
+    <sikb:naam>10665</sikb:naam>
+    <sikb:veldvondstId>e74a8275-67f2-4489-ba64-10434a8cf7b1</sikb:veldvondstId>
+    <sikb:aantal>1</sikb:aantal>
+    <sikb:gewicht uom="gr">180</sikb:gewicht>
+    <sikb:materiaalcategorie>GLS</sikb:materiaalcategorie>
+    <sikb:artefacttype>ANDKAN</sikb:artefacttype>
+    <sikb:beginperiode>PALEOM</sikb:beginperiode>
+    <sikb:eindperiode>PALEOM</sikb:eindperiode>
+    <sikb:geconserveerd>false</sikb:geconserveerd>
+    <sikb:exposabel>false</sikb:exposabel>
+    <sikb:gedeselecteerd>false</sikb:gedeselecteerd>
+    <sikb:verpakkingseenheidId>e34e9d15-20fe-4591-9dc0-43e50ca0934f</sikb:verpakkingseenheidId>
+  </sikb:vondst>
+  <sikb:vondst bronId="190434" sikb:id="f42ee413-a67e-453c-a020-9fcfd7215043">
+    <sikb:naam>190434</sikb:naam>
+    <sikb:veldvondstId>906d115d-a7b3-44a3-b4e2-10e696030e16</sikb:veldvondstId>
+    <sikb:aantal>1</sikb:aantal>
+    <sikb:gewicht uom="gr">1.5</sikb:gewicht>
+    <sikb:materiaalcategorie>SGI</sikb:materiaalcategorie>
+    <sikb:artefacttype>AOOBEKER.2IID-BKR</sikb:artefacttype>
+    <sikb:beginperiode>PALEO</sikb:beginperiode>
+    <sikb:eindperiode>PALEO</sikb:eindperiode>
+    <sikb:geconserveerd>false</sikb:geconserveerd>
+    <sikb:exposabel>false</sikb:exposabel>
+    <sikb:gedeselecteerd>false</sikb:gedeselecteerd>
+    <sikb:verpakkingseenheidId>c9f95c57-2c29-41d9-8dde-d44804ba6d49</sikb:verpakkingseenheidId>
+  </sikb:vondst>
+  <!-- Spoor -->
+  <sikb:vondstcontext bronId="27342" sikb:id="f97ba6e2-1bea-4e94-8a4d-88df266697ca">
+    <sikb:contexttype>SPOOR</sikb:contexttype>
+    <sikb:spoorId>0eec75c7-0766-4307-90c3-70f1a7fe0713</sikb:spoorId>
+  </sikb:vondstcontext>
+  <!-- Puntvondst -->
+  <sikb:vondstcontext bronId="37432" sikb:id="dec73ddd-67d0-4425-9809-f46496ddd25b">
+    <sikb:geolocatieId>d9987be3-fdea-4047-be41-d8b9160c524b</sikb:geolocatieId>
+    <sikb:contexttype>PUNTLOCATIE</sikb:contexttype>
+  </sikb:vondstcontext>
+  <sikb:vindplaats bronId="21045" sikb:id="95520272-1038-4364-8420-0d175ca35bf8">
+    <sikb:geolocatieId>1a7f30c0-44c5-4eee-9f08-6db3482b317c</sikb:geolocatieId>
+    <sikb:naam>21045</sikb:naam>
+    <sikb:vondstmeldingsnummer>547334</sikb:vondstmeldingsnummer>
+    <sikb:waarnemingsnummer>456673</sikb:waarnemingsnummer>
+    <sikb:beginperiode>STEEN</sikb:beginperiode>
+    <sikb:eindperiode>STEEN</sikb:eindperiode>
+    <sikb:vindplaatstype>APVV.DP</sikb:vindplaatstype>
+  </sikb:vindplaats>
+  <sikb:vindplaats bronId="39604" sikb:id="0288dd16-3d4c-4471-bc81-7a2ad47b21bd">
+    <sikb:geolocatieId>d9987be3-fdea-4047-be41-d8b9160c524b</sikb:geolocatieId>
+    <sikb:naam>39604</sikb:naam>
+    <sikb:vondstmeldingsnummer>54345</sikb:vondstmeldingsnummer>
+    <sikb:waarnemingsnummer>34565</sikb:waarnemingsnummer>
+    <sikb:beginperiode>STEEN</sikb:beginperiode>
+    <sikb:eindperiode>STEEN</sikb:eindperiode>
+    <sikb:vindplaatstype>BGV.GHV</sikb:vindplaatstype>
+  </sikb:vindplaats>
+  <sikb:vulling bronId="45683" sikb:id="aff2672e-127f-4037-bada-af4bf7ebf5c5">
+    <sikb:naam>V683</sikb:naam>
+    <sikb:spoorId>0eec75c7-0766-4307-90c3-70f1a7fe0713</sikb:spoorId>
+    <sikb:vorm>Ovaal</sikb:vorm>
+    <sikb:kleur>Bruin</sikb:kleur>
+    <sikb:textuur>Vezelachtig</sikb:textuur>
+  </sikb:vulling>
+  <sikb:vulling bronId="83732" sikb:id="0148842e-7696-4cdf-83c6-13e86b2e88b7">
+    <sikb:naam>V732</sikb:naam>
+    <sikb:spoorId>6d2005c0-733b-49f2-94b2-fec71e3f58c6</sikb:spoorId>
+    <sikb:vorm>Driehoek</sikb:vorm>
+    <sikb:kleur>Zwart</sikb:kleur>
+  </sikb:vulling>
+  <sikb:waarneming bronId="26895" sikb:id="b08aee92-1838-4b4e-bf33-67b657fd1dfd">
+    <sikb:geolocatieId>1a7f30c0-44c5-4eee-9f08-6db3482b317c</sikb:geolocatieId>
+    <sikb:spoorId>0eec75c7-0766-4307-90c3-70f1a7fe0713</sikb:spoorId>
+    <sikb:planumId>78876c26-738a-499e-97dc-b3cd7d36edc2</sikb:planumId>
+    <sikb:vullingId>aff2672e-127f-4037-bada-af4bf7ebf5c5</sikb:vullingId>
+    <sikb:methode>Vlak</sikb:methode>
+  </sikb:waarneming>
+  <sikb:waarneming bronId="56902" sikb:id="e154df2a-2d06-4b70-b012-57fc291433fd">
+    <sikb:geolocatieId>d9987be3-fdea-4047-be41-d8b9160c524b</sikb:geolocatieId>
+    <sikb:spoorId>6d2005c0-733b-49f2-94b2-fec71e3f58c6</sikb:spoorId>
+    <sikb:planumId>50087738-80d4-4823-bc32-cf79a3c1c30a</sikb:planumId>
+    <sikb:methode>Vlak</sikb:methode>
+  </sikb:waarneming>
+  <sikb:attribuuttype sikb:id="d8f797ed-1ea1-4e3e-8d67-7084a3e21c8d">
+    <sikb:attribuutnaam>TotaleKosten</sikb:attribuutnaam>
+    <sikb:klassenaam>ProjectType</sikb:klassenaam>
+    <sikb:waardetype>Decimaalgetal</sikb:waardetype>
+    <sikb:informatie>De totale kosten van het project.</sikb:informatie>
+  </sikb:attribuuttype>
+  <sikb:attribuuttype sikb:id="b90526d4-6f01-4b70-b01f-7ce71dc8f2f6">
+    <sikb:attribuutnaam>Projectduur</sikb:attribuutnaam>
+    <sikb:klassenaam>ProjectType</sikb:klassenaam>
+    <sikb:waardetype>Geheelgetal</sikb:waardetype>
+    <sikb:informatie>De project duur in dagen.</sikb:informatie>
+  </sikb:attribuuttype>
+  <sikb:attribuut sikb:id="9ff1118b-d6b0-4543-bf9e-5d022230946c">
+    <sikb:attribuuttypeId>b90526d4-6f01-4b70-b01f-7ce71dc8f2f6</sikb:attribuuttypeId>
+    <sikb:objectId>a7fa5d30-1877-47e8-b966-f6079fa7f11e</sikb:objectId>
+    <sikb:geheelgetal>30</sikb:geheelgetal>
+  </sikb:attribuut>
+  <sikb:attribuut sikb:id="44b54b6c-ca58-49b4-91b3-40539cf6d38f">
+    <sikb:attribuuttypeId>d8f797ed-1ea1-4e3e-8d67-7084a3e21c8d</sikb:attribuuttypeId>
+    <sikb:objectId>a7fa5d30-1877-47e8-b966-f6079fa7f11e</sikb:objectId>
+    <sikb:decimaalgetal>30000.00</sikb:decimaalgetal>
+  </sikb:attribuut>
+  <sikb:objectrelatie bronId="3458374" sikb:id="b9d9043d-1cdd-4613-8cd0-ffa8edc74c17">
+    <sikb:informatie>Dit is bepaald d.m.v. koolstofdatering.</sikb:informatie>
+    <sikb:object1Id>0eec75c7-0766-4307-90c3-70f1a7fe0713</sikb:object1Id>
+    <sikb:object1Class>SpoorType</sikb:object1Class>
+    <sikb:object2Id>6d2005c0-733b-49f2-94b2-fec71e3f58c6</sikb:object2Id>
+    <sikb:object2Class>SpoorType</sikb:object2Class>
+    <sikb:objectrelatietype>OuderDan</sikb:objectrelatietype>
+  </sikb:objectrelatie>
+  <sikb:objectrelatie bronId="83423" sikb:id="1e62a42e-ae9d-4fa1-9424-775cabaf4c9e">
+    <sikb:object1Id>b6c62c43-7b9f-4ee4-baa1-27007dded175</sikb:object1Id>
+    <sikb:object1Class>VakType</sikb:object1Class>
+    <sikb:object2Id>a38a97f9-ad8e-4a08-8bf6-5b82c6563d9f</sikb:object2Id>
+    <sikb:object2Class>VakType</sikb:object2Class>
+    <sikb:objectrelatietype>LigtTegen</sikb:objectrelatietype>
+  </sikb:objectrelatie>
+  <sikb:codereferentie sikb:id="bfd19530-b0dd-11e1-afa6-0800200c9a66">
+    <sikb:bronCode>Zwaard</sikb:bronCode>
+    <sikb:bronOmschrijving>Zwaard (wapen)</sikb:bronOmschrijving>
+    <sikb:bronCodelijst>Verzamelwijze</sikb:bronCodelijst>
+    <sikb:standaardCode>ZWAARD</sikb:standaardCode>
+    <sikb:naamCodelijst>Verzamelwijze</sikb:naamCodelijst>
+  </sikb:codereferentie>
+  <sikb:codereferentie sikb:id="bf6a2d0d-7a24-462d-9844-a5fc05825335">
+    <sikb:bronCode>Zwaard-A</sikb:bronCode>
+    <sikb:bronOmschrijving>Zwaard, type A</sikb:bronOmschrijving>
+    <sikb:bronCodelijst>Verzamelwijze</sikb:bronCodelijst>
+    <sikb:standaardCode>ZWAARD</sikb:standaardCode>
+    <sikb:naamCodelijst>Verzamelwijze</sikb:naamCodelijst>
+    <sikb:historyId>bfd19530-b0dd-11e1-afa6-0800200c9a66</sikb:historyId>
+  </sikb:codereferentie>
+  <sikb:codereferentie sikb:id="bf171db0-194e-4184-92d2-c35733742cef">
+    <sikb:bronCode>Zwaard-B</sikb:bronCode>
+    <sikb:bronOmschrijving>Zwaard, type B</sikb:bronOmschrijving>
+    <sikb:bronCodelijst>Verzamelwijze</sikb:bronCodelijst>
+    <sikb:standaardCode>ZWAARD</sikb:standaardCode>
+    <sikb:naamCodelijst>Verzamelwijze</sikb:naamCodelijst>
+    <sikb:historyId>bfd19530-b0dd-11e1-afa6-0800200c9a66</sikb:historyId>  
+  </sikb:codereferentie>
+  <sikb:codereferentie sikb:id="bf568157-d7f4-4362-90be-e52dc1616a7a">
+    <sikb:bronCode>Couperen</sikb:bronCode>
+    <sikb:bronOmschrijving>Verzameld bij couperen</sikb:bronOmschrijving>
+    <sikb:bronCodelijst>Verzamelwijze</sikb:bronCodelijst>
+    <sikb:standaardCode>COUPE</sikb:standaardCode>
+    <sikb:naamCodelijst>Verzamelwijze</sikb:naamCodelijst>
+  </sikb:codereferentie>
+  <sikb:codereferentie sikb:id="f81d8042-88e9-4a11-9c7d-e5d6e19b8b16">
+    <sikb:bronCode>Coupe</sikb:bronCode>
+    <sikb:bronOmschrijving>Couperen</sikb:bronOmschrijving>
+    <sikb:bronCodelijst>Tekeningtype</sikb:bronCodelijst>
+    <sikb:standaardCode>COU</sikb:standaardCode>
+    <sikb:naamCodelijst>Tekeningfototype</sikb:naamCodelijst>
+  </sikb:codereferentie>
+</sikb:sikb0102>
