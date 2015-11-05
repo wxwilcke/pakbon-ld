@@ -9,21 +9,21 @@ import rdflib
 nsDefault = 'http://www.pakbon-ld.org/'
 
 
-def translate(et=None, tree=None):
+def translate(et=None, tree=None, version=None):
     if tree is None or et is None:
         raise ValueError()
 
-    genTreeNamespaces(et)
-    return convert(et, tree, genGraphNamespaces())
+    genTreeNamespaces(et, version)
+    return convert(et, tree, genGraphNamespaces(version))
 
 
-def genTreeNamespaces(et):
-    et.register_namespace('sikb', 'http://www.sikb.nl/sikb0102/3.1.0')
+def genTreeNamespaces(et, version):
+    et.register_namespace('sikb', 'http://www.sikb.nl/sikb0102/{0}'.format(version))
     et.register_namespace('gml', 'http://www.opengis.net/gml/3.2')
     et.register_namespace('xsi', 'http://www.w3.org/2001/XMLSchema-instance')
 
 
-def genGraphNamespaces():
+def genGraphNamespaces(version):
     return dict([
         ('base', rdflib.Namespace(nsDefault)),
         ('bibo', rdflib.Namespace('http://purl.org/ontology/bibo/')),
@@ -39,7 +39,7 @@ def genGraphNamespaces():
         ('prism', rdflib.Namespace('http://prismstandard.org/namespaces/basic/2.1/')),
         ('rdf', rdflib.namespace.RDF),
         ('rdfs', rdflib.namespace.RDFS),
-        ('sikb', rdflib.Namespace('http://www.sikb.nl/sikb0102/3.1.0')),
+        ('sikb', rdflib.Namespace('http://www.sikb.nl/sikb0102/{0}'.format(version))),
         ('xsd', rdflib.namespace.XSD)])
 
 
