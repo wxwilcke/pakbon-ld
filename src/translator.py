@@ -6,15 +6,12 @@ import rdflib
 
 # compatible with SIKB protocol 0102 - version 3.1.0
 
-nsDefault = 'http://www.pakbon-ld.org/'
-
-
-def translate(et=None, tree=None, version=None):
+def translate(et=None, tree=None, version=None, nsDefault=None):
     if tree is None or et is None:
         raise ValueError()
 
     genTreeNamespaces(et, version)
-    return convert(et, tree, genGraphNamespaces(version))
+    return convert(et, tree, genGraphNamespaces(version, nsDefault))
 
 
 def genTreeNamespaces(et, version):
@@ -23,7 +20,7 @@ def genTreeNamespaces(et, version):
     et.register_namespace('xsi', 'http://www.w3.org/2001/XMLSchema-instance')
 
 
-def genGraphNamespaces(version):
+def genGraphNamespaces(version, nsDefault):
     return dict([
         ('base', rdflib.Namespace(nsDefault)),
         ('bibo', rdflib.Namespace('http://purl.org/ontology/bibo/')),

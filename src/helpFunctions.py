@@ -1,35 +1,38 @@
 #!/usr/bin/python3
 
 import rdflib
+import re
 
 
 def getID(e, namespace):
-    return e.attrib['{' + namespace['sikb'] + '}' + 'id']
+    return e.attrib['{' + str(namespace['sikb']) + '}' + 'id']
 
 
 def addProperty(g, parent, child, relation):
     g.add((parent, relation, child))
 
 
-def addType(g, namespace, node, ntype):
-    addProperty(g, node, ntype, namespace['rdf'].type)
+def addType(g, node, ntype):
+    ns = dict(ns for ns in g.namespace_manager.namespaces())
+    addProperty(g, node, ntype, rdflib.URIRef(ns['rdf'] + 'type'))
 
 
-def addLabel(g, namespace, node, label, lang):
+def addLabel(graph, node, label, lang):
+    nss = dict(ns for ns in graph.namespace_manager.namespaces())
     lnode = rdflib.Literal(label, lang=lang)
-    addType(g, namespace, lnode, namespace['xsd'].string)
-    addProperty(g, node, lnode, namespace['rdfs'].label)
+    addProperty(graph, node, lnode, rdflib.URIRef(nss['rdfs'] + 'label'))
 
 
-def genID(g, namespace, pnode):
+def genID(graph, pnode):
+    nss = dict(ns for ns in graph.namespace_manager.namespaces())
     uri = ''
     while True:
-        uri = rdflib.URIRef(namespace['base']
-                            + g.value(pnode, namespace['crm'].P48_has_preferred_identifier, None)
+        uri = rdflib.URIRef(nss['base']
+                            + graph.value(pnode, rdflib.URIRef(nss['crm'] + 'P48_has_preferred_identifier'), None)
                             + '-'
                             + rdflib.BNode())
 
-        if (uri, None, None) not in g:
+        if (uri, None, None) not in graph:
             break
 
     return uri
@@ -63,108 +66,138 @@ def gmlLiteralOf(et, tnode):
     return raw
 
 
-def getNodeClass(graph, namespace, node):
+def getNodeClass(graph, node):
+    nss = dict(ns for ns in graph.namespace_manager.namespaces())
     btnode = graph.value(subject=node,
-                         predicate=rdflib.URIRef(namespace['rdf'].type),
+                         predicate=rdflib.URIRef(nss['rdf'] + 'type'),
                          object=None)
 
     return btnode
 
 
-def getNodeFromBaseType(graph, namespace, baseType):
+def addSubPropertyIfExists(graph, parent, child, subpropname, superprop):
+    nss = dict(ns for ns in graph.namespace_manager.namespaces())
+    p = rdflib.URIRef(nss['base'] + re.sub('{.*}', '', subpropname))
+
+    if (None, p, None) not in graph:
+        addType(graph, p, rdflib.URIRef(nss['rdf'] + 'Property'))
+        addProperty(graph, p, superprop, rdflib.URIRef(nss['rdfs'] + 'subPropertyOf'))
+        info = rdflib.Literal('Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102', 'nl')
+        addProperty(graph, p, info, rdflib.URIRef(nss['rdfs'] + 'comment'))
+
+    addProperty(graph, parent, child, p)
+
+
+def getNodeFromBaseType(graph, baseType):
+    nss = dict(ns for ns in graph.namespace_manager.namespaces())
     btnode = graph.value(subject=None,
-                         predicate=rdflib.URIRef(namespace['crm'].P48_has_preferred_identifier),
-                         object=rdflib.Literal(getID(baseType, namespace)))
+                         predicate=rdflib.URIRef(nss['crm'] + 'P48_has_preferred_identifier'),
+                         object=rdflib.Literal(getID(baseType, nss), datatype=rdflib.URIRef(nss['xsd'] + 'ID')))
 
     exists = True if btnode else False
     if not exists:
-        btnode = rdflib.URIRef(namespace['base'] + getID(baseType, namespace))
+        btnode = rdflib.URIRef(nss['base'] + getID(baseType, nss))
 
     return (btnode, exists)
 
 
-def getNodeFromElem(graph, namespace, element):
+def getNodeFromElem(graph, element):
+    nss = dict(ns for ns in graph.namespace_manager.namespaces())
     enode = graph.value(subject=None,
-                        predicate=rdflib.URIRef(namespace['crm'].P48_has_preferred_identifier),
-                        object=rdflib.Literal(element.text))
+                        predicate=rdflib.URIRef(nss['crm'] + 'P48_has_preferred_identifier'),
+                        object=rdflib.Literal(element.text, datatype=rdflib.URIRef(nss['xsd'] + 'ID')))
 
     exists = True if enode else False
     if not exists:
-        enode = rdflib.URIRef(namespace['base'] + element.text)
+        enode = rdflib.URIRef(nss['base'] + element.text)
 
     return (enode, exists)
 
-def addRefIfExists(graph, namespace, node, element):
+
+def addRefIfExists(graph, node, element):
+    nss = dict(ns for ns in graph.namespace_manager.namespaces())
     rnode = None
     if 'codereferentieId' in element.attrib:
         rnode = graph.value(subject=None,
-                            predicate=rdflib.URIRef(namespace['crm'].P48_has_preferred_identifier),
+                            predicate=rdflib.URIRef(nss['crm'] + 'P48_has_preferred_identifier'),
                             object=rdflib.Literal(element.attrib['codereferentieId']))
     if rnode is not None:
-        addProperty(graph, node, rnode, namespace['crm'].P71i_is_listed_in)
+        addProperty(graph, node, rnode, rdflib.URIRef(nss['crm'] + 'P71i_is_listed_in'))
 
-def extractGenericObjectFields(graph, namespace, gnode, tnode):
+
+def extractGenericObjectFields(graph, gnode, tnode, label=''):
+    nss = dict(ns for ns in graph.namespace_manager.namespaces())
     attrib = [
-        '{' + namespace['sikb'] + '}' + 'id']
+        '{' + str(nss['sikb']) + '}' + 'id']
 
     if attrib[0] in tnode.attrib.keys():  # id
-        child = rdflib.Literal(tnode.attrib[attrib[0]])
-        addProperty(graph, gnode, child, namespace['crm'].P48_has_preferred_identifier)
-        addType(graph, namespace, child, namespace['crm'].E42_Identifier)
+        child = rdflib.Literal(tnode.attrib[attrib[0]], datatype=rdflib.URIRef(nss['xsd'] + 'ID'))
+        addProperty(graph, gnode, child, rdflib.URIRef(nss['crm'] + 'P48_has_preferred_identifier'))
+
+    label = re.sub('{' + str(nss['sikb']) + '}', '', tnode.tag).title() + ((' ' + label) if label != '' else '')
+    if label != '':
+        addLabel(graph, gnode, label, 'nl')
 
 
-def extractGeoObjectFields(graph, namespace, gnode, tnode):
-    extractGenericObjectFields(graph, namespace, gnode, tnode)
+def extractGeoObjectFields(graph, gnode, tnode):
+    extractGenericObjectFields(graph, gnode, tnode)
 
 
-def extractBasisTypeFields(graph, namespace, gnode, tnode):
-    extractGenericObjectFields(graph, namespace, gnode, tnode)
+def extractBasisTypeFields(graph, gnode, tnode, label=''):
+    nss = dict(ns for ns in graph.namespace_manager.namespaces())
+
     attrib = [
         'bronId',
-        '{' + namespace['sikb'] + '}' + 'informatie']
+        '{' + str(nss['sikb']) + '}' + 'informatie']
 
     if attrib[0] in tnode.attrib.keys():  # bronId
-        child = rdflib.Literal(tnode.attrib[attrib[0]])
-        addProperty(graph, gnode, child, namespace['crm'].P1_is_identified_by)
-        addType(graph, namespace, child, namespace['crm'].E42_Identifier)
+        child = rdflib.Literal(tnode.attrib[attrib[0]], datatype=rdflib.URIRef(nss['xsd'] + 'ID'))
+        addProperty(graph, gnode, child, rdflib.URIRef(nss['crm'] + 'P1_is_identified_by'))
+        label = tnode.attrib[attrib[0]] + ((' ' + '(' + label + ')') if label != '' else '')
 
     for attr in tnode.getchildren():
         if attr.tag == attrib[1]:  # informatie
-            child = rdflib.Literal(attr.text)
-            addProperty(graph, gnode, child, namespace['crm'].P3_has_note)
-            addType(graph, namespace, child, namespace['crm'].E62_String)
+            child = rdflib.Literal(attr.text, lang='nl')
+            addProperty(graph, gnode, child, rdflib.URIRef(nss['crm'] + 'P3_has_note'))
+
+    extractGenericObjectFields(graph, gnode, tnode, label)
 
 
-def extractBasisNaamTypeFields(graph, namespace, gnode, tnode):
-    extractBasisTypeFields(graph, namespace, gnode, tnode)
-    attrib = ['{' + namespace['sikb'] + '}' + 'naam']
+def extractBasisNaamTypeFields(graph, gnode, tnode):
+    nss = dict(ns for ns in graph.namespace_manager.namespaces())
+    attrib = ['{' + str(nss['sikb']) + '}' + 'naam']
 
+    label = ''
     for attr in tnode.getchildren():
         if attr.tag == attrib[0]:  # naam
-            child = rdflib.Literal(attr.text)
-            addProperty(graph, gnode, child, namespace['crm'].P1_is_identified_by)
-            addType(graph, namespace, child, namespace['crm'].E41_Appellation)
+            child = rdflib.Literal(attr.text, datatype=rdflib.URIRef(nss['xsd'] + 'string'))
+            addProperty(graph, gnode, child, rdflib.URIRef(nss['crm'] + 'P1_is_identified_by'))
+            label = attr.text
+
+    extractBasisTypeFields(graph, gnode, tnode, label)
 
 
-def extractBasisLocatieTypeFields(graph, namespace, gnode, tnode):
-    extractBasisTypeFields(graph, namespace, gnode, tnode)
-
-    attrib = ['{' + namespace['sikb'] + '}' + 'geolocatieId']
+def extractBasisLocatieTypeFields(graph, gnode, tnode, label=''):
+    nss = dict(ns for ns in graph.namespace_manager.namespaces())
+    attrib = ['{' + str(nss['sikb']) + '}' + 'geolocatieId']
 
     for attr in tnode.getchildren():
         if attr.tag == attrib[0]:  # geolocatieId
-            child = rdflib.Literal(attr.text)
-            addProperty(graph, gnode, child, namespace['crm'].P87_is_identified_by)
-            addType(graph, namespace, child, namespace['crm'].E44_Place_Appellation)
+            child = rdflib.Literal(attr.text, datatype=rdflib.URIRef(nss['xsd'] + 'string'))
+            addProperty(graph, gnode, child, rdflib.URIRef(nss['crm'] + 'P87_is_identified_by'))
+
+    extractBasisTypeFields(graph, gnode, tnode, label)
 
 
-def extractBasisLocatieNaamTypeFields(graph, namespace, gnode, tnode):
-    extractBasisLocatieTypeFields(graph, namespace, gnode, tnode)
+def extractBasisLocatieNaamTypeFields(graph, gnode, tnode):
+    nss = dict(ns for ns in graph.namespace_manager.namespaces())
+    attrib = ['{' + str(nss['sikb']) + '}' + 'naam']
 
-    attrib = ['{' + namespace['sikb'] + '}' + 'naam']
-
+    label = ''
     for attr in tnode.getchildren():
         if attr.tag == attrib[0]:  # naam
-            child = rdflib.Literal(attr.text)
-            addProperty(graph, gnode, child, namespace['crm'].P1_is_identified_by)
-            addType(graph, namespace, child, namespace['crm'].E41_Appellation)
+            child = rdflib.Literal(attr.text, datatype=rdflib.URIRef(nss['xsd'] + 'string'))
+            addProperty(graph, gnode, child, rdflib.URIRef(nss['crm'] + 'P1_is_identified_by'))
+            label = attr.text
+
+    extractBasisLocatieTypeFields(graph, gnode, tnode, label)

@@ -1,4 +1,4 @@
-@prefix base: <http://www.pakbon-ld.org/> .
+@prefix base: <http://www.example.org/> .
 @prefix bibo: <http://purl.org/ontology/bibo/> .
 @prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
 @prefix crmeh: <http://purl.org/crmeh#> .
@@ -16,2513 +16,1690 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<http://www.pakbon-ld.org/1a7f30c0-44c5-4eee-9f08-6db3482b317c> a crm:E44_Place_Appellation ;
+<http://www.example.org/1a7f30c0-44c5-4eee-9f08-6db3482b317c> a crm:E44_Place_Appellation ;
     rdfs:label "Geolocatie"@nl ;
-    crm:P48_has_preferred_identifier "1a7f30c0-44c5-4eee-9f08-6db3482b317c" ;
-    crm:P87_is_identified_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Na2a72b0843784c2581bd790c004bfc7c .
+    crm:P48_has_preferred_identifier "1a7f30c0-44c5-4eee-9f08-6db3482b317c"^^xsd:ID ;
+    base:Geometrie base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N20e85c967cbd4a0698c9f1e406e2798c .
 
-<http://www.pakbon-ld.org/36cd6da1-8b0e-402c-91d1-91b7c61100bc> a crm:E40_Legal_Body ;
-    rdfs:label "Organisatie"@nl ;
-    crm:P131_is_identified_by "Archol BV" ;
-    crm:P1_is_identified_by "4566" ;
-    crm:P48_has_preferred_identifier "36cd6da1-8b0e-402c-91d1-91b7c61100bc" ;
-    crm:P76_has_contact_point "071-5273313",
-        "info@archol.nl" ;
-    locn:address base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nf21a6552e7b14602b4a972c52080648e .
+<http://www.example.org/36cd6da1-8b0e-402c-91d1-91b7c61100bc> a crm:E40_Legal_Body ;
+    rdfs:label "Organisatie 4566"@nl ;
+    crm:P1_is_identified_by "4566"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "36cd6da1-8b0e-402c-91d1-91b7c61100bc"^^xsd:ID ;
+    base:Email "info@archol.nl"^^crm:E51_Contact_Point ;
+    base:Naam "Archol BV"^^crm:E82_Actor_Appellation ;
+    base:Telefoon "071-5273313"^^crm:E51_Contact_Point ;
+    locn:address base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nf26325a122574084b57e8328802ab9b0 .
 
-<http://www.pakbon-ld.org/8cea8762-ecbd-4014-9533-1c98371185d2> a crm:E31_Document ;
-    prism:versionIdentifier "3.1.0" ;
-    dcterms:issued "2001-12-17T09:30:47.0Z" ;
-    crm:P48_has_preferred_identifier "8cea8762-ecbd-4014-9533-1c98371185d2" .
+<http://www.example.org/8cea8762-ecbd-4014-9533-1c98371185d2> a crm:E31_Document ;
+    base:id "8cea8762-ecbd-4014-9533-1c98371185d2"^^xsd:ID ;
+    base:timestamp "2001-12-17T09:30:47+00:00"^^xsd:dateTime ;
+    base:versie "3.1.0"^^xsd:string .
+
+base:Aantal a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P57_has_number_of_parts .
+
+base:Achternaam a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf foaf:familyName .
+
+base:Artefacttype a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P2_has_type .
+
+base:Auteur a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf dcterms:creator .
+
+base:Bestandsinhoud a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf dcterms:description .
+
+base:Bestandsnaam a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf dcterms:title .
+
+base:Bestandtype a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf dcterms:format .
+
+base:Bewaartemperatuur a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P129i_is_subject_of .
+
+base:Bewaarvochtigheid a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P129i_is_subject_of .
+
+base:Breekbaar a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P129i_is_subject_of .
+
+base:Codeboek a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P67_refers_to .
+
+base:Contexttype a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P2_has_type .
+
+base:Digitaalmediumtype a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P2_has_type .
+
+base:Documenttype a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P2_has_type .
+
+base:Dossiertype a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P2_has_type .
+
+base:Email a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P76_has_contact_point .
+
+base:Exposabel a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P147i_was_curated_by .
+
+base:Fotograaf a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf dcterms:creator .
+
+base:Fotoonderwerp a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf dcterms:description .
+
+base:Geconserveerd a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P147i_was_curated_by .
+
+base:Gedeselecteerd a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P147i_was_curated_by .
+
+base:Gemeente a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf gn:parentADM2 .
+
+base:Gemeentecode a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P89_falls_within .
+
+base:Geometrie a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P87_is_identified_by .
+
+base:Gevaarlijkestoffen a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P129i_is_subject_of .
+
+base:Gewicht a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P43_has_dimension .
+
+base:Grondspoortype a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P2_has_type .
+
+base:Huisnummer a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf locn:locatorDesignator .
+
+base:Initialen a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf foaf:givenName .
+
+base:Isbn a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf prism:isbn .
+
+base:Jaar a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf prism:publicationDate .
+
+base:Kaartblad a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P87_is_identified_by .
+
+base:Kleur a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P3_has_note .
+
+base:Land a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf gn:parentCountry .
+
+base:Lichtgevoelig a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P129i_is_subject_of .
+
+base:Materiaalcategorie a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P45_consists_of .
+
+base:Monstertype a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P2_has_type .
+
+base:Monsterverwerking a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P3_has_note .
+
+base:Naam a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P131_is_identified_by .
+
+base:Omschrijving a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P3_has_note .
+
+base:Onderzoektype a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P2_has_type .
+
+base:Opnamedatum a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf dcterms:date .
+
+base:Opnamemedium a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf dcterms:medium .
+
+base:Opnametype a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P2_has_type .
+
+base:Paginas a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf prism:pageCount .
+
+base:Plaatscode a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P89_falls_within .
+
+base:Plaatsnaam a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf locn:postName .
+
+base:Planumtype a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P2_has_type .
+
+base:Postcode a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf locn:postCode .
+
+base:Projectnaam a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P1_is_identified_by .
+
+base:Provincie a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf gn:parentADM1 .
+
+base:Provinciecode a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P89_falls_within .
+
+base:Redacteur a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf bibo:editor .
+
+base:Schaal a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P3_has_note .
+
+base:Serie a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf prism:seriesTitle .
+
+base:Software a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf dcterms:description .
+
+base:Straat a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf locn:thoroughfare .
+
+base:Structuurtype a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P2_has_type .
+
+base:Tekenaar a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf dcterms:creator .
+
+base:Tekeningdatum a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf dcterms:date .
+
+base:Tekeningformaat a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P3_has_note .
+
+base:Tekeningmateriaal a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf dcterms:medium .
+
+base:Tekeningonderwerp a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf dcterms:description .
+
+base:Tekeningtype a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P2_has_type .
+
+base:Telefoon a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P76_has_contact_point .
+
+base:Textuur a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P3_has_note .
+
+base:Titel a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf dcterms:title .
+
+base:Toponiem a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P59i_is_located_on_or_within .
+
+base:Uitgaveplaats a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf dcterms:spatial .
+
+base:Uitgever a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf dcterms:publisher .
+
+base:Uitvoerdercode a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P1_is_identified_by .
+
+base:Vaknummer a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P1_is_identified_by .
+
+base:Verzamelwijze a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P3_has_note .
+
+base:Vindplaatstype a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P2_has_type .
+
+base:Vondstmeldingsnummer a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P1_is_identified_by .
+
+base:Vorm a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P3_has_note .
+
+base:Waarnemingsnummer a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P1_is_identified_by .
 
 base:a7fa5d30-1877-47e8-b966-f6079fa7f11e a crmeh:EHE0001_EHProject ;
-    rdfs:label "Project"@nl ;
-    crm:P11_had_participant base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nc079464c16824e22953d9ac275ae89d5 ;
-    crm:P14_carried_out_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N22f2091e938b40f38724b74b937a8292 ;
-    crm:P1_is_identified_by "BC388",
-        "Schipluiden - Harnaschpolder" ;
-    crm:P2_has_type "AOP" ;
-    crm:P3_has_note "In het kader van de aanleg van de Afvalwaterzuiveringsinstallatie Haagse Regio (AHR) heeft in de periode mei â oktober 2003 een opgraving plaatsgevonden van een Neolithisch nederzettingsterrein." ;
-    crm:P48_has_preferred_identifier "a7fa5d30-1877-47e8-b966-f6079fa7f11e" ;
-    crm:P4_has_time-span base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N7f4dbb62777b4a47b02f9cdab2636965 ;
-    crm:P7_took_place_at <http://www.pakbon-ld.org/0288dd16-3d4c-4471-bc81-7a2ad47b21bd>,
-        <http://www.pakbon-ld.org/38e94b6f-6a25-42f7-88b6-017fc21bb676>,
-        <http://www.pakbon-ld.org/95520272-1038-4364-8420-0d175ca35bf8> ;
-    crm:P9_consists_of base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N4ba0858a1cfc4738926cd508adda5743,
-        base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N80876f90a8ad4425aee2b3de545f3a30,
-        base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N851990bb01f74aa59362192830e2a523,
-        base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N852ea34cd19942aea8eb099735f05bab,
-        base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N945ff97fd5c74f9e88712389241aa479 .
+    rdfs:label "Project BC388"@nl ;
+    crm:P11_had_participant base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nb3c47201f06f462a9660e6985cdc7d27 ;
+    crm:P14_carried_out_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nb1b4f3290a8648d3863ad0310947b8db ;
+    crm:P1_is_identified_by "BC388"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "a7fa5d30-1877-47e8-b966-f6079fa7f11e"^^xsd:ID ;
+    crm:P4_has_time-span base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ne2e3e54b724e47f8acb8b2b2f6061353 ;
+    crm:P7_took_place_at <http://www.example.org/0288dd16-3d4c-4471-bc81-7a2ad47b21bd>,
+        <http://www.example.org/38e94b6f-6a25-42f7-88b6-017fc21bb676>,
+        <http://www.example.org/95520272-1038-4364-8420-0d175ca35bf8> ;
+    crm:P9_consists_of base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N023717ce070843c49a2cdfdd0402eb00,
+        base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N1289242f578f4d01afcbd6fb88e13951,
+        base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N33d996fe61cd44a2b2620cc10f8f79f8,
+        base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nb69c901aa7a04a759008c91429f1660a,
+        base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nb96a406cd2954dd0a52067c6f6cbe4e9 ;
+    base:Omschrijving "In het kader van de aanleg van de Afvalwaterzuiveringsinstallatie Haagse Regio (AHR) heeft in de periode mei â oktober 2003 een opgraving plaatsgevonden van een Neolithisch nederzettingsterrein."@nl ;
+    base:Onderzoektype "AOP"^^crm:E55_Type ;
+    base:Projectnaam "Schipluiden - Harnaschpolder"^^crm:E41_Appellation .
 
-<http://www.pakbon-ld.org/0148842e-7696-4cdf-83c6-13e86b2e88b7> a crmeh:EHE0008_ContextStuff ;
-    rdfs:label "Vulling"@nl ;
-    crmeh:EHP3 <http://www.pakbon-ld.org/6d2005c0-733b-49f2-94b2-fec71e3f58c6> ;
-    crm:P1_is_identified_by "83732",
-        "V732" ;
-    crm:P3_has_note "Driehoek",
-        "Zwart" ;
-    crm:P48_has_preferred_identifier "0148842e-7696-4cdf-83c6-13e86b2e88b7" .
+base:beginperiode a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crmeh:EXP1 .
 
-<http://www.pakbon-ld.org/0288dd16-3d4c-4471-bc81-7a2ad47b21bd> a crmeh:EHE0004_SiteSubDivision ;
-    rdfs:label "Vindplaats"@nl ;
-    crm:P1_is_identified_by "05HP",
-        "22345",
-        "678" ;
-    crm:P2_has_type "BGV.GHV" ;
-    crm:P48_has_preferred_identifier "0288dd16-3d4c-4471-bc81-7a2ad47b21bd" ;
-    crm:P4_has_time-span base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N62040be1b562473db6abb604206346cc ;
-    crm:P87_is_identified_by <http://www.pakbon-ld.org/7f9447ac-15ab-46e5-a287-7480e6d5c16d>,
-        "7f9447ac-15ab-46e5-a287-7480e6d5c16d" .
+base:einddatum a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crmeh:EXP2 .
 
-<http://www.pakbon-ld.org/04785ae0-7d5f-43b9-9bc4-d55bb9aa5617> a crm:E73_Information_Object ;
-    rdfs:label "Bestand"@nl ;
-    dcterms:description "Beschrijving van sporen.",
-        "Microsoft Word 2007" ;
-    dcterms:format "Word" ;
+base:eindperiode a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crmeh:EXP2 .
+
+base:id a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crm:P48_has_preferred_identifier .
+
+base:startdatum a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf crmeh:EXP1 .
+
+base:timestamp a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf dcterms:issued .
+
+base:versie a rdf:Property ;
+    rdfs:comment "Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102"@nl ;
+    rdfs:subPropertyOf prism:versionIdentifier .
+
+<http://www.example.org/0148842e-7696-4cdf-83c6-13e86b2e88b7> a crmeh:EHE0008_ContextStuff ;
+    rdfs:label "Vulling 83732 (V732)"@nl ;
+    crmeh:EHP3 <http://www.example.org/6d2005c0-733b-49f2-94b2-fec71e3f58c6> ;
+    crm:P1_is_identified_by "83732"^^xsd:ID,
+        "V732"^^xsd:string ;
+    crm:P48_has_preferred_identifier "0148842e-7696-4cdf-83c6-13e86b2e88b7"^^xsd:ID ;
+    base:Kleur "Zwart"^^crmeh:EHE0059_ContextStuffNote ;
+    base:Vorm "Driehoek"^^crmeh:EHE0059_ContextStuffNote .
+
+<http://www.example.org/0288dd16-3d4c-4471-bc81-7a2ad47b21bd> a crmeh:EHE0004_SiteSubDivision ;
+    rdfs:label "Vindplaats 05HP (05HP)"@nl ;
+    crm:P1_is_identified_by "05HP"^^xsd:ID,
+        "05HP"^^xsd:string ;
+    crm:P48_has_preferred_identifier "0288dd16-3d4c-4471-bc81-7a2ad47b21bd"^^xsd:ID ;
+    crm:P4_has_time-span base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nd69ae156ed5542e8a890145b1e309e84 ;
+    crm:P87_is_identified_by <http://www.example.org/7f9447ac-15ab-46e5-a287-7480e6d5c16d>,
+        "7f9447ac-15ab-46e5-a287-7480e6d5c16d"^^xsd:string ;
+    base:Vindplaatstype "BGV.GHV"^^crm:E55_Type ;
+    base:Vondstmeldingsnummer "22345"^^crm:E42_Identifier ;
+    base:Waarnemingsnummer "678"^^crm:E42_Identifier .
+
+<http://www.example.org/04785ae0-7d5f-43b9-9bc4-d55bb9aa5617> a crm:E73_Information_Object ;
+    rdfs:label "Bestand KL8432.doc"@nl ;
     dcterms:medium base:e77038a6-2285-422d-8340-ccebb037db17 ;
-    dcterms:title "KL8432.doc" ;
-    crm:P1_is_identified_by "KL8432.doc" ;
-    crm:P48_has_preferred_identifier "04785ae0-7d5f-43b9-9bc4-d55bb9aa5617" .
+    crm:P1_is_identified_by "KL8432.doc"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "04785ae0-7d5f-43b9-9bc4-d55bb9aa5617"^^xsd:ID ;
+    base:Bestandsinhoud "Beschrijving van sporen."@nl ;
+    base:Bestandsnaam "KL8432.doc"^^xsd:string ;
+    base:Bestandtype "Word"^^xsd:string ;
+    base:Software "Microsoft Word 2007"^^xsd:string .
 
-<http://www.pakbon-ld.org/08c58b15-4f14-4961-8baf-b97d4abd340b> a crm:E78_Collection ;
-    rdfs:label "Veldvondst"@nl ;
-    crm:P1_is_identified_by "AHR39V008" ;
-    crm:P3_has_note "HASCHA" ;
-    crm:P46_is_composed_of <http://www.pakbon-ld.org/5d4a37a8-17a8-4879-a557-c5273345f3c2> ;
-    crm:P48_has_preferred_identifier "08c58b15-4f14-4961-8baf-b97d4abd340b" ;
-    crm:P53_has_former_or_current_location <http://www.pakbon-ld.org/2fd289df-7cca-4dba-b8cd-3f613e3b166d> .
+<http://www.example.org/08c58b15-4f14-4961-8baf-b97d4abd340b> a crm:E78_Collection ;
+    rdfs:label "Veldvondst AHR39V008 (AHR39V008)"@nl ;
+    crm:P1_is_identified_by "AHR39V008"^^xsd:ID,
+        "AHR39V008"^^xsd:string ;
+    crm:P46_is_composed_of <http://www.example.org/5d4a37a8-17a8-4879-a557-c5273345f3c2> ;
+    crm:P48_has_preferred_identifier "08c58b15-4f14-4961-8baf-b97d4abd340b"^^xsd:ID ;
+    crm:P53_has_former_or_current_location <http://www.example.org/2fd289df-7cca-4dba-b8cd-3f613e3b166d> ;
+    base:Verzamelwijze "HASCHA"^^crmeh:EHE0046_ContextNote .
 
-<http://www.pakbon-ld.org/09162d56-a3c6-46bd-835e-23f1ce0d2b8a> a crm:E84_Information_Carrier ;
-    rdfs:label "Dossier"@nl ;
+<http://www.example.org/09162d56-a3c6-46bd-835e-23f1ce0d2b8a> a crm:E84_Information_Carrier ;
+    rdfs:label "Dossier AHR39-70 (AHR39-70)"@nl ;
     crm:P128_carries base:c049e4be-df47-4bb4-8b5c-81a608c992c7 ;
-    crm:P1_is_identified_by "AHR39-70" ;
-    crm:P2_has_type "Ordner" ;
-    crm:P48_has_preferred_identifier "09162d56-a3c6-46bd-835e-23f1ce0d2b8a" .
+    crm:P1_is_identified_by "AHR39-70"^^xsd:ID,
+        "AHR39-70"^^xsd:string ;
+    crm:P48_has_preferred_identifier "09162d56-a3c6-46bd-835e-23f1ce0d2b8a"^^xsd:ID ;
+    base:Dossiertype "Ordner"^^crm:E55_Type .
 
-<http://www.pakbon-ld.org/0b5275c9-325e-4ef9-a7de-018925e61f6e> a crmeh:EHE0006_GroupStuff ;
-    rdfs:label "Structuur"@nl ;
-    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N332b3776c4c3429781feb9a70018ae46 ;
-    crm:P1_is_identified_by "568",
-        "S568" ;
-    crm:P2_has_type "WEG" ;
-    crm:P48_has_preferred_identifier "0b5275c9-325e-4ef9-a7de-018925e61f6e" ;
-    crm:P53_has_former_or_current_location <http://www.pakbon-ld.org/6d2005c0-733b-49f2-94b2-fec71e3f58c6> .
+<http://www.example.org/0b5275c9-325e-4ef9-a7de-018925e61f6e> a crmeh:EHE0006_GroupStuff ;
+    rdfs:label "Structuur 568 (S568)"@nl ;
+    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N2fbb886fbaf14114a423b39ef2e1b647 ;
+    crm:P1_is_identified_by "568"^^xsd:ID,
+        "S568"^^xsd:string ;
+    crm:P48_has_preferred_identifier "0b5275c9-325e-4ef9-a7de-018925e61f6e"^^xsd:ID ;
+    crm:P53_has_former_or_current_location <http://www.example.org/6d2005c0-733b-49f2-94b2-fec71e3f58c6> ;
+    base:Structuurtype "WEG"^^crm:E55_Type .
 
-<http://www.pakbon-ld.org/12de5b57-8752-4705-aafd-9949a306249b> a crm:E31_Document ;
-    rdfs:label "Document"@nl ;
-    prism:isbn "9053566937" ;
-    prism:pageCount "126" ;
-    prism:publicationDate "2004" ;
-    dcterms:creator "J. Kaarsemaker",
-        "Marian Diepeveen-Jansen" ;
-    dcterms:publisher "Amsterdam University Press" ;
-    dcterms:title "Publicatiewijzer Voor De Archeologie" ;
-    bibo:editor "J. Karsemaker",
-        "M. Diepeveen-Jansen" ;
-    crm:P1_is_identified_by "9053566937" ;
-    crm:P2_has_type "XXX" ;
-    crm:P48_has_preferred_identifier "12de5b57-8752-4705-aafd-9949a306249b" .
+<http://www.example.org/12de5b57-8752-4705-aafd-9949a306249b> a crm:E31_Document ;
+    rdfs:label "Document 9053566937"@nl ;
+    crm:P1_is_identified_by "9053566937"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "12de5b57-8752-4705-aafd-9949a306249b"^^xsd:ID ;
+    base:Auteur "J. Kaarsemaker"^^xsd:string,
+        "Marian Diepeveen-Jansen"^^xsd:string ;
+    base:Documenttype "XXX"^^crm:E55_Type ;
+    base:Isbn "9053566937"^^xsd:string ;
+    base:Jaar "2004"^^xsd:gYear ;
+    base:Paginas "126"^^xsd:positiveInteger ;
+    base:Redacteur "J. Karsemaker"^^xsd:string,
+        "M. Diepeveen-Jansen"^^xsd:string ;
+    base:Titel "Publicatiewijzer Voor De Archeologie"^^xsd:string ;
+    base:Uitgaveplaats "Amsterdam"^^dcterms:Location ;
+    base:Uitgever "Amsterdam University Press"^^xsd:string .
 
-<http://www.pakbon-ld.org/1b60597d-7966-431a-9a6f-9cae38124a9f> a crmeh:EHE0007_Context ;
-    rdfs:label "Vondstcontext"@nl ;
-    crm:P1_is_identified_by "37442" ;
-    crm:P2_has_type "VLAK" ;
-    crm:P48_has_preferred_identifier "1b60597d-7966-431a-9a6f-9cae38124a9f" ;
-    crm:P89i_contains <http://www.pakbon-ld.org/50087738-80d4-4823-bc32-cf79a3c1c30a> .
+<http://www.example.org/1b60597d-7966-431a-9a6f-9cae38124a9f> a crmeh:EHE0007_Context ;
+    rdfs:label "Vondstcontext 37442"@nl ;
+    crm:P1_is_identified_by "37442"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "1b60597d-7966-431a-9a6f-9cae38124a9f"^^xsd:ID ;
+    crm:P89i_contains <http://www.example.org/50087738-80d4-4823-bc32-cf79a3c1c30a> ;
+    base:Contexttype "VLAK"^^crm:E55_Type .
 
-<http://www.pakbon-ld.org/1f4dbfb7-89b7-4cfa-80ca-295405fd1a77> a crmeh:EHE0016_RecordDrawing ;
-    rdfs:label "Tekening"@nl ;
-    dcterms:creator "P.A. Pier" ;
-    dcterms:date "2003-06-08" ;
-    dcterms:description "spoor 109" ;
-    dcterms:medium "houtvrij mm papier" ;
+<http://www.example.org/1f4dbfb7-89b7-4cfa-80ca-295405fd1a77> a crmeh:EHE0016_RecordDrawing ;
+    rdfs:label "Tekening AHR39T050 (Coupe 44)"@nl ;
     crm:P129_is_about base:aded5187-cdb9-4a8d-91b0-95d08032d326 ;
-    crm:P129i_is_subject_of <http://www.pakbon-ld.org/2d03325d-a3ad-40d5-aad5-ae6159b7637b> ;
-    crm:P1_is_identified_by "AHR39T050",
-        "Coupe 44" ;
-    crm:P2_has_type "COU",
-        "DET" ;
-    crm:P3_has_note "1:20",
-        "A4" ;
-    crm:P48_has_preferred_identifier "1f4dbfb7-89b7-4cfa-80ca-295405fd1a77" ;
-    crm:P70_documents base:f97ba6e2-1bea-4e94-8a4d-88df266697ca .
+    crm:P129i_is_subject_of <http://www.example.org/2d03325d-a3ad-40d5-aad5-ae6159b7637b> ;
+    crm:P1_is_identified_by "AHR39T050"^^xsd:ID,
+        "Coupe 44"^^xsd:string ;
+    crm:P48_has_preferred_identifier "1f4dbfb7-89b7-4cfa-80ca-295405fd1a77"^^xsd:ID ;
+    crm:P70_documents base:f97ba6e2-1bea-4e94-8a4d-88df266697ca ;
+    base:Schaal "1:20"^^crmeh:EHE0079_RecordDrawingNote ;
+    base:Tekenaar "P.A. Pier"^^xsd:string ;
+    base:Tekeningdatum "2003-06-08"^^xsd:date ;
+    base:Tekeningformaat "A4"^^crmeh:EHE0079_RecordDrawingNote ;
+    base:Tekeningmateriaal "houtvrij mm papier"^^xsd:string ;
+    base:Tekeningonderwerp "spoor 109"@nl ;
+    base:Tekeningtype "COU"^^crmeh:EHE0081_RecordDrawingReferenceType,
+        "DET"^^crmeh:EHE0081_RecordDrawingReferenceType .
 
-<http://www.pakbon-ld.org/283dfd6c-0414-4f24-b689-6d668219a7fd> a crmeh:EHE0007_Context ;
-    rdfs:label "Vondstcontext"@nl ;
-    crm:P1_is_identified_by "37445" ;
-    crm:P2_has_type "PUT" ;
-    crm:P48_has_preferred_identifier "283dfd6c-0414-4f24-b689-6d668219a7fd" ;
-    crm:P89i_contains <http://www.pakbon-ld.org/78876c26-738a-499e-97dc-b3cd7d36edc2> .
+<http://www.example.org/283dfd6c-0414-4f24-b689-6d668219a7fd> a crmeh:EHE0007_Context ;
+    rdfs:label "Vondstcontext 37445"@nl ;
+    crm:P1_is_identified_by "37445"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "283dfd6c-0414-4f24-b689-6d668219a7fd"^^xsd:ID ;
+    crm:P89i_contains <http://www.example.org/78876c26-738a-499e-97dc-b3cd7d36edc2> ;
+    base:Contexttype "PUT"^^crm:E55_Type .
 
-<http://www.pakbon-ld.org/2ccd2d84-023f-4c53-9891-172b35736597> a crm:E21_Person ;
-    rdfs:label "Persoon"@nl ;
-    crm:P131_is_identified_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N52177d49ad414a909b8725e30373ad48 ;
-    crm:P1_is_identified_by "4564" ;
-    crm:P48_has_preferred_identifier "2ccd2d84-023f-4c53-9891-172b35736597" ;
-    crm:P76_has_contact_point "070-4418445",
-        "rhp.proos@pzh.nl" .
+<http://www.example.org/2ccd2d84-023f-4c53-9891-172b35736597> a crm:E21_Person ;
+    rdfs:label "Persoon 4564"@nl ;
+    crm:P1_is_identified_by "4564"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "2ccd2d84-023f-4c53-9891-172b35736597"^^xsd:ID ;
+    base:Email "rhp.proos@pzh.nl"^^crm:E51_Contact_Point ;
+    base:Naam base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Na27a0ecee962490583c2b7031978396f ;
+    base:Telefoon "070-4418445"^^crm:E51_Contact_Point .
 
-<http://www.pakbon-ld.org/2fd289df-7cca-4dba-b8cd-3f613e3b166d> a crmeh:EHE0007_Context ;
-    rdfs:label "Vondstcontext"@nl ;
-    crm:P1_is_identified_by "37449" ;
-    crm:P2_has_type "SEGMENT" ;
-    crm:P48_has_preferred_identifier "2fd289df-7cca-4dba-b8cd-3f613e3b166d" ;
-    crm:P89i_contains base:da757a1a-dd71-4c3e-b24c-d86aba1f78a5 .
+<http://www.example.org/2fd289df-7cca-4dba-b8cd-3f613e3b166d> a crmeh:EHE0007_Context ;
+    rdfs:label "Vondstcontext 37449"@nl ;
+    crm:P1_is_identified_by "37449"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "2fd289df-7cca-4dba-b8cd-3f613e3b166d"^^xsd:ID ;
+    crm:P89i_contains base:da757a1a-dd71-4c3e-b24c-d86aba1f78a5 ;
+    base:Contexttype "SEGMENT"^^crm:E55_Type .
 
-<http://www.pakbon-ld.org/34913e3a-4f73-405e-9083-40f0c0d34785> a crmeh:EHE0007_Context ;
-    rdfs:label "Vondstcontext"@nl ;
-    crm:P1_is_identified_by "37446" ;
-    crm:P2_has_type "PROFIEL" ;
-    crm:P48_has_preferred_identifier "34913e3a-4f73-405e-9083-40f0c0d34785" ;
-    crm:P89i_contains <http://www.pakbon-ld.org/78876c26-738a-499e-97dc-b3cd7d36edc2> .
+<http://www.example.org/34913e3a-4f73-405e-9083-40f0c0d34785> a crmeh:EHE0007_Context ;
+    rdfs:label "Vondstcontext 37446"@nl ;
+    crm:P1_is_identified_by "37446"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "34913e3a-4f73-405e-9083-40f0c0d34785"^^xsd:ID ;
+    crm:P89i_contains <http://www.example.org/78876c26-738a-499e-97dc-b3cd7d36edc2> ;
+    base:Contexttype "PROFIEL"^^crm:E55_Type .
 
-<http://www.pakbon-ld.org/35ee5f40-5ef2-4c46-bc12-169d787da2e7> a crmeh:EHE0018_ContextSample ;
-    rdfs:label "Monster"@nl ;
-    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nf6afeb4dda494790be3b97417bc38cb9 ;
-    crm:P1_is_identified_by "5343",
-        "M456" ;
-    crm:P2_has_type "MGR" ;
-    crm:P3_has_note "14C-dateringen" ;
-    crm:P48_has_preferred_identifier "35ee5f40-5ef2-4c46-bc12-169d787da2e7" ;
-    crm:P53_has_former_or_current_location base:dec73ddd-67d0-4425-9809-f46496ddd25b .
+<http://www.example.org/35ee5f40-5ef2-4c46-bc12-169d787da2e7> a crmeh:EHE0018_ContextSample ;
+    rdfs:label "Monster 5343 (M456)"@nl ;
+    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ne11c62a242044003bbc4e9a27c5440a1 ;
+    crm:P1_is_identified_by "5343"^^xsd:ID,
+        "M456"^^xsd:string ;
+    crm:P48_has_preferred_identifier "35ee5f40-5ef2-4c46-bc12-169d787da2e7"^^xsd:ID ;
+    crm:P53_has_former_or_current_location base:dec73ddd-67d0-4425-9809-f46496ddd25b ;
+    base:Monstertype "MGR"^^crmeh:EHE0053_ContextSampleType ;
+    base:Monsterverwerking "14C-dateringen"@nl .
 
-<http://www.pakbon-ld.org/38e94b6f-6a25-42f7-88b6-017fc21bb676> a crmeh:EHE0003_AreaOfInvestigation ;
-    rdfs:label "Projectlocatie"@nl ;
-    crm:P1_is_identified_by "9624" ;
-    crm:P48_has_preferred_identifier "38e94b6f-6a25-42f7-88b6-017fc21bb676" ;
-    crm:P59i_is_located_on_or_within "Harnaschpolder; Noordhoornse weg" ;
-    crm:P87_is_identified_by base:d9987be3-fdea-4047-be41-d8b9160c524b,
-        "37E" ;
-    crm:P89_falls_within "1842",
-        "28",
-        "2807" .
+<http://www.example.org/38e94b6f-6a25-42f7-88b6-017fc21bb676> a crmeh:EHE0003_AreaOfInvestigation ;
+    rdfs:label "Projectlocatie 9624"@nl ;
+    crm:P1_is_identified_by "9624"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "38e94b6f-6a25-42f7-88b6-017fc21bb676"^^xsd:ID ;
+    crm:P87_is_identified_by base:d9987be3-fdea-4047-be41-d8b9160c524b ;
+    base:Gemeentecode "1842"^^crm:E44_Place_Appellation ;
+    base:Kaartblad "37E"^^crm:E46_Section_Definition ;
+    base:Plaatscode "2807"^^crm:E44_Place_Appellation ;
+    base:Provinciecode "28"^^crm:E44_Place_Appellation ;
+    base:Toponiem "Harnaschpolder; Noordhoornse weg"^^crmeh:EHE0002_ArchaeologicalSite .
 
-<http://www.pakbon-ld.org/4aa5f7f5-7919-4c4d-9300-afa62a8f8bdd> a crm:E31_Document ;
-    rdfs:label "Document"@nl ;
-    prism:isbn "9033473461" ;
-    prism:pageCount "270" ;
-    prism:publicationDate "2009" ;
-    dcterms:creator "A. Ervynck",
-        "P. Deegryse" ;
-    dcterms:publisher "Acco" ;
-    dcterms:title "Natuurwetenschappen En Archeologie" ;
-    crm:P1_is_identified_by "9033473461" ;
-    crm:P2_has_type "XXX" ;
-    crm:P48_has_preferred_identifier "4aa5f7f5-7919-4c4d-9300-afa62a8f8bdd" .
+<http://www.example.org/4aa5f7f5-7919-4c4d-9300-afa62a8f8bdd> a crm:E31_Document ;
+    rdfs:label "Document 9033473461"@nl ;
+    crm:P1_is_identified_by "9033473461"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "4aa5f7f5-7919-4c4d-9300-afa62a8f8bdd"^^xsd:ID ;
+    base:Auteur "A. Ervynck"^^xsd:string,
+        "P. Deegryse"^^xsd:string ;
+    base:Documenttype "XXX"^^crm:E55_Type ;
+    base:Isbn "9033473461"^^xsd:string ;
+    base:Jaar "2009"^^xsd:gYear ;
+    base:Paginas "270"^^xsd:positiveInteger ;
+    base:Titel "Natuurwetenschappen En Archeologie"^^xsd:string ;
+    base:Uitgaveplaats "Leuven"^^dcterms:Location ;
+    base:Uitgever "Acco"^^xsd:string .
 
-<http://www.pakbon-ld.org/4fd18b6f-aeba-4244-979f-5c80e78391d6> a crmeh:EHE0007_Context ;
-    rdfs:label "Vondstcontext"@nl ;
-    crm:P1_is_identified_by "37447" ;
-    crm:P2_has_type "VAK" ;
-    crm:P48_has_preferred_identifier "4fd18b6f-aeba-4244-979f-5c80e78391d6" ;
-    crm:P89i_contains base:b6c62c43-7b9f-4ee4-baa1-27007dded175 .
+<http://www.example.org/4fd18b6f-aeba-4244-979f-5c80e78391d6> a crmeh:EHE0007_Context ;
+    rdfs:label "Vondstcontext 37447"@nl ;
+    crm:P1_is_identified_by "37447"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "4fd18b6f-aeba-4244-979f-5c80e78391d6"^^xsd:ID ;
+    crm:P89i_contains base:b6c62c43-7b9f-4ee4-baa1-27007dded175 ;
+    base:Contexttype "VAK"^^crm:E55_Type .
 
-<http://www.pakbon-ld.org/53b7572f-1ebf-4298-a9b2-5520a0486360> a crmeh:EHE0006_GroupStuff ;
-    rdfs:label "Structuur"@nl ;
-    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N3927f69d3e5f4c91ab8c881b03c4b60b ;
-    crm:P1_is_identified_by "785",
-        "S551" ;
-    crm:P2_has_type "BRUG" ;
-    crm:P48_has_preferred_identifier "53b7572f-1ebf-4298-a9b2-5520a0486360" ;
-    crm:P53_has_former_or_current_location <http://www.pakbon-ld.org/0eec75c7-0766-4307-90c3-70f1a7fe0713> .
+<http://www.example.org/53b7572f-1ebf-4298-a9b2-5520a0486360> a crmeh:EHE0006_GroupStuff ;
+    rdfs:label "Structuur 785 (S551)"@nl ;
+    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N1d3985f18f674a9ca996622d4d4d5d5b ;
+    crm:P1_is_identified_by "785"^^xsd:ID,
+        "S551"^^xsd:string ;
+    crm:P48_has_preferred_identifier "53b7572f-1ebf-4298-a9b2-5520a0486360"^^xsd:ID ;
+    crm:P53_has_former_or_current_location <http://www.example.org/0eec75c7-0766-4307-90c3-70f1a7fe0713> ;
+    base:Structuurtype "BRUG"^^crm:E55_Type .
 
-<http://www.pakbon-ld.org/56e7a6d2-8cd0-45a9-84fc-162aa3349c38> a crm:E78_Collection ;
-    rdfs:label "Veldvondst"@nl ;
-    crm:P1_is_identified_by "AHR39V007" ;
-    crm:P3_has_note "HASCHA" ;
+<http://www.example.org/56e7a6d2-8cd0-45a9-84fc-162aa3349c38> a crm:E78_Collection ;
+    rdfs:label "Veldvondst AHR39V007 (AHR39V007)"@nl ;
+    crm:P1_is_identified_by "AHR39V007"^^xsd:ID,
+        "AHR39V007"^^xsd:string ;
     crm:P46_is_composed_of base:e6e59506-eafe-49d3-b597-1d6618bb45f9 ;
-    crm:P48_has_preferred_identifier "56e7a6d2-8cd0-45a9-84fc-162aa3349c38" ;
-    crm:P53_has_former_or_current_location base:e7bdcc5f-918a-4778-b336-5346a808a198 .
+    crm:P48_has_preferred_identifier "56e7a6d2-8cd0-45a9-84fc-162aa3349c38"^^xsd:ID ;
+    crm:P53_has_former_or_current_location base:e7bdcc5f-918a-4778-b336-5346a808a198 ;
+    base:Verzamelwijze "HASCHA"^^crmeh:EHE0046_ContextNote .
 
-<http://www.pakbon-ld.org/74d8d0ea-4662-458d-83f9-677bbb93ec79> a crmeh:EHE0017_RecordPhotograph ;
-    rdfs:label "Foto"@nl ;
-    dcterms:creator "C. Breton" ;
-    dcterms:date "2003-06-09" ;
-    dcterms:description "Vaas" ;
-    dcterms:medium "DIG" ;
+<http://www.example.org/74d8d0ea-4662-458d-83f9-677bbb93ec79> a crmeh:EHE0017_RecordPhotograph ;
+    rdfs:label "Foto AHR39F348 (Coupe 38)"@nl ;
     crm:P129_is_about base:f42ee413-a67e-453c-a020-9fcfd7215043 ;
-    crm:P129i_is_subject_of <http://www.pakbon-ld.org/6fbb93df-8345-4a87-8111-f0112908bda6> ;
-    crm:P1_is_identified_by "AHR39F348",
-        "Coupe 38" ;
-    crm:P2_has_type "COU" ;
-    crm:P48_has_preferred_identifier "74d8d0ea-4662-458d-83f9-677bbb93ec79" .
+    crm:P129i_is_subject_of <http://www.example.org/6fbb93df-8345-4a87-8111-f0112908bda6> ;
+    crm:P1_is_identified_by "AHR39F348"^^xsd:ID,
+        "Coupe 38"^^xsd:string ;
+    crm:P48_has_preferred_identifier "74d8d0ea-4662-458d-83f9-677bbb93ec79"^^xsd:ID ;
+    base:Fotograaf "C. Breton"^^xsd:string ;
+    base:Fotoonderwerp "Vaas"@nl ;
+    base:Opnamedatum "2003-06-09"^^xsd:date ;
+    base:Opnamemedium "DIG"^^xsd:string ;
+    base:Opnametype "COU"^^crmeh:EHE0085_RecordPhotographReferenceType .
 
-<http://www.pakbon-ld.org/7752c3d8-a565-4d5b-a5b6-551c628bcd9f> a crm:E84_Information_Carrier ;
-    rdfs:label "Dossier"@nl ;
-    crm:P128_carries <http://www.pakbon-ld.org/12de5b57-8752-4705-aafd-9949a306249b>,
-        <http://www.pakbon-ld.org/4aa5f7f5-7919-4c4d-9300-afa62a8f8bdd> ;
-    crm:P1_is_identified_by "AHR39-69" ;
-    crm:P2_has_type "Archiefdoos" ;
-    crm:P48_has_preferred_identifier "7752c3d8-a565-4d5b-a5b6-551c628bcd9f" .
+<http://www.example.org/7752c3d8-a565-4d5b-a5b6-551c628bcd9f> a crm:E84_Information_Carrier ;
+    rdfs:label "Dossier AHR39-69 (AHR39-69)"@nl ;
+    crm:P128_carries <http://www.example.org/12de5b57-8752-4705-aafd-9949a306249b>,
+        <http://www.example.org/4aa5f7f5-7919-4c4d-9300-afa62a8f8bdd> ;
+    crm:P1_is_identified_by "AHR39-69"^^xsd:ID,
+        "AHR39-69"^^xsd:string ;
+    crm:P48_has_preferred_identifier "7752c3d8-a565-4d5b-a5b6-551c628bcd9f"^^xsd:ID ;
+    base:Dossiertype "Archiefdoos"^^crm:E55_Type .
 
-<http://www.pakbon-ld.org/7b14d14a-dc67-4688-a555-475a83f18e97> a crmeh:EHE0007_Context ;
-    rdfs:label "Boring"@nl ;
-    crm:P1_is_identified_by "34925",
-        "B34925" ;
-    crm:P48_has_preferred_identifier "7b14d14a-dc67-4688-a555-475a83f18e97" ;
-    crm:P87_is_identified_by "d9987be3-fdea-4047-be41-d8b9160c524b" .
+<http://www.example.org/7b14d14a-dc67-4688-a555-475a83f18e97> a crmeh:EHE0007_Context ;
+    rdfs:label "Boring 34925 (B34925)"@nl ;
+    crm:P1_is_identified_by "34925"^^xsd:ID,
+        "B34925"^^xsd:string ;
+    crm:P48_has_preferred_identifier "7b14d14a-dc67-4688-a555-475a83f18e97"^^xsd:ID ;
+    crm:P87_is_identified_by "d9987be3-fdea-4047-be41-d8b9160c524b"^^xsd:string .
 
-<http://www.pakbon-ld.org/7bffe6f5-5fae-4dd2-b2b3-a373be617717> a crm:E21_Person ;
+<http://www.example.org/7bffe6f5-5fae-4dd2-b2b3-a373be617717> a crm:E21_Person ;
     rdfs:label "Persoon"@nl ;
-    crm:P131_is_identified_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N61d7346e913548b2af93cc17cfc2c77a ;
-    crm:P48_has_preferred_identifier "7bffe6f5-5fae-4dd2-b2b3-a373be617717" ;
-    crm:P76_has_contact_point "071-5273313",
-        "info@archol.nl" .
+    crm:P48_has_preferred_identifier "7bffe6f5-5fae-4dd2-b2b3-a373be617717"^^xsd:ID ;
+    base:Email "info@archol.nl"^^crm:E51_Contact_Point ;
+    base:Naam base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ndb8c57f0f5404840a2bf9ae2e968700f ;
+    base:Telefoon "071-5273313"^^crm:E51_Contact_Point .
 
-<http://www.pakbon-ld.org/7cca124d-9d08-4491-a5e2-19f817281660> a crm:E78_Collection ;
-    rdfs:label "Veldvondst"@nl ;
-    crm:P1_is_identified_by "AHR39V003" ;
-    crm:P3_has_note "HASCHA" ;
-    crm:P46_is_composed_of <http://www.pakbon-ld.org/69dfe2dc-223e-4fff-8935-de41e41413d8> ;
-    crm:P48_has_preferred_identifier "7cca124d-9d08-4491-a5e2-19f817281660" ;
-    crm:P53_has_former_or_current_location <http://www.pakbon-ld.org/283dfd6c-0414-4f24-b689-6d668219a7fd> .
+<http://www.example.org/7cca124d-9d08-4491-a5e2-19f817281660> a crm:E78_Collection ;
+    rdfs:label "Veldvondst AHR39V003 (AHR39V003)"@nl ;
+    crm:P1_is_identified_by "AHR39V003"^^xsd:ID,
+        "AHR39V003"^^xsd:string ;
+    crm:P46_is_composed_of <http://www.example.org/69dfe2dc-223e-4fff-8935-de41e41413d8> ;
+    crm:P48_has_preferred_identifier "7cca124d-9d08-4491-a5e2-19f817281660"^^xsd:ID ;
+    crm:P53_has_former_or_current_location <http://www.example.org/283dfd6c-0414-4f24-b689-6d668219a7fd> ;
+    base:Verzamelwijze "HASCHA"^^crmeh:EHE0046_ContextNote .
 
-<http://www.pakbon-ld.org/7f9447ac-15ab-46e5-a287-7480e6d5c16d> a crm:E44_Place_Appellation ;
+<http://www.example.org/7f9447ac-15ab-46e5-a287-7480e6d5c16d> a crm:E44_Place_Appellation ;
     rdfs:label "Geolocatie"@nl ;
-    crm:P48_has_preferred_identifier "7f9447ac-15ab-46e5-a287-7480e6d5c16d" ;
-    crm:P87_is_identified_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N3e0539037f004d0fb966c2780bf76bbe .
+    crm:P48_has_preferred_identifier "7f9447ac-15ab-46e5-a287-7480e6d5c16d"^^xsd:ID ;
+    base:Geometrie base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N658278e199b342d6805dc2021425a567 .
 
-<http://www.pakbon-ld.org/801c1348-e36a-40e6-a827-8d967450b5da> a crm:E78_Collection ;
-    rdfs:label "Veldvondst"@nl ;
-    crm:P1_is_identified_by "AHR39V004" ;
-    crm:P3_has_note "HASCHA" ;
+<http://www.example.org/801c1348-e36a-40e6-a827-8d967450b5da> a crm:E78_Collection ;
+    rdfs:label "Veldvondst AHR39V004 (AHR39V004)"@nl ;
+    crm:P1_is_identified_by "AHR39V004"^^xsd:ID,
+        "AHR39V004"^^xsd:string ;
     crm:P46_is_composed_of base:c10a6505-606f-4d52-9d8a-2f53fbd5d5f2 ;
-    crm:P48_has_preferred_identifier "801c1348-e36a-40e6-a827-8d967450b5da" ;
-    crm:P53_has_former_or_current_location <http://www.pakbon-ld.org/1b60597d-7966-431a-9a6f-9cae38124a9f> .
+    crm:P48_has_preferred_identifier "801c1348-e36a-40e6-a827-8d967450b5da"^^xsd:ID ;
+    crm:P53_has_former_or_current_location <http://www.example.org/1b60597d-7966-431a-9a6f-9cae38124a9f> ;
+    base:Verzamelwijze "HASCHA"^^crmeh:EHE0046_ContextNote .
 
-<http://www.pakbon-ld.org/95520272-1038-4364-8420-0d175ca35bf8> a crmeh:EHE0004_SiteSubDivision ;
-    rdfs:label "Vindplaats"@nl ;
-    crm:P1_is_identified_by "04HP",
-        "123456",
-        "789" ;
-    crm:P2_has_type "BEWV.X" ;
-    crm:P48_has_preferred_identifier "95520272-1038-4364-8420-0d175ca35bf8" ;
-    crm:P4_has_time-span base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nd56e0df6792b4b539cf5f1650ad4d81f ;
+<http://www.example.org/95520272-1038-4364-8420-0d175ca35bf8> a crmeh:EHE0004_SiteSubDivision ;
+    rdfs:label "Vindplaats 04HP (04HP)"@nl ;
+    crm:P1_is_identified_by "04HP"^^xsd:ID,
+        "04HP"^^xsd:string ;
+    crm:P48_has_preferred_identifier "95520272-1038-4364-8420-0d175ca35bf8"^^xsd:ID ;
+    crm:P4_has_time-span base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ne279c7522c36471ba1a8ecd8bab6ff60 ;
     crm:P87_is_identified_by base:e397b04e-ffd3-4b34-96e9-70f5355262a8,
-        "e397b04e-ffd3-4b34-96e9-70f5355262a8" .
+        "e397b04e-ffd3-4b34-96e9-70f5355262a8"^^xsd:string ;
+    base:Vindplaatstype "BEWV.X"^^crm:E55_Type ;
+    base:Vondstmeldingsnummer "123456"^^crm:E42_Identifier ;
+    base:Waarnemingsnummer "789"^^crm:E42_Identifier .
 
-<http://www.pakbon-ld.org/99d94682-3dbd-452f-a58b-7f7da1d5eae2> a crm:E78_Collection ;
-    rdfs:label "Veldvondst"@nl ;
-    crm:P1_is_identified_by "AHR39V005" ;
-    crm:P3_has_note "HASCHA" ;
-    crm:P46_is_composed_of <http://www.pakbon-ld.org/51c65733-728d-4eaa-acb8-a387a37e1898> ;
-    crm:P48_has_preferred_identifier "99d94682-3dbd-452f-a58b-7f7da1d5eae2" ;
-    crm:P53_has_former_or_current_location <http://www.pakbon-ld.org/34913e3a-4f73-405e-9083-40f0c0d34785> .
+<http://www.example.org/99d94682-3dbd-452f-a58b-7f7da1d5eae2> a crm:E78_Collection ;
+    rdfs:label "Veldvondst AHR39V005 (AHR39V005)"@nl ;
+    crm:P1_is_identified_by "AHR39V005"^^xsd:ID,
+        "AHR39V005"^^xsd:string ;
+    crm:P46_is_composed_of <http://www.example.org/51c65733-728d-4eaa-acb8-a387a37e1898> ;
+    crm:P48_has_preferred_identifier "99d94682-3dbd-452f-a58b-7f7da1d5eae2"^^xsd:ID ;
+    crm:P53_has_former_or_current_location <http://www.example.org/34913e3a-4f73-405e-9083-40f0c0d34785> ;
+    base:Verzamelwijze "HASCHA"^^crmeh:EHE0046_ContextNote .
 
 base:a2012515-e902-4360-9e6c-85e8a53f1aa6 a crmeh:EHE0016_RecordDrawing ;
-    rdfs:label "Tekening"@nl ;
-    dcterms:creator "P.A. Pier" ;
-    dcterms:date "2003-06-09" ;
-    dcterms:description "spoor 109" ;
-    dcterms:medium "houtvrij mm papier" ;
+    rdfs:label "Tekening AHR39T051 (Detail Coupe 445)"@nl ;
     crm:P129_is_about base:aded5187-cdb9-4a8d-91b0-95d08032d326 ;
-    crm:P129i_is_subject_of <http://www.pakbon-ld.org/80bb0536-0452-4e68-bad3-d97405c44606> ;
-    crm:P1_is_identified_by "AHR39T051",
-        "Detail Coupe 445" ;
-    crm:P2_has_type "DET" ;
-    crm:P3_has_note "1:20",
-        "A4" ;
-    crm:P48_has_preferred_identifier "a2012515-e902-4360-9e6c-85e8a53f1aa6" ;
-    crm:P70_documents base:f97ba6e2-1bea-4e94-8a4d-88df266697ca .
+    crm:P129i_is_subject_of <http://www.example.org/80bb0536-0452-4e68-bad3-d97405c44606> ;
+    crm:P1_is_identified_by "AHR39T051"^^xsd:ID,
+        "Detail Coupe 445"^^xsd:string ;
+    crm:P48_has_preferred_identifier "a2012515-e902-4360-9e6c-85e8a53f1aa6"^^xsd:ID ;
+    crm:P70_documents base:f97ba6e2-1bea-4e94-8a4d-88df266697ca ;
+    base:Schaal "1:20"^^crmeh:EHE0079_RecordDrawingNote ;
+    base:Tekenaar "P.A. Pier"^^xsd:string ;
+    base:Tekeningdatum "2003-06-09"^^xsd:date ;
+    base:Tekeningformaat "A4"^^crmeh:EHE0079_RecordDrawingNote ;
+    base:Tekeningmateriaal "houtvrij mm papier"^^xsd:string ;
+    base:Tekeningonderwerp "spoor 109"@nl ;
+    base:Tekeningtype "DET"^^crmeh:EHE0081_RecordDrawingReferenceType .
 
 base:a38a97f9-ad8e-4a08-8bf6-5b82c6563d9f a crmeh:EHE0007_Context ;
-    rdfs:label "Vak"@nl ;
-    crm:P1_is_identified_by "13",
-        "2367",
-        "V854" ;
-    crm:P39i_was_measured_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nb751d3d5fd404b9ab1b2b48052304920,
-        base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nf92a7a6dcd134210bc62e03d7217de55 ;
-    crm:P48_has_preferred_identifier "a38a97f9-ad8e-4a08-8bf6-5b82c6563d9f" ;
-    crm:P87_is_identified_by "d9987be3-fdea-4047-be41-d8b9160c524b" ;
-    crm:P89_falls_within <http://www.pakbon-ld.org/50087738-80d4-4823-bc32-cf79a3c1c30a> .
+    rdfs:label "Vak 2367 (V854)"@nl ;
+    crm:P1_is_identified_by "2367"^^xsd:ID,
+        "V854"^^xsd:string ;
+    crm:P39i_was_measured_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N30b5a6c1bf574dafaab1ca718a97920a,
+        base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N4572aff72db24f1198abf86550db5ad6 ;
+    crm:P48_has_preferred_identifier "a38a97f9-ad8e-4a08-8bf6-5b82c6563d9f"^^xsd:ID ;
+    crm:P87_is_identified_by "d9987be3-fdea-4047-be41-d8b9160c524b"^^xsd:string ;
+    crm:P89_falls_within <http://www.example.org/50087738-80d4-4823-bc32-cf79a3c1c30a> ;
+    base:Vaknummer "13"^^crm:E41_Appellation .
 
 base:a5392dd6-598f-40ce-bf1c-47c2718fc8a3 a crmeh:EHE0007_Context ;
-    rdfs:label "Segment"@nl ;
-    crm:P1_is_identified_by "90367",
-        "S864" ;
-    crm:P48_has_preferred_identifier "a5392dd6-598f-40ce-bf1c-47c2718fc8a3" ;
-    crm:P87_is_identified_by "d9987be3-fdea-4047-be41-d8b9160c524b" ;
-    crm:P89_falls_within <http://www.pakbon-ld.org/6d2005c0-733b-49f2-94b2-fec71e3f58c6> .
+    rdfs:label "Segment 90367 (S864)"@nl ;
+    crm:P1_is_identified_by "90367"^^xsd:ID,
+        "S864"^^xsd:string ;
+    crm:P48_has_preferred_identifier "a5392dd6-598f-40ce-bf1c-47c2718fc8a3"^^xsd:ID ;
+    crm:P87_is_identified_by "d9987be3-fdea-4047-be41-d8b9160c524b"^^xsd:string ;
+    crm:P89_falls_within <http://www.example.org/6d2005c0-733b-49f2-94b2-fec71e3f58c6> .
 
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N0644ec3495784e6eb8f279dc4967a8aa a crmeh:EHE0031_ContextFindMeasurement ;
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N00c82a32960c4ee1b792fd93d6f36bef a crmeh:EHE2021_BulkFindAssessment ;
+    rdfs:label "Dateren"@nl ;
+    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N1ef89bb58d76412e830efd608b2e91a2 .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N023717ce070843c49a2cdfdd0402eb00 a crm:E12_Production ;
+    rdfs:label "Documenteren (Analoog)"@nl ;
+    crm:P108_has_produced <http://www.example.org/09162d56-a3c6-46bd-835e-23f1ce0d2b8a> .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N08260b85dff0483da303206c49815575 a crm:E13_Attribute_Assignment ;
+    rdfs:label "Dateren"@nl ;
+    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N53c9202cb6c045db802ada03ec0792b8 .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N0ba167fbaf154d52bf014d110fdf1746 a crm:E13_Attribute_Assignment ;
+    rdfs:label "Dateren"@nl ;
+    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N9624cbd2fb944932b1445fe26e2f8e59 .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N0e7ba4047ad14024959ae3f918dfaa52 a crm:E54_Dimension ;
+    rdfs:label "Dikte"@nl ;
+    crm:P90_has_value "90"^^xsd:positiveInteger ;
+    crm:P91_has_unit "cm"^^crm:E58_Measurement_Unit .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N1289242f578f4d01afcbd6fb88e13951 a crm:E12_Production ;
+    rdfs:label "Verzamelen (Objecten)"@nl ;
+    crm:P108_has_produced base:b59c92e9-0924-464a-bfb9-0b2591fa0528 .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N139d5ec6d91c4029b314566d332ed7e7 a geosparql:Geometry ;
+    geosparql:asGML "<gml:PointType xmlns:gml=\"http://www.opengis.net/gml/3.2\" gml:id=\"HP_2\" axisLabels=\"x y\" srsDimension=\"2\"><gml:pos xmlns:gml=\"http://www.opengis.net/gml/3.2\" axisLabels=\"x y\" srsDimension=\"2\">81620 448320</gml:pos></gml:PointType>"^^geosparql:GMLLiteral .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N1582fb3befb54cd1a127c4f0f1a4d833 a crm:E13_Attribute_Assignment ;
+    rdfs:label "Dateren"@nl ;
+    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N5fc92a192159437bb387cce70f55edf6 .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N1ab986c56e1f4f77949c3a14115bc693 a crm:E54_Dimension ;
+    rdfs:label "Normaal Amsterdams Peil (NAP)"@nl ;
+    crm:P90_has_value "-0.5"^^xsd:positiveInteger ;
+    crm:P91_has_unit "m"^^crm:E58_Measurement_Unit .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N1b6f78be4ea2434099fef7a16087af00 a crmeh:EHE2021_BulkFindAssessment ;
+    rdfs:label "Dateren"@nl ;
+    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N3979c875f23c46e7bb2033f468882d5e .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N1d3985f18f674a9ca996622d4d4d5d5b a crm:E13_Attribute_Assignment ;
+    rdfs:label "Dateren"@nl ;
+    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nffdd88ebacb84c1f8349220b2a7b06eb .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N1ef89bb58d76412e830efd608b2e91a2 a crm:E52_Time-Span ;
+    rdfs:label "Time Span"@nl ;
+    base:beginperiode "NEOMA"^^crmeh:EHE0091_Timestamp ;
+    base:eindperiode "NEOMA"^^crmeh:EHE0091_Timestamp .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N20e85c967cbd4a0698c9f1e406e2798c a geosparql:Geometry ;
+    geosparql:asGML "<gml:LineStringType xmlns:gml=\"http://www.opengis.net/gml/3.2\" gml:id=\"HP_1\" axisLabels=\"x y z\" srsDimension=\"3\"><gml:pos xmlns:gml=\"http://www.opengis.net/gml/3.2\" axisLabels=\"x y z\" srsDimension=\"3\">123456 987654 0</gml:pos><gml:pos xmlns:gml=\"http://www.opengis.net/gml/3.2\" axisLabels=\"x y z\" srsDimension=\"3\">123456 987654 -1.50</gml:pos></gml:LineStringType>"^^geosparql:GMLLiteral .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N21ffc95e97c9489fab99253146272496 a foaf:Person ;
+    rdfs:label "Naam"@nl ;
+    base:Achternaam "Allen"^^xsd:string ;
+    base:Initialen "A."^^xsd:string .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N250a276b6ac149368f0fd3d9986f3a05 a crm:E54_Dimension ;
+    rdfs:label "Diepte"@nl ;
+    crm:P90_has_value "50"^^xsd:positiveInteger ;
+    crm:P91_has_unit "cm"^^crm:E58_Measurement_Unit .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N2fbb886fbaf14114a423b39ef2e1b647 a crm:E13_Attribute_Assignment ;
+    rdfs:label "Dateren"@nl ;
+    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N7a5a75975b8a46f799e69f8417410b92 .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N30b5a6c1bf574dafaab1ca718a97920a a crm:E16_Measurement ;
+    rdfs:label "Meting"@nl ;
+    crm:P40_observed_dimension base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N3ecfc8979eda4aa5afb9389829b3e9e2 .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N33d996fe61cd44a2b2620cc10f8f79f8 a crm:E12_Production ;
+    rdfs:label "Documenteren (Digitaal)"@nl ;
+    crm:P108_has_produced base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nee2510248b6d47718d927bf46ad8cc8b .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N38b41d267767492cad880223c9097f47 a crmeh:EHE0031_ContextFindMeasurement ;
+    rdfs:label "Gewicht"@nl ;
+    crm:P90_has_value "100"^^xsd:positiveInteger ;
+    crm:P91_has_unit "gr"^^crm:E58_Measurement_Unit .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N3979c875f23c46e7bb2033f468882d5e a crm:E52_Time-Span ;
+    rdfs:label "Time Span"@nl ;
+    base:beginperiode "NEOMA"^^crmeh:EHE0091_Timestamp ;
+    base:eindperiode "NEOMA"^^crmeh:EHE0091_Timestamp .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N3aa2cf6b2fae4008b6aa2afe9b45fd4e a crmeh:EHE0031_ContextFindMeasurement ;
     rdfs:label "Aantal"@nl ;
-    crm:P90_has_value "1" .
+    crm:P90_has_value "1"^^xsd:positiveInteger .
 
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N0ccba604156e403a885f427f08135d4c a crm:E84_Information_Carrier ;
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N3ba329e5fbd247b8b205ebe34600a9a9 a crm:E52_Time-Span ;
+    rdfs:label "Time Span"@nl ;
+    base:beginperiode "STEEN"^^crmeh:EHE0091_Timestamp ;
+    base:eindperiode "STEEN"^^crmeh:EHE0091_Timestamp .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N3ecfc8979eda4aa5afb9389829b3e9e2 a crm:E54_Dimension ;
+    rdfs:label "Dikte"@nl ;
+    crm:P90_has_value "20"^^xsd:positiveInteger ;
+    crm:P91_has_unit "cm"^^crm:E58_Measurement_Unit .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N43d2ebb30d49487ca73929181b6ca7fc a crm:E13_Attribute_Assignment ;
+    rdfs:label "Dateren"@nl ;
+    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N9f389c3c54274e1d9b9e7cf379228101 .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N4572aff72db24f1198abf86550db5ad6 a crm:E16_Measurement ;
+    rdfs:label "Meting"@nl ;
+    crm:P40_observed_dimension base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N4e119a4d1d544b9a97a0b450ba6a94be .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N4977fa73b0354186a1121482d381f0fd a crm:E13_Attribute_Assignment ;
+    rdfs:label "Dateren"@nl ;
+    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nc7974a37a6894632abd9ba5397c81eb1 .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N498c34607ae84c8d9d5572b989811ba6 a crmeh:EHE0031_ContextFindMeasurement ;
+    rdfs:label "Gewicht"@nl ;
+    crm:P90_has_value "100"^^xsd:positiveInteger ;
+    crm:P91_has_unit "gr"^^crm:E58_Measurement_Unit .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N4e119a4d1d544b9a97a0b450ba6a94be a crm:E54_Dimension ;
+    rdfs:label "Normaal Amsterdams Peil (NAP)"@nl ;
+    crm:P90_has_value "0.5"^^xsd:positiveInteger ;
+    crm:P91_has_unit "m"^^crm:E58_Measurement_Unit .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N4e7345ddf8464a21992935ca4fb4f5cb a locn:Address ;
+    rdfs:label "Adres"@nl ;
+    base:Huisnummer "Postbus 90602"^^gn:Feature ;
+    base:Plaatsnaam "Den Haag"^^gn:Feature ;
+    base:Postcode "Postbus 90602"^^gn:Feature ;
+    base:Straat "Postbus 90602"^^gn:Feature .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N53c9202cb6c045db802ada03ec0792b8 a crmeh:EHE0099_ContextFindUseEventTimespan ;
+    rdfs:label "Time Span"@nl ;
+    base:beginperiode "NEOMA"^^crmeh:EHE0091_Timestamp ;
+    base:eindperiode "NEOMA"^^crmeh:EHE0091_Timestamp .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N55ac57b43ee4480290d2d67c8c23a7ef a crmeh:EHE0031_ContextFindMeasurement ;
+    rdfs:label "Aantal"@nl ;
+    crm:P90_has_value "1"^^xsd:positiveInteger .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N599a6dd8c4434bd2928e65e250b1b88c a crmeh:EHE0031_ContextFindMeasurement ;
+    rdfs:label "Gewicht"@nl ;
+    crm:P90_has_value "10.5"^^xsd:positiveInteger ;
+    crm:P91_has_unit "gr"^^crm:E58_Measurement_Unit .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N5bd3b86eed9b410cbf090cc32ec2408e a crmeh:EHE0099_ContextFindUseEventTimespan ;
+    rdfs:label "Time Span"@nl ;
+    base:beginperiode "NEOMA"^^crmeh:EHE0091_Timestamp ;
+    base:eindperiode "NEOMA"^^crmeh:EHE0091_Timestamp .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N5d9b596c203047dca90b97e81bae9f34 a crmeh:EHE0031_ContextFindMeasurement ;
+    rdfs:label "Aantal"@nl ;
+    crm:P90_has_value "1"^^xsd:positiveInteger .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N5fc92a192159437bb387cce70f55edf6 a crmeh:EHE0099_ContextFindUseEventTimespan ;
+    rdfs:label "Time Span"@nl ;
+    base:beginperiode "NEOMA"^^crmeh:EHE0091_Timestamp ;
+    base:eindperiode "NEOMA"^^crmeh:EHE0091_Timestamp .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N60fa09c647a146e0a88cbea69e3d3a5d a crm:E52_Time-Span ;
+    rdfs:label "Time Span"@nl ;
+    base:beginperiode "NEOM"^^crmeh:EHE0091_Timestamp ;
+    base:eindperiode "NEOM"^^crmeh:EHE0091_Timestamp .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N64c4bd37d6374792a3e37a4b23f38607 a crmeh:EHE0031_ContextFindMeasurement ;
+    rdfs:label "Aantal"@nl ;
+    crm:P90_has_value "1"^^xsd:positiveInteger .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N658278e199b342d6805dc2021425a567 a geosparql:Geometry ;
+    geosparql:asGML "<gml:PointType xmlns:gml=\"http://www.opengis.net/gml/3.2\" gml:id=\"HP_4\" axisLabels=\"x y\" srsDimension=\"2\"><gml:pos xmlns:gml=\"http://www.opengis.net/gml/3.2\" axisLabels=\"x y\" srsDimension=\"2\">81621 44832</gml:pos></gml:PointType>"^^geosparql:GMLLiteral .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N68bf457958fd4b6fa9c11c8fe426d04c a crmeh:EHE0031_ContextFindMeasurement ;
+    rdfs:label "Aantal"@nl ;
+    crm:P90_has_value "1"^^xsd:positiveInteger .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N6bc67f84fb1247ca8a1869d127452eee a crm:E54_Dimension ;
+    rdfs:label "Gewicht"@nl ;
+    crm:P90_has_value "700"^^xsd:positiveInteger ;
+    crm:P91_has_unit "gr"^^crm:E58_Measurement_Unit .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N7443c5738d7d4c94b6ddc68baa6bdcea a crmeh:EHE0031_ContextFindMeasurement ;
+    rdfs:label "Gewicht"@nl ;
+    crm:P90_has_value "100"^^xsd:positiveInteger ;
+    crm:P91_has_unit "gr"^^crm:E58_Measurement_Unit .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N7a5a75975b8a46f799e69f8417410b92 a crm:E52_Time-Span ;
+    rdfs:label "Time Span"@nl ;
+    base:beginperiode "ROMM"^^crmeh:EHE0091_Timestamp ;
+    base:eindperiode "ROMM"^^crmeh:EHE0091_Timestamp .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N7b13ba5f7c514ae7b6803b3e9c83f16b a crmeh:EHE0031_ContextFindMeasurement ;
+    rdfs:label "Aantal"@nl ;
+    crm:P90_has_value "1"^^xsd:positiveInteger .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N8b263a8c42c74bf78537cf8db0ab35a2 a crm:E13_Attribute_Assignment ;
+    rdfs:label "Dateren"@nl ;
+    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N9ae2846e64a345bab2b33ecdda91ecff .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N8f46ea4da930499d9c0312b2f881b119 a crmeh:EHE0099_ContextFindUseEventTimespan ;
+    rdfs:label "Time Span"@nl ;
+    base:beginperiode "NEOMA"^^crmeh:EHE0091_Timestamp ;
+    base:eindperiode "NEOMA"^^crmeh:EHE0091_Timestamp .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N8fe3b99b3ca64ca390ad70b3c23ad74a a crm:E13_Attribute_Assignment ;
+    rdfs:label "Dateren"@nl ;
+    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N5bd3b86eed9b410cbf090cc32ec2408e .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N9624cbd2fb944932b1445fe26e2f8e59 a crmeh:EHE0099_ContextFindUseEventTimespan ;
+    rdfs:label "Time Span"@nl ;
+    base:beginperiode "NEOMA"^^crmeh:EHE0091_Timestamp ;
+    base:eindperiode "NEOMA"^^crmeh:EHE0091_Timestamp .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N9a6388e3807e494b9ea7adaefd9621de a crm:E52_Time-Span ;
+    rdfs:label "Time Span"@nl ;
+    base:beginperiode "NTV"^^crmeh:EHE0091_Timestamp ;
+    base:eindperiode "NTV"^^crmeh:EHE0091_Timestamp .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N9ae2846e64a345bab2b33ecdda91ecff a crmeh:EHE0099_ContextFindUseEventTimespan ;
+    rdfs:label "Time Span"@nl ;
+    base:beginperiode "NEOMA"^^crmeh:EHE0091_Timestamp ;
+    base:eindperiode "NEOMA"^^crmeh:EHE0091_Timestamp .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N9f389c3c54274e1d9b9e7cf379228101 a crmeh:EHE0099_ContextFindUseEventTimespan ;
+    rdfs:label "Time Span"@nl ;
+    base:beginperiode "NEOMA"^^crmeh:EHE0091_Timestamp ;
+    base:eindperiode "NEOMA"^^crmeh:EHE0091_Timestamp .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Na10a19df15634869a068ff4cd3fed71f a crmeh:EHE0099_ContextFindUseEventTimespan ;
+    rdfs:label "Time Span"@nl ;
+    base:beginperiode "NEOMA"^^crmeh:EHE0091_Timestamp ;
+    base:eindperiode "NEOMA"^^crmeh:EHE0091_Timestamp .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Na27a0ecee962490583c2b7031978396f a foaf:Person ;
+    rdfs:label "Naam"@nl ;
+    base:Achternaam "Proos"^^xsd:string ;
+    base:Initialen "R."^^xsd:string .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Naab78c0a621d4249b9931e71381c430a a crmeh:EHE0031_ContextFindMeasurement ;
+    rdfs:label "Gewicht"@nl ;
+    crm:P90_has_value "180"^^xsd:positiveInteger ;
+    crm:P91_has_unit "gr"^^crm:E58_Measurement_Unit .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Naac3bb28f23e4a2e88df769bea0e8d92 a crm:E54_Dimension ;
+    rdfs:label "Gewicht"@nl ;
+    crm:P90_has_value "110.5"^^xsd:positiveInteger ;
+    crm:P91_has_unit "gr"^^crm:E58_Measurement_Unit .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nb1b4f3290a8648d3863ad0310947b8db a crm:E40_Legal_Body ;
+    rdfs:label "Uitvoerder"@nl ;
+    crm:P107_has_current_or_former_member <http://www.example.org/7bffe6f5-5fae-4dd2-b2b3-a373be617717>,
+        base:f84513e3-c2b6-44c0-94b1-f2bff01e7818 ;
+    base:Uitvoerdercode "AAA"^^xsd:string .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nb3c47201f06f462a9660e6985cdc7d27 a crm:E40_Legal_Body ;
+    rdfs:label "Bevoegdgezag"@nl ;
+    crm:P107_has_current_or_former_member <http://www.example.org/2ccd2d84-023f-4c53-9891-172b35736597>,
+        base:bc3dc3ec-ef03-424f-89a1-0f732d9799fd .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nb5a6fc7952984f4cbc8e440c81784227 a crm:E16_Measurement ;
+    rdfs:label "Meting"@nl ;
+    crm:P40_observed_dimension base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N1ab986c56e1f4f77949c3a14115bc693 .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nb66fc66059a3445095660743d5c9939b a crm:E16_Measurement ;
+    rdfs:label "Meting"@nl ;
+    crm:P40_observed_dimension base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nf986ff7ac4f145c99063e9c0da52e756 .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nb69c901aa7a04a759008c91429f1660a a crm:E12_Production ;
+    rdfs:label "Documenteren (Analoog)"@nl ;
+    crm:P108_has_produced <http://www.example.org/7752c3d8-a565-4d5b-a5b6-551c628bcd9f> .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nb6f57f1727bf4745b5adc6610a1c46a3 a crm:E13_Attribute_Assignment ;
+    rdfs:label "Dateren"@nl ;
+    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ndf2114d9c4fa40fe803b1d8329a89bb3 .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nb96a406cd2954dd0a52067c6f6cbe4e9 a crm:E12_Production ;
+    rdfs:label "Verzamelen (Objecten)"@nl ;
+    crm:P108_has_produced <http://www.example.org/8f0da90c-7aba-4a7d-a8e0-b1881cbce351> .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nbcdd5e983ee64797b5f75bea3dfca872 a crm:E13_Attribute_Assignment ;
+    rdfs:label "Dateren"@nl ;
+    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N9a6388e3807e494b9ea7adaefd9621de .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nc01b736c82b347e0b8d4990103ad970f a crm:E16_Measurement ;
+    rdfs:label "Meting"@nl ;
+    crm:P40_observed_dimension base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N0e7ba4047ad14024959ae3f918dfaa52 .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nc0f96d7f6e9d4f0a8aeaa12a0afa5cec a crmeh:EHE0031_ContextFindMeasurement ;
+    rdfs:label "Gewicht"@nl ;
+    crm:P90_has_value "100"^^xsd:positiveInteger ;
+    crm:P91_has_unit "gr"^^crm:E58_Measurement_Unit .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nc201eea1730c4eaca2fb375afde8bcc0 a crm:E13_Attribute_Assignment ;
+    rdfs:label "Dateren"@nl ;
+    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N8f46ea4da930499d9c0312b2f881b119 .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nc558d9507bfb408a98bb505c22b629b5 a crm:E13_Attribute_Assignment ;
+    rdfs:label "Dateren"@nl ;
+    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Na10a19df15634869a068ff4cd3fed71f .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nc7974a37a6894632abd9ba5397c81eb1 a crm:E52_Time-Span ;
+    rdfs:label "Time Span"@nl ;
+    base:beginperiode "MESOM"^^crmeh:EHE0091_Timestamp ;
+    base:eindperiode "MESOM"^^crmeh:EHE0091_Timestamp .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nc7f18828ee3b4385ade321fda9526caa a crm:E13_Attribute_Assignment ;
+    rdfs:label "Dateren"@nl ;
+    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nfbadfd7335dd4798b2534ff39028fabb .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nca33b037ce154e049b92483084330717 a crmeh:EHE0031_ContextFindMeasurement ;
+    rdfs:label "Aantal"@nl ;
+    crm:P90_has_value "1"^^xsd:positiveInteger .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ncc09e67310c447cb94ae98b7297346bf a crmeh:EHE0031_ContextFindMeasurement ;
+    rdfs:label "Gewicht"@nl ;
+    crm:P90_has_value "100"^^xsd:positiveInteger ;
+    crm:P91_has_unit "gr"^^crm:E58_Measurement_Unit .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ncd7a374d0be446dab442cb7d4d4b1372 a crm:E52_Time-Span ;
+    rdfs:label "Time Span"@nl ;
+    base:beginperiode "NEOMB"^^crmeh:EHE0091_Timestamp ;
+    base:eindperiode "NEOMB"^^crmeh:EHE0091_Timestamp .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nd0923616fcf04403bf5b56867df98e46 a crmeh:EHE2021_BulkFindAssessment ;
+    rdfs:label "Dateren"@nl ;
+    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ncd7a374d0be446dab442cb7d4d4b1372 .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nd22739d62c6140aca6d50b5dad956beb a crmeh:EHE0031_ContextFindMeasurement ;
+    rdfs:label "Gewicht"@nl ;
+    crm:P90_has_value "100"^^xsd:positiveInteger ;
+    crm:P91_has_unit "gr"^^crm:E58_Measurement_Unit .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nd69ae156ed5542e8a890145b1e309e84 a crm:E52_Time-Span ;
+    rdfs:label "Time Span"@nl ;
+    base:beginperiode "NEOMA"^^crmeh:EHE0091_Timestamp ;
+    base:eindperiode "NEOMA"^^crmeh:EHE0091_Timestamp .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ndaeb44f6a32d45a88185935c412bf652 a crm:E54_Dimension ;
+    rdfs:label "Gewicht"@nl ;
+    crm:P90_has_value "180"^^xsd:positiveInteger ;
+    crm:P91_has_unit "gr"^^crm:E58_Measurement_Unit .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ndb8c57f0f5404840a2bf9ae2e968700f a foaf:Person ;
+    rdfs:label "Naam"@nl ;
+    base:Achternaam "Louwe Kooijmans"^^xsd:string ;
+    base:Initialen "L.P."^^xsd:string .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ndf2114d9c4fa40fe803b1d8329a89bb3 a crmeh:EHE0099_ContextFindUseEventTimespan ;
+    rdfs:label "Time Span"@nl ;
+    base:beginperiode "NEOMA"^^crmeh:EHE0091_Timestamp ;
+    base:eindperiode "NEOMA"^^crmeh:EHE0091_Timestamp .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ne11c62a242044003bbc4e9a27c5440a1 a crm:E13_Attribute_Assignment ;
+    rdfs:label "Dateren"@nl ;
+    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N3ba329e5fbd247b8b205ebe34600a9a9 .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ne279c7522c36471ba1a8ecd8bab6ff60 a crm:E52_Time-Span ;
+    rdfs:label "Time Span"@nl ;
+    base:beginperiode "NEOMB"^^crmeh:EHE0091_Timestamp ;
+    base:eindperiode "NEOMB"^^crmeh:EHE0091_Timestamp .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ne2e3e54b724e47f8acb8b2b2f6061353 a crmeh:EHE0021_EHProjectTimespan ;
+    rdfs:label "Time Span"@nl ;
+    base:einddatum "2003-08-02"^^crm:EHE0091_Timestamp ;
+    base:startdatum "2003-02-01"^^crmeh:EHE0091_Timestamp .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nec9da52f46d04e29b0a1ecd28ef4588c a crmeh:EHE0031_ContextFindMeasurement ;
+    rdfs:label "Gewicht"@nl ;
+    crm:P90_has_value "100"^^xsd:positiveInteger ;
+    crm:P91_has_unit "gr"^^crm:E58_Measurement_Unit .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Necccc81438684d7d87fdc20e9116c74c a crm:E13_Attribute_Assignment ;
+    rdfs:label "Dateren"@nl ;
+    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N60fa09c647a146e0a88cbea69e3d3a5d .
+
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nee2510248b6d47718d927bf46ad8cc8b a crm:E84_Information_Carrier ;
     rdfs:label "Bestanden"@nl ;
-    crm:P128_carries <http://www.pakbon-ld.org/04785ae0-7d5f-43b9-9bc4-d55bb9aa5617>,
-        <http://www.pakbon-ld.org/2d03325d-a3ad-40d5-aad5-ae6159b7637b>,
-        <http://www.pakbon-ld.org/2e3463cc-a4e8-4896-95d7-8183bab7abfa>,
-        <http://www.pakbon-ld.org/6fbb93df-8345-4a87-8111-f0112908bda6>,
-        <http://www.pakbon-ld.org/80bb0536-0452-4e68-bad3-d97405c44606>,
-        <http://www.pakbon-ld.org/89912ec1-6722-44a1-82fd-fd3154ced52b>,
+    crm:P128_carries <http://www.example.org/04785ae0-7d5f-43b9-9bc4-d55bb9aa5617>,
+        <http://www.example.org/2d03325d-a3ad-40d5-aad5-ae6159b7637b>,
+        <http://www.example.org/2e3463cc-a4e8-4896-95d7-8183bab7abfa>,
+        <http://www.example.org/6fbb93df-8345-4a87-8111-f0112908bda6>,
+        <http://www.example.org/80bb0536-0452-4e68-bad3-d97405c44606>,
+        <http://www.example.org/89912ec1-6722-44a1-82fd-fd3154ced52b>,
         base:f17b5cce-d2de-4614-887c-a66dde17ae89,
         base:fc1dff0b-1915-4ffc-9e7c-1b6bbdc501d5,
         base:fd37a709-d98a-4602-884e-5c7c581a8d7b,
         base:fff63c19-50f7-4aa9-b525-ffd7d5a4b7bb .
 
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N0e25b246e30349b4a6e9408fe3cb1e9a a crmeh:EHE2021_BulkFindAssessment ;
-    rdfs:label "Dateren"@nl ;
-    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N980d7ed5eec14e9cafa446946dabacf2 .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N10b8ad0d25ce434ebbae13573a140ac2 a crm:E52_Time-Span ;
-    rdfs:label "Time Span"@nl ;
-    crmeh:EXP1 "NTV" ;
-    crmeh:EXP2 "NTV" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N10c14b8840644eaa96663b6b70944236 a crm:E13_Attribute_Assignment ;
-    rdfs:label "Dateren"@nl ;
-    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N63a72238174145448c9e4c5218129244 .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N162ead34f32244fbada855afb8c619a2 a crm:E13_Attribute_Assignment ;
-    rdfs:label "Dateren"@nl ;
-    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nbe690da2e93945b294e1b54bcef27863 .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N1d2d0e6eff304513a48f13c6daed79de a crmeh:EHE0031_ContextFindMeasurement ;
-    rdfs:label "Aantal"@nl ;
-    crm:P90_has_value "1" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N22f2091e938b40f38724b74b937a8292 a crm:E40_Legal_Body ;
-    rdfs:label "Uitvoerder"@nl ;
-    crm:P107_has_current_or_former_member <http://www.pakbon-ld.org/7bffe6f5-5fae-4dd2-b2b3-a373be617717>,
-        base:f84513e3-c2b6-44c0-94b1-f2bff01e7818 ;
-    crm:P1_is_identified_by "AAA" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N23664c5b901745718e879f2f9c73bb5a a crm:E54_Dimension ;
-    rdfs:label "Diepte"@nl ;
-    crm:P90_has_value "3.6" ;
-    crm:P91_has_unit "m" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N2e66a1de77a24740939db7588ba2291b a crm:E13_Attribute_Assignment ;
-    rdfs:label "Dateren"@nl ;
-    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N658b240ba5a4476a93bea020395368d3 .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N332b3776c4c3429781feb9a70018ae46 a crm:E13_Attribute_Assignment ;
-    rdfs:label "Dateren"@nl ;
-    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N720cfe1f026d4085880669979efd1198 .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N33b89781932546c5a474565ff66f62c1 a crmeh:EHE0031_ContextFindMeasurement ;
-    rdfs:label "Gewicht"@nl ;
-    crm:P90_has_value "100" ;
-    crm:P91_has_unit "gr" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N3927f69d3e5f4c91ab8c881b03c4b60b a crm:E13_Attribute_Assignment ;
-    rdfs:label "Dateren"@nl ;
-    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N3c97a9cc2aa5438d8766ab7c96bf4233 .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N3c97a9cc2aa5438d8766ab7c96bf4233 a crm:E52_Time-Span ;
-    rdfs:label "Time Span"@nl ;
-    crmeh:EXP1 "ROMVB" ;
-    crmeh:EXP2 "ROMVB" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N3e0539037f004d0fb966c2780bf76bbe a geosparql:Geometry ;
-    rdfs:label "Geometrie"@nl ;
-    geosparql:asGML "<gml:PointType xmlns:gml=\"http://www.opengis.net/gml/3.2\" gml:id=\"HP_4\" srsDimension=\"2\" axisLabels=\"x y\"><gml:pos xmlns:gml=\"http://www.opengis.net/gml/3.2\" axisLabels=\"x y\" srsDimension=\"2\">81621 44832</gml:pos></gml:PointType>" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N3e37c0b5f4d8445e9c94c5d2b03b3d75 a crmeh:EHE0031_ContextFindMeasurement ;
-    rdfs:label "Gewicht"@nl ;
-    crm:P90_has_value "100" ;
-    crm:P91_has_unit "gr" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N44ebf7ac846a4c1ea7f80ed370a98d3b a crmeh:EHE0099_ContextFindUseEventTimespan ;
-    rdfs:label "Time Span"@nl ;
-    crmeh:EXP1 "NEOMA" ;
-    crmeh:EXP2 "NEOMA" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N48f39d579e2541da818ce30b7a146132 a crm:E13_Attribute_Assignment ;
-    rdfs:label "Dateren"@nl ;
-    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N44ebf7ac846a4c1ea7f80ed370a98d3b .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N4ba0858a1cfc4738926cd508adda5743 a crm:E12_Production ;
-    rdfs:label "Verzamelen (Objecten)"@nl ;
-    crm:P108_has_produced base:b59c92e9-0924-464a-bfb9-0b2591fa0528 .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N52177d49ad414a909b8725e30373ad48 a foaf:Person ;
-    rdfs:label "Naam"@nl ;
-    foaf:familyName "Proos" ;
-    foaf:givenName "R." .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N572152d9fe5e49e2bdd6232f54a28019 a crmeh:EHE0099_ContextFindUseEventTimespan ;
-    rdfs:label "Time Span"@nl ;
-    crmeh:EXP1 "NEOMA" ;
-    crmeh:EXP2 "NEOMA" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N5addd60d632740f996b7062588bc1206 a crm:E13_Attribute_Assignment ;
-    rdfs:label "Dateren"@nl ;
-    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N572152d9fe5e49e2bdd6232f54a28019 .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N5dc588b5fc0f4312b1d0cac1ce7f463e a crmeh:EHE0031_ContextFindMeasurement ;
-    rdfs:label "Gewicht"@nl ;
-    crm:P90_has_value "10.5" ;
-    crm:P91_has_unit "gr" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N61d7346e913548b2af93cc17cfc2c77a a foaf:Person ;
-    rdfs:label "Naam"@nl ;
-    foaf:familyName "Louwe Kooijmans" ;
-    foaf:givenName "L.P." .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N62040be1b562473db6abb604206346cc a crm:E52_Time-Span ;
-    rdfs:label "Time Span"@nl ;
-    crmeh:EXP1 "NEOMA" ;
-    crmeh:EXP2 "NEOMA" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N6337c749c2af4cf3880a0767102e7167 a crm:E52_Time-Span ;
-    rdfs:label "Time Span"@nl ;
-    crmeh:EXP1 "NEOMB" ;
-    crmeh:EXP2 "NEOMB" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N63a72238174145448c9e4c5218129244 a crmeh:EHE0099_ContextFindUseEventTimespan ;
-    rdfs:label "Time Span"@nl ;
-    crmeh:EXP1 "NEOMB" ;
-    crmeh:EXP2 "NEOMB" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N658b240ba5a4476a93bea020395368d3 a crmeh:EHE0099_ContextFindUseEventTimespan ;
-    rdfs:label "Time Span"@nl ;
-    crmeh:EXP1 "NEOMA" ;
-    crmeh:EXP2 "NEOMA" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N6a0dffe271064fef876cf44d1f577bde a crmeh:EHE0099_ContextFindUseEventTimespan ;
-    rdfs:label "Time Span"@nl ;
-    crmeh:EXP1 "NEOMA" ;
-    crmeh:EXP2 "NEOMA" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N6b6b008b23ac4e3fb9c3fe77927560f1 a crm:E52_Time-Span ;
-    rdfs:label "Time Span"@nl ;
-    crmeh:EXP1 "MESOM" ;
-    crmeh:EXP2 "MESOM" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N6e3d3686872446069cd929be65e65c86 a crm:E13_Attribute_Assignment ;
-    rdfs:label "Dateren"@nl ;
-    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N6a0dffe271064fef876cf44d1f577bde .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N720cfe1f026d4085880669979efd1198 a crm:E52_Time-Span ;
-    rdfs:label "Time Span"@nl ;
-    crmeh:EXP1 "ROMM" ;
-    crmeh:EXP2 "ROMM" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N727184b2ca20421dbe03d77f3db73ae0 a crmeh:EHE0099_ContextFindUseEventTimespan ;
-    rdfs:label "Time Span"@nl ;
-    crmeh:EXP1 "NEOMA" ;
-    crmeh:EXP2 "NEOMA" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N73ad637001d6483bb753eb720e6aa16b a crmeh:EHE0031_ContextFindMeasurement ;
-    rdfs:label "Aantal"@nl ;
-    crm:P90_has_value "1" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N7b0ec805b90e40f3a4cd839baec77bbd a crm:E13_Attribute_Assignment ;
-    rdfs:label "Dateren"@nl ;
-    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N727184b2ca20421dbe03d77f3db73ae0 .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N7dc3ff59247748cb927ca9f689afa6e0 a crmeh:EHE0031_ContextFindMeasurement ;
-    rdfs:label "Gewicht"@nl ;
-    crm:P90_has_value "100" ;
-    crm:P91_has_unit "gr" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N7de1046a1eb642299a1a61c26931100b a crmeh:EHE0031_ContextFindMeasurement ;
-    rdfs:label "Gewicht"@nl ;
-    crm:P90_has_value "100" ;
-    crm:P91_has_unit "gr" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N7f4dbb62777b4a47b02f9cdab2636965 a crmeh:EHE0021_EHProjectTimespan ;
-    rdfs:label "Time Span"@nl ;
-    crmeh:EXP1 "2003-02-01" ;
-    crmeh:EXP2 "2003-08-02" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N80876f90a8ad4425aee2b3de545f3a30 a crm:E12_Production ;
-    rdfs:label "Documenteren (Analoog)"@nl ;
-    crm:P108_has_produced <http://www.pakbon-ld.org/09162d56-a3c6-46bd-835e-23f1ce0d2b8a> .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N80edaa5c1eeb41349804465d5e483dfd a crm:E52_Time-Span ;
-    rdfs:label "Time Span"@nl ;
-    crmeh:EXP1 "NEOM" ;
-    crmeh:EXP2 "NEOM" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N842a5b8c43494795b5814d19f5983199 a crmeh:EHE2021_BulkFindAssessment ;
-    rdfs:label "Dateren"@nl ;
-    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Neca08a57d6914b509ba5b04ef0b74615 .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N851990bb01f74aa59362192830e2a523 a crm:E12_Production ;
-    rdfs:label "Documenteren (Digitaal)"@nl ;
-    crm:P108_has_produced base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N0ccba604156e403a885f427f08135d4c .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N852ea34cd19942aea8eb099735f05bab a crm:E12_Production ;
-    rdfs:label "Documenteren (Analoog)"@nl ;
-    crm:P108_has_produced <http://www.pakbon-ld.org/7752c3d8-a565-4d5b-a5b6-551c628bcd9f> .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N861258ea5f7448ca98c92c4929b24299 a crm:E13_Attribute_Assignment ;
-    rdfs:label "Dateren"@nl ;
-    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nbdca105b948441138fed294aabf6389c .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N8e7251669702455b8884db998095f797 a crmeh:EHE0031_ContextFindMeasurement ;
-    rdfs:label "Gewicht"@nl ;
-    crm:P90_has_value "180" ;
-    crm:P91_has_unit "gr" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N8ebb45fde6624fcfb64bce5c36c30215 a crmeh:EHE0099_ContextFindUseEventTimespan ;
-    rdfs:label "Time Span"@nl ;
-    crmeh:EXP1 "NEOMA" ;
-    crmeh:EXP2 "NEOMA" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N919a6ea2a4774ddcaea36d83832686d4 a crmeh:EHE0031_ContextFindMeasurement ;
-    rdfs:label "Aantal"@nl ;
-    crm:P90_has_value "1" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N945ff97fd5c74f9e88712389241aa479 a crm:E12_Production ;
-    rdfs:label "Verzamelen (Objecten)"@nl ;
-    crm:P108_has_produced <http://www.pakbon-ld.org/8f0da90c-7aba-4a7d-a8e0-b1881cbce351> .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N957f7007e8104da69452b38eafcd2b97 a crm:E52_Time-Span ;
-    rdfs:label "Time Span"@nl ;
-    crmeh:EXP1 "STEEN" ;
-    crmeh:EXP2 "STEEN" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N95b045746cc34dffbab0fc61ddb90ecc a crmeh:EHE0031_ContextFindMeasurement ;
-    rdfs:label "Gewicht"@nl ;
-    crm:P90_has_value "100" ;
-    crm:P91_has_unit "gr" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N980d7ed5eec14e9cafa446946dabacf2 a crm:E52_Time-Span ;
-    rdfs:label "Time Span"@nl ;
-    crmeh:EXP1 "NEOMA" ;
-    crmeh:EXP2 "NEOMA" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N9ee5d848717b4f8480d6abd067f49f3a a crmeh:EHE0031_ContextFindMeasurement ;
-    rdfs:label "Aantal"@nl ;
-    crm:P90_has_value "1" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Na1fd6faca687444f95cd538703d28054 a crmeh:EHE0099_ContextFindUseEventTimespan ;
-    rdfs:label "Time Span"@nl ;
-    crmeh:EXP1 "NEOMA" ;
-    crmeh:EXP2 "NEOMA" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Na2a72b0843784c2581bd790c004bfc7c a geosparql:Geometry ;
-    rdfs:label "Geometrie"@nl ;
-    geosparql:asGML "<gml:LineStringType xmlns:gml=\"http://www.opengis.net/gml/3.2\" gml:id=\"HP_1\" srsDimension=\"3\" axisLabels=\"x y z\"><gml:pos xmlns:gml=\"http://www.opengis.net/gml/3.2\" axisLabels=\"x y z\" srsDimension=\"3\">123456 987654 0</gml:pos><gml:pos xmlns:gml=\"http://www.opengis.net/gml/3.2\" axisLabels=\"x y z\" srsDimension=\"3\">123456 987654 -1.50</gml:pos></gml:LineStringType>" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Na2f8622f45b94b31b7c231779fb68dff a crmeh:EHE0031_ContextFindMeasurement ;
-    rdfs:label "Aantal"@nl ;
-    crm:P90_has_value "1" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Na81056c4f62645f4aa5ebc6a062f3c58 a crm:E54_Dimension ;
-    rdfs:label "Dikte"@nl ;
-    crm:P90_has_value "90" ;
-    crm:P91_has_unit "cm" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Na9a6b12481724f4c86c9dd45de0d1032 a crm:E16_Measurement ;
-    rdfs:label "Meting"@nl ;
-    crm:P40_observed_dimension base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N23664c5b901745718e879f2f9c73bb5a .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nac24384d9e2d42929719e38be4d1a55e a crmeh:EHE2021_BulkFindAssessment ;
-    rdfs:label "Dateren"@nl ;
-    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N6337c749c2af4cf3880a0767102e7167 .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nb26e0ef8649a457a941a5684893ae74e a crmeh:EHE0031_ContextFindMeasurement ;
-    rdfs:label "Gewicht"@nl ;
-    crm:P90_has_value "100" ;
-    crm:P91_has_unit "gr" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nb29174eb95c346aa9fd6dcdb5a2de23c a crm:E54_Dimension ;
-    rdfs:label "Gewicht"@nl ;
-    crm:P90_has_value "110.5" ;
-    crm:P91_has_unit "gr" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nb751d3d5fd404b9ab1b2b48052304920 a crm:E16_Measurement ;
-    rdfs:label "Meting"@nl ;
-    crm:P40_observed_dimension base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nb8fc00f148e14f48b5647b586a29cb87 .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nb8fc00f148e14f48b5647b586a29cb87 a crm:E54_Dimension ;
-    rdfs:label "Dikte"@nl ;
-    crm:P90_has_value "20" ;
-    crm:P91_has_unit "cm" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nbb4ed07eb3954eef86f5ffe7e9e84e93 a crmeh:EHE0031_ContextFindMeasurement ;
-    rdfs:label "Aantal"@nl ;
-    crm:P90_has_value "1" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nbd84d3729c644dcf939a10c76826ff68 a crm:E54_Dimension ;
-    rdfs:label "Normaal Amsterdams Peil (NAP)"@nl ;
-    crm:P90_has_value "-0.5" ;
-    crm:P91_has_unit "m" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nbdca105b948441138fed294aabf6389c a crmeh:EHE0099_ContextFindUseEventTimespan ;
-    rdfs:label "Time Span"@nl ;
-    crmeh:EXP1 "NEOMA" ;
-    crmeh:EXP2 "NEOMA" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nbe690da2e93945b294e1b54bcef27863 a crmeh:EHE0099_ContextFindUseEventTimespan ;
-    rdfs:label "Time Span"@nl ;
-    crmeh:EXP1 "NEOMA" ;
-    crmeh:EXP2 "NEOMA" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nc079464c16824e22953d9ac275ae89d5 a crm:E40_Legal_Body ;
-    rdfs:label "Bevoegdgezag"@nl ;
-    crm:P107_has_current_or_former_member <http://www.pakbon-ld.org/2ccd2d84-023f-4c53-9891-172b35736597>,
-        base:bc3dc3ec-ef03-424f-89a1-0f732d9799fd .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nc0d86ab503d5438faea48847e59c65ee a crm:E13_Attribute_Assignment ;
-    rdfs:label "Dateren"@nl ;
-    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N10b8ad0d25ce434ebbae13573a140ac2 .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nc59b3533fe5b4e13837a2b7678dc209c a foaf:Person ;
-    rdfs:label "Naam"@nl ;
-    foaf:familyName "Allen" ;
-    foaf:givenName "A." .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nc665e70d8c2d47e1bf244836c92f2f97 a crm:E13_Attribute_Assignment ;
-    rdfs:label "Dateren"@nl ;
-    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N80edaa5c1eeb41349804465d5e483dfd .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nc85c0fefe2dc468596eae156cbef885d a locn:Address ;
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nf26325a122574084b57e8328802ab9b0 a locn:Address ;
     rdfs:label "Adres"@nl ;
-    locn:locatorDesignator "16" ;
-    locn:postCode "2509 LP" ;
-    locn:postName "Den Haag" ;
-    locn:thoroughfare "Postbus 90602" .
+    base:Gemeente "Leiden"^^gn:Feature ;
+    base:Huisnummer "Reuvensplaats"^^gn:Feature ;
+    base:Land "Nederland"^^gn:Feature ;
+    base:Plaatsnaam "Leiden"^^gn:Feature ;
+    base:Postcode "Reuvensplaats"^^gn:Feature ;
+    base:Provincie "Zuid-Holland"^^gn:Feature ;
+    base:Straat "Reuvensplaats"^^gn:Feature .
 
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ncbb5813de8254afa90c7a8c590d9fba7 a crmeh:EHE0031_ContextFindMeasurement ;
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nf2a5534553d3410b906c252d6f227ea8 a crmeh:EHE0031_ContextFindMeasurement ;
     rdfs:label "Gewicht"@nl ;
-    crm:P90_has_value "100" ;
-    crm:P91_has_unit "gr" .
+    crm:P90_has_value "100"^^xsd:positiveInteger ;
+    crm:P91_has_unit "gr"^^crm:E58_Measurement_Unit .
 
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nd37b5a03975e4ac3ba5c43eec3dc62ed a crm:E13_Attribute_Assignment ;
-    rdfs:label "Dateren"@nl ;
-    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Na1fd6faca687444f95cd538703d28054 .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nd56e0df6792b4b539cf5f1650ad4d81f a crm:E52_Time-Span ;
-    rdfs:label "Time Span"@nl ;
-    crmeh:EXP1 "NEOMB" ;
-    crmeh:EXP2 "NEOMB" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nd631fe616396412c83bdea934d35f932 a crm:E16_Measurement ;
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nf3b455f673eb4e9a9cf92391c71efeca a crm:E16_Measurement ;
     rdfs:label "Meting"@nl ;
-    crm:P40_observed_dimension base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ndaf63cbc546c48f8be431d18dce14d33 .
+    crm:P40_observed_dimension base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N250a276b6ac149368f0fd3d9986f3a05 .
 
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ndab017a04813408686632e7694747947 a crm:E54_Dimension ;
-    rdfs:label "Gewicht"@nl ;
-    crm:P90_has_value "180" ;
-    crm:P91_has_unit "gr" .
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nf97f71445195464ab260694b063e99f3 a geosparql:Geometry ;
+    geosparql:asGML "<gml:PointType xmlns:gml=\"http://www.opengis.net/gml/3.2\" gml:id=\"HP_3\" axisLabels=\"x y\" srsDimension=\"2\"><gml:pos xmlns:gml=\"http://www.opengis.net/gml/3.2\" axisLabels=\"x y\" srsDimension=\"2\">81620 448321</gml:pos></gml:PointType>"^^geosparql:GMLLiteral .
 
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ndaf63cbc546c48f8be431d18dce14d33 a crm:E54_Dimension ;
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nf986ff7ac4f145c99063e9c0da52e756 a crm:E54_Dimension ;
     rdfs:label "Diepte"@nl ;
-    crm:P90_has_value "50" ;
-    crm:P91_has_unit "cm" .
+    crm:P90_has_value "3.6"^^xsd:positiveInteger ;
+    crm:P91_has_unit "m"^^crm:E58_Measurement_Unit .
 
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ndbe80db2778a4a95baa316d3354190b9 a crm:E54_Dimension ;
-    rdfs:label "Gewicht"@nl ;
-    crm:P90_has_value "700" ;
-    crm:P91_has_unit "gr" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ndd7eeac01da54279b73a4412faf25777 a crm:E13_Attribute_Assignment ;
-    rdfs:label "Dateren"@nl ;
-    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N6b6b008b23ac4e3fb9c3fe77927560f1 .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ne2bfc244f81c4cceab931bac255bacfd a crm:E16_Measurement ;
-    rdfs:label "Meting"@nl ;
-    crm:P40_observed_dimension base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nbd84d3729c644dcf939a10c76826ff68 .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ne6439ac991ae40d2987dad7206436c35 a crmeh:EHE0031_ContextFindMeasurement ;
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nfa251ebdb8564b699f29189d5488eea3 a crmeh:EHE0031_ContextFindMeasurement ;
     rdfs:label "Aantal"@nl ;
-    crm:P90_has_value "1" .
+    crm:P90_has_value "1"^^xsd:positiveInteger .
 
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Neca08a57d6914b509ba5b04ef0b74615 a crm:E52_Time-Span ;
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nfbadfd7335dd4798b2534ff39028fabb a crmeh:EHE0099_ContextFindUseEventTimespan ;
     rdfs:label "Time Span"@nl ;
-    crmeh:EXP1 "NEOMA" ;
-    crmeh:EXP2 "NEOMA" .
+    base:beginperiode "NEOMB"^^crmeh:EHE0091_Timestamp ;
+    base:eindperiode "NEOMB"^^crmeh:EHE0091_Timestamp .
 
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nedc70187b38643b1b805453572a6a38c a crm:E54_Dimension ;
-    rdfs:label "Normaal Amsterdams Peil (NAP)"@nl ;
-    crm:P90_has_value "0.5" ;
-    crm:P91_has_unit "m" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nee88a9d8b666493c8c8b6ed480ab06f4 a geosparql:Geometry ;
-    rdfs:label "Geometrie"@nl ;
-    geosparql:asGML "<gml:PointType xmlns:gml=\"http://www.opengis.net/gml/3.2\" gml:id=\"HP_2\" srsDimension=\"2\" axisLabels=\"x y\"><gml:pos xmlns:gml=\"http://www.opengis.net/gml/3.2\" axisLabels=\"x y\" srsDimension=\"2\">81620 448320</gml:pos></gml:PointType>" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nefddebf06e0d451e9bc4617795857943 a crm:E16_Measurement ;
-    rdfs:label "Meting"@nl ;
-    crm:P40_observed_dimension base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Na81056c4f62645f4aa5ebc6a062f3c58 .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nf06ea3be08da49359a2bc35d302b072b a crmeh:EHE0031_ContextFindMeasurement ;
-    rdfs:label "Gewicht"@nl ;
-    crm:P90_has_value "100" ;
-    crm:P91_has_unit "gr" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nf21a6552e7b14602b4a972c52080648e a locn:Address ;
-    rdfs:label "Adres"@nl ;
-    gn:parentADM1 "Zuid-Holland" ;
-    gn:parentADM2 "Leiden" ;
-    gn:parentCountry "Nederland" ;
-    locn:locatorDesignator "16" ;
-    locn:postCode "2300 RA" ;
-    locn:postName "Leiden" ;
-    locn:thoroughfare "Reuvensplaats" .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nf36dfdbab9c041a3a05d5e6f66d9b3e6 a crmeh:EHE0031_ContextFindMeasurement ;
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nfbd34c19c8224da39231dc1d088d2bf9 a crmeh:EHE0031_ContextFindMeasurement ;
     rdfs:label "Aantal"@nl ;
-    crm:P90_has_value "1" .
+    crm:P90_has_value "1"^^xsd:positiveInteger .
 
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nf6afeb4dda494790be3b97417bc38cb9 a crm:E13_Attribute_Assignment ;
-    rdfs:label "Dateren"@nl ;
-    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N957f7007e8104da69452b38eafcd2b97 .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nf92a7a6dcd134210bc62e03d7217de55 a crm:E16_Measurement ;
-    rdfs:label "Meting"@nl ;
-    crm:P40_observed_dimension base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nedc70187b38643b1b805453572a6a38c .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nfa318b433b6948119b09ee18443c00aa a crm:E13_Attribute_Assignment ;
-    rdfs:label "Dateren"@nl ;
-    crm:P141_assigned base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N8ebb45fde6624fcfb64bce5c36c30215 .
-
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nfd97f26f9eaf4e859ed12e47b737fa50 a crmeh:EHE0031_ContextFindMeasurement ;
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nffaba992dae2440ead97c4269e9ce4ae a crmeh:EHE0031_ContextFindMeasurement ;
     rdfs:label "Aantal"@nl ;
-    crm:P90_has_value "1" .
+    crm:P90_has_value "1"^^xsd:positiveInteger .
 
-base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nffe434d985f54e2d99da81d56546f88b a geosparql:Geometry ;
-    rdfs:label "Geometrie"@nl ;
-    geosparql:asGML "<gml:PointType xmlns:gml=\"http://www.opengis.net/gml/3.2\" gml:id=\"HP_3\" srsDimension=\"2\" axisLabels=\"x y\"><gml:pos xmlns:gml=\"http://www.opengis.net/gml/3.2\" axisLabels=\"x y\" srsDimension=\"2\">81620 448321</gml:pos></gml:PointType>" .
+base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nffdd88ebacb84c1f8349220b2a7b06eb a crm:E52_Time-Span ;
+    rdfs:label "Time Span"@nl ;
+    base:beginperiode "ROMVB"^^crmeh:EHE0091_Timestamp ;
+    base:eindperiode "ROMVB"^^crmeh:EHE0091_Timestamp .
 
 base:bc3dc3ec-ef03-424f-89a1-0f732d9799fd a crm:E40_Legal_Body ;
-    rdfs:label "Organisatie"@nl ;
-    crm:P131_is_identified_by "Provincie Zuid-Holland, Bureau Cultuur" ;
-    crm:P1_is_identified_by "3543" ;
-    crm:P48_has_preferred_identifier "bc3dc3ec-ef03-424f-89a1-0f732d9799fd" ;
-    locn:address base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nc85c0fefe2dc468596eae156cbef885d .
+    rdfs:label "Organisatie 3543"@nl ;
+    crm:P1_is_identified_by "3543"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "bc3dc3ec-ef03-424f-89a1-0f732d9799fd"^^xsd:ID ;
+    base:Naam "Provincie Zuid-Holland, Bureau Cultuur"^^crm:E82_Actor_Appellation ;
+    locn:address base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N4e7345ddf8464a21992935ca4fb4f5cb .
 
 base:c049e4be-df47-4bb4-8b5c-81a608c992c7 a crm:E31_Document ;
-    rdfs:label "Document"@nl ;
-    prism:pageCount "518" ;
-    prism:publicationDate "2006" ;
-    prism:seriesTitle "Analecta Praehistorica Leidensia (APL) 37-38" ;
-    dcterms:creator "L.P. Jongste",
-        "Louwe Kooijmans" ;
-    dcterms:publisher "R.U.L." ;
-    dcterms:title "Schipluiden, Een Neolithische nederzetting aan de Nederlandse Noordzeekust, c. 3500 cal BC" ;
-    crm:P1_is_identified_by "BC388" ;
-    crm:P2_has_type "EINDRAP" ;
-    crm:P48_has_preferred_identifier "c049e4be-df47-4bb4-8b5c-81a608c992c7" ;
-    crm:P67_refers_to <http://www.pakbon-ld.org/2e3463cc-a4e8-4896-95d7-8183bab7abfa>,
-        base:f17b5cce-d2de-4614-887c-a66dde17ae89 .
+    rdfs:label "Document BC388"@nl ;
+    crm:P1_is_identified_by "BC388"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "c049e4be-df47-4bb4-8b5c-81a608c992c7"^^xsd:ID ;
+    crm:P67_refers_to <http://www.example.org/2e3463cc-a4e8-4896-95d7-8183bab7abfa>,
+        base:f17b5cce-d2de-4614-887c-a66dde17ae89 ;
+    base:Auteur "L.P. Jongste"^^xsd:string,
+        "Louwe Kooijmans"^^xsd:string ;
+    base:Documenttype "EINDRAP"^^crm:E55_Type ;
+    base:Jaar "2006"^^xsd:gYear ;
+    base:Paginas "518"^^xsd:positiveInteger ;
+    base:Serie "Analecta Praehistorica Leidensia (APL) 37-38"^^xsd:string ;
+    base:Titel "Schipluiden, Een Neolithische nederzetting aan de Nederlandse Noordzeekust, c. 3500 cal BC"^^xsd:string ;
+    base:Uitgaveplaats "Leiden"^^dcterms:Location ;
+    base:Uitgever "R.U.L."^^xsd:string .
 
 base:c222573c-7e3d-4e92-bca1-98c14d17a247 a crmeh:EHE0017_RecordPhotograph ;
-    rdfs:label "Foto"@nl ;
-    dcterms:creator "C. Breton" ;
-    dcterms:date "2003-06-09" ;
-    dcterms:description "coupe spoor 109" ;
-    dcterms:medium "DIG" ;
+    rdfs:label "Foto AHR39F347 (Coupe 39)"@nl ;
     crm:P129_is_about base:f42ee413-a67e-453c-a020-9fcfd7215043 ;
-    crm:P129i_is_subject_of <http://www.pakbon-ld.org/89912ec1-6722-44a1-82fd-fd3154ced52b> ;
-    crm:P1_is_identified_by "AHR39F347",
-        "Coupe 39" ;
-    crm:P2_has_type "COU" ;
-    crm:P48_has_preferred_identifier "c222573c-7e3d-4e92-bca1-98c14d17a247" ;
-    crm:P70_documents base:f97ba6e2-1bea-4e94-8a4d-88df266697ca .
+    crm:P129i_is_subject_of <http://www.example.org/89912ec1-6722-44a1-82fd-fd3154ced52b> ;
+    crm:P1_is_identified_by "AHR39F347"^^xsd:ID,
+        "Coupe 39"^^xsd:string ;
+    crm:P48_has_preferred_identifier "c222573c-7e3d-4e92-bca1-98c14d17a247"^^xsd:ID ;
+    crm:P70_documents base:f97ba6e2-1bea-4e94-8a4d-88df266697ca ;
+    base:Fotograaf "C. Breton"^^xsd:string ;
+    base:Fotoonderwerp "coupe spoor 109"@nl ;
+    base:Opnamedatum "2003-06-09"^^xsd:date ;
+    base:Opnamemedium "DIG"^^xsd:string ;
+    base:Opnametype "COU"^^crmeh:EHE0085_RecordPhotographReferenceType .
 
 base:ce610710-2190-4483-b860-6905bd109836 a crm:E78_Collection ;
-    rdfs:label "Veldvondst"@nl ;
-    crm:P1_is_identified_by "AHR39V009" ;
-    crm:P3_has_note "HASCHA" ;
-    crm:P46_is_composed_of <http://www.pakbon-ld.org/4a49967c-19f7-4b3a-8d3d-837ad4762d46> ;
-    crm:P48_has_preferred_identifier "ce610710-2190-4483-b860-6905bd109836" ;
-    crm:P53_has_former_or_current_location base:e58fd96c-c9d9-4470-838a-2ac11c355c1a .
+    rdfs:label "Veldvondst AHR39V009 (AHR39V009)"@nl ;
+    crm:P1_is_identified_by "AHR39V009"^^xsd:ID,
+        "AHR39V009"^^xsd:string ;
+    crm:P46_is_composed_of <http://www.example.org/4a49967c-19f7-4b3a-8d3d-837ad4762d46> ;
+    crm:P48_has_preferred_identifier "ce610710-2190-4483-b860-6905bd109836"^^xsd:ID ;
+    crm:P53_has_former_or_current_location base:e58fd96c-c9d9-4470-838a-2ac11c355c1a ;
+    base:Verzamelwijze "HASCHA"^^crmeh:EHE0046_ContextNote .
 
 base:d9987be3-fdea-4047-be41-d8b9160c524b a crm:E44_Place_Appellation ;
     rdfs:label "Geolocatie"@nl ;
-    crm:P48_has_preferred_identifier "d9987be3-fdea-4047-be41-d8b9160c524b" ;
-    crm:P87_is_identified_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nee88a9d8b666493c8c8b6ed480ab06f4 .
+    crm:P48_has_preferred_identifier "d9987be3-fdea-4047-be41-d8b9160c524b"^^xsd:ID ;
+    base:Geometrie base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N139d5ec6d91c4029b314566d332ed7e7 .
 
 base:e397b04e-ffd3-4b34-96e9-70f5355262a8 a crm:E44_Place_Appellation ;
     rdfs:label "Geolocatie"@nl ;
-    crm:P48_has_preferred_identifier "e397b04e-ffd3-4b34-96e9-70f5355262a8" ;
-    crm:P87_is_identified_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nffe434d985f54e2d99da81d56546f88b .
+    crm:P48_has_preferred_identifier "e397b04e-ffd3-4b34-96e9-70f5355262a8"^^xsd:ID ;
+    base:Geometrie base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nf97f71445195464ab260694b063e99f3 .
 
 base:e58fd96c-c9d9-4470-838a-2ac11c355c1a a crmeh:EHE0007_Context ;
-    rdfs:label "Vondstcontext"@nl ;
-    crm:P1_is_identified_by "37450" ;
-    crm:P2_has_type "BORING" ;
-    crm:P48_has_preferred_identifier "e58fd96c-c9d9-4470-838a-2ac11c355c1a" ;
-    crm:P89i_contains <http://www.pakbon-ld.org/7b14d14a-dc67-4688-a555-475a83f18e97> .
+    rdfs:label "Vondstcontext 37450"@nl ;
+    crm:P1_is_identified_by "37450"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "e58fd96c-c9d9-4470-838a-2ac11c355c1a"^^xsd:ID ;
+    crm:P89i_contains <http://www.example.org/7b14d14a-dc67-4688-a555-475a83f18e97> ;
+    base:Contexttype "BORING"^^crm:E55_Type .
 
 base:e74a8275-67f2-4489-ba64-10434a8cf7b1 a crm:E78_Collection ;
-    rdfs:label "Veldvondst"@nl ;
-    crm:P1_is_identified_by "AHR39V001" ;
-    crm:P3_has_note "ZF4" ;
+    rdfs:label "Veldvondst AHR39V001 (AHR39V001)"@nl ;
+    crm:P1_is_identified_by "AHR39V001"^^xsd:ID,
+        "AHR39V001"^^xsd:string ;
     crm:P46_is_composed_of base:aded5187-cdb9-4a8d-91b0-95d08032d326 ;
-    crm:P48_has_preferred_identifier "e74a8275-67f2-4489-ba64-10434a8cf7b1" ;
-    crm:P53_has_former_or_current_location base:f97ba6e2-1bea-4e94-8a4d-88df266697ca .
+    crm:P48_has_preferred_identifier "e74a8275-67f2-4489-ba64-10434a8cf7b1"^^xsd:ID ;
+    crm:P53_has_former_or_current_location base:f97ba6e2-1bea-4e94-8a4d-88df266697ca ;
+    base:Verzamelwijze "ZF4"^^crmeh:EHE0046_ContextNote .
 
 base:e7bdcc5f-918a-4778-b336-5346a808a198 a crmeh:EHE0007_Context ;
-    rdfs:label "Vondstcontext"@nl ;
+    rdfs:label "Vondstcontext 37448"@nl ;
     crmeh:EHP3i base:aff2672e-127f-4037-bada-af4bf7ebf5c5 ;
-    crm:P1_is_identified_by "37448" ;
-    crm:P2_has_type "VULLING" ;
-    crm:P48_has_preferred_identifier "e7bdcc5f-918a-4778-b336-5346a808a198" .
+    crm:P1_is_identified_by "37448"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "e7bdcc5f-918a-4778-b336-5346a808a198"^^xsd:ID ;
+    base:Contexttype "VULLING"^^crm:E55_Type .
 
 base:f84513e3-c2b6-44c0-94b1-f2bff01e7818 a crm:E21_Person ;
-    rdfs:label "Persoon"@nl ;
-    crm:P131_is_identified_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nc59b3533fe5b4e13837a2b7678dc209c ;
-    crm:P1_is_identified_by "6536" ;
-    crm:P48_has_preferred_identifier "f84513e3-c2b6-44c0-94b1-f2bff01e7818" ;
-    crm:P76_has_contact_point "071-5273313",
-        "info@archol.nl" .
+    rdfs:label "Persoon 6536"@nl ;
+    crm:P1_is_identified_by "6536"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "f84513e3-c2b6-44c0-94b1-f2bff01e7818"^^xsd:ID ;
+    base:Email "info@archol.nl"^^crm:E51_Contact_Point ;
+    base:Naam base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N21ffc95e97c9489fab99253146272496 ;
+    base:Telefoon "071-5273313"^^crm:E51_Contact_Point .
 
 base:f851ca2a-b546-41c5-a524-2e2d0e36534e a crm:E78_Collection ;
-    rdfs:label "Veldvondst"@nl ;
-    crm:P1_is_identified_by "AHR39V006" ;
-    crm:P3_has_note "HASCHA" ;
-    crm:P46_is_composed_of <http://www.pakbon-ld.org/18b875df-6e3e-4987-a2d0-9cff1e7db069> ;
-    crm:P48_has_preferred_identifier "f851ca2a-b546-41c5-a524-2e2d0e36534e" ;
-    crm:P53_has_former_or_current_location <http://www.pakbon-ld.org/4fd18b6f-aeba-4244-979f-5c80e78391d6> .
+    rdfs:label "Veldvondst AHR39V006 (AHR39V006)"@nl ;
+    crm:P1_is_identified_by "AHR39V006"^^xsd:ID,
+        "AHR39V006"^^xsd:string ;
+    crm:P46_is_composed_of <http://www.example.org/18b875df-6e3e-4987-a2d0-9cff1e7db069> ;
+    crm:P48_has_preferred_identifier "f851ca2a-b546-41c5-a524-2e2d0e36534e"^^xsd:ID ;
+    crm:P53_has_former_or_current_location <http://www.example.org/4fd18b6f-aeba-4244-979f-5c80e78391d6> ;
+    base:Verzamelwijze "HASCHA"^^crmeh:EHE0046_ContextNote .
 
 base:fd37a709-d98a-4602-884e-5c7c581a8d7b a crm:E73_Information_Object ;
-    rdfs:label "Bestand"@nl ;
-    dcterms:description "dbase IV",
-        "kopgegevens van boringen" ;
-    dcterms:format "databasetabel" ;
+    rdfs:label "Bestand boringen.dbf"@nl ;
     dcterms:isPartOf base:fc1dff0b-1915-4ffc-9e7c-1b6bbdc501d5 ;
-    dcterms:medium <http://www.pakbon-ld.org/145b4fda-1df3-4d15-8941-f8020a070e7a> ;
-    dcterms:title "kopgegevens" ;
-    crm:P1_is_identified_by "boringen.dbf" ;
-    crm:P48_has_preferred_identifier "fd37a709-d98a-4602-884e-5c7c581a8d7b" .
+    dcterms:medium <http://www.example.org/145b4fda-1df3-4d15-8941-f8020a070e7a> ;
+    crm:P1_is_identified_by "boringen.dbf"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "fd37a709-d98a-4602-884e-5c7c581a8d7b"^^xsd:ID ;
+    base:Bestandsinhoud "kopgegevens van boringen"@nl ;
+    base:Bestandsnaam "kopgegevens"^^xsd:string ;
+    base:Bestandtype "databasetabel"^^xsd:string ;
+    base:Software "dbase IV"^^xsd:string .
 
 base:fff63c19-50f7-4aa9-b525-ffd7d5a4b7bb a crm:E73_Information_Object ;
-    rdfs:label "Bestand"@nl ;
-    dcterms:description "Boringgegevens",
-        "dbase IV" ;
-    dcterms:format "databasetabel" ;
+    rdfs:label "Bestand boringen.dbf"@nl ;
     dcterms:isPartOf base:fc1dff0b-1915-4ffc-9e7c-1b6bbdc501d5 ;
-    dcterms:medium <http://www.pakbon-ld.org/145b4fda-1df3-4d15-8941-f8020a070e7a> ;
-    dcterms:title "boringen" ;
-    crm:P1_is_identified_by "boringen.dbf" ;
-    crm:P48_has_preferred_identifier "fff63c19-50f7-4aa9-b525-ffd7d5a4b7bb" .
-
-"-0.5" a xsd:positiveInteger ;
-    rdfs:label "Waarde"@nl .
-
-"0.5" a xsd:positiveInteger ;
-    rdfs:label "Waarde"@nl .
-
-"0148842e-7696-4cdf-83c6-13e86b2e88b7" a crm:E42_Identifier .
-
-"0288dd16-3d4c-4471-bc81-7a2ad47b21bd" a crm:E42_Identifier .
-
-"04785ae0-7d5f-43b9-9bc4-d55bb9aa5617" a crm:E42_Identifier .
-
-"04HP" a crm:E41_Appellation,
-        crm:E42_Identifier .
-
-"05HP" a crm:E41_Appellation,
-        crm:E42_Identifier .
-
-"070-4418445" a crm:E51_Contact_Point ;
-    rdfs:label "Telefoon"@nl .
-
-"08c58b15-4f14-4961-8baf-b97d4abd340b" a crm:E42_Identifier .
-
-"09162d56-a3c6-46bd-835e-23f1ce0d2b8a" a crm:E42_Identifier .
-
-"0b5275c9-325e-4ef9-a7de-018925e61f6e" a crm:E42_Identifier .
-
-"0cac88c2-d690-473c-a2d6-1b90e2cf65f4" a crm:E42_Identifier .
-
-"0eec75c7-0766-4307-90c3-70f1a7fe0713" a crm:E42_Identifier .
-
-"10" a crmeh:EHE0041_ContextFindTreatmentProcedure ;
-    rdfs:label "Bewaartemperatuur"@nl .
-
-"10.5" a xsd:positiveInteger ;
-    rdfs:label "Waarde"@nl .
-
-"110.5" a xsd:positiveInteger ;
-    rdfs:label "Waarde"@nl .
-
-"12" a crm:E41_Appellation ;
-    rdfs:label "Vaknummer"@nl .
-
-"123456" a crm:E42_Identifier ;
-    rdfs:label "Vondstmeldingsnummer"@nl .
-
-"126" a xsd:positiveInteger ;
-    rdfs:label "Paginas"@nl .
-
-"12de5b57-8752-4705-aafd-9949a306249b" a crm:E42_Identifier .
-
-"13" a crm:E41_Appellation ;
-    rdfs:label "Vaknummer"@nl .
-
-"145b4fda-1df3-4d15-8941-f8020a070e7a" a crm:E42_Identifier .
-
-"18" a crmeh:EHE0041_ContextFindTreatmentProcedure ;
-    rdfs:label "Bewaartemperatuur"@nl .
-
-"1842" a crm:E44_Place_Appellation ;
-    rdfs:label "Gemeentecode"@nl .
-
-"18b875df-6e3e-4987-a2d0-9cff1e7db069" a crm:E42_Identifier .
-
-"1b60597d-7966-431a-9a6f-9cae38124a9f" a crm:E42_Identifier .
-
-"1f4dbfb7-89b7-4cfa-80ca-295405fd1a77" a crm:E42_Identifier .
-
-"2" a xsd:NonNegativeInteger ;
-    rdfs:label "Aantal"@nl .
-
-"20" a xsd:positiveInteger ;
-    rdfs:label "Waarde"@nl .
-
-"2001-12-17T09:30:47.0Z" a xsd:dateTime .
-
-"2003-02-01" a crmeh:EHE0091_Timestamp,
-        xsd:date ;
-    rdfs:label "Startdatum"@nl .
-
-"2003-06-08" a xsd:date ;
-    rdfs:label "Tekeningdatum"@nl .
-
-"2003-08-02" a crmeh:EHE0091_Timestamp,
-        xsd:date ;
-    rdfs:label "Einddatum"@nl .
-
-"2004" a xsd:gYear ;
-    rdfs:label "Jaar"@nl .
-
-"2006" a xsd:gYear ;
-    rdfs:label "Jaar"@nl .
-
-"2009" a xsd:gYear ;
-    rdfs:label "Jaar"@nl .
-
-"22345" a crm:E42_Identifier ;
-    rdfs:label "Vondstmeldingsnummer"@nl .
-
-"2300 RA" a xsd:string ;
-    rdfs:label "Postcode"@nl .
-
-"2367" a crm:E42_Identifier .
-
-"2509 LP" a xsd:string ;
-    rdfs:label "Postcode"@nl .
-
-"270" a xsd:positiveInteger ;
-    rdfs:label "Paginas"@nl .
-
-"27342" a crm:E42_Identifier .
-
-"28" a crm:E44_Place_Appellation ;
-    rdfs:label "Provinciecode"@nl .
-
-"2807" a crm:E44_Place_Appellation ;
-    rdfs:label "Plaatscode"@nl .
-
-"283dfd6c-0414-4f24-b689-6d668219a7fd" a crm:E42_Identifier .
-
-"2ccd2d84-023f-4c53-9891-172b35736597" a crm:E42_Identifier .
-
-"2d03325d-a3ad-40d5-aad5-ae6159b7637b" a crm:E42_Identifier .
-
-"2e3463cc-a4e8-4896-95d7-8183bab7abfa" a crm:E42_Identifier .
-
-"2fd289df-7cca-4dba-b8cd-3f613e3b166d" a crm:E42_Identifier .
-
-"3.1.0" a xsd:string .
-
-"3.6" a xsd:positiveInteger ;
-    rdfs:label "Waarde"@nl .
-
-"34913e3a-4f73-405e-9083-40f0c0d34785" a crm:E42_Identifier .
-
-"34925" a crm:E42_Identifier .
-
-"3543" a crm:E42_Identifier .
-
-"35ee5f40-5ef2-4c46-bc12-169d787da2e7" a crm:E42_Identifier .
-
-"36cd6da1-8b0e-402c-91d1-91b7c61100bc" a crm:E42_Identifier .
-
-"37432" a crm:E42_Identifier .
-
-"37442" a crm:E42_Identifier .
-
-"37445" a crm:E42_Identifier .
-
-"37446" a crm:E42_Identifier .
-
-"37447" a crm:E42_Identifier .
-
-"37448" a crm:E42_Identifier .
-
-"37449" a crm:E42_Identifier .
-
-"37450" a crm:E42_Identifier .
-
-"37E" a crm:E46_Section_Definition ;
-    rdfs:label "Kaartblad"@nl .
-
-"38e94b6f-6a25-42f7-88b6-017fc21bb676" a crm:E42_Identifier .
-
-"3fae914c-c3a0-4b0e-a7d7-a0ffb25536c7" a crm:E42_Identifier .
-
-"4564" a crm:E42_Identifier .
-
-"4566" a crm:E42_Identifier .
-
-"456731" a crm:E42_Identifier .
-
-"45683" a crm:E42_Identifier .
-
-"4a49967c-19f7-4b3a-8d3d-837ad4762d46" a crm:E42_Identifier .
-
-"4aa5f7f5-7919-4c4d-9300-afa62a8f8bdd" a crm:E42_Identifier .
-
-"4fd18b6f-aeba-4244-979f-5c80e78391d6" a crm:E42_Identifier .
-
-"50" a xsd:positiveInteger ;
-    rdfs:label "Waarde"@nl .
-
-"50-60%" a crmeh:EHE0041_ContextFindTreatmentProcedure ;
-    rdfs:label "Bewaarvochtigheid"@nl .
-
-"50087738-80d4-4823-bc32-cf79a3c1c30a" a crm:E42_Identifier .
-
-"518" a xsd:positiveInteger ;
-    rdfs:label "Paginas"@nl .
-
-"51c65733-728d-4eaa-acb8-a387a37e1898" a crm:E42_Identifier .
-
-"5343" a crm:E42_Identifier .
-
-"53b7572f-1ebf-4298-a9b2-5520a0486360" a crm:E42_Identifier .
-
-"568" a crm:E42_Identifier .
-
-"56e7a6d2-8cd0-45a9-84fc-162aa3349c38" a crm:E42_Identifier .
-
-"575ba625-69a4-4149-8b70-34cb3b9ff585" a crm:E42_Identifier .
-
-"5899" a crm:E42_Identifier .
-
-"5932" a crm:E42_Identifier .
-
-"5d4a37a8-17a8-4879-a557-c5273345f3c2" a crm:E42_Identifier .
-
-"6536" a crm:E42_Identifier .
-
-"678" a crm:E42_Identifier ;
-    rdfs:label "Waarnemingsnummer"@nl .
-
-"69dfe2dc-223e-4fff-8935-de41e41413d8" a crm:E42_Identifier .
-
-"6d2005c0-733b-49f2-94b2-fec71e3f58c6" a crm:E42_Identifier .
-
-"6dd0261a-c3dd-48ae-868b-32d7d17192e6" a crm:E42_Identifier .
-
-"6fbb93df-8345-4a87-8111-f0112908bda6" a crm:E42_Identifier .
-
-"7" a xsd:NonNegativeInteger ;
-    rdfs:label "Aantal"@nl .
-
-"700" a xsd:positiveInteger ;
-    rdfs:label "Waarde"@nl .
-
-"705f9546-2e5d-46de-a245-0ea152731e64" a crm:E42_Identifier .
-
-"74d8d0ea-4662-458d-83f9-677bbb93ec79" a crm:E42_Identifier .
-
-"7752c3d8-a565-4d5b-a5b6-551c628bcd9f" a crm:E42_Identifier .
-
-"785" a crm:E42_Identifier .
-
-"78876c26-738a-499e-97dc-b3cd7d36edc2" a crm:E42_Identifier .
-
-"789" a crm:E42_Identifier ;
-    rdfs:label "Waarnemingsnummer"@nl .
-
-"7b14d14a-dc67-4688-a555-475a83f18e97" a crm:E42_Identifier .
-
-"7bffe6f5-5fae-4dd2-b2b3-a373be617717" a crm:E42_Identifier .
-
-"7cca124d-9d08-4491-a5e2-19f817281660" a crm:E42_Identifier .
-
-"7ccd3f79-23c9-4360-850b-01d6b675c9c2" a crm:E42_Identifier .
-
-"801c1348-e36a-40e6-a827-8d967450b5da" a crm:E42_Identifier .
-
-"80bb0536-0452-4e68-bad3-d97405c44606" a crm:E42_Identifier .
-
-"83732" a crm:E42_Identifier .
-
-"8524" a crm:E42_Identifier .
-
-"8531" a crm:E42_Identifier .
-
-"8534" a crm:E42_Identifier .
-
-"89912ec1-6722-44a1-82fd-fd3154ced52b" a crm:E42_Identifier .
-
-"8cea8762-ecbd-4014-9533-1c98371185d2" a crm:E42_Identifier .
-
-"8f0da90c-7aba-4a7d-a8e0-b1881cbce351" a crm:E42_Identifier .
-
-"90" a xsd:positiveInteger ;
-    rdfs:label "Waarde"@nl .
-
-"90253" a crm:E42_Identifier .
-
-"90367" a crm:E42_Identifier .
-
-"906d115d-a7b3-44a3-b4e2-10e696030e16" a crm:E42_Identifier .
-
-"923" a crm:E42_Identifier .
-
-"954" a crm:E42_Identifier .
-
-"95520272-1038-4364-8420-0d175ca35bf8" a crm:E42_Identifier .
-
-"9624" a crm:E42_Identifier .
-
-"96554" a crm:E42_Identifier .
-
-"9871" a crm:E42_Identifier .
-
-"99d94682-3dbd-452f-a58b-7f7da1d5eae2" a crm:E42_Identifier .
-
-"9f1eacf9-e62d-424a-9a0b-10e0c9814066" a crm:E42_Identifier .
-
-"<gml:LineStringType xmlns:gml=\"http://www.opengis.net/gml/3.2\" gml:id=\"HP_1\" srsDimension=\"3\" axisLabels=\"x y z\"><gml:pos xmlns:gml=\"http://www.opengis.net/gml/3.2\" axisLabels=\"x y z\" srsDimension=\"3\">123456 987654 0</gml:pos><gml:pos xmlns:gml=\"http://www.opengis.net/gml/3.2\" axisLabels=\"x y z\" srsDimension=\"3\">123456 987654 -1.50</gml:pos></gml:LineStringType>" a geosparql:GMLLiteral .
-
-"<gml:PointType xmlns:gml=\"http://www.opengis.net/gml/3.2\" gml:id=\"HP_2\" srsDimension=\"2\" axisLabels=\"x y\"><gml:pos xmlns:gml=\"http://www.opengis.net/gml/3.2\" axisLabels=\"x y\" srsDimension=\"2\">81620 448320</gml:pos></gml:PointType>" a geosparql:GMLLiteral .
-
-"<gml:PointType xmlns:gml=\"http://www.opengis.net/gml/3.2\" gml:id=\"HP_3\" srsDimension=\"2\" axisLabels=\"x y\"><gml:pos xmlns:gml=\"http://www.opengis.net/gml/3.2\" axisLabels=\"x y\" srsDimension=\"2\">81620 448321</gml:pos></gml:PointType>" a geosparql:GMLLiteral .
-
-"<gml:PointType xmlns:gml=\"http://www.opengis.net/gml/3.2\" gml:id=\"HP_4\" srsDimension=\"2\" axisLabels=\"x y\"><gml:pos xmlns:gml=\"http://www.opengis.net/gml/3.2\" axisLabels=\"x y\" srsDimension=\"2\">81621 44832</gml:pos></gml:PointType>" a geosparql:GMLLiteral .
-
-"A." a xsd:string ;
-    rdfs:label "Initialen"@nl .
-
-"A. Ervynck" a xsd:string ;
-    rdfs:label "Auteur"@nl .
-
-"AAA" a crm:E42_Identifier ;
-    rdfs:label "Uitvoerdercode"@nl .
-
-"AHR39-1" a crm:E42_Identifier .
-
-"AHR39-2" a crm:E42_Identifier .
-
-"AHR39-69" a crm:E41_Appellation,
-        crm:E42_Identifier .
-
-"AHR39-70" a crm:E41_Appellation,
-        crm:E42_Identifier .
-
-"AHR39D001" a crm:E41_Appellation,
-        crm:E42_Identifier .
-
-"AHR39D002" a crm:E41_Appellation,
-        crm:E42_Identifier .
-
-"AHR39F347" a crm:E42_Identifier .
-
-"AHR39F348" a crm:E42_Identifier .
-
-"AHR39T050" a crm:E42_Identifier .
-
-"AHR39T051" a crm:E42_Identifier .
-
-"AHR39V001" a crm:E41_Appellation,
-        crm:E42_Identifier .
-
-"AHR39V001-01" a crm:E42_Identifier .
-
-"AHR39V002" a crm:E41_Appellation,
-        crm:E42_Identifier .
-
-"AHR39V002-01" a crm:E42_Identifier .
-
-"AHR39V002-02" a crm:E42_Identifier .
-
-"AHR39V002-09" a crm:E42_Identifier .
-
-"AHR39V003" a crm:E41_Appellation,
-        crm:E42_Identifier .
-
-"AHR39V003-01" a crm:E42_Identifier .
-
-"AHR39V004" a crm:E41_Appellation,
-        crm:E42_Identifier .
-
-"AHR39V004-01" a crm:E42_Identifier .
-
-"AHR39V005" a crm:E41_Appellation,
-        crm:E42_Identifier .
-
-"AHR39V005-01" a crm:E42_Identifier .
-
-"AHR39V006" a crm:E41_Appellation,
-        crm:E42_Identifier .
-
-"AHR39V006-01" a crm:E42_Identifier .
-
-"AHR39V007" a crm:E41_Appellation,
-        crm:E42_Identifier .
-
-"AHR39V007-01" a crm:E42_Identifier .
-
-"AHR39V008" a crm:E41_Appellation,
-        crm:E42_Identifier .
-
-"AHR39V008-01" a crm:E42_Identifier .
-
-"AHR39V009" a crm:E41_Appellation,
-        crm:E42_Identifier .
-
-"AL341" a crm:E41_Appellation,
-        crm:E42_Identifier .
-
-"AL342" a crm:E41_Appellation,
-        crm:E42_Identifier .
-
-"AL343" a crm:E41_Appellation,
-        crm:E42_Identifier .
-
-"ANDKAN" a crm:E55_Type ;
-    rdfs:label "Artefacttype"@nl .
-
-"AOOBEKER.2IID-BKR" a crm:E55_Type ;
-    rdfs:label "Artefacttype"@nl .
-
-"AOP" a crm:E55_Type ;
-    rdfs:label "Onderzoektype"@nl .
-
-"Acco" a xsd:string ;
-    rdfs:label "Uitgever"@nl ;
-    dcterms:spatial "Leuven" .
-
-"Allen" a xsd:string ;
-    rdfs:label "Achternaam"@nl .
-
-"Amsterdam" a dcterms:Location ;
-    rdfs:label "Plaats van Uitgave"@nl .
-
-"Amsterdam University Press" a xsd:string ;
-    rdfs:label "Uitgever"@nl ;
-    dcterms:spatial "Amsterdam" .
-
-"Analecta Praehistorica Leidensia (APL) 37-38" a xsd:string ;
-    rdfs:label "Serie"@nl .
-
-"Andenne kan" a crm:E41_Appellation .
-
-"Andenne kan is in zeer goede staat." a crm:E62_String .
-
-"Archiefdoos" a crm:E55_Type ;
-    rdfs:label "Dossiertype"@nl .
-
-"Archol BV" a crm:E82_Actor_Appellation ;
-    rdfs:label "Naam"@nl .
-
-"Asbest" a crmeh:EHE0041_ContextFindTreatmentProcedure ;
-    rdfs:label "Gevaarlijkestoffen"@nl .
-
-"B34925" a crm:E41_Appellation .
-
-"BEERPUT" a crm:E55_Type ;
-    rdfs:label "Grondspoortype"@nl .
-
-"BEWV.X" a crm:E55_Type ;
-    rdfs:label "Vindplaatstype"@nl .
-
-"BGV.GHV" a crm:E55_Type ;
-    rdfs:label "Vindplaatstype"@nl .
-
-"BORING" a crm:E55_Type ;
-    rdfs:label "Contexttype"@nl .
-
-"BRUG" a crm:E55_Type ;
-    rdfs:label "Structuurtype"@nl .
-
-"Beschrijving van sporen." a xsd:string ;
-    rdfs:label "Bestandsinhoud"@nl .
-
-"Boringgegevens" a xsd:string ;
-    rdfs:label "Bestandsinhoud"@nl .
-
-"Bruin" a crmeh:EHE0059_ContextStuffNote ;
-    rdfs:label "Kleur"@nl .
-
-"Coupe 38" a crm:E41_Appellation .
-
-"Coupe 39" a crm:E41_Appellation .
-
-"Coupe 44" a crm:E41_Appellation .
-
-"DVD" a crm:E55_Type ;
-    rdfs:label "Digitaalmediumtype"@nl .
-
-"De DVD heeft krassen en wordt niet door alle cd-rom speler gelezen." a crm:E62_String .
-
-"Den Haag" a gn:Feature ;
-    rdfs:label "Plaatsnaam"@nl ;
-    gn:featureCode gn:P.PPL .
-
-"Detail Coupe 445" a crm:E41_Appellation .
-
-"Driehoek" a crmeh:EHE0059_ContextStuffNote ;
-    rdfs:label "Vorm"@nl .
-
-"EINDRAP" a crm:E55_Type ;
-    rdfs:label "Documenttype"@nl .
-
-"Foto vaas." a xsd:string ;
-    rdfs:label "Bestandsinhoud"@nl .
-
-"Harnaschpolder; Noordhoornse weg" a crmeh:EHE0002_ArchaeologicalSite ;
-    rdfs:label "Toponiem"@nl .
-
-"In het kader van de aanleg van de Afvalwaterzuiveringsinstallatie Haagse Regio (AHR) heeft in de periode mei â oktober 2003 een opgraving plaatsgevonden van een Neolithisch nederzettingsterrein." a rdfs:Literal ;
-    rdfs:label "Omschrijving"@nl .
-
-"J. Kaarsemaker" a xsd:string ;
-    rdfs:label "Auteur"@nl .
-
-"J. Karsemaker" a xsd:string ;
-    rdfs:label "Redacteur"@nl .
-
-"KUIL.HAARDKL" a crm:E55_Type ;
-    rdfs:label "Grondspoortype"@nl .
-
-"L.P." a xsd:string ;
-    rdfs:label "Initialen"@nl .
-
-"L.P. Jongste" a xsd:string ;
-    rdfs:label "Auteur"@nl .
-
-"Leuven" a dcterms:Location ;
-    rdfs:label "Plaats van Uitgave"@nl .
-
-"M. Diepeveen-Jansen" a xsd:string ;
-    rdfs:label "Redacteur"@nl .
-
-"MD" a crmeh:EHE0053_ContextSampleType ;
-    rdfs:label "Monstertype"@nl .
-
-"MGR" a crmeh:EHE0053_ContextSampleType ;
-    rdfs:label "Monstertype"@nl .
-
-"Marian Diepeveen-Jansen" a xsd:string ;
-    rdfs:label "Auteur"@nl .
-
-"Natuurwetenschappen En Archeologie" a xsd:string ;
-    rdfs:label "Titel"@nl .
-
-"Nederland" a gn:Feature ;
-    rdfs:label "Land"@nl ;
-    gn:featureCode gn:A.PCLI .
-
-"Ordner" a crm:E55_Type ;
-    rdfs:label "Dossiertype"@nl .
-
-"Ovaal" a crmeh:EHE0059_ContextStuffNote ;
-    rdfs:label "Vorm"@nl .
-
-"P. Deegryse" a xsd:string ;
-    rdfs:label "Auteur"@nl .
-
-"P852" a crm:E41_Appellation .
-
-"P934" a crm:E41_Appellation .
-
-"PROFIEL" a crm:E55_Type ;
-    rdfs:label "Contexttype"@nl .
-
-"PUNTLOCATIE" a crm:E55_Type ;
-    rdfs:label "Contexttype"@nl .
-
-"PUT" a crm:E55_Type ;
-    rdfs:label "Contexttype"@nl .
-
-"Postbus 90602" a gn:Feature ;
-    rdfs:label "Straat"@nl ;
-    gn:featureCode gn:R.ST .
-
-"Profiel" a crm:E55_Type ;
-    rdfs:label "Planumtype"@nl .
-
-"Projectrapport." a xsd:string ;
-    rdfs:label "Bestandsinhoud"@nl .
-
-"Proos" a xsd:string ;
-    rdfs:label "Achternaam"@nl .
-
-"Provincie Zuid-Holland, Bureau Cultuur" a crm:E82_Actor_Appellation ;
-    rdfs:label "Naam"@nl .
-
-"Publicatiewijzer Voor De Archeologie" a xsd:string ;
-    rdfs:label "Titel"@nl .
-
-"R." a xsd:string ;
-    rdfs:label "Initialen"@nl .
-
-"R.U.L." a xsd:string ;
-    rdfs:label "Uitgever"@nl ;
-    dcterms:spatial "Leiden" .
-
-"Reuvensplaats" a gn:Feature ;
-    rdfs:label "Straat"@nl ;
-    gn:featureCode gn:R.ST .
-
-"S551" a crm:E41_Appellation .
-
-"S568" a crm:E41_Appellation .
-
-"S681" a crm:E41_Appellation .
-
-"S855" a crm:E41_Appellation .
-
-"S864" a crm:E41_Appellation .
-
-"S965" a crm:E41_Appellation .
-
-"SEGMENT" a crm:E55_Type ;
-    rdfs:label "Contexttype"@nl .
-
-"SPOOR" a crm:E55_Type ;
-    rdfs:label "Contexttype"@nl .
-
-"Schipluiden - Harnaschpolder" a crm:E41_Appellation ;
-    rdfs:label "Projectnaam"@nl .
-
-"Schipluiden, Een Neolithische nederzetting aan de Nederlandse Noordzeekust, c. 3500 cal BC" a xsd:string ;
-    rdfs:label "Titel"@nl .
-
-"Spoor 109 foto." a xsd:string ;
-    rdfs:label "Bestandsinhoud"@nl .
-
-"USB-stick" a crm:E55_Type ;
-    rdfs:label "Digitaalmediumtype"@nl .
-
-"V578" a crm:E41_Appellation .
-
-"V683" a crm:E41_Appellation .
-
-"V732" a crm:E41_Appellation .
-
-"V854" a crm:E41_Appellation .
-
-"VAK" a crm:E55_Type ;
-    rdfs:label "Contexttype"@nl .
-
-"VLAK" a crm:E55_Type ;
-    rdfs:label "Contexttype"@nl .
-
-"VULLING" a crm:E55_Type ;
-    rdfs:label "Contexttype"@nl .
-
-"Vaas" a xsd:string ;
-    rdfs:label "Fotoonderwerp"@nl .
-
-"Verklarende woordenlijst projectrapport." a xsd:string ;
-    rdfs:label "Bestandsinhoud"@nl .
-
-"Vezelachtig" a crmeh:EHE0059_ContextStuffNote ;
-    rdfs:label "Textuur"@nl .
-
-"Vlak" a crm:E55_Type ;
-    rdfs:label "Planumtype"@nl .
-
-"WEG" a crm:E55_Type ;
-    rdfs:label "Structuurtype"@nl .
-
-"ZF4" a crmeh:EHE0046_ContextNote ;
-    rdfs:label "Verzamelwijze"@nl .
-
-"Zuid-Holland" a gn:Feature ;
-    rdfs:label "Provincie"@nl ;
-    gn:featureCode gn:A.ADM1 .
-
-"Zwart" a crmeh:EHE0059_ContextStuffNote ;
-    rdfs:label "Kleur"@nl .
-
-"a2012515-e902-4360-9e6c-85e8a53f1aa6" a crm:E42_Identifier .
-
-"a38a97f9-ad8e-4a08-8bf6-5b82c6563d9f" a crm:E42_Identifier .
-
-"a5392dd6-598f-40ce-bf1c-47c2718fc8a3" a crm:E42_Identifier .
-
-"a7fa5d30-1877-47e8-b966-f6079fa7f11e" a crm:E42_Identifier .
-
-"aded5187-cdb9-4a8d-91b0-95d08032d326" a crm:E42_Identifier .
-
-"aff2672e-127f-4037-bada-af4bf7ebf5c5" a crm:E42_Identifier .
-
-"b59c92e9-0924-464a-bfb9-0b2591fa0528" a crm:E42_Identifier .
-
-"b6c62c43-7b9f-4ee4-baa1-27007dded175" a crm:E42_Identifier .
-
-"bc3dc3ec-ef03-424f-89a1-0f732d9799fd" a crm:E42_Identifier .
-
-"boringen" a xsd:string ;
-    rdfs:label "Bestandsnaam"@nl .
-
-"c049e4be-df47-4bb4-8b5c-81a608c992c7" a crm:E42_Identifier .
-
-"c10a6505-606f-4d52-9d8a-2f53fbd5d5f2" a crm:E42_Identifier .
-
-"c222573c-7e3d-4e92-bca1-98c14d17a247" a crm:E42_Identifier .
-
-"c9f95c57-2c29-41d9-8dde-d44804ba6d49" a crm:E42_Identifier .
-
-"ce610710-2190-4483-b860-6905bd109836" a crm:E42_Identifier .
-
-"coupe spoor 109" a xsd:string ;
-    rdfs:label "Fotoonderwerp"@nl .
-
-"da757a1a-dd71-4c3e-b24c-d86aba1f78a5" a crm:E42_Identifier .
-
-"database" a xsd:string ;
-    rdfs:label "Bestandtype"@nl .
-
-"datadictionary.pdf" a crm:E73_Information_Object ;
-    rdfs:label "Codeboek"@nl .
-
-"dec73ddd-67d0-4425-9809-f46496ddd25b" a crm:E42_Identifier .
-
-"e34e9d15-20fe-4591-9dc0-43e50ca0934f" a crm:E42_Identifier .
-
-"e58fd96c-c9d9-4470-838a-2ac11c355c1a" a crm:E42_Identifier .
-
-"e6e59506-eafe-49d3-b597-1d6618bb45f9" a crm:E42_Identifier .
-
-"e74a8275-67f2-4489-ba64-10434a8cf7b1" a crm:E42_Identifier .
-
-"e77038a6-2285-422d-8340-ccebb037db17" a crm:E42_Identifier .
-
-"e7bdcc5f-918a-4778-b336-5346a808a198" a crm:E42_Identifier .
-
-"f17b5cce-d2de-4614-887c-a66dde17ae89" a crm:E42_Identifier .
-
-"f42ee413-a67e-453c-a020-9fcfd7215043" a crm:E42_Identifier .
-
-"f84513e3-c2b6-44c0-94b1-f2bff01e7818" a crm:E42_Identifier .
-
-"f851ca2a-b546-41c5-a524-2e2d0e36534e" a crm:E42_Identifier .
-
-"f97ba6e2-1bea-4e94-8a4d-88df266697ca" a crm:E42_Identifier .
-
-"fc1dff0b-1915-4ffc-9e7c-1b6bbdc501d5" a crm:E42_Identifier .
-
-"fd37a709-d98a-4602-884e-5c7c581a8d7b" a crm:E42_Identifier .
-
-"fff63c19-50f7-4aa9-b525-ffd7d5a4b7bb" a crm:E42_Identifier .
-
-"kopgegevens" a xsd:string ;
-    rdfs:label "Bestandsnaam"@nl .
-
-"rhp.proos@pzh.nl" a crm:E51_Contact_Point ;
-    rdfs:label "Email"@nl .
-
-"true" a crmeh:EHE0041_ContextFindTreatmentProcedure ;
-    rdfs:label "Breekbaar"@nl,
-        "Lichtgevoelig"@nl .
-
-"Bestanden"@nl a xsd:string .
-
-"Bevoegdgezag"@nl a xsd:string .
-
-"Bewaarvochtigheid"@nl a xsd:string .
-
-"Boring"@nl a xsd:string .
-
-"Codeboek"@nl a xsd:string .
-
-"Documenteren (Digitaal)"@nl a xsd:string .
-
-"Einddatum"@nl a xsd:string .
-
-"Exposabel"@nl a xsd:string .
-
-"Fotograaf"@nl a xsd:string .
-
-"Geconserveerd"@nl a xsd:string .
-
-"Gedeselecteerd"@nl a xsd:string .
-
-"Gemeente"@nl a xsd:string .
-
-"Gemeentecode"@nl a xsd:string .
-
-"Gevaarlijkestoffen"@nl a xsd:string .
-
-"Huisnummer"@nl a xsd:string .
-
-"Kaartblad"@nl a xsd:string .
-
-"Land"@nl a xsd:string .
-
-"Materiaalcategorie"@nl a xsd:string .
-
-"Monsterverwerking"@nl a xsd:string .
-
-"Omschrijving"@nl a xsd:string .
-
-"Onderzoektype"@nl a xsd:string .
-
-"Opnamedatum"@nl a xsd:string .
-
-"Opnamemedium"@nl a xsd:string .
-
-"Opnametype"@nl a xsd:string .
-
-"Plaatscode"@nl a xsd:string .
-
-"Project"@nl a xsd:string .
-
-"Projectlocatie"@nl a xsd:string .
-
-"Projectnaam"@nl a xsd:string .
-
-"Provincie"@nl a xsd:string .
-
-"Provinciecode"@nl a xsd:string .
-
-"Schaal"@nl a xsd:string .
-
-"Serie"@nl a xsd:string .
-
-"Startdatum"@nl a xsd:string .
-
-"Tekenaar"@nl a xsd:string .
-
-"Tekeningformaat"@nl a xsd:string .
-
-"Tekeningmateriaal"@nl a xsd:string .
-
-"Tekeningonderwerp"@nl a xsd:string .
-
-"Textuur"@nl a xsd:string .
-
-"Toponiem"@nl a xsd:string .
-
-"Uitvoerder"@nl a xsd:string .
-
-"Uitvoerdercode"@nl a xsd:string .
-
-<http://www.pakbon-ld.org/0cac88c2-d690-473c-a2d6-1b90e2cf65f4> a crmeh:EHE0018_ContextSample ;
-    rdfs:label "Monster"@nl ;
-    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ndd7eeac01da54279b73a4412faf25777 ;
-    crm:P1_is_identified_by "9871",
-        "M456" ;
-    crm:P2_has_type "MD" ;
-    crm:P3_has_note "14C-dateringen" ;
+    dcterms:medium <http://www.example.org/145b4fda-1df3-4d15-8941-f8020a070e7a> ;
+    crm:P1_is_identified_by "boringen.dbf"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "fff63c19-50f7-4aa9-b525-ffd7d5a4b7bb"^^xsd:ID ;
+    base:Bestandsinhoud "Boringgegevens"@nl ;
+    base:Bestandsnaam "boringen"^^xsd:string ;
+    base:Bestandtype "databasetabel"^^xsd:string ;
+    base:Software "dbase IV"^^xsd:string .
+
+<http://www.example.org/0cac88c2-d690-473c-a2d6-1b90e2cf65f4> a crmeh:EHE0018_ContextSample ;
+    rdfs:label "Monster 9871 (M456)"@nl ;
+    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N4977fa73b0354186a1121482d381f0fd ;
+    crm:P1_is_identified_by "9871"^^xsd:ID,
+        "M456"^^xsd:string ;
     crm:P46i_forms_part_of base:e34e9d15-20fe-4591-9dc0-43e50ca0934f ;
-    crm:P48_has_preferred_identifier "0cac88c2-d690-473c-a2d6-1b90e2cf65f4" ;
-    crm:P53_has_former_or_current_location base:f97ba6e2-1bea-4e94-8a4d-88df266697ca .
+    crm:P48_has_preferred_identifier "0cac88c2-d690-473c-a2d6-1b90e2cf65f4"^^xsd:ID ;
+    crm:P53_has_former_or_current_location base:f97ba6e2-1bea-4e94-8a4d-88df266697ca ;
+    base:Monstertype "MD"^^crmeh:EHE0053_ContextSampleType ;
+    base:Monsterverwerking "14C-dateringen"@nl .
 
-<http://www.pakbon-ld.org/18b875df-6e3e-4987-a2d0-9cff1e7db069> a crmeh:EHE0009_ContextFind ;
-    rdfs:label "Vondst"@nl ;
-    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N5addd60d632740f996b7062588bc1206 ;
-    crm:P147i_was_curated_by "false" ;
-    crm:P1_is_identified_by "AHR39V006-01",
-        "Beker" ;
-    crm:P2_has_type "AOOBEKER.2IIC-BKR" ;
-    crm:P43_has_dimension base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N7de1046a1eb642299a1a61c26931100b,
-        base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nbb4ed07eb3954eef86f5ffe7e9e84e93 ;
-    crm:P45_consists_of "KER" ;
-    crm:P46i_forms_part_of <http://www.pakbon-ld.org/7ccd3f79-23c9-4360-850b-01d6b675c9c2>,
+<http://www.example.org/18b875df-6e3e-4987-a2d0-9cff1e7db069> a crmeh:EHE0009_ContextFind ;
+    rdfs:label "Vondst AHR39V006-01 (Beker)"@nl ;
+    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nb6f57f1727bf4745b5adc6610a1c46a3 ;
+    crm:P1_is_identified_by "AHR39V006-01"^^xsd:ID,
+        "Beker"^^xsd:string ;
+    crm:P46i_forms_part_of <http://www.example.org/7ccd3f79-23c9-4360-850b-01d6b675c9c2>,
         base:f851ca2a-b546-41c5-a524-2e2d0e36534e ;
-    crm:P48_has_preferred_identifier "18b875df-6e3e-4987-a2d0-9cff1e7db069" .
+    crm:P48_has_preferred_identifier "18b875df-6e3e-4987-a2d0-9cff1e7db069"^^xsd:ID ;
+    base:Aantal base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N5d9b596c203047dca90b97e81bae9f34 ;
+    base:Artefacttype "AOOBEKER.2IIC-BKR"^^crm:E55_Type ;
+    base:Exposabel "false"^^crm:E87_Curation_Activity ;
+    base:Geconserveerd "false"^^crm:E87_Curation_Activity ;
+    base:Gedeselecteerd "false"^^crm:E87_Curation_Activity ;
+    base:Gewicht base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N498c34607ae84c8d9d5572b989811ba6 ;
+    base:Materiaalcategorie "KER"^^crmeh:EHE0030_ContextFindMaterial .
 
-<http://www.pakbon-ld.org/2d03325d-a3ad-40d5-aad5-ae6159b7637b> a crm:E73_Information_Object ;
-    rdfs:label "Bestand"@nl ;
-    dcterms:description "Microsoft Paint",
-        "Spoor 109 tekening." ;
-    dcterms:format "Jpeg" ;
+<http://www.example.org/2d03325d-a3ad-40d5-aad5-ae6159b7637b> a crm:E73_Information_Object ;
+    rdfs:label "Bestand Spoor_109.jpg"@nl ;
     dcterms:medium base:e77038a6-2285-422d-8340-ccebb037db17 ;
-    dcterms:title "Spoor_109.jpg" ;
-    crm:P129_is_about <http://www.pakbon-ld.org/1f4dbfb7-89b7-4cfa-80ca-295405fd1a77> ;
-    crm:P1_is_identified_by "Spoor_109.jpg" ;
-    crm:P48_has_preferred_identifier "2d03325d-a3ad-40d5-aad5-ae6159b7637b" .
+    crm:P129_is_about <http://www.example.org/1f4dbfb7-89b7-4cfa-80ca-295405fd1a77> ;
+    crm:P1_is_identified_by "Spoor_109.jpg"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "2d03325d-a3ad-40d5-aad5-ae6159b7637b"^^xsd:ID ;
+    base:Bestandsinhoud "Spoor 109 tekening."@nl ;
+    base:Bestandsnaam "Spoor_109.jpg"^^xsd:string ;
+    base:Bestandtype "Jpeg"^^xsd:string ;
+    base:Software "Microsoft Paint"^^xsd:string .
 
-<http://www.pakbon-ld.org/2e3463cc-a4e8-4896-95d7-8183bab7abfa> a crm:E73_Information_Object ;
-    rdfs:label "Bestand"@nl ;
-    dcterms:description "Microsoft Word 2007",
-        "Verklarende woordenlijst projectrapport." ;
-    dcterms:format "Word" ;
+<http://www.example.org/2e3463cc-a4e8-4896-95d7-8183bab7abfa> a crm:E73_Information_Object ;
+    rdfs:label "Bestand BC388-Woordenlijst.doc"@nl ;
     dcterms:medium base:e77038a6-2285-422d-8340-ccebb037db17 ;
-    dcterms:title "BC388-Woordenlijst.doc" ;
-    crm:P1_is_identified_by "BC388-Woordenlijst.doc" ;
-    crm:P48_has_preferred_identifier "2e3463cc-a4e8-4896-95d7-8183bab7abfa" .
+    crm:P1_is_identified_by "BC388-Woordenlijst.doc"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "2e3463cc-a4e8-4896-95d7-8183bab7abfa"^^xsd:ID ;
+    base:Bestandsinhoud "Verklarende woordenlijst projectrapport."@nl ;
+    base:Bestandsnaam "BC388-Woordenlijst.doc"^^xsd:string ;
+    base:Bestandtype "Word"^^xsd:string ;
+    base:Software "Microsoft Word 2007"^^xsd:string .
 
-<http://www.pakbon-ld.org/3fae914c-c3a0-4b0e-a7d7-a0ffb25536c7> a crmeh:EHE0008_ContextStuff ;
-    rdfs:label "Stort"@nl ;
-    crmeh:EHP3 <http://www.pakbon-ld.org/50087738-80d4-4823-bc32-cf79a3c1c30a>,
-        <http://www.pakbon-ld.org/9f1eacf9-e62d-424a-9a0b-10e0c9814066> ;
-    crm:P1_is_identified_by "954",
-        "S854" ;
-    crm:P48_has_preferred_identifier "3fae914c-c3a0-4b0e-a7d7-a0ffb25536c7" .
+<http://www.example.org/3fae914c-c3a0-4b0e-a7d7-a0ffb25536c7> a crmeh:EHE0008_ContextStuff ;
+    rdfs:label "Stort 954 (S854)"@nl ;
+    crmeh:EHP3 <http://www.example.org/50087738-80d4-4823-bc32-cf79a3c1c30a>,
+        <http://www.example.org/9f1eacf9-e62d-424a-9a0b-10e0c9814066> ;
+    crm:P1_is_identified_by "954"^^xsd:ID,
+        "S854"^^xsd:string ;
+    crm:P48_has_preferred_identifier "3fae914c-c3a0-4b0e-a7d7-a0ffb25536c7"^^xsd:ID .
 
-<http://www.pakbon-ld.org/4a49967c-19f7-4b3a-8d3d-837ad4762d46> a crmeh:EHE0009_ContextFind ;
-    rdfs:label "Vondst"@nl ;
-    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N7b0ec805b90e40f3a4cd839baec77bbd ;
-    crm:P147i_was_curated_by "false" ;
-    crm:P1_is_identified_by "AHR39V002-09",
-        "Beker" ;
-    crm:P2_has_type "AOOBEKER.2IIC-BKR" ;
-    crm:P43_has_dimension base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ncbb5813de8254afa90c7a8c590d9fba7,
-        base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ne6439ac991ae40d2987dad7206436c35 ;
-    crm:P45_consists_of "KER" ;
-    crm:P46i_forms_part_of <http://www.pakbon-ld.org/7ccd3f79-23c9-4360-850b-01d6b675c9c2>,
+<http://www.example.org/4a49967c-19f7-4b3a-8d3d-837ad4762d46> a crmeh:EHE0009_ContextFind ;
+    rdfs:label "Vondst AHR39V002-09 (Beker)"@nl ;
+    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N1582fb3befb54cd1a127c4f0f1a4d833 ;
+    crm:P1_is_identified_by "AHR39V002-09"^^xsd:ID,
+        "Beker"^^xsd:string ;
+    crm:P46i_forms_part_of <http://www.example.org/7ccd3f79-23c9-4360-850b-01d6b675c9c2>,
         base:ce610710-2190-4483-b860-6905bd109836 ;
-    crm:P48_has_preferred_identifier "4a49967c-19f7-4b3a-8d3d-837ad4762d46" .
+    crm:P48_has_preferred_identifier "4a49967c-19f7-4b3a-8d3d-837ad4762d46"^^xsd:ID ;
+    base:Aantal base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N64c4bd37d6374792a3e37a4b23f38607 ;
+    base:Artefacttype "AOOBEKER.2IIC-BKR"^^crm:E55_Type ;
+    base:Exposabel "false"^^crm:E87_Curation_Activity ;
+    base:Geconserveerd "false"^^crm:E87_Curation_Activity ;
+    base:Gedeselecteerd "false"^^crm:E87_Curation_Activity ;
+    base:Gewicht base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nec9da52f46d04e29b0a1ecd28ef4588c ;
+    base:Materiaalcategorie "KER"^^crmeh:EHE0030_ContextFindMaterial .
 
-<http://www.pakbon-ld.org/51c65733-728d-4eaa-acb8-a387a37e1898> a crmeh:EHE0009_ContextFind ;
-    rdfs:label "Vondst"@nl ;
-    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N48f39d579e2541da818ce30b7a146132 ;
-    crm:P147i_was_curated_by "false" ;
-    crm:P1_is_identified_by "AHR39V005-01",
-        "Beker" ;
-    crm:P2_has_type "AOOBEKER.2IIC-BKR" ;
-    crm:P43_has_dimension base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N0644ec3495784e6eb8f279dc4967a8aa,
-        base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N7dc3ff59247748cb927ca9f689afa6e0 ;
-    crm:P45_consists_of "KER" ;
-    crm:P46i_forms_part_of <http://www.pakbon-ld.org/7ccd3f79-23c9-4360-850b-01d6b675c9c2>,
-        <http://www.pakbon-ld.org/99d94682-3dbd-452f-a58b-7f7da1d5eae2> ;
-    crm:P48_has_preferred_identifier "51c65733-728d-4eaa-acb8-a387a37e1898" .
+<http://www.example.org/51c65733-728d-4eaa-acb8-a387a37e1898> a crmeh:EHE0009_ContextFind ;
+    rdfs:label "Vondst AHR39V005-01 (Beker)"@nl ;
+    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N8b263a8c42c74bf78537cf8db0ab35a2 ;
+    crm:P1_is_identified_by "AHR39V005-01"^^xsd:ID,
+        "Beker"^^xsd:string ;
+    crm:P46i_forms_part_of <http://www.example.org/7ccd3f79-23c9-4360-850b-01d6b675c9c2>,
+        <http://www.example.org/99d94682-3dbd-452f-a58b-7f7da1d5eae2> ;
+    crm:P48_has_preferred_identifier "51c65733-728d-4eaa-acb8-a387a37e1898"^^xsd:ID ;
+    base:Aantal base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N3aa2cf6b2fae4008b6aa2afe9b45fd4e ;
+    base:Artefacttype "AOOBEKER.2IIC-BKR"^^crm:E55_Type ;
+    base:Exposabel "false"^^crm:E87_Curation_Activity ;
+    base:Geconserveerd "false"^^crm:E87_Curation_Activity ;
+    base:Gedeselecteerd "false"^^crm:E87_Curation_Activity ;
+    base:Gewicht base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N7443c5738d7d4c94b6ddc68baa6bdcea ;
+    base:Materiaalcategorie "KER"^^crmeh:EHE0030_ContextFindMaterial .
 
-<http://www.pakbon-ld.org/575ba625-69a4-4149-8b70-34cb3b9ff585> a crmeh:EHE0009_ContextFind ;
-    rdfs:label "Vondst"@nl ;
-    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N6e3d3686872446069cd929be65e65c86 ;
-    crm:P147i_was_curated_by "false" ;
-    crm:P1_is_identified_by "AHR39V002-02",
-        "Beker" ;
-    crm:P2_has_type "AOOBEKER.2IIC-BKR" ;
-    crm:P43_has_dimension base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N33b89781932546c5a474565ff66f62c1,
-        base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nf36dfdbab9c041a3a05d5e6f66d9b3e6 ;
-    crm:P45_consists_of "KER" ;
-    crm:P46i_forms_part_of <http://www.pakbon-ld.org/906d115d-a7b3-44a3-b4e2-10e696030e16>,
+<http://www.example.org/575ba625-69a4-4149-8b70-34cb3b9ff585> a crmeh:EHE0009_ContextFind ;
+    rdfs:label "Vondst AHR39V002-02 (Beker)"@nl ;
+    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N43d2ebb30d49487ca73929181b6ca7fc ;
+    crm:P1_is_identified_by "AHR39V002-02"^^xsd:ID,
+        "Beker"^^xsd:string ;
+    crm:P46i_forms_part_of <http://www.example.org/906d115d-a7b3-44a3-b4e2-10e696030e16>,
         base:c9f95c57-2c29-41d9-8dde-d44804ba6d49 ;
-    crm:P48_has_preferred_identifier "575ba625-69a4-4149-8b70-34cb3b9ff585" .
+    crm:P48_has_preferred_identifier "575ba625-69a4-4149-8b70-34cb3b9ff585"^^xsd:ID ;
+    base:Aantal base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N7b13ba5f7c514ae7b6803b3e9c83f16b ;
+    base:Artefacttype "AOOBEKER.2IIC-BKR"^^crm:E55_Type ;
+    base:Exposabel "false"^^crm:E87_Curation_Activity ;
+    base:Geconserveerd "false"^^crm:E87_Curation_Activity ;
+    base:Gedeselecteerd "false"^^crm:E87_Curation_Activity ;
+    base:Gewicht base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ncc09e67310c447cb94ae98b7297346bf ;
+    base:Materiaalcategorie "KER"^^crmeh:EHE0030_ContextFindMaterial .
 
-<http://www.pakbon-ld.org/5d4a37a8-17a8-4879-a557-c5273345f3c2> a crmeh:EHE0009_ContextFind ;
-    rdfs:label "Vondst"@nl ;
-    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N2e66a1de77a24740939db7588ba2291b ;
-    crm:P147i_was_curated_by "false" ;
-    crm:P1_is_identified_by "AHR39V008-01",
-        "Beker" ;
-    crm:P2_has_type "AOOBEKER.2IIC-BKR" ;
-    crm:P43_has_dimension base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N73ad637001d6483bb753eb720e6aa16b,
-        base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nf06ea3be08da49359a2bc35d302b072b ;
-    crm:P45_consists_of "KER" ;
-    crm:P46i_forms_part_of <http://www.pakbon-ld.org/08c58b15-4f14-4961-8baf-b97d4abd340b>,
-        <http://www.pakbon-ld.org/7ccd3f79-23c9-4360-850b-01d6b675c9c2> ;
-    crm:P48_has_preferred_identifier "5d4a37a8-17a8-4879-a557-c5273345f3c2" .
+<http://www.example.org/5d4a37a8-17a8-4879-a557-c5273345f3c2> a crmeh:EHE0009_ContextFind ;
+    rdfs:label "Vondst AHR39V008-01 (Beker)"@nl ;
+    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N8fe3b99b3ca64ca390ad70b3c23ad74a ;
+    crm:P1_is_identified_by "AHR39V008-01"^^xsd:ID,
+        "Beker"^^xsd:string ;
+    crm:P46i_forms_part_of <http://www.example.org/08c58b15-4f14-4961-8baf-b97d4abd340b>,
+        <http://www.example.org/7ccd3f79-23c9-4360-850b-01d6b675c9c2> ;
+    crm:P48_has_preferred_identifier "5d4a37a8-17a8-4879-a557-c5273345f3c2"^^xsd:ID ;
+    base:Aantal base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N68bf457958fd4b6fa9c11c8fe426d04c ;
+    base:Artefacttype "AOOBEKER.2IIC-BKR"^^crm:E55_Type ;
+    base:Exposabel "false"^^crm:E87_Curation_Activity ;
+    base:Geconserveerd "false"^^crm:E87_Curation_Activity ;
+    base:Gedeselecteerd "false"^^crm:E87_Curation_Activity ;
+    base:Gewicht base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nc0f96d7f6e9d4f0a8aeaa12a0afa5cec ;
+    base:Materiaalcategorie "KER"^^crmeh:EHE0030_ContextFindMaterial .
 
-<http://www.pakbon-ld.org/69dfe2dc-223e-4fff-8935-de41e41413d8> a crmeh:EHE0009_ContextFind ;
-    rdfs:label "Vondst"@nl ;
-    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N162ead34f32244fbada855afb8c619a2 ;
-    crm:P147i_was_curated_by "false" ;
-    crm:P1_is_identified_by "AHR39V003-01",
-        "Beker" ;
-    crm:P2_has_type "AOOBEKER.2IIC-BKR" ;
-    crm:P43_has_dimension base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N3e37c0b5f4d8445e9c94c5d2b03b3d75,
-        base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N9ee5d848717b4f8480d6abd067f49f3a ;
-    crm:P45_consists_of "KER" ;
-    crm:P46i_forms_part_of <http://www.pakbon-ld.org/7cca124d-9d08-4491-a5e2-19f817281660>,
-        <http://www.pakbon-ld.org/7ccd3f79-23c9-4360-850b-01d6b675c9c2> ;
-    crm:P48_has_preferred_identifier "69dfe2dc-223e-4fff-8935-de41e41413d8" .
+<http://www.example.org/69dfe2dc-223e-4fff-8935-de41e41413d8> a crmeh:EHE0009_ContextFind ;
+    rdfs:label "Vondst AHR39V003-01 (Beker)"@nl ;
+    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nc201eea1730c4eaca2fb375afde8bcc0 ;
+    crm:P1_is_identified_by "AHR39V003-01"^^xsd:ID,
+        "Beker"^^xsd:string ;
+    crm:P46i_forms_part_of <http://www.example.org/7cca124d-9d08-4491-a5e2-19f817281660>,
+        <http://www.example.org/7ccd3f79-23c9-4360-850b-01d6b675c9c2> ;
+    crm:P48_has_preferred_identifier "69dfe2dc-223e-4fff-8935-de41e41413d8"^^xsd:ID ;
+    base:Aantal base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nfbd34c19c8224da39231dc1d088d2bf9 ;
+    base:Artefacttype "AOOBEKER.2IIC-BKR"^^crm:E55_Type ;
+    base:Exposabel "false"^^crm:E87_Curation_Activity ;
+    base:Geconserveerd "false"^^crm:E87_Curation_Activity ;
+    base:Gedeselecteerd "false"^^crm:E87_Curation_Activity ;
+    base:Gewicht base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nf2a5534553d3410b906c252d6f227ea8 ;
+    base:Materiaalcategorie "KER"^^crmeh:EHE0030_ContextFindMaterial .
 
-<http://www.pakbon-ld.org/6dd0261a-c3dd-48ae-868b-32d7d17192e6> a crmeh:EHE0007_Context ;
-    rdfs:label "Put"@nl ;
-    crmeh:EHP3i <http://www.pakbon-ld.org/705f9546-2e5d-46de-a245-0ea152731e64> ;
-    crm:P1_is_identified_by "96554",
-        "P934" ;
-    crm:P48_has_preferred_identifier "6dd0261a-c3dd-48ae-868b-32d7d17192e6" ;
-    crm:P87_is_identified_by "d9987be3-fdea-4047-be41-d8b9160c524b" ;
-    crm:P89i_contains <http://www.pakbon-ld.org/50087738-80d4-4823-bc32-cf79a3c1c30a> .
+<http://www.example.org/6dd0261a-c3dd-48ae-868b-32d7d17192e6> a crmeh:EHE0007_Context ;
+    rdfs:label "Put 96554 (P934)"@nl ;
+    crmeh:EHP3i <http://www.example.org/705f9546-2e5d-46de-a245-0ea152731e64> ;
+    crm:P1_is_identified_by "96554"^^xsd:ID,
+        "P934"^^xsd:string ;
+    crm:P48_has_preferred_identifier "6dd0261a-c3dd-48ae-868b-32d7d17192e6"^^xsd:ID ;
+    crm:P87_is_identified_by "d9987be3-fdea-4047-be41-d8b9160c524b"^^xsd:string ;
+    crm:P89i_contains <http://www.example.org/50087738-80d4-4823-bc32-cf79a3c1c30a> .
 
-<http://www.pakbon-ld.org/6fbb93df-8345-4a87-8111-f0112908bda6> a crm:E73_Information_Object ;
-    rdfs:label "Bestand"@nl ;
-    dcterms:description "Foto vaas.",
-        "Microsoft Paint" ;
-    dcterms:format "Jpeg" ;
+<http://www.example.org/6fbb93df-8345-4a87-8111-f0112908bda6> a crm:E73_Information_Object ;
+    rdfs:label "Bestand 3827.jpg"@nl ;
     dcterms:medium base:e77038a6-2285-422d-8340-ccebb037db17 ;
-    dcterms:title "3827.jpg" ;
-    crm:P129_is_about <http://www.pakbon-ld.org/74d8d0ea-4662-458d-83f9-677bbb93ec79> ;
-    crm:P1_is_identified_by "3827.jpg" ;
-    crm:P48_has_preferred_identifier "6fbb93df-8345-4a87-8111-f0112908bda6" .
+    crm:P129_is_about <http://www.example.org/74d8d0ea-4662-458d-83f9-677bbb93ec79> ;
+    crm:P1_is_identified_by "3827.jpg"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "6fbb93df-8345-4a87-8111-f0112908bda6"^^xsd:ID ;
+    base:Bestandsinhoud "Foto vaas."@nl ;
+    base:Bestandsnaam "3827.jpg"^^xsd:string ;
+    base:Bestandtype "Jpeg"^^xsd:string ;
+    base:Software "Microsoft Paint"^^xsd:string .
 
-<http://www.pakbon-ld.org/705f9546-2e5d-46de-a245-0ea152731e64> a crmeh:EHE0008_ContextStuff ;
-    rdfs:label "Stort"@nl ;
-    crmeh:EHP3 <http://www.pakbon-ld.org/6dd0261a-c3dd-48ae-868b-32d7d17192e6>,
-        <http://www.pakbon-ld.org/78876c26-738a-499e-97dc-b3cd7d36edc2> ;
-    crm:P1_is_identified_by "923",
-        "S855" ;
-    crm:P48_has_preferred_identifier "705f9546-2e5d-46de-a245-0ea152731e64" .
+<http://www.example.org/705f9546-2e5d-46de-a245-0ea152731e64> a crmeh:EHE0008_ContextStuff ;
+    rdfs:label "Stort 923 (S855)"@nl ;
+    crmeh:EHP3 <http://www.example.org/6dd0261a-c3dd-48ae-868b-32d7d17192e6>,
+        <http://www.example.org/78876c26-738a-499e-97dc-b3cd7d36edc2> ;
+    crm:P1_is_identified_by "923"^^xsd:ID,
+        "S855"^^xsd:string ;
+    crm:P48_has_preferred_identifier "705f9546-2e5d-46de-a245-0ea152731e64"^^xsd:ID .
 
-<http://www.pakbon-ld.org/80bb0536-0452-4e68-bad3-d97405c44606> a crm:E73_Information_Object ;
-    rdfs:label "Bestand"@nl ;
-    dcterms:description "Microsoft Paint",
-        "Spoor 109 tekening." ;
-    dcterms:format "Jpeg" ;
+<http://www.example.org/80bb0536-0452-4e68-bad3-d97405c44606> a crm:E73_Information_Object ;
+    rdfs:label "Bestand Spoor_109-2.jpg"@nl ;
     dcterms:medium base:e77038a6-2285-422d-8340-ccebb037db17 ;
-    dcterms:title "Spoor_109-2.jpg" ;
     crm:P129_is_about base:a2012515-e902-4360-9e6c-85e8a53f1aa6 ;
-    crm:P1_is_identified_by "Spoor_109-2.jpg" ;
-    crm:P48_has_preferred_identifier "80bb0536-0452-4e68-bad3-d97405c44606" .
+    crm:P1_is_identified_by "Spoor_109-2.jpg"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "80bb0536-0452-4e68-bad3-d97405c44606"^^xsd:ID ;
+    base:Bestandsinhoud "Spoor 109 tekening."@nl ;
+    base:Bestandsnaam "Spoor_109-2.jpg"^^xsd:string ;
+    base:Bestandtype "Jpeg"^^xsd:string ;
+    base:Software "Microsoft Paint"^^xsd:string .
 
-<http://www.pakbon-ld.org/89912ec1-6722-44a1-82fd-fd3154ced52b> a crm:E73_Information_Object ;
-    rdfs:label "Bestand"@nl ;
-    dcterms:description "Microsoft Paint",
-        "Spoor 109 foto." ;
-    dcterms:format "Jpeg" ;
+<http://www.example.org/89912ec1-6722-44a1-82fd-fd3154ced52b> a crm:E73_Information_Object ;
+    rdfs:label "Bestand 3826.jpg"@nl ;
     dcterms:medium base:e77038a6-2285-422d-8340-ccebb037db17 ;
-    dcterms:title "3826.jpg" ;
     crm:P129_is_about base:c222573c-7e3d-4e92-bca1-98c14d17a247 ;
-    crm:P1_is_identified_by "3826.jpg" ;
-    crm:P48_has_preferred_identifier "89912ec1-6722-44a1-82fd-fd3154ced52b" .
+    crm:P1_is_identified_by "3826.jpg"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "89912ec1-6722-44a1-82fd-fd3154ced52b"^^xsd:ID ;
+    base:Bestandsinhoud "Spoor 109 foto."@nl ;
+    base:Bestandsnaam "3826.jpg"^^xsd:string ;
+    base:Bestandtype "Jpeg"^^xsd:string ;
+    base:Software "Microsoft Paint"^^xsd:string .
 
-<http://www.pakbon-ld.org/906d115d-a7b3-44a3-b4e2-10e696030e16> a crm:E78_Collection ;
-    rdfs:label "Veldvondst"@nl ;
-    crm:P1_is_identified_by "AHR39V002" ;
-    crm:P3_has_note "HASCHA" ;
-    crm:P46_is_composed_of <http://www.pakbon-ld.org/575ba625-69a4-4149-8b70-34cb3b9ff585>,
+<http://www.example.org/906d115d-a7b3-44a3-b4e2-10e696030e16> a crm:E78_Collection ;
+    rdfs:label "Veldvondst AHR39V002 (AHR39V002)"@nl ;
+    crm:P1_is_identified_by "AHR39V002"^^xsd:ID,
+        "AHR39V002"^^xsd:string ;
+    crm:P46_is_composed_of <http://www.example.org/575ba625-69a4-4149-8b70-34cb3b9ff585>,
         base:f42ee413-a67e-453c-a020-9fcfd7215043 ;
-    crm:P48_has_preferred_identifier "906d115d-a7b3-44a3-b4e2-10e696030e16" ;
-    crm:P53_has_former_or_current_location base:dec73ddd-67d0-4425-9809-f46496ddd25b .
+    crm:P48_has_preferred_identifier "906d115d-a7b3-44a3-b4e2-10e696030e16"^^xsd:ID ;
+    crm:P53_has_former_or_current_location base:dec73ddd-67d0-4425-9809-f46496ddd25b ;
+    base:Verzamelwijze "HASCHA"^^crmeh:EHE0046_ContextNote .
 
-<http://www.pakbon-ld.org/9f1eacf9-e62d-424a-9a0b-10e0c9814066> a crmeh:EHE0007_Context ;
-    rdfs:label "Put"@nl ;
-    crmeh:EHP3i <http://www.pakbon-ld.org/3fae914c-c3a0-4b0e-a7d7-a0ffb25536c7> ;
-    crm:P1_is_identified_by "456731",
-        "P458" ;
-    crm:P48_has_preferred_identifier "9f1eacf9-e62d-424a-9a0b-10e0c9814066" ;
-    crm:P87_is_identified_by "1a7f30c0-44c5-4eee-9f08-6db3482b317c" ;
-    crm:P89i_contains <http://www.pakbon-ld.org/78876c26-738a-499e-97dc-b3cd7d36edc2> .
+<http://www.example.org/9f1eacf9-e62d-424a-9a0b-10e0c9814066> a crmeh:EHE0007_Context ;
+    rdfs:label "Put 456731 (P458)"@nl ;
+    crmeh:EHP3i <http://www.example.org/3fae914c-c3a0-4b0e-a7d7-a0ffb25536c7> ;
+    crm:P1_is_identified_by "456731"^^xsd:ID,
+        "P458"^^xsd:string ;
+    crm:P48_has_preferred_identifier "9f1eacf9-e62d-424a-9a0b-10e0c9814066"^^xsd:ID ;
+    crm:P87_is_identified_by "1a7f30c0-44c5-4eee-9f08-6db3482b317c"^^xsd:string ;
+    crm:P89i_contains <http://www.example.org/78876c26-738a-499e-97dc-b3cd7d36edc2> .
 
 base:aff2672e-127f-4037-bada-af4bf7ebf5c5 a crmeh:EHE0008_ContextStuff ;
-    rdfs:label "Vulling"@nl ;
-    crmeh:EHP3 <http://www.pakbon-ld.org/0eec75c7-0766-4307-90c3-70f1a7fe0713> ;
-    crm:P1_is_identified_by "45683",
-        "V683" ;
-    crm:P3_has_note "Bruin",
-        "Ovaal",
-        "Vezelachtig" ;
-    crm:P48_has_preferred_identifier "aff2672e-127f-4037-bada-af4bf7ebf5c5" .
+    rdfs:label "Vulling 45683 (V683)"@nl ;
+    crmeh:EHP3 <http://www.example.org/0eec75c7-0766-4307-90c3-70f1a7fe0713> ;
+    crm:P1_is_identified_by "45683"^^xsd:ID,
+        "V683"^^xsd:string ;
+    crm:P48_has_preferred_identifier "aff2672e-127f-4037-bada-af4bf7ebf5c5"^^xsd:ID ;
+    base:Kleur "Bruin"^^crmeh:EHE0059_ContextStuffNote ;
+    base:Textuur "Vezelachtig"^^crmeh:EHE0059_ContextStuffNote ;
+    base:Vorm "Ovaal"^^crmeh:EHE0059_ContextStuffNote .
 
 base:b59c92e9-0924-464a-bfb9-0b2591fa0528 a crm:E78_Collection ;
-    rdfs:label "Doos"@nl ;
-    crm:P129i_is_subject_of "18",
-        "false" ;
-    crm:P1_is_identified_by "AHR39D001" ;
+    rdfs:label "Doos AHR39D001 (AHR39D001)"@nl ;
+    crm:P1_is_identified_by "AHR39D001"^^xsd:ID,
+        "AHR39D001"^^xsd:string ;
     crm:P46_is_composed_of base:e34e9d15-20fe-4591-9dc0-43e50ca0934f ;
-    crm:P48_has_preferred_identifier "b59c92e9-0924-464a-bfb9-0b2591fa0528" .
+    crm:P48_has_preferred_identifier "b59c92e9-0924-464a-bfb9-0b2591fa0528"^^xsd:ID ;
+    base:Bewaartemperatuur "18"^^crmeh:EHE0041_ContextFindTreatmentProcedure ;
+    base:Breekbaar "false"^^crmeh:EHE0041_ContextFindTreatmentProcedure ;
+    base:Lichtgevoelig "false"^^crmeh:EHE0041_ContextFindTreatmentProcedure .
 
 base:b6c62c43-7b9f-4ee4-baa1-27007dded175 a crmeh:EHE0007_Context ;
-    rdfs:label "Vak"@nl ;
-    crm:P1_is_identified_by "12",
-        "8531",
-        "V578" ;
-    crm:P39i_was_measured_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ne2bfc244f81c4cceab931bac255bacfd,
-        base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nefddebf06e0d451e9bc4617795857943 ;
-    crm:P48_has_preferred_identifier "b6c62c43-7b9f-4ee4-baa1-27007dded175" ;
-    crm:P87_is_identified_by "1a7f30c0-44c5-4eee-9f08-6db3482b317c" ;
-    crm:P89_falls_within <http://www.pakbon-ld.org/78876c26-738a-499e-97dc-b3cd7d36edc2> .
+    rdfs:label "Vak 8531 (V578)"@nl ;
+    crm:P1_is_identified_by "8531"^^xsd:ID,
+        "V578"^^xsd:string ;
+    crm:P39i_was_measured_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nb5a6fc7952984f4cbc8e440c81784227,
+        base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nc01b736c82b347e0b8d4990103ad970f ;
+    crm:P48_has_preferred_identifier "b6c62c43-7b9f-4ee4-baa1-27007dded175"^^xsd:ID ;
+    crm:P87_is_identified_by "1a7f30c0-44c5-4eee-9f08-6db3482b317c"^^xsd:string ;
+    crm:P89_falls_within <http://www.example.org/78876c26-738a-499e-97dc-b3cd7d36edc2> ;
+    base:Vaknummer "12"^^crm:E41_Appellation .
 
 base:c10a6505-606f-4d52-9d8a-2f53fbd5d5f2 a crmeh:EHE0009_ContextFind ;
-    rdfs:label "Vondst"@nl ;
-    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nd37b5a03975e4ac3ba5c43eec3dc62ed ;
-    crm:P147i_was_curated_by "false" ;
-    crm:P1_is_identified_by "AHR39V004-01",
-        "Beker" ;
-    crm:P2_has_type "AOOBEKER.2IIC-BKR" ;
-    crm:P43_has_dimension base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nb26e0ef8649a457a941a5684893ae74e,
-        base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nfd97f26f9eaf4e859ed12e47b737fa50 ;
-    crm:P45_consists_of "KER" ;
-    crm:P46i_forms_part_of <http://www.pakbon-ld.org/7ccd3f79-23c9-4360-850b-01d6b675c9c2>,
-        <http://www.pakbon-ld.org/801c1348-e36a-40e6-a827-8d967450b5da> ;
-    crm:P48_has_preferred_identifier "c10a6505-606f-4d52-9d8a-2f53fbd5d5f2" .
+    rdfs:label "Vondst AHR39V004-01 (Beker)"@nl ;
+    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nc558d9507bfb408a98bb505c22b629b5 ;
+    crm:P1_is_identified_by "AHR39V004-01"^^xsd:ID,
+        "Beker"^^xsd:string ;
+    crm:P46i_forms_part_of <http://www.example.org/7ccd3f79-23c9-4360-850b-01d6b675c9c2>,
+        <http://www.example.org/801c1348-e36a-40e6-a827-8d967450b5da> ;
+    crm:P48_has_preferred_identifier "c10a6505-606f-4d52-9d8a-2f53fbd5d5f2"^^xsd:ID ;
+    base:Aantal base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nca33b037ce154e049b92483084330717 ;
+    base:Artefacttype "AOOBEKER.2IIC-BKR"^^crm:E55_Type ;
+    base:Exposabel "false"^^crm:E87_Curation_Activity ;
+    base:Geconserveerd "false"^^crm:E87_Curation_Activity ;
+    base:Gedeselecteerd "false"^^crm:E87_Curation_Activity ;
+    base:Gewicht base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N38b41d267767492cad880223c9097f47 ;
+    base:Materiaalcategorie "KER"^^crmeh:EHE0030_ContextFindMaterial .
 
 base:da757a1a-dd71-4c3e-b24c-d86aba1f78a5 a crmeh:EHE0007_Context ;
-    rdfs:label "Segment"@nl ;
-    crm:P1_is_identified_by "90253",
-        "S965" ;
-    crm:P48_has_preferred_identifier "da757a1a-dd71-4c3e-b24c-d86aba1f78a5" ;
-    crm:P87_is_identified_by "1a7f30c0-44c5-4eee-9f08-6db3482b317c" ;
-    crm:P89_falls_within <http://www.pakbon-ld.org/0eec75c7-0766-4307-90c3-70f1a7fe0713> .
+    rdfs:label "Segment 90253 (S965)"@nl ;
+    crm:P1_is_identified_by "90253"^^xsd:ID,
+        "S965"^^xsd:string ;
+    crm:P48_has_preferred_identifier "da757a1a-dd71-4c3e-b24c-d86aba1f78a5"^^xsd:ID ;
+    crm:P87_is_identified_by "1a7f30c0-44c5-4eee-9f08-6db3482b317c"^^xsd:string ;
+    crm:P89_falls_within <http://www.example.org/0eec75c7-0766-4307-90c3-70f1a7fe0713> .
 
 base:dec73ddd-67d0-4425-9809-f46496ddd25b a crmeh:EHE0007_Context ;
-    rdfs:label "Vondstcontext"@nl ;
-    crm:P1_is_identified_by "37432" ;
-    crm:P2_has_type "PUNTLOCATIE" ;
-    crm:P48_has_preferred_identifier "dec73ddd-67d0-4425-9809-f46496ddd25b" ;
-    crm:P53i_is_former_or_current_location_of <http://www.pakbon-ld.org/35ee5f40-5ef2-4c46-bc12-169d787da2e7> ;
-    crm:P87_is_identified_by "d9987be3-fdea-4047-be41-d8b9160c524b" .
+    rdfs:label "Vondstcontext 37432"@nl ;
+    crm:P1_is_identified_by "37432"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "dec73ddd-67d0-4425-9809-f46496ddd25b"^^xsd:ID ;
+    crm:P53i_is_former_or_current_location_of <http://www.example.org/35ee5f40-5ef2-4c46-bc12-169d787da2e7> ;
+    crm:P87_is_identified_by "d9987be3-fdea-4047-be41-d8b9160c524b"^^xsd:string ;
+    base:Contexttype "PUNTLOCATIE"^^crm:E55_Type .
 
 base:e6e59506-eafe-49d3-b597-1d6618bb45f9 a crmeh:EHE0009_ContextFind ;
-    rdfs:label "Vondst"@nl ;
-    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nfa318b433b6948119b09ee18443c00aa ;
-    crm:P147i_was_curated_by "false" ;
-    crm:P1_is_identified_by "AHR39V007-01",
-        "Beker" ;
-    crm:P2_has_type "AOOBEKER.2IIC-BKR" ;
-    crm:P43_has_dimension base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N1d2d0e6eff304513a48f13c6daed79de,
-        base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N95b045746cc34dffbab0fc61ddb90ecc ;
-    crm:P45_consists_of "KER" ;
-    crm:P46i_forms_part_of <http://www.pakbon-ld.org/56e7a6d2-8cd0-45a9-84fc-162aa3349c38>,
-        <http://www.pakbon-ld.org/7ccd3f79-23c9-4360-850b-01d6b675c9c2> ;
-    crm:P48_has_preferred_identifier "e6e59506-eafe-49d3-b597-1d6618bb45f9" .
+    rdfs:label "Vondst AHR39V007-01 (Beker)"@nl ;
+    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N0ba167fbaf154d52bf014d110fdf1746 ;
+    crm:P1_is_identified_by "AHR39V007-01"^^xsd:ID,
+        "Beker"^^xsd:string ;
+    crm:P46i_forms_part_of <http://www.example.org/56e7a6d2-8cd0-45a9-84fc-162aa3349c38>,
+        <http://www.example.org/7ccd3f79-23c9-4360-850b-01d6b675c9c2> ;
+    crm:P48_has_preferred_identifier "e6e59506-eafe-49d3-b597-1d6618bb45f9"^^xsd:ID ;
+    base:Aantal base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N55ac57b43ee4480290d2d67c8c23a7ef ;
+    base:Artefacttype "AOOBEKER.2IIC-BKR"^^crm:E55_Type ;
+    base:Exposabel "false"^^crm:E87_Curation_Activity ;
+    base:Geconserveerd "false"^^crm:E87_Curation_Activity ;
+    base:Gedeselecteerd "false"^^crm:E87_Curation_Activity ;
+    base:Gewicht base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nd22739d62c6140aca6d50b5dad956beb ;
+    base:Materiaalcategorie "KER"^^crmeh:EHE0030_ContextFindMaterial .
 
 base:f17b5cce-d2de-4614-887c-a66dde17ae89 a crm:E73_Information_Object ;
-    rdfs:label "Bestand"@nl ;
-    dcterms:description "Microsoft Word 2007",
-        "Projectrapport." ;
-    dcterms:format "Word" ;
+    rdfs:label "Bestand BC388.doc"@nl ;
     dcterms:medium base:e77038a6-2285-422d-8340-ccebb037db17 ;
-    dcterms:title "BC388.doc" ;
-    crm:P1_is_identified_by "BC388.doc" ;
-    crm:P48_has_preferred_identifier "f17b5cce-d2de-4614-887c-a66dde17ae89" .
-
-"14C-dateringen" a xsd:string ;
-    rdfs:label "Monsterverwerking"@nl .
-
-"16" a xsd:positiveInteger ;
-    rdfs:label "Huisnummer"@nl .
-
-"180" a xsd:positiveInteger ;
-    rdfs:label "Waarde"@nl .
-
-"1:20" a crmeh:EHE0079_RecordDrawingNote ;
-    rdfs:label "Schaal"@nl .
-
-"3826.jpg" a crm:E42_Identifier,
-        xsd:string ;
-    rdfs:label "Bestandsnaam"@nl .
-
-"3827.jpg" a crm:E42_Identifier,
-        xsd:string ;
-    rdfs:label "Bestandsnaam"@nl .
-
-"7f9447ac-15ab-46e5-a287-7480e6d5c16d" a crm:E42_Identifier,
-        crm:E44_Place_Appellation .
-
-"9033473461" a crm:E42_Identifier,
-        xsd:string ;
-    rdfs:label "ISBN"@nl .
-
-"9053566937" a crm:E42_Identifier,
-        xsd:string ;
-    rdfs:label "ISBN"@nl .
-
-"A4" a crmeh:EHE0079_RecordDrawingNote ;
-    rdfs:label "Tekeningformaat"@nl .
-
-"BC388" a crm:E42_Identifier .
-
-"BC388-Woordenlijst.doc" a crm:E42_Identifier,
-        xsd:string ;
-    rdfs:label "Bestandsnaam"@nl .
-
-"BC388.doc" a crm:E42_Identifier,
-        xsd:string ;
-    rdfs:label "Bestandsnaam"@nl .
-
-"C. Breton" a xsd:string ;
-    rdfs:label "Fotograaf"@nl .
-
-"DET" a crmeh:EHE0081_RecordDrawingReferenceType ;
-    rdfs:label "Tekeningtype"@nl .
-
-"DIG" a xsd:string ;
-    rdfs:label "Opnamemedium"@nl .
-
-"KL8432.doc" a crm:E42_Identifier,
-        xsd:string ;
-    rdfs:label "Bestandsnaam"@nl .
-
-"Louwe Kooijmans" a xsd:string ;
-    rdfs:label "Achternaam"@nl,
-        "Auteur"@nl .
-
-"M456" a crm:E41_Appellation .
-
-"MESOM" a crmeh:EHE0091_Timestamp,
-        xsd:string ;
-    rdfs:label "Beginperiode"@nl,
-        "Eindperiode"@nl .
-
-"NEOM" a crmeh:EHE0091_Timestamp,
-        xsd:string ;
-    rdfs:label "Beginperiode"@nl,
-        "Eindperiode"@nl .
-
-"NTV" a crmeh:EHE0091_Timestamp,
-        xsd:string ;
-    rdfs:label "Beginperiode"@nl,
-        "Eindperiode"@nl .
-
-"P.A. Pier" a xsd:string ;
-    rdfs:label "Tekenaar"@nl .
-
-"P458" a crm:E41_Appellation .
-
-"ROMM" a crmeh:EHE0091_Timestamp,
-        xsd:string ;
-    rdfs:label "Beginperiode"@nl,
-        "Eindperiode"@nl .
-
-"ROMVB" a crmeh:EHE0091_Timestamp,
-        xsd:string ;
-    rdfs:label "Beginperiode"@nl,
-        "Eindperiode"@nl .
-
-"S854" a crm:E41_Appellation .
-
-"STEEN" a crmeh:EHE0091_Timestamp,
-        xsd:string ;
-    rdfs:label "Beginperiode"@nl,
-        "Eindperiode"@nl .
-
-"Spoor 109 tekening." a xsd:string ;
-    rdfs:label "Bestandsinhoud"@nl .
-
-"Spoor_109-2.jpg" a crm:E42_Identifier,
-        xsd:string ;
-    rdfs:label "Bestandsnaam"@nl .
-
-"Spoor_109.jpg" a crm:E42_Identifier,
-        xsd:string ;
-    rdfs:label "Bestandsnaam"@nl .
-
-"XXX" a crm:E55_Type ;
-    rdfs:label "Documenttype"@nl .
-
-"databasetabel" a xsd:string ;
-    rdfs:label "Bestandtype"@nl .
-
-"e397b04e-ffd3-4b34-96e9-70f5355262a8" a crm:E42_Identifier,
-        crm:E44_Place_Appellation .
-
-"houtvrij mm papier" a xsd:string ;
-    rdfs:label "Tekeningmateriaal"@nl .
-
-"kopgegevens van boringen" a xsd:string ;
-    rdfs:label "Bestandsinhoud"@nl .
-
-"spoor 109" a xsd:string ;
-    rdfs:label "Tekeningonderwerp"@nl .
-
-"Adres"@nl a xsd:string .
-
-"Bewaartemperatuur"@nl a xsd:string .
-
-"Breekbaar"@nl a xsd:string .
-
-"Diepte"@nl a xsd:string .
-
-"Digitaalmedium"@nl a xsd:string .
-
-"Digitaalmediumtype"@nl a xsd:string .
-
-"Dikte"@nl a xsd:string .
-
-"Documenteren (Analoog)"@nl a xsd:string .
-
-"Documenttype"@nl a xsd:string .
-
-"Doos"@nl a xsd:string .
-
-"Dossier"@nl a xsd:string .
-
-"Dossiertype"@nl a xsd:string .
-
-"Email"@nl a xsd:string .
-
-"Foto"@nl a xsd:string .
-
-"Fotoonderwerp"@nl a xsd:string .
-
-"Grondspoortype"@nl a xsd:string .
-
-"ISBN"@nl a xsd:string .
-
-"Kleur"@nl a xsd:string .
-
-"Lichtgevoelig"@nl a xsd:string .
-
-"Monster"@nl a xsd:string .
-
-"Monstertype"@nl a xsd:string .
-
-"Normaal Amsterdams Peil (NAP)"@nl a xsd:string .
-
-"Organisatie"@nl a xsd:string .
-
-"Plaatsnaam"@nl a xsd:string .
-
-"Planum"@nl a xsd:string .
-
-"Planumtype"@nl a xsd:string .
-
-"Postcode"@nl a xsd:string .
-
-"Put"@nl a xsd:string .
-
-"Redacteur"@nl a xsd:string .
-
-"Segment"@nl a xsd:string .
-
-"Spoor"@nl a xsd:string .
-
-"Stort"@nl a xsd:string .
-
-"Straat"@nl a xsd:string .
-
-"Structuur"@nl a xsd:string .
-
-"Structuurtype"@nl a xsd:string .
-
-"Tekening"@nl a xsd:string .
-
-"Tekeningdatum"@nl a xsd:string .
-
-"Tekeningtype"@nl a xsd:string .
-
-"Telefoon"@nl a xsd:string .
-
-"Vak"@nl a xsd:string .
-
-"Vaknummer"@nl a xsd:string .
-
-"Verzamelen (Objecten)"@nl a xsd:string .
-
-"Verzamelwijze"@nl a xsd:string .
-
-"Vindplaats"@nl a xsd:string .
-
-"Vindplaatstype"@nl a xsd:string .
-
-"Vondstmeldingsnummer"@nl a xsd:string .
-
-"Vorm"@nl a xsd:string .
-
-"Vulling"@nl a xsd:string .
-
-"Waarnemingsnummer"@nl a xsd:string .
-
-<http://www.pakbon-ld.org/145b4fda-1df3-4d15-8941-f8020a070e7a> a crm:E84_Information_Carrier ;
-    rdfs:label "Digitaalmedium"@nl ;
-    crm:P1_is_identified_by "AHR39-2" ;
-    crm:P2_has_type "USB-stick" ;
-    crm:P48_has_preferred_identifier "145b4fda-1df3-4d15-8941-f8020a070e7a" .
-
-<http://www.pakbon-ld.org/6d2005c0-733b-49f2-94b2-fec71e3f58c6> a crmeh:EHE0007_Context ;
-    rdfs:label "Spoor"@nl ;
-    crmeh:EHP3i <http://www.pakbon-ld.org/0148842e-7696-4cdf-83c6-13e86b2e88b7> ;
-    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nc665e70d8c2d47e1bf244836c92f2f97 ;
-    crm:P1_is_identified_by "5932",
-        "S854" ;
-    crm:P2_has_type "KUIL.HAARDKL" ;
-    crm:P39i_was_measured_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nd631fe616396412c83bdea934d35f932 ;
-    crm:P48_has_preferred_identifier "6d2005c0-733b-49f2-94b2-fec71e3f58c6" ;
-    crm:P53i_is_former_or_current_location_of <http://www.pakbon-ld.org/0b5275c9-325e-4ef9-a7de-018925e61f6e> ;
-    crm:P87_is_identified_by "d9987be3-fdea-4047-be41-d8b9160c524b" ;
-    crm:P89i_contains base:a5392dd6-598f-40ce-bf1c-47c2718fc8a3 .
-
-<http://www.pakbon-ld.org/8f0da90c-7aba-4a7d-a8e0-b1881cbce351> a crm:E78_Collection ;
-    rdfs:label "Doos"@nl ;
-    crm:P129i_is_subject_of "10",
-        "50-60%",
-        "Asbest",
-        "true" ;
-    crm:P1_is_identified_by "AHR39D002" ;
-    crm:P46_is_composed_of <http://www.pakbon-ld.org/7ccd3f79-23c9-4360-850b-01d6b675c9c2>,
+    crm:P1_is_identified_by "BC388.doc"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "f17b5cce-d2de-4614-887c-a66dde17ae89"^^xsd:ID ;
+    base:Bestandsinhoud "Projectrapport."@nl ;
+    base:Bestandsnaam "BC388.doc"^^xsd:string ;
+    base:Bestandtype "Word"^^xsd:string ;
+    base:Software "Microsoft Word 2007"^^xsd:string .
+
+<http://www.example.org/145b4fda-1df3-4d15-8941-f8020a070e7a> a crm:E84_Information_Carrier ;
+    rdfs:label "Digitaalmedium AHR39-2"@nl ;
+    crm:P1_is_identified_by "AHR39-2"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "145b4fda-1df3-4d15-8941-f8020a070e7a"^^xsd:ID ;
+    base:Digitaalmediumtype "USB-stick"^^crm:E55_Type .
+
+<http://www.example.org/6d2005c0-733b-49f2-94b2-fec71e3f58c6> a crmeh:EHE0007_Context ;
+    rdfs:label "Spoor 5932 (S854)"@nl ;
+    crmeh:EHP3i <http://www.example.org/0148842e-7696-4cdf-83c6-13e86b2e88b7> ;
+    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Necccc81438684d7d87fdc20e9116c74c ;
+    crm:P1_is_identified_by "5932"^^xsd:ID,
+        "S854"^^xsd:string ;
+    crm:P39i_was_measured_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nf3b455f673eb4e9a9cf92391c71efeca ;
+    crm:P48_has_preferred_identifier "6d2005c0-733b-49f2-94b2-fec71e3f58c6"^^xsd:ID ;
+    crm:P53i_is_former_or_current_location_of <http://www.example.org/0b5275c9-325e-4ef9-a7de-018925e61f6e> ;
+    crm:P87_is_identified_by "d9987be3-fdea-4047-be41-d8b9160c524b"^^xsd:string ;
+    crm:P89i_contains base:a5392dd6-598f-40ce-bf1c-47c2718fc8a3 ;
+    base:Grondspoortype "KUIL.HAARDKL"^^crm:E55_Type .
+
+<http://www.example.org/8f0da90c-7aba-4a7d-a8e0-b1881cbce351> a crm:E78_Collection ;
+    rdfs:label "Doos AHR39D002 (AHR39D002)"@nl ;
+    crm:P1_is_identified_by "AHR39D002"^^xsd:ID,
+        "AHR39D002"^^xsd:string ;
+    crm:P46_is_composed_of <http://www.example.org/7ccd3f79-23c9-4360-850b-01d6b675c9c2>,
         base:c9f95c57-2c29-41d9-8dde-d44804ba6d49 ;
-    crm:P48_has_preferred_identifier "8f0da90c-7aba-4a7d-a8e0-b1881cbce351" .
+    crm:P48_has_preferred_identifier "8f0da90c-7aba-4a7d-a8e0-b1881cbce351"^^xsd:ID ;
+    base:Bewaartemperatuur "10"^^crmeh:EHE0041_ContextFindTreatmentProcedure ;
+    base:Bewaarvochtigheid "50-60%"^^crmeh:EHE0041_ContextFindTreatmentProcedure ;
+    base:Breekbaar "true"^^crmeh:EHE0041_ContextFindTreatmentProcedure ;
+    base:Gevaarlijkestoffen "Asbest"^^crmeh:EHE0041_ContextFindTreatmentProcedure ;
+    base:Lichtgevoelig "true"^^crmeh:EHE0041_ContextFindTreatmentProcedure .
 
 base:c9f95c57-2c29-41d9-8dde-d44804ba6d49 a crmeh:EHE0010_BulkFind ;
-    rdfs:label "Verpakkingseenheid"@nl ;
-    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N842a5b8c43494795b5814d19f5983199 ;
-    crm:P1_is_identified_by "AL342" ;
-    crm:P43_has_dimension base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nb29174eb95c346aa9fd6dcdb5a2de23c ;
-    crm:P46_is_composed_of <http://www.pakbon-ld.org/575ba625-69a4-4149-8b70-34cb3b9ff585>,
+    rdfs:label "Verpakkingseenheid AL342 (AL342)"@nl ;
+    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N00c82a32960c4ee1b792fd93d6f36bef ;
+    crm:P1_is_identified_by "AL342"^^xsd:ID,
+        "AL342"^^xsd:string ;
+    crm:P46_is_composed_of <http://www.example.org/575ba625-69a4-4149-8b70-34cb3b9ff585>,
         base:f42ee413-a67e-453c-a020-9fcfd7215043 ;
-    crm:P46i_forms_part_of <http://www.pakbon-ld.org/8f0da90c-7aba-4a7d-a8e0-b1881cbce351> ;
-    crm:P48_has_preferred_identifier "c9f95c57-2c29-41d9-8dde-d44804ba6d49" ;
-    crm:P57_has_number_of_parts "2" .
+    crm:P46i_forms_part_of <http://www.example.org/8f0da90c-7aba-4a7d-a8e0-b1881cbce351> ;
+    crm:P48_has_preferred_identifier "c9f95c57-2c29-41d9-8dde-d44804ba6d49"^^xsd:ID ;
+    base:Aantal "2"^^xsd:NonNegativeInteger ;
+    base:Gewicht base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Naac3bb28f23e4a2e88df769bea0e8d92 .
 
 base:e34e9d15-20fe-4591-9dc0-43e50ca0934f a crmeh:EHE0010_BulkFind ;
-    rdfs:label "Verpakkingseenheid"@nl ;
-    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nac24384d9e2d42929719e38be4d1a55e ;
-    crm:P1_is_identified_by "AL341" ;
-    crm:P43_has_dimension base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ndab017a04813408686632e7694747947 ;
-    crm:P46_is_composed_of <http://www.pakbon-ld.org/0cac88c2-d690-473c-a2d6-1b90e2cf65f4>,
+    rdfs:label "Verpakkingseenheid AL341 (AL341)"@nl ;
+    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nd0923616fcf04403bf5b56867df98e46 ;
+    crm:P1_is_identified_by "AL341"^^xsd:ID,
+        "AL341"^^xsd:string ;
+    crm:P46_is_composed_of <http://www.example.org/0cac88c2-d690-473c-a2d6-1b90e2cf65f4>,
         base:aded5187-cdb9-4a8d-91b0-95d08032d326 ;
     crm:P46i_forms_part_of base:b59c92e9-0924-464a-bfb9-0b2591fa0528 ;
-    crm:P48_has_preferred_identifier "e34e9d15-20fe-4591-9dc0-43e50ca0934f" ;
-    crm:P57_has_number_of_parts "1" .
+    crm:P48_has_preferred_identifier "e34e9d15-20fe-4591-9dc0-43e50ca0934f"^^xsd:ID ;
+    base:Aantal "1"^^xsd:NonNegativeInteger ;
+    base:Gewicht base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ndaeb44f6a32d45a88185935c412bf652 .
 
 base:fc1dff0b-1915-4ffc-9e7c-1b6bbdc501d5 a crm:E73_Information_Object ;
-    rdfs:label "Bestand"@nl ;
-    dcterms:description "dbase IV",
-        "kopgegevens van boringen" ;
-    dcterms:format "database" ;
-    dcterms:medium <http://www.pakbon-ld.org/145b4fda-1df3-4d15-8941-f8020a070e7a> ;
-    dcterms:title "boringen.dbf" ;
-    crm:P1_is_identified_by "boringen.dbf" ;
-    crm:P48_has_preferred_identifier "fc1dff0b-1915-4ffc-9e7c-1b6bbdc501d5" ;
-    crm:P67_refers_to "datadictionary.pdf" .
+    rdfs:label "Bestand boringen.dbf"@nl ;
+    dcterms:medium <http://www.example.org/145b4fda-1df3-4d15-8941-f8020a070e7a> ;
+    crm:P1_is_identified_by "boringen.dbf"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "fc1dff0b-1915-4ffc-9e7c-1b6bbdc501d5"^^xsd:ID ;
+    base:Bestandsinhoud "kopgegevens van boringen"@nl ;
+    base:Bestandsnaam "boringen.dbf"^^xsd:string ;
+    base:Bestandtype "database"^^xsd:string ;
+    base:Codeboek "datadictionary.pdf"^^crm:E73_Information_Object ;
+    base:Software "dbase IV"^^xsd:string .
 
-"071-5273313" a crm:E51_Contact_Point ;
-    rdfs:label "Telefoon"@nl .
-
-"2003-06-09" a xsd:date ;
-    rdfs:label "Opnamedatum"@nl,
-        "Tekeningdatum"@nl .
-
-"COU" a crmeh:EHE0081_RecordDrawingReferenceType,
-        crmeh:EHE0085_RecordPhotographReferenceType ;
-    rdfs:label "Opnametype"@nl,
-        "Tekeningtype"@nl .
-
-"Leiden" a dcterms:Location,
-        gn:Feature ;
-    rdfs:label "Gemeente"@nl,
-        "Plaats van Uitgave"@nl,
-        "Plaatsnaam"@nl ;
-    gn:featureCode gn:A.ADM2,
-        gn:P.PPL .
-
-"Microsoft Word 2007" a xsd:string ;
-    rdfs:label "Software"@nl .
-
-"Word" a xsd:string ;
-    rdfs:label "Bestandtype"@nl .
-
-"cm" a crm:E58_Measurement_Unit ;
-    rdfs:label "Meeteenheid"@nl .
-
-"dbase IV" a xsd:string ;
-    rdfs:label "Software"@nl .
-
-"info@archol.nl" a crm:E51_Contact_Point ;
-    rdfs:label "Email"@nl .
-
-"m" a crm:E58_Measurement_Unit ;
-    rdfs:label "Meeteenheid"@nl .
-
-"Achternaam"@nl a xsd:string .
-
-"Artefacttype"@nl a xsd:string .
-
-"Document"@nl a xsd:string .
-
-"Initialen"@nl a xsd:string .
-
-"Jaar"@nl a xsd:string .
-
-"Meeteenheid"@nl a xsd:string .
-
-"Paginas"@nl a xsd:string .
-
-"Persoon"@nl a xsd:string .
-
-"Plaats van Uitgave"@nl a xsd:string .
-
-"Software"@nl a xsd:string .
-
-"Titel"@nl a xsd:string .
-
-"Uitgever"@nl a xsd:string .
-
-"Verpakkingseenheid"@nl a xsd:string .
-
-<http://www.pakbon-ld.org/0eec75c7-0766-4307-90c3-70f1a7fe0713> a crmeh:EHE0007_Context ;
-    rdfs:label "Spoor"@nl ;
+<http://www.example.org/0eec75c7-0766-4307-90c3-70f1a7fe0713> a crmeh:EHE0007_Context ;
+    rdfs:label "Spoor 5899 (S681)"@nl ;
     crmeh:EHP3i base:aff2672e-127f-4037-bada-af4bf7ebf5c5 ;
-    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nc0d86ab503d5438faea48847e59c65ee ;
-    crm:P1_is_identified_by "5899",
-        "S681" ;
-    crm:P2_has_type "BEERPUT" ;
-    crm:P39i_was_measured_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Na9a6b12481724f4c86c9dd45de0d1032 ;
-    crm:P48_has_preferred_identifier "0eec75c7-0766-4307-90c3-70f1a7fe0713" ;
-    crm:P53i_is_former_or_current_location_of <http://www.pakbon-ld.org/53b7572f-1ebf-4298-a9b2-5520a0486360> ;
-    crm:P87_is_identified_by "1a7f30c0-44c5-4eee-9f08-6db3482b317c" ;
-    crm:P89i_contains base:da757a1a-dd71-4c3e-b24c-d86aba1f78a5 .
+    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nbcdd5e983ee64797b5f75bea3dfca872 ;
+    crm:P1_is_identified_by "5899"^^xsd:ID,
+        "S681"^^xsd:string ;
+    crm:P39i_was_measured_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nb66fc66059a3445095660743d5c9939b ;
+    crm:P48_has_preferred_identifier "0eec75c7-0766-4307-90c3-70f1a7fe0713"^^xsd:ID ;
+    crm:P53i_is_former_or_current_location_of <http://www.example.org/53b7572f-1ebf-4298-a9b2-5520a0486360> ;
+    crm:P87_is_identified_by "1a7f30c0-44c5-4eee-9f08-6db3482b317c"^^xsd:string ;
+    crm:P89i_contains base:da757a1a-dd71-4c3e-b24c-d86aba1f78a5 ;
+    base:Grondspoortype "BEERPUT"^^crm:E55_Type .
 
-<http://www.pakbon-ld.org/50087738-80d4-4823-bc32-cf79a3c1c30a> a crmeh:EHE0007_Context ;
-    rdfs:label "Planum"@nl ;
-    crmeh:EHP3i <http://www.pakbon-ld.org/3fae914c-c3a0-4b0e-a7d7-a0ffb25536c7> ;
-    crm:P1_is_identified_by "8524",
-        "P852" ;
-    crm:P2_has_type "Vlak" ;
-    crm:P48_has_preferred_identifier "50087738-80d4-4823-bc32-cf79a3c1c30a" ;
-    crm:P87_is_identified_by "d9987be3-fdea-4047-be41-d8b9160c524b" ;
-    crm:P89_falls_within <http://www.pakbon-ld.org/6dd0261a-c3dd-48ae-868b-32d7d17192e6> ;
-    crm:P89i_contains base:a38a97f9-ad8e-4a08-8bf6-5b82c6563d9f .
+<http://www.example.org/50087738-80d4-4823-bc32-cf79a3c1c30a> a crmeh:EHE0007_Context ;
+    rdfs:label "Planum 8524 (P852)"@nl ;
+    crmeh:EHP3i <http://www.example.org/3fae914c-c3a0-4b0e-a7d7-a0ffb25536c7> ;
+    crm:P1_is_identified_by "8524"^^xsd:ID,
+        "P852"^^xsd:string ;
+    crm:P48_has_preferred_identifier "50087738-80d4-4823-bc32-cf79a3c1c30a"^^xsd:ID ;
+    crm:P87_is_identified_by "d9987be3-fdea-4047-be41-d8b9160c524b"^^xsd:string ;
+    crm:P89_falls_within <http://www.example.org/6dd0261a-c3dd-48ae-868b-32d7d17192e6> ;
+    crm:P89i_contains base:a38a97f9-ad8e-4a08-8bf6-5b82c6563d9f ;
+    base:Planumtype "Vlak"^^crm:E55_Type .
 
 base:aded5187-cdb9-4a8d-91b0-95d08032d326 a crmeh:EHE0009_ContextFind ;
-    rdfs:label "Vondst"@nl ;
-    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N10c14b8840644eaa96663b6b70944236 ;
-    crm:P147i_was_curated_by "false" ;
-    crm:P1_is_identified_by "AHR39V001-01",
-        "Andenne kan" ;
-    crm:P2_has_type "ANDKAN" ;
-    crm:P3_has_note "Andenne kan is in zeer goede staat." ;
-    crm:P43_has_dimension base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N8e7251669702455b8884db998095f797,
-        base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N919a6ea2a4774ddcaea36d83832686d4 ;
-    crm:P45_consists_of "KER" ;
+    rdfs:label "Vondst AHR39V001-01 (Andenne kan)"@nl ;
+    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nc7f18828ee3b4385ade321fda9526caa ;
+    crm:P1_is_identified_by "AHR39V001-01"^^xsd:ID,
+        "Andenne kan"^^xsd:string ;
+    crm:P3_has_note "Andenne kan is in zeer goede staat."@nl ;
     crm:P46i_forms_part_of base:e34e9d15-20fe-4591-9dc0-43e50ca0934f,
         base:e74a8275-67f2-4489-ba64-10434a8cf7b1 ;
-    crm:P48_has_preferred_identifier "aded5187-cdb9-4a8d-91b0-95d08032d326" .
+    crm:P48_has_preferred_identifier "aded5187-cdb9-4a8d-91b0-95d08032d326"^^xsd:ID ;
+    base:Aantal base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nffaba992dae2440ead97c4269e9ce4ae ;
+    base:Artefacttype "ANDKAN"^^crm:E55_Type ;
+    base:Exposabel "false"^^crm:E87_Curation_Activity ;
+    base:Geconserveerd "false"^^crm:E87_Curation_Activity ;
+    base:Gedeselecteerd "false"^^crm:E87_Curation_Activity ;
+    base:Gewicht base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Naab78c0a621d4249b9931e71381c430a ;
+    base:Materiaalcategorie "KER"^^crmeh:EHE0030_ContextFindMaterial .
 
 base:f42ee413-a67e-453c-a020-9fcfd7215043 a crmeh:EHE0009_ContextFind ;
-    rdfs:label "Vondst"@nl ;
-    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N861258ea5f7448ca98c92c4929b24299 ;
-    crm:P147i_was_curated_by "false" ;
-    crm:P1_is_identified_by "AHR39V002-01",
-        "Beker" ;
-    crm:P2_has_type "AOOBEKER.2IID-BKR" ;
-    crm:P43_has_dimension base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N5dc588b5fc0f4312b1d0cac1ce7f463e,
-        base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Na2f8622f45b94b31b7c231779fb68dff ;
-    crm:P45_consists_of "KER" ;
-    crm:P46i_forms_part_of <http://www.pakbon-ld.org/906d115d-a7b3-44a3-b4e2-10e696030e16>,
+    rdfs:label "Vondst AHR39V002-01 (Beker)"@nl ;
+    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N08260b85dff0483da303206c49815575 ;
+    crm:P1_is_identified_by "AHR39V002-01"^^xsd:ID,
+        "Beker"^^xsd:string ;
+    crm:P46i_forms_part_of <http://www.example.org/906d115d-a7b3-44a3-b4e2-10e696030e16>,
         base:c9f95c57-2c29-41d9-8dde-d44804ba6d49 ;
-    crm:P48_has_preferred_identifier "f42ee413-a67e-453c-a020-9fcfd7215043" .
+    crm:P48_has_preferred_identifier "f42ee413-a67e-453c-a020-9fcfd7215043"^^xsd:ID ;
+    base:Aantal base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Nfa251ebdb8564b699f29189d5488eea3 ;
+    base:Artefacttype "AOOBEKER.2IID-BKR"^^crm:E55_Type ;
+    base:Exposabel "false"^^crm:E87_Curation_Activity ;
+    base:Geconserveerd "false"^^crm:E87_Curation_Activity ;
+    base:Gedeselecteerd "false"^^crm:E87_Curation_Activity ;
+    base:Gewicht base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N599a6dd8c4434bd2928e65e250b1b88c ;
+    base:Materiaalcategorie "KER"^^crmeh:EHE0030_ContextFindMaterial .
 
-"Jpeg" a xsd:string ;
-    rdfs:label "Bestandtype"@nl .
-
-"Microsoft Paint" a xsd:string ;
-    rdfs:label "Software"@nl .
-
-"boringen.dbf" a crm:E42_Identifier,
-        xsd:string ;
-    rdfs:label "Bestandsnaam"@nl .
-
-"Bestandtype"@nl a xsd:string .
-
-"Geolocatie"@nl a xsd:string .
-
-"Geometrie"@nl a xsd:string .
-
-<http://www.pakbon-ld.org/78876c26-738a-499e-97dc-b3cd7d36edc2> a crmeh:EHE0007_Context ;
-    rdfs:label "Planum"@nl ;
-    crmeh:EHP3i <http://www.pakbon-ld.org/705f9546-2e5d-46de-a245-0ea152731e64> ;
-    crm:P1_is_identified_by "8534",
-        "P458" ;
-    crm:P2_has_type "Profiel" ;
-    crm:P48_has_preferred_identifier "78876c26-738a-499e-97dc-b3cd7d36edc2" ;
-    crm:P87_is_identified_by "1a7f30c0-44c5-4eee-9f08-6db3482b317c" ;
-    crm:P89_falls_within <http://www.pakbon-ld.org/9f1eacf9-e62d-424a-9a0b-10e0c9814066> ;
-    crm:P89i_contains base:b6c62c43-7b9f-4ee4-baa1-27007dded175 .
+<http://www.example.org/78876c26-738a-499e-97dc-b3cd7d36edc2> a crmeh:EHE0007_Context ;
+    rdfs:label "Planum 8534 (P458)"@nl ;
+    crmeh:EHP3i <http://www.example.org/705f9546-2e5d-46de-a245-0ea152731e64> ;
+    crm:P1_is_identified_by "8534"^^xsd:ID,
+        "P458"^^xsd:string ;
+    crm:P48_has_preferred_identifier "78876c26-738a-499e-97dc-b3cd7d36edc2"^^xsd:ID ;
+    crm:P87_is_identified_by "1a7f30c0-44c5-4eee-9f08-6db3482b317c"^^xsd:string ;
+    crm:P89_falls_within <http://www.example.org/9f1eacf9-e62d-424a-9a0b-10e0c9814066> ;
+    crm:P89i_contains base:b6c62c43-7b9f-4ee4-baa1-27007dded175 ;
+    base:Planumtype "Profiel"^^crm:E55_Type .
 
 base:f97ba6e2-1bea-4e94-8a4d-88df266697ca a crmeh:EHE0007_Context ;
-    rdfs:label "Vondstcontext"@nl ;
-    crm:P1_is_identified_by "27342" ;
-    crm:P2_has_type "SPOOR" ;
-    crm:P48_has_preferred_identifier "f97ba6e2-1bea-4e94-8a4d-88df266697ca" ;
-    crm:P53i_is_former_or_current_location_of <http://www.pakbon-ld.org/0cac88c2-d690-473c-a2d6-1b90e2cf65f4> ;
-    crm:P89i_contains <http://www.pakbon-ld.org/0eec75c7-0766-4307-90c3-70f1a7fe0713> .
-
-"Naam"@nl a xsd:string .
-
-"1a7f30c0-44c5-4eee-9f08-6db3482b317c" a crm:E42_Identifier,
-        crm:E44_Place_Appellation .
-
-"NEOMB" a crmeh:EHE0091_Timestamp,
-        xsd:string ;
-    rdfs:label "Beginperiode"@nl,
-        "Eindperiode"@nl .
-
-"Auteur"@nl a xsd:string .
-
-"Meting"@nl a xsd:string .
+    rdfs:label "Vondstcontext 27342"@nl ;
+    crm:P1_is_identified_by "27342"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "f97ba6e2-1bea-4e94-8a4d-88df266697ca"^^xsd:ID ;
+    crm:P53i_is_former_or_current_location_of <http://www.example.org/0cac88c2-d690-473c-a2d6-1b90e2cf65f4> ;
+    crm:P89i_contains <http://www.example.org/0eec75c7-0766-4307-90c3-70f1a7fe0713> ;
+    base:Contexttype "SPOOR"^^crm:E55_Type .
 
 base:e77038a6-2285-422d-8340-ccebb037db17 a crm:E84_Information_Carrier ;
-    rdfs:label "Digitaalmedium"@nl ;
-    crm:P1_is_identified_by "AHR39-1" ;
-    crm:P2_has_type "DVD" ;
-    crm:P3_has_note "De DVD heeft krassen en wordt niet door alle cd-rom speler gelezen." ;
-    crm:P48_has_preferred_identifier "e77038a6-2285-422d-8340-ccebb037db17" .
+    rdfs:label "Digitaalmedium AHR39-1"@nl ;
+    crm:P1_is_identified_by "AHR39-1"^^xsd:ID ;
+    crm:P3_has_note "De DVD heeft krassen en wordt niet door alle cd-rom speler gelezen."@nl ;
+    crm:P48_has_preferred_identifier "e77038a6-2285-422d-8340-ccebb037db17"^^xsd:ID ;
+    base:Digitaalmediumtype "DVD"^^crm:E55_Type .
 
-<http://www.pakbon-ld.org/7ccd3f79-23c9-4360-850b-01d6b675c9c2> a crmeh:EHE0010_BulkFind ;
-    rdfs:label "Verpakkingseenheid"@nl ;
-    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N0e25b246e30349b4a6e9408fe3cb1e9a ;
-    crm:P1_is_identified_by "AL343" ;
-    crm:P43_has_dimension base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-Ndbe80db2778a4a95baa316d3354190b9 ;
-    crm:P46_is_composed_of <http://www.pakbon-ld.org/18b875df-6e3e-4987-a2d0-9cff1e7db069>,
-        <http://www.pakbon-ld.org/4a49967c-19f7-4b3a-8d3d-837ad4762d46>,
-        <http://www.pakbon-ld.org/51c65733-728d-4eaa-acb8-a387a37e1898>,
-        <http://www.pakbon-ld.org/5d4a37a8-17a8-4879-a557-c5273345f3c2>,
-        <http://www.pakbon-ld.org/69dfe2dc-223e-4fff-8935-de41e41413d8>,
+<http://www.example.org/7ccd3f79-23c9-4360-850b-01d6b675c9c2> a crmeh:EHE0010_BulkFind ;
+    rdfs:label "Verpakkingseenheid AL343 (AL343)"@nl ;
+    crm:P140i_was_attributed_by base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N1b6f78be4ea2434099fef7a16087af00 ;
+    crm:P1_is_identified_by "AL343"^^xsd:ID,
+        "AL343"^^xsd:string ;
+    crm:P46_is_composed_of <http://www.example.org/18b875df-6e3e-4987-a2d0-9cff1e7db069>,
+        <http://www.example.org/4a49967c-19f7-4b3a-8d3d-837ad4762d46>,
+        <http://www.example.org/51c65733-728d-4eaa-acb8-a387a37e1898>,
+        <http://www.example.org/5d4a37a8-17a8-4879-a557-c5273345f3c2>,
+        <http://www.example.org/69dfe2dc-223e-4fff-8935-de41e41413d8>,
         base:c10a6505-606f-4d52-9d8a-2f53fbd5d5f2,
         base:e6e59506-eafe-49d3-b597-1d6618bb45f9 ;
-    crm:P46i_forms_part_of <http://www.pakbon-ld.org/8f0da90c-7aba-4a7d-a8e0-b1881cbce351> ;
-    crm:P48_has_preferred_identifier "7ccd3f79-23c9-4360-850b-01d6b675c9c2" ;
-    crm:P57_has_number_of_parts "7" .
-
-"100" a xsd:positiveInteger ;
-    rdfs:label "Waarde"@nl .
-
-"AOOBEKER.2IIC-BKR" a crm:E55_Type ;
-    rdfs:label "Artefacttype"@nl .
-
-"HASCHA" a crmeh:EHE0046_ContextNote ;
-    rdfs:label "Verzamelwijze"@nl .
-
-"d9987be3-fdea-4047-be41-d8b9160c524b" a crm:E42_Identifier,
-        crm:E44_Place_Appellation .
-
-"Beginperiode"@nl a xsd:string .
-
-"Bestandsinhoud"@nl a xsd:string .
-
-"Eindperiode"@nl a xsd:string .
-
-"Beker" a crm:E41_Appellation .
-
-"Contexttype"@nl a xsd:string .
-
-"Veldvondst"@nl a xsd:string .
-
-"Vondstcontext"@nl a xsd:string .
-
-"KER" a crmeh:EHE0030_ContextFindMaterial ;
-    rdfs:label "Materiaalcategorie"@nl .
-
-"Bestand"@nl a xsd:string .
-
-"Bestandsnaam"@nl a xsd:string .
-
-"Vondst"@nl a xsd:string .
-
-"1" a xsd:NonNegativeInteger,
-        xsd:positiveInteger ;
-    rdfs:label "Aantal"@nl,
-        "Waarde"@nl .
-
-"false" a crmeh:EHE0041_ContextFindTreatmentProcedure,
-        crm:E87_Curation_Activity ;
-    rdfs:label "Breekbaar"@nl,
-        "Exposabel"@nl,
-        "Geconserveerd"@nl,
-        "Gedeselecteerd"@nl,
-        "Lichtgevoelig"@nl .
-
-"Waarde"@nl a xsd:string .
-
-"gr" a crm:E58_Measurement_Unit ;
-    rdfs:label "Meeteenheid"@nl .
-
-"Aantal"@nl a xsd:string .
-
-"Gewicht"@nl a xsd:string .
-
-"Dateren"@nl a xsd:string .
-
-"Time Span"@nl a xsd:string .
-
-"NEOMA" a crmeh:EHE0091_Timestamp,
-        xsd:string ;
-    rdfs:label "Beginperiode"@nl,
-        "Eindperiode"@nl .
+    crm:P46i_forms_part_of <http://www.example.org/8f0da90c-7aba-4a7d-a8e0-b1881cbce351> ;
+    crm:P48_has_preferred_identifier "7ccd3f79-23c9-4360-850b-01d6b675c9c2"^^xsd:ID ;
+    base:Aantal "7"^^xsd:NonNegativeInteger ;
+    base:Gewicht base:a7fa5d30-1877-47e8-b966-f6079fa7f11e-N6bc67f84fb1247ca8a1869d127452eee .
 
