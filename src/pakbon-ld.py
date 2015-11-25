@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 
 import sys
+import os
 import getopt
+import re
 import data.reader as reader
 import data.writer as writer
 import translator
@@ -49,7 +51,7 @@ def main(argv):
         sys.exit(1)
 
     if ofile == '':
-        ofile = ifile.rstrip('xml') + extOf(sformat)
+        ofile = os.getcwd() + '/' + re.sub(r'^(?:.*/)?(.*)\..*$', r'\1.', ifile) + extOf(sformat)
 
     (et, tree, current_version) = reader.read(ifile, ignore_version)
     writer.write(translator.translate(et, tree, current_version, default_ns), ofile, sformat)

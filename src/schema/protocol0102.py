@@ -10,15 +10,16 @@ class Protocol0102:
     def __init__(self, et, tree, namespace):
         self.et = et
         self.sikbns = '{' + namespace['sikb'] + '}'
+        self.basens = namespace['base']
 
         # root of protocol
         self.troot = tree.getroot()
-        self.graph = rdflib.Graph(identifier=self.troot.attrib[self.sikbns + 'id'])
+        self.graph = rdflib.Graph(identifier='SIKBID_' + self.troot.attrib[self.sikbns + 'id'])
 
         hf.setGraphNamespaceIDs(self.graph, namespace)
         self.nss = dict(ns for ns in self.graph.namespace_manager.namespaces())
 
-        self.groot = rdflib.URIRef(self.nss['base'] + hf.getID(self.troot, self.nss))
+        self.groot = rdflib.URIRef(self.basens + 'SIKBID_' + hf.getID(self.troot, self.nss))
 
         # set type of protocol
         hf.addType(self.graph, self.groot, rdflib.URIRef(self.nss['crm'] + 'E31_Document'))
@@ -26,13 +27,13 @@ class Protocol0102:
         # root attributes
         if self.sikbns + 'id' in self.troot.attrib.keys():  # id
             child = rdflib.Literal(self.troot.attrib[self.sikbns + 'id'], datatype=rdflib.URIRef(self.nss['xsd'] + 'ID'))
-            hf.addSubPropertyIfExists(self.graph, self.groot, child, 'id', rdflib.URIRef(self.nss['crm'] + 'P48_has_preferred_identifier'))
+            hf.addSubPropertyIfExists(self.graph, self.basens, self.groot, child, 'id', rdflib.URIRef(self.nss['crm'] + 'P48_has_preferred_identifier'))
         if 'versie' in self.troot.attrib.keys():  # versie
             child = rdflib.Literal(self.troot.attrib['versie'], datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-            hf.addSubPropertyIfExists(self.graph, self.groot, child, 'versie', rdflib.URIRef(self.nss['prism'] + 'versionIdentifier'))
+            hf.addSubPropertyIfExists(self.graph, self.basens, self.groot, child, 'versie', rdflib.URIRef(self.nss['prism'] + 'versionIdentifier'))
         if 'timestamp' in self.troot.attrib.keys():  # timestamp
             child = rdflib.Literal(self.troot.attrib['timestamp'], datatype=rdflib.URIRef(self.nss['xsd'] + 'dateTime'))
-            hf.addSubPropertyIfExists(self.graph, self.groot, child, 'timestamp', rdflib.URIRef(self.nss['dcterms'] + 'issued'))
+            hf.addSubPropertyIfExists(self.graph, self.basens, self.groot, child, 'timestamp', rdflib.URIRef(self.nss['dcterms'] + 'issued'))
 
         # root elements
         self.conceptHandler()
@@ -99,14 +100,14 @@ class Protocol0102:
         #  for child in self.troot.iter(self.sikbns + 'archis'):
             #  self.archisHandler(child)
         # for child in self.troot.iter(self.sikbns + 'attribuuttype'):
-          #  self.attribuuttypeHandler(child)
+            #  self.attribuuttypeHandler(child)
         for child in self.troot.iter(self.sikbns + 'objectrelatie'):
             self.objectrelatieHandler(child)
         for child in self.troot.iter(self.sikbns + 'codereferentie'):
             self.codereferentieHandler(self.groot, child)
 
     def projectHandler(self, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0001_EHProject'))
@@ -114,52 +115,52 @@ class Protocol0102:
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'projectnaam':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E41_Appellation'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P1_is_identified_by'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E41_Appellation'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P1_is_identified_by'))
 
             if child.tag == self.sikbns + 'startdatum':
-                    bnode = hf.genID(self.graph, gnode)
+                    bnode = hf.genID(self.graph, gnode, self.basens)
                     hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0021_EHProjectTimespan'))
                     hf.addProperty(self.graph, gnode, bnode, rdflib.URIRef(self.nss['crm'] + 'P4_has_time-span'))
                     hf.addLabel(self.graph, bnode, 'Time Span', 'nl')
 
-                    cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
-                    hf.addSubPropertyIfExists(self.graph, bnode, cnode, 'startdatum', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
+                    cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
+                    hf.addSubPropertyIfExists(self.graph, self.basens, bnode, cnode, 'startdatum', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
 
                     snode = tnode.find(self.sikbns + 'einddatum')
                     if snode is not None:
-                        cnode = rdflib.Literal(snode.text, datatype=rdflib.URIRef(self.nss['crm'] + 'EHE0091_Timestamp'))
-                        hf.addSubPropertyIfExists(self.graph, bnode, cnode, 'einddatum', rdflib.URIRef(self.nss['crmeh'] + 'EXP2'))  # wrong range
+                        cnode = rdflib.Literal(hf.rawString(snode.text), datatype=rdflib.URIRef(self.nss['crm'] + 'EHE0091_Timestamp'))
+                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode, cnode, 'einddatum', rdflib.URIRef(self.nss['crmeh'] + 'EXP2'))  # wrong range
 
             if child.tag == self.sikbns + 'onderzoeksmeldingsnummber':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E42_Identifier'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P48_has_preferred_identifier'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E42_Identifier'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P48_has_preferred_identifier'))
 
             if child.tag == self.sikbns + 'onderzoektype':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
                 hf.addRefIfExists(self.graph, cnode, child)
 
             if child.tag == self.sikbns + 'omschrijving':
-                cnode = rdflib.Literal(child.text, lang='nl')
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
+                cnode = rdflib.Literal(hf.rawString(child.text), lang='nl')
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
 
             if child.tag == self.sikbns + 'bevoegdGezag':
-                bnode = hf.genID(self.graph, gnode)
+                bnode = hf.genID(self.graph, gnode, self.basens)
                 hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E40_Legal_Body'))
                 hf.addProperty(self.graph, gnode, bnode, rdflib.URIRef(self.nss['crm'] + 'P11_had_participant'))
                 hf.addLabel(self.graph, bnode, re.sub(self.sikbns, '', child.tag).title(), 'nl')
 
                 for element in child:
                     if element.tag == self.sikbns + 'organisatieId':
-                        (enode, exists) = hf.getNodeFromElem(self.graph, element)
+                        (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, element)
                         if not exists:
                             hf.extractBasisTypeFields(self.graph, enode, element)
                             hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crm'] + 'E40_Legal_Body'))
 
                         hf.addProperty(self.graph, bnode, enode, rdflib.URIRef(self.nss['crm'] + 'P107_has_current_or_former_member'))
                     if element.tag == self.sikbns + 'persoonId':
-                        (enode, exists) = hf.getNodeFromElem(self.graph, element)
+                        (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, element)
                         if not exists:
                             hf.extractBasisTypeFields(self.graph, enode, element)
                             hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crm'] + 'E21_Person'))
@@ -167,25 +168,25 @@ class Protocol0102:
                         hf.addProperty(self.graph, bnode, enode, rdflib.URIRef(self.nss['crm'] + 'P107_has_current_or_former_member'))
 
             if child.tag == self.sikbns + 'uitvoerder':
-                bnode = hf.genID(self.graph, gnode)
+                bnode = hf.genID(self.graph, gnode, self.basens)
                 hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E40_Legal_Body'))
                 hf.addProperty(self.graph, gnode, bnode, rdflib.URIRef(self.nss['crm'] + 'P14_carried_out_by'))
                 hf.addLabel(self.graph, bnode, re.sub(self.sikbns, '', child.tag).title(), 'nl')
 
                 for element in child:
                     if element.tag == self.sikbns + 'uitvoerdercode':  # until index is available
-                        enode = rdflib.Literal(element.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                        hf.addSubPropertyIfExists(self.graph, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P1_is_identified_by'))
+                        enode = rdflib.Literal(hf.rawString(element.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
+                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P1_is_identified_by'))
                         hf.addRefIfExists(self.graph, enode, element)
                     if element.tag == self.sikbns + 'opgravingsleiderPersoonId':
-                        (enode, exists) = hf.getNodeFromElem(self.graph, element)
+                        (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, element)
                         if not exists:
                             hf.extractBasisTypeFields(self.graph, enode, element)
                             hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crm'] + 'E21_Person'))
 
                         hf.addProperty(self.graph, bnode, enode, rdflib.URIRef(self.nss['crm'] + 'P107_has_current_or_former_member'))
                     if element.tag == self.sikbns + 'depotContactPersoonId':
-                        (enode, exists) = hf.getNodeFromElem(self.graph, element)
+                        (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, element)
                         if not exists:
                             hf.extractBasisTypeFields(self.graph, enode, element)
                             hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crm'] + 'E21_Person'))
@@ -193,12 +194,12 @@ class Protocol0102:
                         hf.addProperty(self.graph, bnode, enode, rdflib.URIRef(self.nss['crm'] + 'P107_has_current_or_former_member'))
 
         # add unexisting concept: 'production' and 'bestanden'
-        bnode = hf.genID(self.graph, gnode)
+        bnode = hf.genID(self.graph, gnode, self.basens)
         hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E12_Production'))
         hf.addProperty(self.graph, gnode, bnode, rdflib.URIRef(self.nss['crm'] + 'P9_consists_of'))
         hf.addLabel(self.graph, bnode, 'Documenteren (Digitaal)', 'nl')
 
-        onode = hf.genID(self.graph, gnode)
+        onode = hf.genID(self.graph, gnode, self.basens)
         hf.addType(self.graph, onode, rdflib.URIRef(self.nss['crm'] + 'E84_Information_Carrier'))
         hf.addProperty(self.graph, bnode, onode, rdflib.URIRef(self.nss['crm'] + 'P108_has_produced'))
         hf.addLabel(self.graph, onode, 'Bestanden', 'nl')
@@ -206,7 +207,7 @@ class Protocol0102:
         return (gnode, onode)
 
     def projectlocatieHandler(self, pnode, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0003_AreaOfInvestigation'))
@@ -215,33 +216,33 @@ class Protocol0102:
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'provinciecode':  # until index is available
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E44_Place_Appellation'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P89_falls_within'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E44_Place_Appellation'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P89_falls_within'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'gemeentecode':  # until index is available
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E44_Place_Appellation'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P89_falls_within'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E44_Place_Appellation'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P89_falls_within'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'plaatscode':  # until index is available
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E44_Place_Appellation'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P89_falls_within'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E44_Place_Appellation'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P89_falls_within'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'toponiem':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0002_ArchaeologicalSite'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P59i_is_located_on_or_within'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0002_ArchaeologicalSite'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P59i_is_located_on_or_within'))
             if child.tag == self.sikbns + 'kaartblad':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E46_Section_Definition'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P87_is_identified_by'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E46_Section_Definition'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P87_is_identified_by'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'geolocatieId':
-                (cnode, exists) = hf.getNodeFromElem(self.graph, child)
+                (cnode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.addType(self.graph, cnode, rdflib.URIRef(self.nss['crm'] + 'E44_Place_Appellation'))
 
                 hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.nss['crm'] + 'P87_is_identified_by'))
 
     def vindplaatsHandler(self, pnode, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0004_SiteSubDivision'))
@@ -250,44 +251,44 @@ class Protocol0102:
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'vondstmeldingsnummer':  # until direct linking in Archis is possible
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E42_Identifier'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P1_is_identified_by'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E42_Identifier'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P1_is_identified_by'))
             if child.tag == self.sikbns + 'waarnemingsnummer':  # until direct linking in Archis is possible
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E42_Identifier'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P1_is_identified_by'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E42_Identifier'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P1_is_identified_by'))
             if child.tag == self.sikbns + 'beginperiode':
-                    bnode = hf.genID(self.graph, pnode)
+                    bnode = hf.genID(self.graph, pnode, self.basens)
                     hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E52_Time-Span'))
                     hf.addProperty(self.graph, gnode, bnode, rdflib.URIRef(self.nss['crm'] + 'P4_has_time-span'))
                     hf.addLabel(self.graph, bnode, 'Time Span', 'nl')
 
-                    cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
-                    hf.addSubPropertyIfExists(self.graph, bnode, cnode, 'beginperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
+                    cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
+                    hf.addSubPropertyIfExists(self.graph, self.basens, bnode, cnode, 'beginperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
                     hf.addRefIfExists(self.graph, cnode, child)
 
                     snode = tnode.find(self.sikbns + 'eindperiode')
                     if snode is not None:
-                        cnode = rdflib.Literal(snode.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
-                        hf.addSubPropertyIfExists(self.graph, bnode, cnode, 'eindperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP2'))  # wrong range
+                        cnode = rdflib.Literal(hf.rawString(snode.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
+                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode, cnode, 'eindperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP2'))  # wrong range
                         hf.addRefIfExists(self.graph, cnode, snode)
             if child.tag == self.sikbns + 'vindplaatstype':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'geolocatieId':
-                (cnode, exists) = hf.getNodeFromElem(self.graph, child)
+                (cnode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.addType(self.graph, cnode, rdflib.URIRef(self.nss['crm'] + 'E44_Place_Appellation'))
 
                 hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.nss['crm'] + 'P87_is_identified_by'))
 
     def dossierHandler(self, pnode, tnode):
-        bnode = hf.genID(self.graph, pnode)
+        bnode = hf.genID(self.graph, pnode, self.basens)
         hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E12_Production'))
         hf.addProperty(self.graph, pnode, bnode, rdflib.URIRef(self.nss['crm'] + 'P9_consists_of'))
         hf.addLabel(self.graph, bnode, 'Documenteren (Analoog)', 'nl')
 
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisNaamTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crm'] + 'E84_Information_Carrier'))
@@ -296,10 +297,10 @@ class Protocol0102:
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'dossiertype':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
             if child.tag == self.sikbns + 'documentId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crm'] + 'E31_Document'))
@@ -307,7 +308,7 @@ class Protocol0102:
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P128_carries'))
 
     def bestandHandler(self, pnode, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crm'] + 'E73_Information_Object'))
@@ -316,29 +317,29 @@ class Protocol0102:
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'bestandId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crm'] + 'E73_Information_Object'))
 
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['dcterms'] + 'isPartOf'))
             if child.tag == self.sikbns + 'bestandsnaam':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'title'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'title'))
             if child.tag == self.sikbns + 'bestandtype':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'format'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'format'))
             if child.tag == self.sikbns + 'bestandsinhoud':
-                cnode = rdflib.Literal(child.text, lang='nl')
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'description'))
+                cnode = rdflib.Literal(hf.rawString(child.text), lang='nl')
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'description'))
             if child.tag == self.sikbns + 'software':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'description'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'description'))
             if child.tag == self.sikbns + 'codeboek':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E73_Information_Object'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P67_refers_to'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E73_Information_Object'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P67_refers_to'))
             if child.tag == self.sikbns + 'digitaalmediumId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crm'] + 'E84_Information_Carrier'))
@@ -346,62 +347,62 @@ class Protocol0102:
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['dcterms'] + 'medium'))
 
     def digitaalmediumHandler(self, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crm'] + 'E84_Information_Carrier'))
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'digitaalmediumtype':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
 
     def documentHandler(self, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crm'] + 'E31_Document'))
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'documenttype':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'titel':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'title'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'title'))
             if child.tag == self.sikbns + 'auteur':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'creator'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'creator'))
             if child.tag == self.sikbns + 'jaar':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'gYear'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['prism'] + 'publicationDate'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'gYear'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['prism'] + 'publicationDate'))
             if child.tag == self.sikbns + 'serie':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['prism'] + 'seriesTitle'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['prism'] + 'seriesTitle'))
             if child.tag == self.sikbns + 'paginas':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'positiveInteger'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['prism'] + 'pageCount'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'positiveInteger'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['prism'] + 'pageCount'))
             if child.tag == self.sikbns + 'uitgever':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'publisher'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'publisher'))
             if child.tag == self.sikbns + 'uitgavePlaats':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['dcterms'] + 'Location'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'spatial'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['dcterms'] + 'Location'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'spatial'))
             if child.tag == self.sikbns + 'redacteur':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['bibo'] + 'editor'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['bibo'] + 'editor'))
             if child.tag == self.sikbns + 'titelContainer':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['prism'] + 'publicationName'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['prism'] + 'publicationName'))
             if child.tag == self.sikbns + 'issn':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['prism'] + 'issn'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['prism'] + 'issn'))
             if child.tag == self.sikbns + 'isbn':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['prism'] + 'isbn'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['prism'] + 'isbn'))
             if child.tag == self.sikbns + 'bestandId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crm'] + 'E73_Information_Object'))
@@ -409,99 +410,99 @@ class Protocol0102:
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P67_refers_to'))
 
     def organisatieHandler(self, pnode, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crm'] + 'E40_Legal_Body'))
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'naam':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E82_Actor_Appellation'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P131_is_identified_by'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E82_Actor_Appellation'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P131_is_identified_by'))
             if child.tag == self.sikbns + 'telefoon':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E51_Contact_Point'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P76_has_contact_point'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E51_Contact_Point'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P76_has_contact_point'))
             if child.tag == self.sikbns + 'email':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E51_Contact_Point'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P76_has_contact_point'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E51_Contact_Point'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P76_has_contact_point'))
             if child.tag == self.sikbns + 'contactpersoonId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crm'] + 'E21_Person'))
 
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P107_has_current_or_former_member'))
             if child.tag == self.sikbns + 'adres':
-                bnode = hf.genID(self.graph, pnode)
+                bnode = hf.genID(self.graph, pnode, self.basens)
                 hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['locn'] + 'Address'))
                 hf.addProperty(self.graph, gnode, bnode, rdflib.URIRef(self.nss['locn'] + 'address'))
                 hf.addLabel(self.graph, bnode, re.sub(self.sikbns, '', child.tag).title(), 'nl')
 
                 for element in child:
                     if element.tag == self.sikbns + 'straat':  # until index is available
-                        enode = rdflib.Literal(element.text, datatype=rdflib.URIRef(self.nss['gn'] + 'Feature'))
-                        hf.addSubPropertyIfExists(self.graph, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['locn'] + 'thoroughfare'))
+                        enode = rdflib.Literal(hf.rawString(element.text), datatype=rdflib.URIRef(self.nss['gn'] + 'Feature'))
+                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['locn'] + 'thoroughfare'))
                         #gnnode = rdflib.URIRef(self.nss['gn'] + 'R.ST')
                         #hf.addProperty(self.graph, enode, gnnode, rdflib.URIRef(self.nss['gn'] + 'featureCode'))
                     if element.tag == self.sikbns + 'huisnummer':
-                        cnode = rdflib.Literal(element.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'positiveInteger'))
-                        hf.addSubPropertyIfExists(self.graph, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['locn'] + 'locatorDesignator'))
+                        cnode = rdflib.Literal(hf.rawString(element.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'positiveInteger'))
+                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['locn'] + 'locatorDesignator'))
                     if element.tag == self.sikbns + 'postcode':
-                        cnode = rdflib.Literal(element.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                        hf.addSubPropertyIfExists(self.graph, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['locn'] + 'postCode'))
+                        cnode = rdflib.Literal(hf.rawString(element.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
+                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['locn'] + 'postCode'))
                     if element.tag == self.sikbns + 'plaatsnaam':  # until index is available
-                        enode = rdflib.Literal(element.text, datatype=rdflib.URIRef(self.nss['gn'] + 'Feature'))
-                        hf.addSubPropertyIfExists(self.graph, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['locn'] + 'postName'))
+                        enode = rdflib.Literal(hf.rawString(element.text), datatype=rdflib.URIRef(self.nss['gn'] + 'Feature'))
+                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['locn'] + 'postName'))
                         #gnnode = rdflib.URIRef(self.nss['gn'] + 'P.PPL')
                         #hf.addProperty(self.graph, enode, gnnode, rdflib.URIRef(self.nss['gn'] + 'featureCode'))
                     if element.tag == self.sikbns + 'gemeente':  # until index is available
-                        enode = rdflib.Literal(element.text, datatype=rdflib.URIRef(self.nss['gn'] + 'Feature'))
-                        hf.addSubPropertyIfExists(self.graph, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['gn'] + 'parentADM2'))
+                        enode = rdflib.Literal(hf.rawString(element.text), datatype=rdflib.URIRef(self.nss['gn'] + 'Feature'))
+                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['gn'] + 'parentADM2'))
                         #gnnode = rdflib.URIRef(self.nss['gn'] + 'A.ADM2')
                         #hf.addProperty(self.graph, enode, gnnode, rdflib.URIRef(self.nss['gn'] + 'featureCode'))
                     if element.tag == self.sikbns + 'provincie':  # until index is available
-                        enode = rdflib.Literal(element.text, datatype=rdflib.URIRef(self.nss['gn'] + 'Feature'))
-                        hf.addSubPropertyIfExists(self.graph, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['gn'] + 'parentADM1'))
+                        enode = rdflib.Literal(hf.rawString(element.text), datatype=rdflib.URIRef(self.nss['gn'] + 'Feature'))
+                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['gn'] + 'parentADM1'))
                         #gnnode = rdflib.URIRef(self.nss['gn'] + 'A.ADM1')
                         #hf.addProperty(self.graph, enode, gnnode, rdflib.URIRef(self.nss['gn'] + 'featureCode'))
                     if element.tag == self.sikbns + 'land':  # until index is available
-                        enode = rdflib.Literal(element.text, datatype=rdflib.URIRef(self.nss['gn'] + 'Feature'))
-                        hf.addSubPropertyIfExists(self.graph, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['gn'] + 'parentCountry'))
+                        enode = rdflib.Literal(hf.rawString(element.text), datatype=rdflib.URIRef(self.nss['gn'] + 'Feature'))
+                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['gn'] + 'parentCountry'))
                         #gnnode = rdflib.URIRef(self.nss['gn'] + 'A.PCLI')
                         #hf.addProperty(self.graph, enode, gnnode, rdflib.URIRef(self.nss['gn'] + 'featureCode'))
 
     def tekeningHandler(self, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisNaamTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0016_RecordDrawing'))
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'tekeningtype':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0081_RecordDrawingReferenceType'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0081_RecordDrawingReferenceType'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'tekeningmateriaal':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'medium'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'medium'))
             if child.tag == self.sikbns + 'tekeningformaat':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0079_RecordDrawingNote'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0079_RecordDrawingNote'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'tekenaar':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'creator'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'creator'))
             if child.tag == self.sikbns + 'schaal':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0079_RecordDrawingNote'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0079_RecordDrawingNote'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
             if child.tag == self.sikbns + 'tekeningdatum':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'date'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'date'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'date'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'date'))
             if child.tag == self.sikbns + 'tekeningonderwerp':
-                cnode = rdflib.Literal(child.text, lang='nl')
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'description'))
+                cnode = rdflib.Literal(hf.rawString(child.text), lang='nl')
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'description'))
             if child.tag == self.sikbns + 'bestandId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crm'] + 'E73_Information_Object'))
@@ -509,14 +510,14 @@ class Protocol0102:
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P129i_is_subject_of'))
                 hf.addProperty(self.graph, enode, gnode, rdflib.URIRef(self.nss['crm'] + 'P129_is_about'))  # for easy navigation
             if child.tag == self.sikbns + 'vondstcontextId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0007_Context'))
 
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P70_documents'))
             if child.tag == self.sikbns + 'vondstId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0009_ContextFind'))
@@ -524,30 +525,30 @@ class Protocol0102:
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P129_is_about'))
 
     def fotoHandler(self, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisNaamTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0017_RecordPhotograph'))
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'opnametype':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0085_RecordPhotographReferenceType'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0085_RecordPhotographReferenceType'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'opnamedatum':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'date'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'date'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'date'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'date'))
             if child.tag == self.sikbns + 'fotograaf':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'creator'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'creator'))
             if child.tag == self.sikbns + 'opnamemedium':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'medium'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'medium'))
             if child.tag == self.sikbns + 'fotoonderwerp':
-                cnode = rdflib.Literal(child.text, lang='nl')
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'description'))
+                cnode = rdflib.Literal(hf.rawString(child.text), lang='nl')
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'description'))
             if child.tag == self.sikbns + 'bestandId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crm'] + 'E73_Information_Object'))
@@ -555,14 +556,14 @@ class Protocol0102:
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P129i_is_subject_of'))
                 hf.addProperty(self.graph, enode, gnode, rdflib.URIRef(self.nss['crm'] + 'P129_is_about'))  # for easy navigation
             if child.tag == self.sikbns + 'vondstcontextId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0007_Context'))
 
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P70_documents'))
             if child.tag == self.sikbns + 'vondstId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0009_ContextFind'))
@@ -570,12 +571,12 @@ class Protocol0102:
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P129_is_about'))
 
     def doosHandler(self, pnode, tnode):
-        bnode = hf.genID(self.graph, pnode)
+        bnode = hf.genID(self.graph, pnode, self.basens)
         hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E12_Production'))
         hf.addProperty(self.graph, pnode, bnode, rdflib.URIRef(self.nss['crm'] + 'P9_consists_of'))
         hf.addLabel(self.graph, bnode, 'Verzamelen (Objecten)', 'nl')
 
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisNaamTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crm'] + 'E78_Collection'))
@@ -584,35 +585,35 @@ class Protocol0102:
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'bewaarTemperatuur':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0041_ContextFindTreatmentProcedure'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P129i_is_subject_of'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0041_ContextFindTreatmentProcedure'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P129i_is_subject_of'))
             if child.tag == self.sikbns + 'bewaarVochtigheid':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0041_ContextFindTreatmentProcedure'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P129i_is_subject_of'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0041_ContextFindTreatmentProcedure'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P129i_is_subject_of'))
             if child.tag == self.sikbns + 'lichtgevoelig':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0041_ContextFindTreatmentProcedure'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P129i_is_subject_of'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0041_ContextFindTreatmentProcedure'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P129i_is_subject_of'))
             if child.tag == self.sikbns + 'breekbaar':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0041_ContextFindTreatmentProcedure'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P129i_is_subject_of'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0041_ContextFindTreatmentProcedure'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P129i_is_subject_of'))
             if child.tag == self.sikbns + 'gevaarlijkeStoffen':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0041_ContextFindTreatmentProcedure'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P129i_is_subject_of'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0041_ContextFindTreatmentProcedure'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P129i_is_subject_of'))
 
     def verpakkingseenheidHandler(self, pnode, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisNaamTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0010_BulkFind'))
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'aantal':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'NonNegativeInteger'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P57_has_number_of_parts'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'NonNegativeInteger'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P57_has_number_of_parts'))
             if child.tag == self.sikbns + 'gewicht':
-                bnode = hf.genID(self.graph, pnode)
+                bnode = hf.genID(self.graph, pnode, self.basens)
                 hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E54_Dimension'))
-                hf.addSubPropertyIfExists(self.graph, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P43_has_dimension'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P43_has_dimension'))
                 hf.addLabel(self.graph, bnode, re.sub(self.sikbns, '', child.tag).title(), 'nl')
 
                 for k, v in child.attrib.items():
@@ -620,30 +621,30 @@ class Protocol0102:
                         uomnode = rdflib.Literal(v, datatype=rdflib.URIRef(self.nss['crm'] + 'E58_Measurement_Unit'))
                         hf.addProperty(self.graph, bnode, uomnode, rdflib.URIRef(self.nss['crm'] + 'P91_has_unit'))
 
-                inode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'positiveInteger'))
+                inode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'positiveInteger'))
                 hf.addProperty(self.graph, bnode, inode, rdflib.URIRef(self.nss['crm'] + 'P90_has_value'))
             if child.tag == self.sikbns + 'beginperiode':
-                    bnode = hf.genID(self.graph, pnode)
+                    bnode = hf.genID(self.graph, pnode, self.basens)
                     hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE2021_BulkFindAssessment'))
                     hf.addProperty(self.graph, gnode, bnode, rdflib.URIRef(self.nss['crm'] + 'P140i_was_attributed_by'))
                     hf.addLabel(self.graph, bnode, 'Dateren', 'nl')
 
-                    bnode2 = hf.genID(self.graph, pnode)
+                    bnode2 = hf.genID(self.graph, pnode, self.basens)
                     hf.addType(self.graph, bnode2, rdflib.URIRef(self.nss['crm'] + 'E52_Time-Span'))
                     hf.addProperty(self.graph, bnode, bnode2, rdflib.URIRef(self.nss['crm'] + 'P141_assigned'))
                     hf.addLabel(self.graph, bnode2, 'Time Span', 'nl')
 
-                    cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
-                    hf.addSubPropertyIfExists(self.graph, bnode2, cnode, 'beginperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
+                    cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
+                    hf.addSubPropertyIfExists(self.graph, self.basens, bnode2, cnode, 'beginperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
                     hf.addRefIfExists(self.graph, cnode, child)
 
                     snode = tnode.find(self.sikbns + 'eindperiode')
                     if snode is not None:
-                        cnode = rdflib.Literal(snode.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
-                        hf.addSubPropertyIfExists(self.graph, bnode2, cnode, 'eindperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP2'))  # wrong range
+                        cnode = rdflib.Literal(hf.rawString(snode.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
+                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode2, cnode, 'eindperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP2'))  # wrong range
                         hf.addRefIfExists(self.graph, cnode, snode)
             if child.tag == self.sikbns + 'doosId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crm'] + 'E78_Collection'))
@@ -652,41 +653,41 @@ class Protocol0102:
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P46i_forms_part_of'))
 
     def monsterHandler(self, pnode, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisNaamTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0018_ContextSample'))
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'monstertype':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0053_ContextSampleType'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0053_ContextSampleType'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'monsterverwerking':
-                cnode = rdflib.Literal(child.text, lang='nl')
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
+                cnode = rdflib.Literal(hf.rawString(child.text), lang='nl')
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
             if child.tag == self.sikbns + 'beginperiode':
-                    bnode = hf.genID(self.graph, pnode)
+                    bnode = hf.genID(self.graph, pnode, self.basens)
                     hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E13_Attribute_Assignment'))
                     hf.addProperty(self.graph, gnode, bnode, rdflib.URIRef(self.nss['crm'] + 'P140i_was_attributed_by'))
                     hf.addLabel(self.graph, bnode, 'Dateren', 'nl')
 
-                    bnode2 = hf.genID(self.graph, pnode)
+                    bnode2 = hf.genID(self.graph, pnode, self.basens)
                     hf.addType(self.graph, bnode2, rdflib.URIRef(self.nss['crm'] + 'E52_Time-Span'))
                     hf.addProperty(self.graph, bnode, bnode2, rdflib.URIRef(self.nss['crm'] + 'P141_assigned'))
                     hf.addLabel(self.graph, bnode2, 'Time Span', 'nl')
 
-                    cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
-                    hf.addSubPropertyIfExists(self.graph, bnode2, cnode, 'beginperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
+                    cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
+                    hf.addSubPropertyIfExists(self.graph, self.basens, bnode2, cnode, 'beginperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
                     hf.addRefIfExists(self.graph, cnode, child)
 
                     snode = tnode.find(self.sikbns + 'eindperiode')
                     if snode is not None:
-                        cnode = rdflib.Literal(snode.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
-                        hf.addSubPropertyIfExists(self.graph, bnode2, cnode, 'eindperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
+                        cnode = rdflib.Literal(hf.rawString(snode.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
+                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode2, cnode, 'eindperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
                         hf.addRefIfExists(self.graph, cnode, snode)
             if child.tag == self.sikbns + 'verpakkingseenheidId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisNaamTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0010_BulkFind'))
@@ -694,7 +695,7 @@ class Protocol0102:
                 hf.addProperty(self.graph, enode, gnode, rdflib.URIRef(self.nss['crm'] + 'P46_is_composed_of'))
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P46i_forms_part_of'))
             if child.tag == self.sikbns + 'vondstcontextId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisLocatieTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0007_Context'))
@@ -703,24 +704,24 @@ class Protocol0102:
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P53_has_former_or_current_location'))
 
     def vondstHandler(self, pnode, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisNaamTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0009_ContextFind'))
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'aantal':
-                bnode = hf.genID(self.graph, pnode)
+                bnode = hf.genID(self.graph, pnode, self.basens)
                 hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0031_ContextFindMeasurement'))
-                hf.addSubPropertyIfExists(self.graph, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P43_has_dimension'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P43_has_dimension'))
                 hf.addLabel(self.graph, bnode, re.sub(self.sikbns, '', child.tag).title(), 'nl')
 
-                inode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'positiveInteger'))
+                inode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'positiveInteger'))
                 hf.addProperty(self.graph, bnode, inode, rdflib.URIRef(self.nss['crm'] + 'P90_has_value'))
             if child.tag == self.sikbns + 'gewicht':
-                bnode = hf.genID(self.graph, pnode)
+                bnode = hf.genID(self.graph, pnode, self.basens)
                 hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0031_ContextFindMeasurement'))
-                hf.addSubPropertyIfExists(self.graph, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P43_has_dimension'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P43_has_dimension'))
                 hf.addLabel(self.graph, bnode, re.sub(self.sikbns, '', child.tag).title(), 'nl')
 
                 for k, v in child.attrib.items():
@@ -728,47 +729,47 @@ class Protocol0102:
                         uomnode = rdflib.Literal(v, datatype=rdflib.URIRef(self.nss['crm'] + 'E58_Measurement_Unit'))
                         hf.addProperty(self.graph, bnode, uomnode, rdflib.URIRef(self.nss['crm'] + 'P91_has_unit'))
 
-                inode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'positiveInteger'))
+                inode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'positiveInteger'))
                 hf.addProperty(self.graph, bnode, inode, rdflib.URIRef(self.nss['crm'] + 'P90_has_value'))
             if child.tag == self.sikbns + 'materiaalcategorie':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0030_ContextFindMaterial'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P45_consists_of'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0030_ContextFindMaterial'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P45_consists_of'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'artefacttype':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'beginperiode':
-                    bnode = hf.genID(self.graph, pnode)
+                    bnode = hf.genID(self.graph, pnode, self.basens)
                     hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E13_Attribute_Assignment'))
                     hf.addProperty(self.graph, gnode, bnode, rdflib.URIRef(self.nss['crm'] + 'P140i_was_attributed_by'))
                     hf.addLabel(self.graph, bnode, 'Dateren', 'nl')
 
-                    bnode2 = hf.genID(self.graph, pnode)
+                    bnode2 = hf.genID(self.graph, pnode, self.basens)
                     hf.addType(self.graph, bnode2, rdflib.URIRef(self.nss['crmeh'] + 'EHE0099_ContextFindUseEventTimespan'))
                     hf.addProperty(self.graph, bnode, bnode2, rdflib.URIRef(self.nss['crm'] + 'P141_assigned'))
                     hf.addLabel(self.graph, bnode2, 'Time Span', 'nl')
 
-                    cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
-                    hf.addSubPropertyIfExists(self.graph, bnode2, cnode, 'beginperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
+                    cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
+                    hf.addSubPropertyIfExists(self.graph, self.basens, bnode2, cnode, 'beginperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
                     hf.addRefIfExists(self.graph, cnode, child)
 
                     snode = tnode.find(self.sikbns + 'eindperiode')
                     if snode is not None:
-                        cnode = rdflib.Literal(snode.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
-                        hf.addSubPropertyIfExists(self.graph, bnode2, cnode, 'eindperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
+                        cnode = rdflib.Literal(hf.rawString(snode.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
+                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode2, cnode, 'eindperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
                         hf.addRefIfExists(self.graph, cnode, snode)
             if child.tag == self.sikbns + 'geconserveerd':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E87_Curation_Activity'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P147i_was_curated_by'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E87_Curation_Activity'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P147i_was_curated_by'))
             if child.tag == self.sikbns + 'exposabel':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E87_Curation_Activity'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P147i_was_curated_by'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E87_Curation_Activity'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P147i_was_curated_by'))
             if child.tag == self.sikbns + 'gedeselecteerd':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E87_Curation_Activity'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P147i_was_curated_by'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E87_Curation_Activity'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P147i_was_curated_by'))
             if child.tag == self.sikbns + 'verpakkingseenheidId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisNaamTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0010_BulkFind'))
@@ -776,7 +777,7 @@ class Protocol0102:
                 hf.addProperty(self.graph, enode, gnode, rdflib.URIRef(self.nss['crm'] + 'P46_is_composed_of'))
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P46i_forms_part_of'))
             if child.tag == self.sikbns + 'veldvondstId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisNaamTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crm'] + 'E78_Collectiono'))
@@ -785,18 +786,18 @@ class Protocol0102:
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P46i_forms_part_of'))
 
     def veldvondstHandler(self, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisNaamTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crm'] + 'E78_Collection'))
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'verzamelwijze':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0046_ContextNote'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0046_ContextNote'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'vondstcontextId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisLocatieTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0007_Context'))
@@ -804,60 +805,60 @@ class Protocol0102:
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P53_has_former_or_current_location'))
 
     def vondstcontextHandler(self, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisLocatieTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0009_ContextFind'))
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'contexttype':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'spoorId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisLocatieNaamTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0007_Context'))
 
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P89i_contains'))
             if child.tag == self.sikbns + 'stortId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisNaamTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0008_ContextStuff'))
 
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crmeh'] + 'EHP3i'))
             if child.tag == self.sikbns + 'planumId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisLocatieNaamTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0007_Context'))
 
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P89i_contains'))
             if child.tag == self.sikbns + 'vullingId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisNaamTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0008_ContextStuff'))
 
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crmeh'] + 'EHP3i'))
             if child.tag == self.sikbns + 'segmentId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisLocatieNaamTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0007_Context'))
 
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P89i_contains'))
             if child.tag == self.sikbns + 'vakId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisLocatieNaamTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0007_Context'))
 
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P89i_contains'))
             if child.tag == self.sikbns + 'boringId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisLocatieNaamTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0007_Context'))
@@ -867,30 +868,30 @@ class Protocol0102:
         return gnode
 
     def boringHandler(self, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisLocatieNaamTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0007_Context'))
 
 
     def vullingHandler(self, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisNaamTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0008_ContextStuff'))
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'vorm':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0059_ContextStuffNote'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0059_ContextStuffNote'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
             if child.tag == self.sikbns + 'kleur':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0059_ContextStuffNote'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0059_ContextStuffNote'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
             if child.tag == self.sikbns + 'textuur':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0059_ContextStuffNote'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0059_ContextStuffNote'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
             if child.tag == self.sikbns + 'spoorId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisLocatieNaamTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0007_Context'))
@@ -899,38 +900,38 @@ class Protocol0102:
                 hf.addProperty(self.graph, enode, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHP3i'))
 
     def structuurHandler(self, pnode, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisNaamTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0008_ContextStuff'))
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'structuurtype':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'beginperiode':
-                    bnode = hf.genID(self.graph, pnode)
+                    bnode = hf.genID(self.graph, pnode, self.basens)
                     hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E13_Attribute_Assignment'))
                     hf.addProperty(self.graph, gnode, bnode, rdflib.URIRef(self.nss['crm'] + 'P140i_was_attributed_by'))
                     hf.addLabel(self.graph, bnode, 'Dateren', 'nl')
 
-                    bnode2 = hf.genID(self.graph, pnode)
+                    bnode2 = hf.genID(self.graph, pnode, self.basens)
                     hf.addType(self.graph, bnode2, rdflib.URIRef(self.nss['crm'] + 'E52_Time-Span'))
                     hf.addProperty(self.graph, bnode, bnode2, rdflib.URIRef(self.nss['crm'] + 'P141_assigned'))
                     hf.addLabel(self.graph, bnode2, 'Time Span', 'nl')
 
-                    cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
-                    hf.addSubPropertyIfExists(self.graph, bnode2, cnode, 'beginperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
+                    cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
+                    hf.addSubPropertyIfExists(self.graph, self.basens, bnode2, cnode, 'beginperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
                     hf.addRefIfExists(self.graph, cnode, child)
 
                     snode = tnode.find(self.sikbns + 'eindperiode')
                     if snode is not None:
-                        cnode = rdflib.Literal(snode.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
-                        hf.addSubPropertyIfExists(self.graph, bnode2, cnode, 'eindperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
+                        cnode = rdflib.Literal(hf.rawString(snode.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
+                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode2, cnode, 'eindperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
                         hf.addRefIfExists(self.graph, cnode, snode)
             if child.tag == self.sikbns + 'spoorId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisLocatieNaamTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0007_Context'))
@@ -939,14 +940,14 @@ class Protocol0102:
                 hf.addProperty(self.graph, enode, gnode, rdflib.URIRef(self.nss['crm'] + 'P53i_is_former_or_current_location_of'))
 
     def segmentHandler(self, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisLocatieNaamTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0007_Context'))
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'spoorId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisLocatieNaamTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0007_Context'))
@@ -955,14 +956,14 @@ class Protocol0102:
                 hf.addProperty(self.graph, enode, gnode, rdflib.URIRef(self.nss['crm'] + 'P89i_contains'))
 
     def stortHandler(self, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisNaamTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0008_ContextStuff'))
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'putId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisLocatieNaamTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0007_Context'))
@@ -970,7 +971,7 @@ class Protocol0102:
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crmeh'] + 'EHP3'))
                 hf.addProperty(self.graph, enode, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHP3i'))
             if child.tag == self.sikbns + 'planumId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisLocatieNaamTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0007_Context'))
@@ -979,18 +980,18 @@ class Protocol0102:
                 hf.addProperty(self.graph, enode, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHP3i'))
 
     def planumHandler(self, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisLocatieNaamTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0007_Context'))
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'planumtype':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'putId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisLocatieNaamTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0007_Context'))
@@ -999,23 +1000,23 @@ class Protocol0102:
                 hf.addProperty(self.graph, enode, gnode, rdflib.URIRef(self.nss['crm'] + 'P89i_contains'))
 
     def spoorHandler(self, pnode, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisLocatieNaamTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0007_Context'))
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'grondspoortype':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'diepte':
-                bnode = hf.genID(self.graph, pnode)
+                bnode = hf.genID(self.graph, pnode, self.basens)
                 hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E16_Measurement'))
                 hf.addProperty(self.graph, gnode, bnode, rdflib.URIRef(self.nss['crm'] + 'P39i_was_measured_by'))
                 hf.addLabel(self.graph, bnode, 'Meting', 'nl')
 
-                bnode2 = hf.genID(self.graph, pnode)
+                bnode2 = hf.genID(self.graph, pnode, self.basens)
                 hf.addType(self.graph, bnode2, rdflib.URIRef(self.nss['crm'] + 'E54_Dimension'))
                 hf.addProperty(self.graph, bnode, bnode2, rdflib.URIRef(self.nss['crm'] + 'P40_observed_dimension'))
                 hf.addLabel(self.graph, bnode2, 'Diepte', 'nl')
@@ -1025,53 +1026,53 @@ class Protocol0102:
                         uomnode = rdflib.Literal(v, datatype=rdflib.URIRef(self.nss['crm'] + 'E58_Measurement_Unit'))
                         hf.addProperty(self.graph, bnode2, uomnode, rdflib.URIRef(self.nss['crm'] + 'P91_has_unit'))
 
-                inode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'positiveInteger'))
+                inode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'positiveInteger'))
                 hf.addProperty(self.graph, bnode2, inode, rdflib.URIRef(self.nss['crm'] + 'P90_has_value'))
             if child.tag == self.sikbns + 'beginperiode':
-                    bnode = hf.genID(self.graph, pnode)
+                    bnode = hf.genID(self.graph, pnode, self.basens)
                     hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E13_Attribute_Assignment'))
                     hf.addProperty(self.graph, gnode, bnode, rdflib.URIRef(self.nss['crm'] + 'P140i_was_attributed_by'))
                     hf.addLabel(self.graph, bnode, 'Dateren', 'nl')
 
-                    bnode2 = hf.genID(self.graph, pnode)
+                    bnode2 = hf.genID(self.graph, pnode, self.basens)
                     hf.addType(self.graph, bnode2, rdflib.URIRef(self.nss['crm'] + 'E52_Time-Span'))
                     hf.addProperty(self.graph, bnode, bnode2, rdflib.URIRef(self.nss['crm'] + 'P141_assigned'))
                     hf.addLabel(self.graph, bnode2, 'Time Span', 'nl')
 
-                    cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
-                    hf.addSubPropertyIfExists(self.graph, bnode2, cnode, 'beginperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
+                    cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
+                    hf.addSubPropertyIfExists(self.graph, self.basens, bnode2, cnode, 'beginperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
                     hf.addRefIfExists(self.graph, cnode, child)
 
                     snode = tnode.find(self.sikbns + 'eindperiode')
                     if snode is not None:
-                        cnode = rdflib.Literal(snode.text, datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
-                        hf.addSubPropertyIfExists(self.graph, bnode2, cnode, 'eindperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
+                        cnode = rdflib.Literal(hf.rawString(snode.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
+                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode2, cnode, 'eindperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
                         hf.addRefIfExists(self.graph, cnode, snode)
 
     def putHandler(self, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisLocatieNaamTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0007_Context'))
 
 
     def vakHandler(self, pnode, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisLocatieNaamTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0007_Context'))
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'vaknummer':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E41_Appellation'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P1_is_identified_by'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E41_Appellation'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P1_is_identified_by'))
             if child.tag == self.sikbns + 'dikte':
-                bnode = hf.genID(self.graph, pnode)
+                bnode = hf.genID(self.graph, pnode, self.basens)
                 hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E16_Measurement'))
                 hf.addProperty(self.graph, gnode, bnode, rdflib.URIRef(self.nss['crm'] + 'P39i_was_measured_by'))
                 hf.addLabel(self.graph, bnode, 'Meting', 'nl')
 
-                bnode2 = hf.genID(self.graph, pnode)
+                bnode2 = hf.genID(self.graph, pnode, self.basens)
                 hf.addType(self.graph, bnode2, rdflib.URIRef(self.nss['crm'] + 'E54_Dimension'))
                 hf.addProperty(self.graph, bnode, bnode2, rdflib.URIRef(self.nss['crm'] + 'P40_observed_dimension'))
                 hf.addLabel(self.graph, bnode2, 'Dikte', 'nl')
@@ -1081,15 +1082,15 @@ class Protocol0102:
                         uomnode = rdflib.Literal(v, datatype=rdflib.URIRef(self.nss['crm'] + 'E58_Measurement_Unit'))
                         hf.addProperty(self.graph, bnode2, uomnode, rdflib.URIRef(self.nss['crm'] + 'P91_has_unit'))
 
-                inode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'positiveInteger'))
+                inode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'positiveInteger'))
                 hf.addProperty(self.graph, bnode2, inode, rdflib.URIRef(self.nss['crm'] + 'P90_has_value'))
             if child.tag == self.sikbns + 'nap':
-                bnode = hf.genID(self.graph, pnode)
+                bnode = hf.genID(self.graph, pnode, self.basens)
                 hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E16_Measurement'))
                 hf.addProperty(self.graph, gnode, bnode, rdflib.URIRef(self.nss['crm'] + 'P39i_was_measured_by'))
                 hf.addLabel(self.graph, bnode, 'Meting', 'nl')
 
-                bnode2 = hf.genID(self.graph, pnode)
+                bnode2 = hf.genID(self.graph, pnode, self.basens)
                 hf.addType(self.graph, bnode2, rdflib.URIRef(self.nss['crm'] + 'E54_Dimension'))
                 hf.addProperty(self.graph, bnode, bnode2, rdflib.URIRef(self.nss['crm'] + 'P40_observed_dimension'))
                 hf.addLabel(self.graph, bnode2, 'Normaal Amsterdams Peil (NAP)', 'nl')
@@ -1099,10 +1100,10 @@ class Protocol0102:
                         uomnode = rdflib.Literal(v, datatype=rdflib.URIRef(self.nss['crm'] + 'E58_Measurement_Unit'))
                         hf.addProperty(self.graph, bnode2, uomnode, rdflib.URIRef(self.nss['crm'] + 'P91_has_unit'))
 
-                inode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'positiveInteger'))
+                inode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'positiveInteger'))
                 hf.addProperty(self.graph, bnode2, inode, rdflib.URIRef(self.nss['crm'] + 'P90_has_value'))
             if child.tag == self.sikbns + 'planumId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractBasisLocatieNaamTypeFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0007_Context'))
@@ -1111,22 +1112,22 @@ class Protocol0102:
                 hf.addProperty(self.graph, enode, gnode, rdflib.URIRef(self.nss['crm'] + 'P89i_contains'))
 
     def persoonHandler(self, pnode, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crm'] + 'E21_Person'))
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'telefoon':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E51_Contact_Point'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P76_has_contact_point'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E51_Contact_Point'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P76_has_contact_point'))
             if child.tag == self.sikbns + 'email':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E51_Contact_Point'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P76_has_contact_point'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E51_Contact_Point'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P76_has_contact_point'))
             if child.tag == self.sikbns + 'naam':
-                bnode = hf.genID(self.graph, pnode)
+                bnode = hf.genID(self.graph, pnode, self.basens)
                 hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['foaf'] + 'Person'))
-                hf.addSubPropertyIfExists(self.graph, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P131_is_identified_by'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P131_is_identified_by'))
                 hf.addLabel(self.graph, bnode, re.sub(self.sikbns, '', child.tag).title(), 'nl')
 
                 for element in child:
@@ -1135,53 +1136,53 @@ class Protocol0102:
                         value = element.text + ', ' + snode.text if snode is not None else element.text  # extract 'tussenvoegsel' if available
 
                         enode = rdflib.Literal(value, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                        hf.addSubPropertyIfExists(self.graph, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['foaf'] + 'familyName'))
+                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['foaf'] + 'familyName'))
                     if element.tag == self.sikbns + 'voornaam':
                         snode = child.find(self.sikbns + 'initialen')
                         value = element.text + ', ' + snode.text if snode is not None else element.text  # extract 'initialen' if available
 
                         enode = rdflib.Literal(value, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                        hf.addSubPropertyIfExists(self.graph, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['foaf'] + 'givenName'))
+                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['foaf'] + 'givenName'))
                     if element.tag == self.sikbns + 'initialen':
                         snode = child.find(self.sikbns + 'voornaam')
                         if snode is None:
-                            enode = rdflib.Literal(element.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
+                            enode = rdflib.Literal(hf.rawString(element.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
 
-                            hf.addSubPropertyIfExists(self.graph, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['foaf'] + 'givenName'))
+                            hf.addSubPropertyIfExists(self.graph, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['foaf'] + 'givenName'))
                     if element.tag == self.sikbns + 'titel':
-                        enode = rdflib.Literal(element.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                        hf.addSubPropertyIfExists(self.graph, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['foaf'] + 'title'))
+                        enode = rdflib.Literal(hf.rawString(element.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
+                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['foaf'] + 'title'))
 
     def geolocatieHandler(self, pnode, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractGeoObjectFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crm'] + 'E44_Place_Appellation'))
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'geometrie':
-                cnode = hf.genID(self.graph, pnode)
+                cnode = hf.genID(self.graph, pnode, self.basens)
                 hf.addType(self.graph, cnode, rdflib.URIRef(self.nss['geosparql'] + 'Geometry'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P87_is_identified_by'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P87_is_identified_by'))
 
                 gmlnode = rdflib.Literal(hf.gmlLiteralOf(self.et, child), datatype=rdflib.URIRef(self.nss['geosparql'] + 'GMLLiteral'))
                 hf.addProperty(self.graph, cnode, gmlnode, rdflib.URIRef(self.nss['geosparql'] + 'asGML'))
 
     def hoogtemetingHandler(self, pnode, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisLocatieNaamTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crm'] + 'E13_Attribute_Assignment'))
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'methode':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'nap':
-                bnode = hf.genID(self.graph, pnode)
+                bnode = hf.genID(self.graph, pnode, self.basens)
                 hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E54_Dimension'))
-                hf.addSubPropertyIfExists(self.graph, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P40_observed_dimension'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P40_observed_dimension'))
                 hf.addLabel(self.graph, bnode, re.sub(self.sikbns, '', child.tag).title(), 'nl')
 
                 for k, v in child.attrib.items():
@@ -1189,12 +1190,12 @@ class Protocol0102:
                         uomnode = rdflib.Literal(v, datatype=rdflib.URIRef(self.nss['crm'] + 'E58_Measurement_Unit'))
                         hf.addProperty(self.graph, bnode, uomnode, rdflib.URIRef(self.nss['crm'] + 'P91_has_unit'))
 
-                inode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'positiveInteger'))
+                inode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'positiveInteger'))
                 hf.addProperty(self.graph, bnode, inode, rdflib.URIRef(self.nss['crm'] + 'P90_has_value'))
 
     def attribuutHandler(self, tnode):
         child = tnode.find(self.sikbns + 'objectId')
-        (enode, exists) = hf.getNodeFromElem(self.graph, child)
+        (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
         if not exists:
             hf.extractGenericObjectFields(self.graph, enode, child)
             hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crm'] + 'E1_CRM_Entity'))
@@ -1202,15 +1203,15 @@ class Protocol0102:
         value = None
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'geheelgetal':
-                value = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'integer'))
+                value = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'integer'))
             if child.tag == self.sikbns + 'decimaalgetal':
-                value = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'decimal'))
+                value = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'decimal'))
             if child.tag == self.sikbns + 'referentieId':
-                value = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'ID'))
+                value = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'ID'))
             if child.tag == self.sikbns + 'text':
-                value = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
+                value = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
             if child.tag == self.sikbns + 'jaNee':
-                value = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['xsd'] + 'boolean'))
+                value = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'boolean'))
 
         atypeID = tnode.find(self.sikbns + 'attribuuttypeId').text
         atype = None
@@ -1220,20 +1221,20 @@ class Protocol0102:
                 break
 
         if atype is not None:
-            pname = rdflib.BNode()
+            pname = 'SIKBID_'+ rdflib.BNode()
             for child in atype.getchildren():
                 if child.tag == self.sikbns + 'attribuutnaam':
-                    pname = rdflib.Literal(child.text)
+                    pname = rdflib.Literal(hf.rawString(child.text))
 
-            hf.addSubPropertyIfExists(self.graph, enode, value, pname, rdflib.URIRef(self.nss['rdf'] + 'value'))
+            hf.addSubPropertyIfExists(self.graph, self.basens, enode, value, pname, rdflib.URIRef(self.nss['rdf'] + 'value'))
 
             for child in atype.getchildren():
                 if child.tag == self.sikbns + 'informatie':
-                    info = rdflib.Literal(child.text, lang='nl')
-                    hf.addProperty(self.graph, rdflib.URIRef(self.nss['base'] + pname), info, rdflib.URIRef(self.nss['rdfs'] + 'comment'))
+                    info = rdflib.Literal(hf.rawString(child.text), lang='nl')
+                    hf.addProperty(self.graph, rdflib.URIRef(self.basens + pname), info, rdflib.URIRef(self.nss['rdfs'] + 'comment'))
 
     def objectrelatieHandler(self, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractBasisTypeFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['owl'] + 'ObjectProperty'))
@@ -1256,14 +1257,14 @@ class Protocol0102:
                 hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.nss['rdfs'] + 'comment'))
 
             if child.tag == self.sikbns + 'object1Id':
-                    (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                    (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                     if not exists:
                         hf.extractGenericObjectFields(self.graph, enode, child)
                         hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crm'] + 'E1_CRM_Entity'))
 
                     snode = tnode.find(self.sikbns + 'object2Id')
                     if snode is not None:
-                        (enode2, exists) = hf.getNodeFromElem(self.graph, snode)
+                        (enode2, exists) = hf.getNodeFromElem(self.graph, self.basens, snode)
                         if not exists:
                             hf.extractGenericObjectFields(self.graph, enode2, snode)
                             hf.addType(self.graph, enode2, rdflib.URIRef(self.nss['crm'] + 'E1_CRM_Entity'))
@@ -1279,7 +1280,7 @@ class Protocol0102:
                         hf.addProperty(self.graph, enode, enode2, gnode)
 
     def codereferentieHandler(self, pnode, tnode):
-        (gnode, exists) = hf.getNodeFromBaseType(self.graph, tnode)
+        (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
         if not exists:
             hf.extractGenericObjectFields(self.graph, gnode, tnode)
             hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crm'] + 'E32_Authority_Document'))
@@ -1287,32 +1288,32 @@ class Protocol0102:
         hf.addProperty(self.graph, self.groot, gnode, rdflib.URIRef(self.nss['crm'] + 'P67_refers_to'))
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'bronCode':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E33_Linguistic_Object'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P129_is_about'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E33_Linguistic_Object'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P129_is_about'))
             if child.tag == self.sikbns + 'standaardCode':
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E75_Conceptual_Object_Appellation'))
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P1_is_identified_by'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E75_Conceptual_Object_Appellation'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P1_is_identified_by'))
             if child.tag == self.sikbns + 'bronOmschrijving':
-                cnode = rdflib.Literal(child.text, lang='nl')
-                hf.addSubPropertyIfExists(self.graph, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'description'))
+                cnode = rdflib.Literal(hf.rawString(child.text), lang='nl')
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'description'))
             if child.tag == self.sikbns + 'bronCodeLijst':
-                bnode = hf.genID(self.graph, pnode)
+                bnode = hf.genID(self.graph, pnode, self.basens)
                 hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E32_Authority_Document'))
-                hf.addSubPropertyIfExists(self.graph, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P71i_is_listed_in'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P71i_is_listed_in'))
                 hf.addLabel(self.graph, bnode, re.sub(self.sikbns, '', child.tag).title(), 'nl')
 
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E41_Appellation'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E41_Appellation'))
                 hf.addProperty(self.graph, bnode, cnode, rdflib.URIRef(self.nss['crm'] + 'P1_is_identified_by'))
             if child.tag == self.sikbns + 'naamCodeLijst':
-                bnode = hf.genID(self.graph, pnode)
+                bnode = hf.genID(self.graph, pnode, self.basens)
                 hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E32_Authority_Document'))
-                hf.addSubPropertyIfExists(self.graph, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P71i_is_listed_in'))
+                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P71i_is_listed_in'))
                 hf.addLabel(self.graph, bnode, re.sub(self.sikbns, '', child.tag).title(), 'nl')
 
-                cnode = rdflib.Literal(child.text, datatype=rdflib.URIRef(self.nss['crm'] + 'E41_Appellation'))
+                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E41_Appellation'))
                 hf.addProperty(self.graph, bnode, cnode, rdflib.URIRef(self.nss['crm'] + 'P1_is_identified_by'))
             if child.tag == self.sikbns + 'historyId':
-                (enode, exists) = hf.getNodeFromElem(self.graph, child)
+                (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
                     hf.extractGenericObjectFields(self.graph, enode, child)
                     hf.addType(self.graph, enode, rdflib.URIRef(self.nss['crm'] + 'E32_Authority_Document'))
@@ -1322,7 +1323,7 @@ class Protocol0102:
     def conceptHandler(self):
         # existing concepts
         for element in self.troot:
-            child = rdflib.URIRef(self.nss['base'] + hf.getID(element, self.nss))
+            child = rdflib.URIRef(self.basens + 'SIKBID_' + hf.getID(element, self.nss))
 
             # if element.tag == self.sikbns + 'archis':
             #    hf.extractBasisTypeFields(self.graph, child, element)

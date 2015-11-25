@@ -23,12 +23,12 @@ def addLabel(graph, node, label, lang):
     addProperty(graph, node, lnode, rdflib.URIRef(nss['rdfs'] + 'label'))
 
 
-def genID(graph, pnode):
+def genID(graph, pnode, basens):
     nss = dict(ns for ns in graph.namespace_manager.namespaces())
     uri = ''
     while True:
-        uri = rdflib.URIRef(nss['base']
-                            + graph.value(pnode, rdflib.URIRef(nss['crm'] + 'P48_has_preferred_identifier'), None)
+        uri = rdflib.URIRef(basens
+                            + 'SIKBID_' + graph.value(pnode, rdflib.URIRef(nss['crm'] + 'P48_has_preferred_identifier'), None)
                             + '-'
                             + rdflib.BNode())
 
@@ -42,7 +42,8 @@ def setGraphNamespaceIDs(graph, namespace):
     nsmgr = rdflib.namespace.NamespaceManager(graph)
 
     for k, v in namespace.items():
-        nsmgr.bind(k, v)
+        if k != 'base':
+            nsmgr.bind(k, v)
 
 
 def gmlLiteralOf(et, tnode):
@@ -75,9 +76,9 @@ def getNodeClass(graph, node):
     return btnode
 
 
-def addSubPropertyIfExists(graph, parent, child, subpropname, superprop):
+def addSubPropertyIfExists(graph, basens, parent, child, subpropname, superprop):
     nss = dict(ns for ns in graph.namespace_manager.namespaces())
-    p = rdflib.URIRef(nss['base'] + re.sub('{.*}', '', subpropname))
+    p = rdflib.URIRef(basens + re.sub('{.*}', '', subpropname))
 
     if (None, p, None) not in graph:
         addType(graph, p, rdflib.URIRef(nss['rdf'] + 'Property'))
@@ -88,7 +89,7 @@ def addSubPropertyIfExists(graph, parent, child, subpropname, superprop):
     addProperty(graph, parent, child, p)
 
 
-def getNodeFromBaseType(graph, baseType):
+def getNodeFromBaseType(graph, basens, baseType):
     nss = dict(ns for ns in graph.namespace_manager.namespaces())
     btnode = graph.value(subject=None,
                          predicate=rdflib.URIRef(nss['crm'] + 'P48_has_preferred_identifier'),
@@ -96,12 +97,12 @@ def getNodeFromBaseType(graph, baseType):
 
     exists = True if btnode else False
     if not exists:
-        btnode = rdflib.URIRef(nss['base'] + getID(baseType, nss))
+        btnode = rdflib.URIRef(basens + getID(baseType, nss))
 
     return (btnode, exists)
 
 
-def getNodeFromElem(graph, element):
+def getNodeFromElem(graph, basens, element):
     nss = dict(ns for ns in graph.namespace_manager.namespaces())
     enode = graph.value(subject=None,
                         predicate=rdflib.URIRef(nss['crm'] + 'P48_has_preferred_identifier'),
@@ -109,7 +110,7 @@ def getNodeFromElem(graph, element):
 
     exists = True if enode else False
     if not exists:
-        enode = rdflib.URIRef(nss['base'] + element.text)
+        enode = rdflib.URIRef(basens + element.text)
 
     return (enode, exists)
 
@@ -201,3 +202,7 @@ def extractBasisLocatieNaamTypeFields(graph, gnode, tnode):
             label = attr.text
 
     extractBasisLocatieTypeFields(graph, gnode, tnode, label)
+
+
+def rawString(string):
+    return re.sub('\s+', ' ', re.sub(r'\\', r'\\\\', string))

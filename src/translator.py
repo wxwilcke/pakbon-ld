@@ -11,7 +11,8 @@ def translate(et=None, tree=None, version=None, nsDefault=None):
         raise ValueError()
 
     genTreeNamespaces(et, version)
-    return convert(et, tree, genGraphNamespaces(version, nsDefault))
+    nss = genGraphNamespaces(version, nsDefault)
+    return convert(et, tree, nss)
 
 
 def genTreeNamespaces(et, version):
