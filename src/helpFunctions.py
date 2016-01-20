@@ -76,15 +76,18 @@ def getNodeClass(graph, node):
     return btnode
 
 
-def addSubPropertyIfExists(graph, basens, parent, child, subpropname, superprop):
+def addSubPropertyIfExists(graph, ontology, vocab, basens, parent, child, subpropname, superprop):
     nss = dict(ns for ns in graph.namespace_manager.namespaces())
     p = rdflib.URIRef(basens + re.sub('{.*}', '', subpropname))
 
-    if (None, p, None) not in graph:
-        addType(graph, p, rdflib.URIRef(nss['rdf'] + 'Property'))
-        addProperty(graph, p, superprop, rdflib.URIRef(nss['rdfs'] + 'subPropertyOf'))
-        info = rdflib.Literal('Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102', 'nl')
-        addProperty(graph, p, info, rdflib.URIRef(nss['rdfs'] + 'comment'))
+    if ontology is not None and (None, p, None) not in ontology:
+        addType(ontology, p, rdflib.URIRef(nss['rdf'] + 'Property'))
+        addProperty(ontology, p, superprop, rdflib.URIRef(nss['rdfs'] + 'subPropertyOf'))
+        if re.sub('{.*}', '', subpropname).lower() in vocab:
+            info = rdflib.Literal(vocab[re.sub('{.*}', '', subpropname).lower()], 'nl')
+        else:
+            info = rdflib.Literal('Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102', 'nl')
+        addProperty(ontology, p, info, rdflib.URIRef(nss['rdfs'] + 'comment'))
 
     addProperty(graph, parent, child, p)
 

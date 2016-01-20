@@ -7,10 +7,18 @@ import re
 
 class Protocol0102:
 
-    def __init__(self, et, tree, namespace):
+    def __init__(self, et, tree, namespace, gen_ontology, schema, vocab):
         self.et = et
         self.sikbns = '{' + namespace['sikb'] + '}'
         self.basens = namespace['base']
+        self.ontology = None
+        self.schema = schema
+        self.vocab = vocab
+
+        # export ontology if requested
+        if gen_ontology:
+            self.ontology = rdflib.Graph(identifier='SIKB_Protocol0102_Ontology')
+            hf.setGraphNamespaceIDs(self.ontology, namespace)
 
         # root of protocol
         self.troot = tree.getroot()
@@ -27,13 +35,13 @@ class Protocol0102:
         # root attributes
         if self.sikbns + 'id' in self.troot.attrib.keys():  # id
             child = rdflib.Literal(self.troot.attrib[self.sikbns + 'id'], datatype=rdflib.URIRef(self.nss['xsd'] + 'ID'))
-            hf.addSubPropertyIfExists(self.graph, self.basens, self.groot, child, 'id', rdflib.URIRef(self.nss['crm'] + 'P48_has_preferred_identifier'))
+            hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, self.groot, child, 'id', rdflib.URIRef(self.nss['crm'] + 'P48_has_preferred_identifier'))
         if 'versie' in self.troot.attrib.keys():  # versie
             child = rdflib.Literal(self.troot.attrib['versie'], datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-            hf.addSubPropertyIfExists(self.graph, self.basens, self.groot, child, 'versie', rdflib.URIRef(self.nss['prism'] + 'versionIdentifier'))
+            hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, self.groot, child, 'versie', rdflib.URIRef(self.nss['prism'] + 'versionIdentifier'))
         if 'timestamp' in self.troot.attrib.keys():  # timestamp
             child = rdflib.Literal(self.troot.attrib['timestamp'], datatype=rdflib.URIRef(self.nss['xsd'] + 'dateTime'))
-            hf.addSubPropertyIfExists(self.graph, self.basens, self.groot, child, 'timestamp', rdflib.URIRef(self.nss['dcterms'] + 'issued'))
+            hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, self.groot, child, 'timestamp', rdflib.URIRef(self.nss['dcterms'] + 'issued'))
 
         # root elements
         self.conceptHandler()
@@ -116,7 +124,7 @@ class Protocol0102:
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'projectnaam':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E41_Appellation'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P1_is_identified_by'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P1_is_identified_by'))
 
             if child.tag == self.sikbns + 'startdatum':
                     bnode = hf.genID(self.graph, gnode, self.basens)
@@ -125,25 +133,30 @@ class Protocol0102:
                     hf.addLabel(self.graph, bnode, 'Time Span', 'nl')
 
                     cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
-                    hf.addSubPropertyIfExists(self.graph, self.basens, bnode, cnode, 'startdatum', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
+                    hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, bnode, cnode, 'startdatum', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
 
                     snode = tnode.find(self.sikbns + 'einddatum')
                     if snode is not None:
                         cnode = rdflib.Literal(hf.rawString(snode.text), datatype=rdflib.URIRef(self.nss['crm'] + 'EHE0091_Timestamp'))
-                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode, cnode, 'einddatum', rdflib.URIRef(self.nss['crmeh'] + 'EXP2'))  # wrong range
+                        hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, bnode, cnode, 'einddatum', rdflib.URIRef(self.nss['crmeh'] + 'EXP2'))  # wrong range
 
             if child.tag == self.sikbns + 'onderzoeksmeldingsnummber':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E42_Identifier'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P48_has_preferred_identifier'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P48_has_preferred_identifier'))
 
             if child.tag == self.sikbns + 'onderzoektype':
-                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                key = 'verwerving'  # needed for inconsistent labeling by SIKB
+                cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
+                if self.ontology is not None:
+                    hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(child.text)], 'nl')
+                    hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
+
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
                 hf.addRefIfExists(self.graph, cnode, child)
 
             if child.tag == self.sikbns + 'omschrijving':
                 cnode = rdflib.Literal(hf.rawString(child.text), lang='nl')
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
 
             if child.tag == self.sikbns + 'bevoegdGezag':
                 bnode = hf.genID(self.graph, gnode, self.basens)
@@ -174,9 +187,14 @@ class Protocol0102:
                 hf.addLabel(self.graph, bnode, re.sub(self.sikbns, '', child.tag).title(), 'nl')
 
                 for element in child:
-                    if element.tag == self.sikbns + 'uitvoerdercode':  # until index is available
-                        enode = rdflib.Literal(hf.rawString(element.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P1_is_identified_by'))
+                    if element.tag == self.sikbns + 'uitvoerdercode':  #
+                        key = 'uitvoerder'  # needed for inconsistent labeling by SIKB
+                        enode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(element.text))
+                        if self.ontology is not None:
+                            hf.addLabel(self.ontology, enode, self.vocab[key][hf.rawString(element.text)], 'nl')
+                            hf.addType(self.ontology, enode, rdflib.URIRef(self.nss['crm'] + 'E42_Identifier'))
+
+                        hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P1_is_identified_by'))
                         hf.addRefIfExists(self.graph, enode, element)
                     if element.tag == self.sikbns + 'opgravingsleiderPersoonId':
                         (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, element)
@@ -215,24 +233,44 @@ class Protocol0102:
         hf.addProperty(self.graph, pnode, gnode, rdflib.URIRef(self.nss['crm'] + 'P7_took_place_at'))
 
         for child in tnode.getchildren():
-            if child.tag == self.sikbns + 'provinciecode':  # until index is available
-                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E44_Place_Appellation'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P89_falls_within'))
+            if child.tag == self.sikbns + 'provinciecode':
+                key = 'provincie'  # needed for inconsistent labeling by SIKB
+                cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
+                if self.ontology is not None:
+                    hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(child.text)], 'nl')
+                    hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crm'] + 'E44_Place_Appellation'))
+
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P89_falls_within'))
                 hf.addRefIfExists(self.graph, cnode, child)
-            if child.tag == self.sikbns + 'gemeentecode':  # until index is available
-                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E44_Place_Appellation'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P89_falls_within'))
+            if child.tag == self.sikbns + 'gemeentecode':
+                key = 'gemeente'  # needed for inconsistent labeling by SIKB
+                cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
+                if self.ontology is not None:
+                    hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(child.text)], 'nl')
+                    hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crm'] + 'E44_Place_Appellation'))
+
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P89_falls_within'))
                 hf.addRefIfExists(self.graph, cnode, child)
-            if child.tag == self.sikbns + 'plaatscode':  # until index is available
-                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E44_Place_Appellation'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P89_falls_within'))
+            if child.tag == self.sikbns + 'plaatscode':
+                key = 'plaats'  # needed for inconsistent labeling by SIKB
+                cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
+                if self.ontology is not None:
+                    hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(child.text)], 'nl')
+                    hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crm'] + 'E44_Place_Appellation'))
+
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P89_falls_within'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'toponiem':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0002_ArchaeologicalSite'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P59i_is_located_on_or_within'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P59i_is_located_on_or_within'))
             if child.tag == self.sikbns + 'kaartblad':
-                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E46_Section_Definition'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P87_is_identified_by'))
+                key = 'kaartblad'  # needed for inconsistent labeling by SIKB
+                cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
+                if self.ontology is not None:
+                    hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(child.text)], 'nl')
+                    hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crm'] + 'E46_Section_Definition'))
+
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P87_is_identified_by'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'geolocatieId':
                 (cnode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
@@ -252,28 +290,40 @@ class Protocol0102:
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'vondstmeldingsnummer':  # until direct linking in Archis is possible
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E42_Identifier'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P1_is_identified_by'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P1_is_identified_by'))
             if child.tag == self.sikbns + 'waarnemingsnummer':  # until direct linking in Archis is possible
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E42_Identifier'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P1_is_identified_by'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P1_is_identified_by'))
             if child.tag == self.sikbns + 'beginperiode':
                     bnode = hf.genID(self.graph, pnode, self.basens)
                     hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E52_Time-Span'))
                     hf.addProperty(self.graph, gnode, bnode, rdflib.URIRef(self.nss['crm'] + 'P4_has_time-span'))
                     hf.addLabel(self.graph, bnode, 'Time Span', 'nl')
 
-                    cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
-                    hf.addSubPropertyIfExists(self.graph, self.basens, bnode, cnode, 'beginperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
+                    key = 'periode'  # needed for inconsistent labeling by SIKB
+                    cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
+                    if self.ontology is not None:
+                        hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(child.text)], 'nl')
+                        hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
+                    hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, bnode, cnode, 'beginperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
                     hf.addRefIfExists(self.graph, cnode, child)
 
                     snode = tnode.find(self.sikbns + 'eindperiode')
                     if snode is not None:
-                        cnode = rdflib.Literal(hf.rawString(snode.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
-                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode, cnode, 'eindperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP2'))  # wrong range
+                        key = 'periode'  # needed for inconsistent labeling by SIKB
+                        cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(snode.text))
+                        if self.ontology is not None:
+                            hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(snode.text)], 'nl')
+                            hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
+                        hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, bnode, cnode, 'eindperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP2'))  # wrong range
                         hf.addRefIfExists(self.graph, cnode, snode)
             if child.tag == self.sikbns + 'vindplaatstype':
-                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                key = 'complextype'  # needed for inconsistent labeling by SIKB
+                cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
+                if self.ontology is not None:
+                    hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(child.text)], 'nl')
+                    hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'geolocatieId':
                 (cnode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
@@ -298,7 +348,7 @@ class Protocol0102:
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'dossiertype':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
             if child.tag == self.sikbns + 'documentId':
                 (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
@@ -325,19 +375,19 @@ class Protocol0102:
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['dcterms'] + 'isPartOf'))
             if child.tag == self.sikbns + 'bestandsnaam':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'title'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'title'))
             if child.tag == self.sikbns + 'bestandtype':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'format'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'format'))
             if child.tag == self.sikbns + 'bestandsinhoud':
                 cnode = rdflib.Literal(hf.rawString(child.text), lang='nl')
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'description'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'description'))
             if child.tag == self.sikbns + 'software':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'description'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'description'))
             if child.tag == self.sikbns + 'codeboek':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E73_Information_Object'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P67_refers_to'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P67_refers_to'))
             if child.tag == self.sikbns + 'digitaalmediumId':
                 (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
@@ -355,7 +405,7 @@ class Protocol0102:
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'digitaalmediumtype':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
 
     def documentHandler(self, tnode):
         (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
@@ -365,42 +415,46 @@ class Protocol0102:
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'documenttype':
-                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                key = 'documenttype'  # needed for inconsistent labeling by SIKB
+                cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
+                if self.ontology is not None:
+                    hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(child.text)], 'nl')
+                    hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'titel':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'title'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'title'))
             if child.tag == self.sikbns + 'auteur':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'creator'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'creator'))
             if child.tag == self.sikbns + 'jaar':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'gYear'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['prism'] + 'publicationDate'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['prism'] + 'publicationDate'))
             if child.tag == self.sikbns + 'serie':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['prism'] + 'seriesTitle'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['prism'] + 'seriesTitle'))
             if child.tag == self.sikbns + 'paginas':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'positiveInteger'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['prism'] + 'pageCount'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['prism'] + 'pageCount'))
             if child.tag == self.sikbns + 'uitgever':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'publisher'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'publisher'))
             if child.tag == self.sikbns + 'uitgavePlaats':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['dcterms'] + 'Location'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'spatial'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'spatial'))
             if child.tag == self.sikbns + 'redacteur':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['bibo'] + 'editor'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['bibo'] + 'editor'))
             if child.tag == self.sikbns + 'titelContainer':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['prism'] + 'publicationName'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['prism'] + 'publicationName'))
             if child.tag == self.sikbns + 'issn':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['prism'] + 'issn'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['prism'] + 'issn'))
             if child.tag == self.sikbns + 'isbn':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['prism'] + 'isbn'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['prism'] + 'isbn'))
             if child.tag == self.sikbns + 'bestandId':
                 (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
@@ -418,13 +472,13 @@ class Protocol0102:
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'naam':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E82_Actor_Appellation'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P131_is_identified_by'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P131_is_identified_by'))
             if child.tag == self.sikbns + 'telefoon':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E51_Contact_Point'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P76_has_contact_point'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P76_has_contact_point'))
             if child.tag == self.sikbns + 'email':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E51_Contact_Point'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P76_has_contact_point'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P76_has_contact_point'))
             if child.tag == self.sikbns + 'contactpersoonId':
                 (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
@@ -441,33 +495,33 @@ class Protocol0102:
                 for element in child:
                     if element.tag == self.sikbns + 'straat':  # until index is available
                         enode = rdflib.Literal(hf.rawString(element.text), datatype=rdflib.URIRef(self.nss['gn'] + 'Feature'))
-                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['locn'] + 'thoroughfare'))
+                        hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['locn'] + 'thoroughfare'))
                         #gnnode = rdflib.URIRef(self.nss['gn'] + 'R.ST')
                         #hf.addProperty(self.graph, enode, gnnode, rdflib.URIRef(self.nss['gn'] + 'featureCode'))
                     if element.tag == self.sikbns + 'huisnummer':
                         cnode = rdflib.Literal(hf.rawString(element.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'positiveInteger'))
-                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['locn'] + 'locatorDesignator'))
+                        hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['locn'] + 'locatorDesignator'))
                     if element.tag == self.sikbns + 'postcode':
                         cnode = rdflib.Literal(hf.rawString(element.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['locn'] + 'postCode'))
+                        hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['locn'] + 'postCode'))
                     if element.tag == self.sikbns + 'plaatsnaam':  # until index is available
                         enode = rdflib.Literal(hf.rawString(element.text), datatype=rdflib.URIRef(self.nss['gn'] + 'Feature'))
-                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['locn'] + 'postName'))
+                        hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['locn'] + 'postName'))
                         #gnnode = rdflib.URIRef(self.nss['gn'] + 'P.PPL')
                         #hf.addProperty(self.graph, enode, gnnode, rdflib.URIRef(self.nss['gn'] + 'featureCode'))
                     if element.tag == self.sikbns + 'gemeente':  # until index is available
                         enode = rdflib.Literal(hf.rawString(element.text), datatype=rdflib.URIRef(self.nss['gn'] + 'Feature'))
-                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['gn'] + 'parentADM2'))
+                        hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['gn'] + 'parentADM2'))
                         #gnnode = rdflib.URIRef(self.nss['gn'] + 'A.ADM2')
                         #hf.addProperty(self.graph, enode, gnnode, rdflib.URIRef(self.nss['gn'] + 'featureCode'))
                     if element.tag == self.sikbns + 'provincie':  # until index is available
                         enode = rdflib.Literal(hf.rawString(element.text), datatype=rdflib.URIRef(self.nss['gn'] + 'Feature'))
-                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['gn'] + 'parentADM1'))
+                        hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['gn'] + 'parentADM1'))
                         #gnnode = rdflib.URIRef(self.nss['gn'] + 'A.ADM1')
                         #hf.addProperty(self.graph, enode, gnnode, rdflib.URIRef(self.nss['gn'] + 'featureCode'))
                     if element.tag == self.sikbns + 'land':  # until index is available
                         enode = rdflib.Literal(hf.rawString(element.text), datatype=rdflib.URIRef(self.nss['gn'] + 'Feature'))
-                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['gn'] + 'parentCountry'))
+                        hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['gn'] + 'parentCountry'))
                         #gnnode = rdflib.URIRef(self.nss['gn'] + 'A.PCLI')
                         #hf.addProperty(self.graph, enode, gnnode, rdflib.URIRef(self.nss['gn'] + 'featureCode'))
 
@@ -479,28 +533,36 @@ class Protocol0102:
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'tekeningtype':
-                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0081_RecordDrawingReferenceType'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                key = 'tekeningfototype'  # needed for inconsistent labeling by SIKB
+                cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
+                if self.ontology is not None:
+                    hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(child.text)], 'nl')
+                    hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0081_RecordDrawingReferenceType'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'tekeningmateriaal':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'medium'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'medium'))
             if child.tag == self.sikbns + 'tekeningformaat':
-                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0079_RecordDrawingNote'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
+                key = 'papierformaat'  # needed for inconsistent labeling by SIKB
+                cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
+                if self.ontology is not None:
+                    hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(child.text)], 'nl')
+                    hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0079_RecordDrawingNote'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'tekenaar':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'creator'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'creator'))
             if child.tag == self.sikbns + 'schaal':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0079_RecordDrawingNote'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
             if child.tag == self.sikbns + 'tekeningdatum':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'date'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'date'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'date'))
             if child.tag == self.sikbns + 'tekeningonderwerp':
                 cnode = rdflib.Literal(hf.rawString(child.text), lang='nl')
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'description'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'description'))
             if child.tag == self.sikbns + 'bestandId':
                 (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
@@ -532,21 +594,25 @@ class Protocol0102:
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'opnametype':
-                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0085_RecordPhotographReferenceType'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                key = 'tekeningfototype'  # needed for inconsistent labeling by SIKB
+                cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
+                if self.ontology is not None:
+                    hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(child.text)], 'nl')
+                    hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0085_RecordPhotographReferenceType'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'opnamedatum':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'date'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'date'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'date'))
             if child.tag == self.sikbns + 'fotograaf':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'creator'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'creator'))
             if child.tag == self.sikbns + 'opnamemedium':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'medium'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'medium'))
             if child.tag == self.sikbns + 'fotoonderwerp':
                 cnode = rdflib.Literal(hf.rawString(child.text), lang='nl')
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'description'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'description'))
             if child.tag == self.sikbns + 'bestandId':
                 (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
@@ -586,19 +652,19 @@ class Protocol0102:
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'bewaarTemperatuur':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0041_ContextFindTreatmentProcedure'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P129i_is_subject_of'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P129i_is_subject_of'))
             if child.tag == self.sikbns + 'bewaarVochtigheid':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0041_ContextFindTreatmentProcedure'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P129i_is_subject_of'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P129i_is_subject_of'))
             if child.tag == self.sikbns + 'lichtgevoelig':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0041_ContextFindTreatmentProcedure'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P129i_is_subject_of'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P129i_is_subject_of'))
             if child.tag == self.sikbns + 'breekbaar':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0041_ContextFindTreatmentProcedure'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P129i_is_subject_of'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P129i_is_subject_of'))
             if child.tag == self.sikbns + 'gevaarlijkeStoffen':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0041_ContextFindTreatmentProcedure'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P129i_is_subject_of'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P129i_is_subject_of'))
 
     def verpakkingseenheidHandler(self, pnode, tnode):
         (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
@@ -609,11 +675,11 @@ class Protocol0102:
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'aantal':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'NonNegativeInteger'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P57_has_number_of_parts'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P57_has_number_of_parts'))
             if child.tag == self.sikbns + 'gewicht':
                 bnode = hf.genID(self.graph, pnode, self.basens)
                 hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E54_Dimension'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P43_has_dimension'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P43_has_dimension'))
                 hf.addLabel(self.graph, bnode, re.sub(self.sikbns, '', child.tag).title(), 'nl')
 
                 for k, v in child.attrib.items():
@@ -634,14 +700,22 @@ class Protocol0102:
                     hf.addProperty(self.graph, bnode, bnode2, rdflib.URIRef(self.nss['crm'] + 'P141_assigned'))
                     hf.addLabel(self.graph, bnode2, 'Time Span', 'nl')
 
-                    cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
-                    hf.addSubPropertyIfExists(self.graph, self.basens, bnode2, cnode, 'beginperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
+                    key = 'periode'  # needed for inconsistent labeling by SIKB
+                    cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
+                    if self.ontology is not None:
+                        hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(child.text)], 'nl')
+                        hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
+                    hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, bnode2, cnode, 'beginperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
                     hf.addRefIfExists(self.graph, cnode, child)
 
                     snode = tnode.find(self.sikbns + 'eindperiode')
                     if snode is not None:
-                        cnode = rdflib.Literal(hf.rawString(snode.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
-                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode2, cnode, 'eindperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP2'))  # wrong range
+                        key = 'periode'  # needed for inconsistent labeling by SIKB
+                        cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(snode.text))
+                        if self.ontology is not None:
+                            hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(snode.text)], 'nl')
+                            hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
+                        hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, bnode2, cnode, 'eindperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP2'))  # wrong range
                         hf.addRefIfExists(self.graph, cnode, snode)
             if child.tag == self.sikbns + 'doosId':
                 (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
@@ -660,12 +734,16 @@ class Protocol0102:
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'monstertype':
-                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0053_ContextSampleType'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                key = 'monstertype'  # needed for inconsistent labeling by SIKB
+                cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
+                if self.ontology is not None:
+                    hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(child.text)], 'nl')
+                    hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0053_ContextSampleType'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'monsterverwerking':
                 cnode = rdflib.Literal(hf.rawString(child.text), lang='nl')
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
             if child.tag == self.sikbns + 'beginperiode':
                     bnode = hf.genID(self.graph, pnode, self.basens)
                     hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E13_Attribute_Assignment'))
@@ -677,14 +755,22 @@ class Protocol0102:
                     hf.addProperty(self.graph, bnode, bnode2, rdflib.URIRef(self.nss['crm'] + 'P141_assigned'))
                     hf.addLabel(self.graph, bnode2, 'Time Span', 'nl')
 
-                    cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
-                    hf.addSubPropertyIfExists(self.graph, self.basens, bnode2, cnode, 'beginperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
+                    key = 'periode'  # needed for inconsistent labeling by SIKB
+                    cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
+                    if self.ontology is not None:
+                        hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(child.text)], 'nl')
+                        hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
+                    hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, bnode2, cnode, 'beginperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
                     hf.addRefIfExists(self.graph, cnode, child)
 
                     snode = tnode.find(self.sikbns + 'eindperiode')
                     if snode is not None:
-                        cnode = rdflib.Literal(hf.rawString(snode.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
-                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode2, cnode, 'eindperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
+                        key = 'periode'  # needed for inconsistent labeling by SIKB
+                        cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(snode.text))
+                        if self.ontology is not None:
+                            hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(snode.text)], 'nl')
+                            hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
+                        hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, bnode2, cnode, 'eindperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
                         hf.addRefIfExists(self.graph, cnode, snode)
             if child.tag == self.sikbns + 'verpakkingseenheidId':
                 (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
@@ -713,7 +799,7 @@ class Protocol0102:
             if child.tag == self.sikbns + 'aantal':
                 bnode = hf.genID(self.graph, pnode, self.basens)
                 hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0031_ContextFindMeasurement'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P43_has_dimension'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P43_has_dimension'))
                 hf.addLabel(self.graph, bnode, re.sub(self.sikbns, '', child.tag).title(), 'nl')
 
                 inode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'positiveInteger'))
@@ -721,7 +807,7 @@ class Protocol0102:
             if child.tag == self.sikbns + 'gewicht':
                 bnode = hf.genID(self.graph, pnode, self.basens)
                 hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0031_ContextFindMeasurement'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P43_has_dimension'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P43_has_dimension'))
                 hf.addLabel(self.graph, bnode, re.sub(self.sikbns, '', child.tag).title(), 'nl')
 
                 for k, v in child.attrib.items():
@@ -732,12 +818,20 @@ class Protocol0102:
                 inode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'positiveInteger'))
                 hf.addProperty(self.graph, bnode, inode, rdflib.URIRef(self.nss['crm'] + 'P90_has_value'))
             if child.tag == self.sikbns + 'materiaalcategorie':
-                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0030_ContextFindMaterial'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P45_consists_of'))
+                key = 'materiaalcategorie'  # needed for inconsistent labeling by SIKB
+                cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
+                if self.ontology is not None:
+                    hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(child.text)], 'nl')
+                    hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0030_ContextFindMaterial'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P45_consists_of'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'artefacttype':
-                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                key = 'artefacttype'  # needed for inconsistent labeling by SIKB
+                cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
+                if self.ontology is not None:
+                    hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(child.text)], 'nl')
+                    hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'beginperiode':
                     bnode = hf.genID(self.graph, pnode, self.basens)
@@ -750,24 +844,32 @@ class Protocol0102:
                     hf.addProperty(self.graph, bnode, bnode2, rdflib.URIRef(self.nss['crm'] + 'P141_assigned'))
                     hf.addLabel(self.graph, bnode2, 'Time Span', 'nl')
 
-                    cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
-                    hf.addSubPropertyIfExists(self.graph, self.basens, bnode2, cnode, 'beginperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
+                    key = 'periode'  # needed for inconsistent labeling by SIKB
+                    cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
+                    if self.ontology is not None:
+                        hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(child.text)], 'nl')
+                        hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
+                    hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, bnode2, cnode, 'beginperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
                     hf.addRefIfExists(self.graph, cnode, child)
 
                     snode = tnode.find(self.sikbns + 'eindperiode')
                     if snode is not None:
-                        cnode = rdflib.Literal(hf.rawString(snode.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
-                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode2, cnode, 'eindperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
+                        key = 'periode'  # needed for inconsistent labeling by SIKB
+                        cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(snode.text))
+                        if self.ontology is not None:
+                            hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(snode.text)], 'nl')
+                            hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
+                        hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, bnode2, cnode, 'eindperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
                         hf.addRefIfExists(self.graph, cnode, snode)
             if child.tag == self.sikbns + 'geconserveerd':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E87_Curation_Activity'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P147i_was_curated_by'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P147i_was_curated_by'))
             if child.tag == self.sikbns + 'exposabel':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E87_Curation_Activity'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P147i_was_curated_by'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P147i_was_curated_by'))
             if child.tag == self.sikbns + 'gedeselecteerd':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E87_Curation_Activity'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P147i_was_curated_by'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P147i_was_curated_by'))
             if child.tag == self.sikbns + 'verpakkingseenheidId':
                 (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
@@ -793,8 +895,12 @@ class Protocol0102:
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'verzamelwijze':
-                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0046_ContextNote'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
+                key = 'verzamelwijze'  # needed for inconsistent labeling by SIKB
+                cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
+                if self.ontology is not None:
+                    hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(child.text)], 'nl')
+                    hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0046_ContextNote'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'vondstcontextId':
                 (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
@@ -812,8 +918,12 @@ class Protocol0102:
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'contexttype':
-                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                key = 'contexttype'  # needed for inconsistent labeling by SIKB
+                cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
+                if self.ontology is not None:
+                    hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(child.text)], 'nl')
+                    hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'spoorId':
                 (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
@@ -883,13 +993,13 @@ class Protocol0102:
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'vorm':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0059_ContextStuffNote'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
             if child.tag == self.sikbns + 'kleur':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0059_ContextStuffNote'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
             if child.tag == self.sikbns + 'textuur':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0059_ContextStuffNote'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P3_has_note'))
             if child.tag == self.sikbns + 'spoorId':
                 (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
                 if not exists:
@@ -907,8 +1017,12 @@ class Protocol0102:
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'structuurtype':
-                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                key = 'structuurtype'  # needed for inconsistent labeling by SIKB
+                cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
+                if self.ontology is not None:
+                    hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(child.text)], 'nl')
+                    hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'beginperiode':
                     bnode = hf.genID(self.graph, pnode, self.basens)
@@ -921,14 +1035,22 @@ class Protocol0102:
                     hf.addProperty(self.graph, bnode, bnode2, rdflib.URIRef(self.nss['crm'] + 'P141_assigned'))
                     hf.addLabel(self.graph, bnode2, 'Time Span', 'nl')
 
-                    cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
-                    hf.addSubPropertyIfExists(self.graph, self.basens, bnode2, cnode, 'beginperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
+                    key = 'periode'  # needed for inconsistent labeling by SIKB
+                    cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
+                    if self.ontology is not None:
+                        hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(child.text)], 'nl')
+                        hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
+                    hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, bnode2, cnode, 'beginperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
                     hf.addRefIfExists(self.graph, cnode, child)
 
                     snode = tnode.find(self.sikbns + 'eindperiode')
                     if snode is not None:
-                        cnode = rdflib.Literal(hf.rawString(snode.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
-                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode2, cnode, 'eindperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
+                        key = 'periode'  # needed for inconsistent labeling by SIKB
+                        cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(snode.text))
+                        if self.ontology is not None:
+                            hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(snode.text)], 'nl')
+                            hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
+                        hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, bnode2, cnode, 'eindperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
                         hf.addRefIfExists(self.graph, cnode, snode)
             if child.tag == self.sikbns + 'spoorId':
                 (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
@@ -987,8 +1109,12 @@ class Protocol0102:
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'planumtype':
-                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                key = 'planumtype'  # needed for inconsistent labeling by SIKB
+                cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
+                if self.ontology is not None:
+                    hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(child.text)], 'nl')
+                    hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'putId':
                 (enode, exists) = hf.getNodeFromElem(self.graph, self.basens, child)
@@ -1007,8 +1133,12 @@ class Protocol0102:
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'grondspoortype':
-                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                key = 'grondspoortype'  # needed for inconsistent labeling by SIKB
+                cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
+                if self.ontology is not None:
+                    hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(child.text)], 'nl')
+                    hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'diepte':
                 bnode = hf.genID(self.graph, pnode, self.basens)
@@ -1039,14 +1169,22 @@ class Protocol0102:
                     hf.addProperty(self.graph, bnode, bnode2, rdflib.URIRef(self.nss['crm'] + 'P141_assigned'))
                     hf.addLabel(self.graph, bnode2, 'Time Span', 'nl')
 
-                    cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
-                    hf.addSubPropertyIfExists(self.graph, self.basens, bnode2, cnode, 'beginperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
+                    key = 'periode'  # needed for inconsistent labeling by SIKB
+                    cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
+                    if self.ontology is not None:
+                        hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(child.text)], 'nl')
+                        hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
+                    hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, bnode2, cnode, 'beginperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
                     hf.addRefIfExists(self.graph, cnode, child)
 
                     snode = tnode.find(self.sikbns + 'eindperiode')
                     if snode is not None:
-                        cnode = rdflib.Literal(hf.rawString(snode.text), datatype=rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
-                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode2, cnode, 'eindperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
+                        key = 'periode'  # needed for inconsistent labeling by SIKB
+                        cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(snode.text))
+                        if self.ontology is not None:
+                            hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(snode.text)], 'nl')
+                            hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0091_Timestamp'))
+                        hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, bnode2, cnode, 'eindperiode', rdflib.URIRef(self.nss['crmeh'] + 'EXP1'))  # wrong range
                         hf.addRefIfExists(self.graph, cnode, snode)
 
     def putHandler(self, tnode):
@@ -1065,7 +1203,7 @@ class Protocol0102:
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'vaknummer':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E41_Appellation'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P1_is_identified_by'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P1_is_identified_by'))
             if child.tag == self.sikbns + 'dikte':
                 bnode = hf.genID(self.graph, pnode, self.basens)
                 hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E16_Measurement'))
@@ -1120,14 +1258,14 @@ class Protocol0102:
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'telefoon':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E51_Contact_Point'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P76_has_contact_point'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P76_has_contact_point'))
             if child.tag == self.sikbns + 'email':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E51_Contact_Point'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P76_has_contact_point'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P76_has_contact_point'))
             if child.tag == self.sikbns + 'naam':
                 bnode = hf.genID(self.graph, pnode, self.basens)
                 hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['foaf'] + 'Person'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P131_is_identified_by'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P131_is_identified_by'))
                 hf.addLabel(self.graph, bnode, re.sub(self.sikbns, '', child.tag).title(), 'nl')
 
                 for element in child:
@@ -1136,22 +1274,22 @@ class Protocol0102:
                         value = element.text + ', ' + snode.text if snode is not None else element.text  # extract 'tussenvoegsel' if available
 
                         enode = rdflib.Literal(value, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['foaf'] + 'familyName'))
+                        hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['foaf'] + 'familyName'))
                     if element.tag == self.sikbns + 'voornaam':
                         snode = child.find(self.sikbns + 'initialen')
                         value = element.text + ', ' + snode.text if snode is not None else element.text  # extract 'initialen' if available
 
                         enode = rdflib.Literal(value, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['foaf'] + 'givenName'))
+                        hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['foaf'] + 'givenName'))
                     if element.tag == self.sikbns + 'initialen':
                         snode = child.find(self.sikbns + 'voornaam')
                         if snode is None:
                             enode = rdflib.Literal(hf.rawString(element.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
 
-                            hf.addSubPropertyIfExists(self.graph, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['foaf'] + 'givenName'))
+                            hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['foaf'] + 'givenName'))
                     if element.tag == self.sikbns + 'titel':
                         enode = rdflib.Literal(hf.rawString(element.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                        hf.addSubPropertyIfExists(self.graph, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['foaf'] + 'title'))
+                        hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, bnode, enode, re.sub(self.sikbns, '', element.tag).title(), rdflib.URIRef(self.nss['foaf'] + 'title'))
 
     def geolocatieHandler(self, pnode, tnode):
         (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
@@ -1163,7 +1301,7 @@ class Protocol0102:
             if child.tag == self.sikbns + 'geometrie':
                 cnode = hf.genID(self.graph, pnode, self.basens)
                 hf.addType(self.graph, cnode, rdflib.URIRef(self.nss['geosparql'] + 'Geometry'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P87_is_identified_by'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P87_is_identified_by'))
 
                 gmlnode = rdflib.Literal(hf.gmlLiteralOf(self.et, child), datatype=rdflib.URIRef(self.nss['geosparql'] + 'GMLLiteral'))
                 hf.addProperty(self.graph, cnode, gmlnode, rdflib.URIRef(self.nss['geosparql'] + 'asGML'))
@@ -1176,13 +1314,17 @@ class Protocol0102:
 
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'methode':
-                cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
+                key = 'hoogtemetingmethode'  # needed for inconsistent labeling by SIKB
+                cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
+                if self.ontology is not None:
+                    hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(child.text)], 'nl')
+                    hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
                 hf.addRefIfExists(self.graph, cnode, child)
             if child.tag == self.sikbns + 'nap':
                 bnode = hf.genID(self.graph, pnode, self.basens)
                 hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E54_Dimension'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P40_observed_dimension'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P40_observed_dimension'))
                 hf.addLabel(self.graph, bnode, re.sub(self.sikbns, '', child.tag).title(), 'nl')
 
                 for k, v in child.attrib.items():
@@ -1226,12 +1368,19 @@ class Protocol0102:
                 if child.tag == self.sikbns + 'attribuutnaam':
                     pname = rdflib.Literal(hf.rawString(child.text))
 
-            hf.addSubPropertyIfExists(self.graph, self.basens, enode, value, pname, rdflib.URIRef(self.nss['rdf'] + 'value'))
+            hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, enode, value, pname, rdflib.URIRef(self.nss['rdf'] + 'value'))
 
             for child in atype.getchildren():
                 if child.tag == self.sikbns + 'informatie':
                     info = rdflib.Literal(hf.rawString(child.text), lang='nl')
                     hf.addProperty(self.graph, rdflib.URIRef(self.basens + pname), info, rdflib.URIRef(self.nss['rdfs'] + 'comment'))
+                if child.tag == self.sikbns + 'waardetype':
+                    key = 'waardetype'  # needed for inconsistent labeling by SIKB
+                    cnode = rdflib.URIRef(self.basens + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
+                    if self.ontology is not None:
+                        hf.addLabel(self.ontology, cnode, self.vocab[key][hf.rawString(child.text)], 'nl')
+                        hf.addType(self.ontology, cnode, rdflib.URIRef(self.nss['crm'] + 'E55_Type'))
+                    hf.addProperty(self.graph, rdflib.URIRef(self.basens + pname), cnode, rdflib.URIRef(self.nss['crm'] + 'P2_has_type'))
 
     def objectrelatieHandler(self, tnode):
         (gnode, exists) = hf.getNodeFromBaseType(self.graph, self.basens, tnode)
@@ -1289,17 +1438,17 @@ class Protocol0102:
         for child in tnode.getchildren():
             if child.tag == self.sikbns + 'bronCode':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E33_Linguistic_Object'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P129_is_about'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P129_is_about'))
             if child.tag == self.sikbns + 'standaardCode':
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E75_Conceptual_Object_Appellation'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P1_is_identified_by'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P1_is_identified_by'))
             if child.tag == self.sikbns + 'bronOmschrijving':
                 cnode = rdflib.Literal(hf.rawString(child.text), lang='nl')
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'description'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, cnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['dcterms'] + 'description'))
             if child.tag == self.sikbns + 'bronCodeLijst':
                 bnode = hf.genID(self.graph, pnode, self.basens)
                 hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E32_Authority_Document'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P71i_is_listed_in'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P71i_is_listed_in'))
                 hf.addLabel(self.graph, bnode, re.sub(self.sikbns, '', child.tag).title(), 'nl')
 
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E41_Appellation'))
@@ -1307,7 +1456,7 @@ class Protocol0102:
             if child.tag == self.sikbns + 'naamCodeLijst':
                 bnode = hf.genID(self.graph, pnode, self.basens)
                 hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E32_Authority_Document'))
-                hf.addSubPropertyIfExists(self.graph, self.basens, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P71i_is_listed_in'))
+                hf.addSubPropertyIfExists(self.graph, self.ontology, self.schema, self.basens, gnode, bnode, re.sub(self.sikbns, '', child.tag).title(), rdflib.URIRef(self.nss['crm'] + 'P71i_is_listed_in'))
                 hf.addLabel(self.graph, bnode, re.sub(self.sikbns, '', child.tag).title(), 'nl')
 
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['crm'] + 'E41_Appellation'))

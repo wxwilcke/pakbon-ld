@@ -1,11 +1,13 @@
 #!/usr/bin/python3
 
 from xml.etree import ElementTree as ET
+import zipfile
+import rdflib
 import os.path
 import re
 
 
-def read(filename=None, ignore_version=False):
+def read_tree(filename=None, ignore_version=False):
     if filename is None:
         raise ValueError('Filename missing.')
     elif not os.path.isfile(filename):
@@ -18,6 +20,33 @@ def read(filename=None, ignore_version=False):
         raise TypeError('Unsupported version of SIKB Protocol 0102.\nUse --ignore_version to continue regardless.')
 
     return (ET, tree, versionOf(tree))
+
+
+def read_zippedTree(filename=None, zippedfilename=None, ignore_version=False):
+    if filename is None or zippedfilename is None:
+        raise ValueError('Filename missing.')
+    elif not os.path.isfile(filename):
+        raise OSError('File not found: ' + filename)
+
+    zfile = zipfile.ZipFile(filename, 'r')
+    with zfile.open(zippedfilename) as zf:
+        troot = ET.fromstring(zf.read())
+
+    if ('version' in troot.attrib and troot.attrib['version'] != '3.1.0' or 'versie' in troot.attrib and
+        troot.attrib['versie'] != '3.1.0') and not ignore_version:
+        raise TypeError('Unsupported version of SIKB Protocol 0102.\nUse --ignore_version to continue regardless.')
+
+    return troot
+
+
+def read_graph(filename=None):
+    if filename is None:
+        raise ValueError('Filename missing.')
+    elif not os.path.isfile(filename):
+        raise OSError('File not found: ' + filename)
+
+    graph = rdflib.Graph()
+    return graph.parse(filename, format=rdflib.util.guess_format(filename))
 
 
 def versionOf(tree=None):
