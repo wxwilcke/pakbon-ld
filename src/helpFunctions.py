@@ -17,6 +17,11 @@ def addType(g, node, ntype):
     addProperty(g, node, ntype, rdflib.URIRef(ns['rdf'] + 'type'))
 
 
+def addSubClassOf(g, subclass, superclass):
+    ns = dict(ns for ns in g.namespace_manager.namespaces())
+    addProperty(g, subclass, superclass, rdflib.URIRef(ns['rdfs'] + 'subClassOf'))
+
+
 def addLabel(graph, node, label, lang):
     nss = dict(ns for ns in graph.namespace_manager.namespaces())
     lnode = rdflib.Literal(label, lang=lang)
@@ -76,18 +81,17 @@ def getNodeClass(graph, node):
     return btnode
 
 
-def addSubPropertyIfExists(graph, ontology, vocab, basens, parent, child, subpropname, superprop):
+def addSchemaType(graph, ns, node, parentnode, name, parentname):
+    addType(graph, node, rdflib.URIRef(ns + 'SIKB0102_Schema_' + parentname.title() + '.' + name.title()))
+    addProperty(graph, parentnode, node, rdflib.URIRef(ns + 'SIKB0102_Schema_' + parentname + '_' + name))
+
+def addSubPropertyIfExists(graph, basens, parent, child, subpropname, superprop):
     nss = dict(ns for ns in graph.namespace_manager.namespaces())
     p = rdflib.URIRef(basens + re.sub('{.*}', '', subpropname))
 
-    if ontology is not None and (None, p, None) not in ontology:
-        addType(ontology, p, rdflib.URIRef(nss['rdf'] + 'Property'))
-        addProperty(ontology, p, superprop, rdflib.URIRef(nss['rdfs'] + 'subPropertyOf'))
-        if re.sub('{.*}', '', subpropname).lower() in vocab:
-            info = rdflib.Literal(vocab[re.sub('{.*}', '', subpropname).lower()], 'nl')
-        else:
-            info = rdflib.Literal('Nederlandstalig equivalent (of specifieker) van externe relatie zoals vastgelegd in SIKB Protocol 0102', 'nl')
-        addProperty(ontology, p, info, rdflib.URIRef(nss['rdfs'] + 'comment'))
+    if (None, p, None) not in graph:
+        addType(graph, p, rdflib.URIRef(nss['rdf'] + 'Property'))
+        addProperty(graph, p, superprop, rdflib.URIRef(nss['rdfs'] + 'subPropertyOf'))
 
     addProperty(graph, parent, child, p)
 

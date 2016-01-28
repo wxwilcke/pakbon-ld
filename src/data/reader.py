@@ -32,11 +32,11 @@ def read_zippedTree(filename=None, zippedfilename=None, ignore_version=False):
     with zfile.open(zippedfilename) as zf:
         troot = ET.fromstring(zf.read())
 
-    if ('version' in troot.attrib and troot.attrib['version'] != '3.1.0' or 'versie' in troot.attrib and
-        troot.attrib['versie'] != '3.1.0') and not ignore_version:
+    version = troot.attrib['version'] if 'version' in troot.attrib else troot.attrib['versie']
+    if version != '3.1.0' and not ignore_version:
         raise TypeError('Unsupported version of SIKB Protocol 0102.\nUse --ignore_version to continue regardless.')
 
-    return troot
+    return (troot, version)
 
 
 def read_graph(filename=None):
