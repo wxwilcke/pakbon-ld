@@ -9,11 +9,11 @@ class Vocabulary0102:
 
     def __init__(self, troot, namespace):
         self.troot = troot
-        self.basens = namespace['base']
+        self.basens = namespace['base'] + 'voc/'
         self.nss = namespace
         self.ns = re.sub(r'(\{.*\})lookup', r'\1', troot.tag)
 
-        types = {'archistypeCodelijst': rdflib.URIRef(self.nss['crm'] + 'e55_type'),
+        types = {'archistypeCodelijst': rdflib.URIRef(self.nss['crm'] + 'E55_type'),
                'artefacttypeCodelijst': rdflib.URIRef(self.nss['crm'] + 'E55_Type'),
                'complextypeCodelijst': rdflib.URIRef(self.nss['crm'] + 'E55_Type'),
                'contexttypeCodelijst': rdflib.URIRef(self.nss['crm'] + 'E55_Type'),
@@ -69,6 +69,7 @@ class Vocabulary0102:
 
             lnode = rdflib.Literal(label.title(), lang='nl')
             hf.addProperty(self.graph, node , lnode, rdflib.URIRef(self.nss['skos'] + 'prefLabel'))
+            hf.addProperty(self.graph, node , lnode, rdflib.URIRef(self.nss['rdfs'] + 'label'))
 
             hf.addProperty(self.graph, node, self.groot, rdflib.URIRef(self.nss['skos'] + 'topConceptOf'))
             hf.addProperty(self.graph, self.groot, node, rdflib.URIRef(self.nss['skos'] + 'hasTopConcept'))
@@ -80,7 +81,7 @@ class Vocabulary0102:
                 child = rdflib.Literal(codelist.attrib['datum'], datatype=rdflib.URIRef(self.nss['xsd'] + 'date'))
                 hf.addProperty(self.graph, node , child, rdflib.URIRef(self.nss['dcterms'] + 'issued'))
             if 'omschrijving' in codelist.attrib.keys():  # omschrijving
-                child = rdflib.Literal(self.prep(codelist.attrib['omschrijving']), 'nl')
+                child = rdflib.Literal(hf.rawString(codelist.attrib['omschrijving']), 'nl')
                 hf.addProperty(self.graph, node , child, rdflib.URIRef(self.nss['skos'] + 'scopeNote'))
 
             # for each entry in the codelist
@@ -90,12 +91,13 @@ class Vocabulary0102:
                                      + codelist.attrib['naam'].title() \
                                      + '_' + clabel)
                 lcnode = rdflib.Literal(codelist.attrib['naam'].title() + ' ' + clabel.upper(), lang='nl')
-                hf.addProperty(self.graph, code ,lcnode, rdflib.URIRef(self.nss['skos'] + 'prefLabel'))
+                hf.addProperty(self.graph, code, lcnode, rdflib.URIRef(self.nss['skos'] + 'prefLabel'))
+                hf.addProperty(self.graph, code, lcnode, rdflib.URIRef(self.nss['rdfs'] + 'label'))
                 hf.addProperty(self.graph, code, node, rdflib.URIRef(self.nss['skos'] + 'inScheme'))
                 hf.addType(self.graph, code, rdflib.URIRef(self.nss['skos'] + 'Concept'))
                 hf.addType(self.graph, code, rdflib.URIRef(types[label]))
 
-                definition = rdflib.Literal(self.prep(entry[1].text), 'nl')
+                definition = rdflib.Literal(hf.rawString(entry[1].text), 'nl')
                 hf.addProperty(self.graph, code, definition, rdflib.URIRef(self.nss['skos'] + 'scopeNote'))
 
                 if 'versie' in entry.attrib.keys():  # versie
@@ -145,14 +147,3 @@ class Vocabulary0102:
                     hf.addProperty(self.graph, altcode, code, rdflib.URIRef(self.nss['owl'] + 'sameAs'))
                     hf.addProperty(self.graph, code, altcode, rdflib.URIRef(self.nss['owl'] + 'sameAs'))
 
-    def unquote(self, word):
-        return re.sub(r'\"', r'\\"', word)
-
-    def unspecialchar(self, word):
-        return re.sub(r'\\', r'\\\\', word)
-
-    def prep(self, word):
-        word = self.unspecialchar(word)
-        word = self.unquote(word)
-
-        return word

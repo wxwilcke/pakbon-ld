@@ -11,5 +11,6 @@ def write(graph=None, filename=None, sformat='turtle', overwrite=True):
     elif not overwrite and os.path.isfile(filename):
         raise OSError('File already exists')
 
-    with open(filename, 'w') as f:
-        f.write(str(graph.serialize(format=sformat).decode('unicode_escape')))
+    #with open(filename, 'w') as f:
+    #    f.write(str(graph.serialize(format=sformat).decode('unicode_escape')))
+    graph.serialize(destination=filename, format=sformat)

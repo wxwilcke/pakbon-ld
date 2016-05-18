@@ -9,7 +9,7 @@ class Schema0102:
 
     def __init__(self, troot, namespace):
         self.troot = troot
-        self.basens = namespace['base']
+        self.basens = namespace['base'] + 'ont/'
         self.ns = re.sub(r'(\{.*\})schema', r'\1', troot.tag)
 
         self.baseid = 'SIKB0102_Schema'
@@ -49,7 +49,7 @@ class Schema0102:
     def propertyHandler(self, element, basename, superprop, proprange=None):
         node = rdflib.URIRef(self.basens + self.baseid + '_' + basename + '_' + element.attrib['name'])
         hf.addType(self.graph, node, rdflib.URIRef(self.nss['rdf'] + 'Property'))
-        hf.addProperty(self.graph, node, superprop, rdflib.URIRef(self.nss['rdfs'] + 'suppropertyOf'))
+        hf.addProperty(self.graph, node, superprop, rdflib.URIRef(self.nss['rdfs'] + 'subpropertyOf'))
         hf.addLabel(self.graph, node, element.attrib['name'] + ' van ' + basename, 'nl')
         #self.addDoc(element, node)
 
@@ -60,7 +60,7 @@ class Schema0102:
     def addDoc(self, base, node):
         doc = base.find('./' + self.ns + 'annotation/' + self.ns + 'documentation')
         if doc is not None:
-           hf.addProperty(self.graph, node, rdflib.Literal(doc.text, lang='nl'), \
+           hf.addProperty(self.graph, node, rdflib.Literal(hf.rawString(doc.text), lang='nl'), \
                           rdflib.URIRef(self.nss['dcterms'] + 'description'))
 
 

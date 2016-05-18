@@ -2,10 +2,14 @@
 
 import rdflib
 import re
+import hashlib
 
 
-def getID(e, namespace):
-    return e.attrib['{' + str(namespace['sikb']) + '}' + 'id']
+def genHash(s):
+    return 'x' + hashlib.sha1().hexdigest(s.encode())
+
+def getID(e, sikbns):
+    return e.attrib[sikbns + 'id']
 
 
 def addProperty(g, parent, child, relation):
@@ -26,6 +30,19 @@ def addLabel(graph, node, label, lang):
     nss = dict(ns for ns in graph.namespace_manager.namespaces())
     lnode = rdflib.Literal(label, lang=lang)
     addProperty(graph, node, lnode, rdflib.URIRef(nss['rdfs'] + 'label'))
+
+def getLabel(g, node):
+    nss = dict(ns for ns in g.namespace_manager.namespaces())
+    label = g.value(subject=node,\
+                    predicate=rdflib.URIRef(nss['rdfs'] + 'label'),\
+                    object=None)
+
+    return label.value if label is not None else ''
+
+def updateLabel(graph, node, label, lang):
+    nss = dict(ns for ns in graph.namespace_manager.namespaces())
+    graph.remove((node, rdflib.URIRef(nss['rdfs'] + 'label'), None))
+    addLabel(graph, node, label, lang)
 
 
 def genID(graph, pnode, basens):
@@ -69,7 +86,7 @@ def gmlLiteralOf(et, tnode):
 
     raw += '</' + gmltype + '>'
 
-    return raw
+    return (raw, gmlid, gmltype.lstrip('gml:').rstrip('Type'))
 
 
 def getNodeClass(graph, node):
@@ -96,15 +113,15 @@ def addSubPropertyIfExists(graph, basens, parent, child, subpropname, superprop)
     addProperty(graph, parent, child, p)
 
 
-def getNodeFromBaseType(graph, basens, baseType):
+def getNodeFromBaseType(graph, basens, sikbns, baseType):
     nss = dict(ns for ns in graph.namespace_manager.namespaces())
     btnode = graph.value(subject=None,
                          predicate=rdflib.URIRef(nss['crm'] + 'P48_has_preferred_identifier'),
-                         object=rdflib.Literal(getID(baseType, nss), datatype=rdflib.URIRef(nss['xsd'] + 'ID')))
+                         object=rdflib.Literal(getID(baseType, sikbns), datatype=rdflib.URIRef(nss['xsd'] + 'ID')))
 
     exists = True if btnode else False
     if not exists:
-        btnode = rdflib.URIRef(basens + getID(baseType, nss))
+        btnode = rdflib.URIRef(basens + getID(baseType, sikbns))
 
     return (btnode, exists)
 
@@ -133,30 +150,29 @@ def addRefIfExists(graph, node, element):
         addProperty(graph, node, rnode, rdflib.URIRef(nss['crm'] + 'P71i_is_listed_in'))
 
 
-def extractGenericObjectFields(graph, gnode, tnode, label=''):
+def extractGenericObjectFields(graph, gnode, tnode, sikbns, label=''):
     nss = dict(ns for ns in graph.namespace_manager.namespaces())
-    attrib = [
-        '{' + str(nss['sikb']) + '}' + 'id']
+    attrib = [sikbns + 'id']
 
     if attrib[0] in tnode.attrib.keys():  # id
         child = rdflib.Literal(tnode.attrib[attrib[0]], datatype=rdflib.URIRef(nss['xsd'] + 'ID'))
         addProperty(graph, gnode, child, rdflib.URIRef(nss['crm'] + 'P48_has_preferred_identifier'))
 
-    label = re.sub('{' + str(nss['sikb']) + '}', '', tnode.tag).title() + ((' ' + label) if label != '' else '')
+    label = re.sub(sikbns, '', tnode.tag).title() + ((' ' + label) if label != '' else '')
     if label != '':
         addLabel(graph, gnode, label, 'nl')
 
 
-def extractGeoObjectFields(graph, gnode, tnode):
-    extractGenericObjectFields(graph, gnode, tnode)
+def extractGeoObjectFields(graph, gnode, tnode, sikbns):
+    extractGenericObjectFields(graph, gnode, tnode, sikbns)
 
 
-def extractBasisTypeFields(graph, gnode, tnode, label=''):
+def extractBasisTypeFields(graph, gnode, tnode, sikbns, label=''):
     nss = dict(ns for ns in graph.namespace_manager.namespaces())
 
     attrib = [
         'bronId',
-        '{' + str(nss['sikb']) + '}' + 'informatie']
+        sikbns + 'informatie']
 
     if attrib[0] in tnode.attrib.keys():  # bronId
         child = rdflib.Literal(tnode.attrib[attrib[0]], datatype=rdflib.URIRef(nss['xsd'] + 'ID'))
@@ -168,12 +184,12 @@ def extractBasisTypeFields(graph, gnode, tnode, label=''):
             child = rdflib.Literal(attr.text, lang='nl')
             addProperty(graph, gnode, child, rdflib.URIRef(nss['crm'] + 'P3_has_note'))
 
-    extractGenericObjectFields(graph, gnode, tnode, label)
+    extractGenericObjectFields(graph, gnode, tnode, sikbns, label)
 
 
-def extractBasisNaamTypeFields(graph, gnode, tnode):
+def extractBasisNaamTypeFields(graph, gnode, tnode, sikbns):
     nss = dict(ns for ns in graph.namespace_manager.namespaces())
-    attrib = ['{' + str(nss['sikb']) + '}' + 'naam']
+    attrib = [sikbns + 'naam']
 
     label = ''
     for attr in tnode.getchildren():
@@ -182,24 +198,24 @@ def extractBasisNaamTypeFields(graph, gnode, tnode):
             addProperty(graph, gnode, child, rdflib.URIRef(nss['crm'] + 'P1_is_identified_by'))
             label = attr.text
 
-    extractBasisTypeFields(graph, gnode, tnode, label)
+    extractBasisTypeFields(graph, gnode, tnode, sikbns, label)
 
 
-def extractBasisLocatieTypeFields(graph, gnode, tnode, label=''):
+def extractBasisLocatieTypeFields(graph, gnode, tnode, sikbns, label=''):
     nss = dict(ns for ns in graph.namespace_manager.namespaces())
-    attrib = ['{' + str(nss['sikb']) + '}' + 'geolocatieId']
+    attrib = [sikbns + 'geolocatieId']
 
     for attr in tnode.getchildren():
         if attr.tag == attrib[0]:  # geolocatieId
             child = rdflib.Literal(attr.text, datatype=rdflib.URIRef(nss['xsd'] + 'string'))
             addProperty(graph, gnode, child, rdflib.URIRef(nss['crm'] + 'P87_is_identified_by'))
 
-    extractBasisTypeFields(graph, gnode, tnode, label)
+    extractBasisTypeFields(graph, gnode, tnode, sikbns, label)
 
 
-def extractBasisLocatieNaamTypeFields(graph, gnode, tnode):
+def extractBasisLocatieNaamTypeFields(graph, gnode, tnode, sikbns):
     nss = dict(ns for ns in graph.namespace_manager.namespaces())
-    attrib = ['{' + str(nss['sikb']) + '}' + 'naam']
+    attrib = [sikbns + 'naam']
 
     label = ''
     for attr in tnode.getchildren():
@@ -208,8 +224,8 @@ def extractBasisLocatieNaamTypeFields(graph, gnode, tnode):
             addProperty(graph, gnode, child, rdflib.URIRef(nss['crm'] + 'P1_is_identified_by'))
             label = attr.text
 
-    extractBasisLocatieTypeFields(graph, gnode, tnode, label)
+    extractBasisLocatieTypeFields(graph, gnode, tnode, sikbns, label)
 
 
 def rawString(string):
-    return re.sub('\s+', ' ', re.sub(r'\\', r'\\\\', string))
+    return re.sub('\s+', ' ', re.sub(r'\"', r'\\"', re.sub(r'\\', r'\\\\', string)))
