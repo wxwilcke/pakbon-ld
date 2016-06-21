@@ -5,8 +5,18 @@ import re
 import hashlib
 
 
-def genHash(s):
-    return 'x' + hashlib.sha1().hexdigest(s.encode())
+def genHash(tnode, sikbns, features=[], salt=''):
+    while len(features) > 0:
+        tag = features.pop()
+        if type(tag) is str:
+            salt += ''.join([value.text for value in tnode.iter(sikbns + tag)])
+        elif type(tag) is dict:
+            for k, v in tag.items():
+                subnode = tnode.find(sikbns + k)
+                if subnode is not None:
+                    salt += ''.join([value.text for subtag in v for value in subnode.iter(sikbns + subtag)])
+
+    return 'P' + hashlib.sha1(salt.encode()).hexdigest()
 
 def getID(e, sikbns):
     return e.attrib[sikbns + 'id']
@@ -39,10 +49,19 @@ def getLabel(g, node):
 
     return label.value if label is not None else ''
 
-def updateLabel(graph, node, label, lang):
+
+def updateLabel(graph, node, label, lang, delimiter=' ', checkDoubleEntries=True):
     nss = dict(ns for ns in graph.namespace_manager.namespaces())
-    graph.remove((node, rdflib.URIRef(nss['rdfs'] + 'label'), None))
-    addLabel(graph, node, label, lang)
+
+    oldLabel = graph.value(subject=node,\
+                    predicate=rdflib.URIRef(nss['rdfs'] + 'label'),\
+                    object=None)
+
+    if oldLabel is None or (checkDoubleEntries and label in oldLabel):
+        return
+
+    graph.remove((node, rdflib.URIRef(nss['rdfs'] + 'label'), oldLabel))
+    addLabel(graph, node, oldLabel.value + delimiter + label, lang)
 
 
 def genID(graph, pnode, basens):
@@ -50,14 +69,24 @@ def genID(graph, pnode, basens):
     uri = ''
     while True:
         uri = rdflib.URIRef(basens
-                            + 'SIKBID_' + graph.value(pnode, rdflib.URIRef(nss['crm'] + 'P48_has_preferred_identifier'), None)
-                            + '-'
+                            + graph.value(pnode, rdflib.URIRef(nss['crm'] + 'P48_has_preferred_identifier'), None)
                             + rdflib.BNode())
 
         if (uri, None, None) not in graph:
             break
 
     return uri
+
+def getNodeID(graph, node):
+    nss = dict(ns for ns in graph.namespace_manager.namespaces())
+    ident = graph.value(node, rdflib.URIRef(nss['crm'] + 'P48_has_preferred_identifier'), None)
+
+    return '' if ident is None else ident
+
+def getNode(graph, ident):
+    nss = dict(ns for ns in graph.namespace_manager.namespaces())
+    return graph.value(None, rdflib.URIRef(nss['crm'] + 'P48_has_preferred_identifier'),\
+                       rdflib.Literal(ident, datatype=rdflib.URIRef(nss['xsd'] + 'ID')))
 
 
 def setGraphNamespaceIDs(graph, namespace):
@@ -138,25 +167,34 @@ def getNodeFromElem(graph, basens, element):
 
     return (enode, exists)
 
+def getTreeNodeByID(troot, sikbns, uuid):
+    for elem in troot.iter():
+        if sikbns + 'id' in elem.attrib and elem.attrib[sikbns + 'id'] == uuid:
+            return elem
 
-def addRefIfExists(graph, node, element):
-    nss = dict(ns for ns in graph.namespace_manager.namespaces())
-    rnode = None
+    return None
+
+def addRefIfExists(protocol, cnode, element):
     if 'codereferentieId' in element.attrib:
-        rnode = graph.value(subject=None,
-                            predicate=rdflib.URIRef(nss['crm'] + 'P48_has_preferred_identifier'),
-                            object=rdflib.Literal(element.attrib['codereferentieId']))
-    if rnode is not None:
-        addProperty(graph, node, rnode, rdflib.URIRef(nss['crm'] + 'P71i_is_listed_in'))
+        treeNode = getTreeNodeByID(protocol.troot, protocol.sikbns, element.attrib['codereferentieId'])
+        crnode = protocol.codereferentieHandler(treeNode).node
+        if crnode is not None:
+            addProperty(protocol.graph, cnode, crnode, rdflib.URIRef(protocol.nss['crm'] + 'P71i_is_listed_in'))
 
-
-def extractGenericObjectFields(graph, gnode, tnode, sikbns, label=''):
+def extractGenericObjectFields(graph, gnode, tnode, sikbns, label='', nolabel=False):
     nss = dict(ns for ns in graph.namespace_manager.namespaces())
+    """
     attrib = [sikbns + 'id']
 
     if attrib[0] in tnode.attrib.keys():  # id
         child = rdflib.Literal(tnode.attrib[attrib[0]], datatype=rdflib.URIRef(nss['xsd'] + 'ID'))
         addProperty(graph, gnode, child, rdflib.URIRef(nss['crm'] + 'P48_has_preferred_identifier'))
+    """
+    idnode = rdflib.Literal(re.sub('.*/', '', gnode.toPython()), datatype=rdflib.URIRef(nss['xsd'] + 'ID'))
+    addProperty(graph, gnode, idnode, rdflib.URIRef(nss['crm'] + 'P48_has_preferred_identifier'))
+
+    if nolabel:
+        return
 
     label = re.sub(sikbns, '', tnode.tag).title() + ((' ' + label) if label != '' else '')
     if label != '':
@@ -167,7 +205,7 @@ def extractGeoObjectFields(graph, gnode, tnode, sikbns):
     extractGenericObjectFields(graph, gnode, tnode, sikbns)
 
 
-def extractBasisTypeFields(graph, gnode, tnode, sikbns, label=''):
+def extractBasisTypeFields(graph, gnode, tnode, sikbns, label='', nolabel=False):
     nss = dict(ns for ns in graph.namespace_manager.namespaces())
 
     attrib = [
@@ -184,10 +222,10 @@ def extractBasisTypeFields(graph, gnode, tnode, sikbns, label=''):
             child = rdflib.Literal(attr.text, lang='nl')
             addProperty(graph, gnode, child, rdflib.URIRef(nss['crm'] + 'P3_has_note'))
 
-    extractGenericObjectFields(graph, gnode, tnode, sikbns, label)
+    extractGenericObjectFields(graph, gnode, tnode, sikbns, label, nolabel)
 
 
-def extractBasisNaamTypeFields(graph, gnode, tnode, sikbns):
+def extractBasisNaamTypeFields(graph, gnode, tnode, sikbns, nolabel=False):
     nss = dict(ns for ns in graph.namespace_manager.namespaces())
     attrib = [sikbns + 'naam']
 
@@ -198,7 +236,7 @@ def extractBasisNaamTypeFields(graph, gnode, tnode, sikbns):
             addProperty(graph, gnode, child, rdflib.URIRef(nss['crm'] + 'P1_is_identified_by'))
             label = attr.text
 
-    extractBasisTypeFields(graph, gnode, tnode, sikbns, label)
+    extractBasisTypeFields(graph, gnode, tnode, sikbns, label, nolabel)
 
 
 def extractBasisLocatieTypeFields(graph, gnode, tnode, sikbns, label=''):
