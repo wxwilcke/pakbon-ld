@@ -5,7 +5,7 @@ import re
 import hashlib
 
 
-def genHash(tnode, sikbns, features=[], salt=''):
+def genHash(tnode, sikbns, features=[], salt='', pre='R'):
     while len(features) > 0:
         tag = features.pop()
         if type(tag) is str:
@@ -16,11 +16,18 @@ def genHash(tnode, sikbns, features=[], salt=''):
                 if subnode is not None:
                     salt += ''.join([value.text for subtag in v for value in subnode.iter(sikbns + subtag)])
 
-    return 'P' + hashlib.sha1(salt.encode()).hexdigest()
+    return pre + hashlib.sha1(salt.encode()).hexdigest()
 
 def getID(e, sikbns):
     return e.attrib[sikbns + 'id']
 
+def getTID(g, node):
+    nss = dict(ns for ns in g.namespace_manager.namespaces())
+    tid = g.value(subject=node,\
+                    predicate=rdflib.URIRef(nss['crm'] + 'P1_is_identified_by'),\
+                    object=None)
+
+    return tid if tid is not None else ''
 
 def addProperty(g, parent, child, relation):
     g.add((parent, relation, child))
@@ -181,6 +188,89 @@ def addRefIfExists(protocol, cnode, element):
         if crnode is not None:
             addProperty(protocol.graph, cnode, crnode, rdflib.URIRef(protocol.nss['crm'] + 'P71i_is_listed_in'))
 
+def fuzzyTextMatchElseNew(graph, basens, ctype, attrs=[], string='', lang='nl', max_diff=.4, interactive=True):
+    node = fuzzyTextMatch(graph, ctype, attrs, string, max_diff, interactive)
+
+    if node is None:
+        hid = genHash(None, None, [], salt=string + ctype.toPython())
+        node = getNode(graph, hid)
+        if node is None:
+            nss = dict(ns for ns in graph.namespace_manager.namespaces())
+            node = rdflib.URIRef(basens + hid)
+            addType(graph, node, ctype)
+            label = rdflib.Literal(string, datatype=rdflib.URIRef(nss['xsd'] + 'string'))
+            addLabel(graph, node, label, lang)
+
+    return node
+
+def fuzzyTextMatch(graph, ctype, attrs=[], string='', max_diff=.4, interactive=True):
+    from difflib import SequenceMatcher
+
+    nss = dict(ns for ns in graph.namespace_manager.namespaces())
+    candidates = []
+    for node, _, _ in graph.triples((None, rdflib.URIRef(nss['rdf'] + 'type'), ctype)):
+        dlist = []
+        for attr in attrs:
+            value = graph.value(node, attr, None)
+            if value is None:
+                continue
+
+            dlist.append(SequenceMatcher(None, string.strip().lower(), value.strip().lower()).ratio())
+
+        d = sum(dlist)/len(dlist)
+        if d >= 1.0 - max_diff:
+            candidates.append((d, node))
+
+    if candidates == []:
+        return None
+
+    candidates.sort(reverse=True)
+    if not interactive:
+        return candidates[0][1]
+
+    print("\nDetected Possible Alignment on: {} ({})".format(string, re.sub('.*/', '', ctype)))
+
+    candidate = None
+    for i, (d, candidate) in enumerate(candidates, 1):
+        print(" Candidate Solution ({}% match) {} / {}".format(int(d*100), i, len(candidates)))
+        print("\tCandidate: \t{}".format(graph.preferredLabel(candidate)[0][1]))
+
+        q = ''
+        while True:
+            q = input(" Align? (y[es] / n[o] / m[ore info]) / s[kip] (*): ")
+            if q == 'y':
+                return candidate
+            elif q == 'n':
+                break
+            elif q == 'm':
+                ask = True
+                for pred, obj in graph.predicate_objects(candidate):
+                    pred = re.sub('.*/', '', pred)
+                    obj = re.sub('.*/', '', obj)
+                    n = 50 - len(pred)
+                    if n <= 0:
+                        obj = obj[:len(obj)+n-3] + '...'
+                        n = 1
+                    m = 50 - len(obj)
+                    if m <= 0:
+                        obj = obj[:len(obj)+m-3] + '...'
+                        m = 1
+                    print(" < {} >{:>{}}< {} >".format(pred, '', n, obj), end="{:>{}}".format('', m))
+                    if ask:
+                        q = input("[(n)ext], (u)ntil end, (a)bort ")
+                        if q == 'a':
+                            break
+                        elif q == 'u':
+                            ask = False
+                    else:
+                        print()
+            else:
+                return None
+
+        candidate = None
+
+    return candidate
+
 def extractGenericObjectFields(graph, gnode, tnode, sikbns, label='', nolabel=False):
     nss = dict(ns for ns in graph.namespace_manager.namespaces())
     """
@@ -205,7 +295,7 @@ def extractGeoObjectFields(graph, gnode, tnode, sikbns):
     extractGenericObjectFields(graph, gnode, tnode, sikbns)
 
 
-def extractBasisTypeFields(graph, gnode, tnode, sikbns, label='', nolabel=False):
+def extractBasisTypeFields(graph, gnode, tnode, sikbns, label='', nolabel=False, gpnode=None, gid=''):
     nss = dict(ns for ns in graph.namespace_manager.namespaces())
 
     attrib = [
@@ -213,9 +303,15 @@ def extractBasisTypeFields(graph, gnode, tnode, sikbns, label='', nolabel=False)
         sikbns + 'informatie']
 
     if attrib[0] in tnode.attrib.keys():  # bronId
-        child = rdflib.Literal(tnode.attrib[attrib[0]], datatype=rdflib.URIRef(nss['xsd'] + 'ID'))
+        sourceID = tnode.attrib[attrib[0]]
+        if gid != '':
+            sourceID = gid
+        elif gpnode is not None:
+            sourceID = "{}:{}".format(getTID(graph, gpnode), sourceID)
+
+        child = rdflib.Literal(sourceID, datatype=rdflib.URIRef(nss['xsd'] + 'ID'))
         addProperty(graph, gnode, child, rdflib.URIRef(nss['crm'] + 'P1_is_identified_by'))
-        label = tnode.attrib[attrib[0]] + ((' ' + '(' + label + ')') if label != '' else '')
+        label = '(' + label + ')' if label != '' else ''
 
     for attr in tnode.getchildren():
         if attr.tag == attrib[1]:  # informatie
@@ -225,44 +321,49 @@ def extractBasisTypeFields(graph, gnode, tnode, sikbns, label='', nolabel=False)
     extractGenericObjectFields(graph, gnode, tnode, sikbns, label, nolabel)
 
 
-def extractBasisNaamTypeFields(graph, gnode, tnode, sikbns, nolabel=False):
+def extractBasisNaamTypeFields(graph, gnode, tnode, sikbns, nolabel=False, gpnode=None):
     nss = dict(ns for ns in graph.namespace_manager.namespaces())
     attrib = [sikbns + 'naam']
 
     label = ''
     for attr in tnode.getchildren():
         if attr.tag == attrib[0]:  # naam
-            child = rdflib.Literal(attr.text, datatype=rdflib.URIRef(nss['xsd'] + 'string'))
+            gpid = getTID(graph, gpnode)
+            nid = "{}:{}".format(gpid, attr.text) if gpid != '' else attr.text
+            child = rdflib.Literal(nid, datatype=rdflib.URIRef(nss['xsd'] + 'string'))
             addProperty(graph, gnode, child, rdflib.URIRef(nss['crm'] + 'P1_is_identified_by'))
-            label = attr.text
+            label = nid
 
-    extractBasisTypeFields(graph, gnode, tnode, sikbns, label, nolabel)
+    extractBasisTypeFields(graph, gnode, tnode, sikbns, label, nolabel, gpnode=gpnode, gid=nid)
 
 
-def extractBasisLocatieTypeFields(graph, gnode, tnode, sikbns, label=''):
-    nss = dict(ns for ns in graph.namespace_manager.namespaces())
+def extractBasisLocatieTypeFields(graph, gnode, tnode, sikbns, label='', gpnode=None, gid=''):
+    """nss = dict(ns for ns in graph.namespace_manager.namespaces())
     attrib = [sikbns + 'geolocatieId']
 
     for attr in tnode.getchildren():
-        if attr.tag == attrib[0]:  # geolocatieId
+        if attr.tag == attrib[0]:  # geolocatieId # TODO ?
             child = rdflib.Literal(attr.text, datatype=rdflib.URIRef(nss['xsd'] + 'string'))
             addProperty(graph, gnode, child, rdflib.URIRef(nss['crm'] + 'P87_is_identified_by'))
+    """
 
-    extractBasisTypeFields(graph, gnode, tnode, sikbns, label)
+    extractBasisTypeFields(graph, gnode, tnode, sikbns, label, gpnode=gpnode, gid=gid)
 
 
-def extractBasisLocatieNaamTypeFields(graph, gnode, tnode, sikbns):
+def extractBasisLocatieNaamTypeFields(graph, gnode, tnode, sikbns, gpnode=None):
     nss = dict(ns for ns in graph.namespace_manager.namespaces())
     attrib = [sikbns + 'naam']
 
     label = ''
     for attr in tnode.getchildren():
         if attr.tag == attrib[0]:  # naam
-            child = rdflib.Literal(attr.text, datatype=rdflib.URIRef(nss['xsd'] + 'string'))
+            gpid = getTID(graph, gpnode)
+            nid = "{}:{}".format(gpid, attr.text) if gpid != '' else attr.text
+            child = rdflib.Literal(nid, datatype=rdflib.URIRef(nss['xsd'] + 'string'))
             addProperty(graph, gnode, child, rdflib.URIRef(nss['crm'] + 'P1_is_identified_by'))
-            label = attr.text
+            label = nid
 
-    extractBasisLocatieTypeFields(graph, gnode, tnode, sikbns, label)
+    extractBasisLocatieTypeFields(graph, gnode, tnode, sikbns, label, gpnode=gpnode, gid=nid)
 
 
 def rawString(string):
