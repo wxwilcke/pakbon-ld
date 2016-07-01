@@ -8,7 +8,7 @@ import data.writer as writer
 import translator
 
 supported_version = '3.1.0'
-version = '0.1.1'
+version = '0.2'
 
 
 def main(argv):
@@ -16,17 +16,20 @@ def main(argv):
     ifile = ''
     ofile = ''
     default_ns = 'http://www.example.org/'
+    endpoint = default_ns + 'sparql/'
     sformat = 'turtle'
+    allign = 'off' # off | local | global | both
     ignore_version = False
     gen_ontology = False
     gen_vocabulary = False
 
     try:
-        opts, args = getopt.getopt(argv, "d:f:hi:o:", ["if=", "of=", "format=", "default_namespace=", "ignore_version",\
-                                                       "generate_ontology", "generate_vocabulary", "version"])
+        opts, args = getopt.getopt(argv, "d:f:hi:o:", ["if=", "of=", "allign=", "endpoint=", "format=", "default_namespace=",\
+                                                         "ignore_version", "generate_ontology", "generate_vocabulary", "version"])
     except getopt.GetoptError:
         print('pakbon-ld.py -i <inputfile> [-d <default namespace> -o <outputfile> -f <serialization format> \
-              --ignore_version --generate_ontology --generate_vocabulary --version]')
+              --allign = <off | local | global | both> --endpoint = <SPARQL endpoint URI> --ignore_version --generate_ontology\
+              --generate_vocabulary --version]')
         sys.exit(2)
 
     for opt, arg in opts:
@@ -35,6 +38,7 @@ def main(argv):
                       'equivalent.\nNote that only version {0} of this protocol is supported, and that the used data '.format(supported_version) +
                       'model may change in subsequent updates.\nUsage:\n\t' +
                       'pakbon-ld.py -i <inputfile> [-d <default namespace> -o <outputfile> -f <serialization format>' +
+                      '--allign = <off | local | global | both> --endpoint = <SPARQL endpoint URI>' +
                       ' --ignore_version --generate_ontology --version]'))
             sys.exit(0)
         elif opt in ("-i", "--ifile"):
@@ -45,6 +49,10 @@ def main(argv):
             default_ns = arg
         elif opt in ("-f", "--format"):
             sformat = arg
+        elif opt in ("--allign"):
+            allign = arg
+        elif opt in ("--endpoint"):
+            endpoint = arg
         elif opt in ("--ignore_version"):
             ignore_version = True
         elif opt in ("--generate_ontology"):
@@ -65,7 +73,7 @@ def main(argv):
         ofile = os.getcwd() + '/' + 'SIKB0102'
 
     (graph, ontology, vocabulary) = translator.translate(ifile, default_ns, sikb_zip, gen_ontology, gen_vocabulary, \
-                                                         ignore_version)
+                                                         ignore_version, allign, endpoint)
 
     if graph is not None:
         writer.write(graph, ofile + extOf(sformat), sformat)

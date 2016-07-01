@@ -9,7 +9,7 @@ class Schema0102:
 
     def __init__(self, troot, namespace):
         self.troot = troot
-        self.basens = namespace['base'] + 'ont/'
+        self.basens = namespace['base'] + '/ont/'
         self.ns = re.sub(r'(\{.*\})schema', r'\1', troot.tag)
 
         self.baseid = 'SIKB0102_Schema'
@@ -129,6 +129,9 @@ class Schema0102:
     def naamHandler(self, ctype, basename):
         self.classHandler(ctype, basename.title(), rdflib.URIRef(self.nss['crm'] + 'E21_Person'))
 
+        # override basename to comply with the changed topology of the model
+        basename = 'persoon'
+
         for element in ctype.findall('./' + self.ns + 'sequence/' + self.ns + 'element'):
             if 'name' not in element.attrib.keys():
                 continue
@@ -172,7 +175,7 @@ class Schema0102:
             if name == 'einddatum':
                 supprop = rdflib.URIRef(self.nss['crmeh'] + 'EXP2')
                 supclass = rdflib.URIRef(self.nss['crm'] + 'EHE0091_Timestamp')
-            if name == 'onderzoeksmeldingsnummber':
+            if name == 'onderzoeksmeldingsnummer':
                 supprop = rdflib.URIRef(self.nss['crm'] + 'P48_has_preferred_identifier')
                 supclass = rdflib.URIRef(self.nss['crm'] + 'E42_Identifier')
             if name == 'onderzoektype':
@@ -208,6 +211,7 @@ class Schema0102:
                 supclass = rdflib.URIRef(self.nss['crm'] + 'E51_Contact_Point')
             if name == 'adres':
                 supprop = rdflib.URIRef(self.nss['locn'] + 'address')
+                supclass = rdflib.URIRef(self.nss['locn'] + 'Address')
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
@@ -393,7 +397,7 @@ class Schema0102:
             name = element.attrib['name']
             supprop = None
             supclass = None
-            if name == 'bestandnaam':
+            if name == 'bestandsnaam':
                 supprop = rdflib.URIRef(self.nss['dcterms'] + 'title')
             if name == 'bestandtype':
                 supprop = rdflib.URIRef(self.nss['dcterms'] + 'format')
@@ -512,7 +516,7 @@ class Schema0102:
             name = element.attrib['name']
             supprop = None
             supclass = None
-            if name == 'hoogtemetingmethode':
+            if name == 'methode':
                 supprop = rdflib.URIRef(self.nss['crm'] + 'P2_has_type')
                 supclass = rdflib.URIRef(self.nss['crm'] + 'E55_Type')
             if name == 'nap':
@@ -543,6 +547,9 @@ class Schema0102:
             if name == 'tekeningformaat':
                 supprop = rdflib.URIRef(self.nss['crm'] + 'P3_has_note')
                 supclass = rdflib.URIRef(self.nss['crmeh'] + 'EHE0079_RecordDrawingNote')
+            if name == 'schaal':
+                supprop = rdflib.URIRef(self.nss['crm'] + 'P3_has_note')
+                supclass = rdflib.URIRef(self.nss['crmeh'] + 'EHE0079_RecordDrawingNote')
             if name == 'tekenaar':
                 supprop = rdflib.URIRef(self.nss['dcterms'] + 'creator')
             if name == 'tekeningdatum':
@@ -569,7 +576,7 @@ class Schema0102:
             if name == 'opnametype':
                 supprop = rdflib.URIRef(self.nss['crm'] + 'P2_has_type')
                 supclass = rdflib.URIRef(self.nss['crmeh'] + 'EHE0085_RecordPhotographReferenceType')
-            if name == 'opnamedatum':
+            if name == 'opnamemedium':
                 supprop = rdflib.URIRef(self.nss['dcterms'] + 'medium')
             if name == 'fotograaf':
                 supprop = rdflib.URIRef(self.nss['dcterms'] + 'creator')
@@ -892,10 +899,10 @@ class Schema0102:
                 supclass = rdflib.URIRef(self.nss['crm'] + 'E75_Conceptual_Object_Appellation')
             if name == 'bronOmschrijving':
                 supprop = rdflib.URIRef(self.nss['dcterms'] + 'description')
-            if name == 'bronCodeLijst':
+            if name == 'bronCodelijst':
                 supprop = rdflib.URIRef(self.nss['crm'] + 'P71i_is_listed_in')
                 supclass = rdflib.URIRef(self.nss['crm'] + 'E32_Authority_Document')
-            if name == 'naamCodeLijst':
+            if name == 'naamCodelijst':
                 supprop = rdflib.URIRef(self.nss['crm'] + 'P71i_is_listed_in')
                 supclass = rdflib.URIRef(self.nss['crm'] + 'E32_Authority_Document')
 

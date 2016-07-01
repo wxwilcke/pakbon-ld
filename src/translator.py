@@ -9,7 +9,8 @@ import rdflib
 
 # compatible with SIKB protocol 0102 - version 3.1.0
 
-def translate(ifile='', nsDefault=None, sikb_zip=None, gen_ontology=False, gen_vocabulary=False, ignore_version=False):
+def translate(ifile='', nsDefault=None, sikb_zip=None, gen_ontology=False, gen_vocabulary=False, ignore_version=False,\
+             allign='off', endpoint=''):
     et = data_raw = None
     gversion = ''
     if ifile != '':
@@ -30,7 +31,7 @@ def translate(ifile='', nsDefault=None, sikb_zip=None, gen_ontology=False, gen_v
         print('Warning: Version discrepancy between sources.')
 
     (nss, sikbns) = genGraphNamespaces(gversion, nsDefault)
-    return convert(et, data_raw, nss, sikbns, schema0102_raw, vocab0102_raw)
+    return convert(et, data_raw, nss, sikbns, schema0102_raw, vocab0102_raw, allign, endpoint)
 
 
 def genTreeNamespaces(et, version):
@@ -60,14 +61,14 @@ def genGraphNamespaces(version, nsDefault):
         'http://www.sikb.nl/sikb0102/{0}'.format(version))
 
 
-def convert(et, data_raw, nss, sikbns, schema0102_raw, vocab0102_raw):
+def convert(et, data_raw, nss, sikbns, schema0102_raw, vocab0102_raw, allign, endpoint):
     s0102 = Schema0102(schema0102_raw, nss) if schema0102_raw is not None else None
     schmGraph = s0102.graph if s0102 is not None else None
 
     v0102 = Vocabulary0102(vocab0102_raw, nss) if vocab0102_raw is not None else None
     vocbGraph = v0102.graph if v0102 is not None else None
 
-    p0102 = Protocol0102(et, data_raw, nss, sikbns, vocbGraph) if data_raw is not None else None
+    p0102 = Protocol0102(et, data_raw, nss, sikbns, vocbGraph, allign, endpoint) if data_raw is not None else None
     dataGraph = p0102.graph if p0102 is not None else None
 
     return (dataGraph, schmGraph, vocbGraph)

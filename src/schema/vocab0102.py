@@ -9,7 +9,7 @@ class Vocabulary0102:
 
     def __init__(self, troot, namespace):
         self.troot = troot
-        self.basens = namespace['base'] + 'voc/'
+        self.basens = namespace['base'] + '/voc/'
         self.nss = namespace
         self.ns = re.sub(r'(\{.*\})lookup', r'\1', troot.tag)
 

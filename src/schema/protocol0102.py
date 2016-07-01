@@ -2,6 +2,7 @@
 
 import rdflib
 import helpFunctions as hf
+import alligner as al
 import re
 import itertools
 from collections import namedtuple
@@ -9,13 +10,15 @@ from collections import namedtuple
 
 class Protocol0102:
 
-    def __init__(self, et, tree, namespace, sikbns, vocab):
+    def __init__(self, et, tree, namespace, sikbns, vocab, allign='off', endpoint=''):
         self.et = et
         self.vocab = vocab
         self.sikbns = '{' + sikbns + '}'
-        self.basens = namespace['base'] + 'res/'
-        self.ontns = namespace['base'] + 'ont/'
-        self.vocns = namespace['base'] + 'voc/'
+        self.basens = namespace['base'] + '/res/'
+        self.ontns = namespace['base'] + '/ont/'
+        self.vocns = namespace['base'] + '/voc/'
+        self.allign = allign
+        self.endpoint = endpoint
 
         self.ReturnValues = namedtuple('ReturnValues', 'node, altnode')
 
@@ -150,7 +153,7 @@ class Protocol0102:
 
                 hf.updateLabel(self.graph, gnode, "({})".format(hf.rawString(child.text)), 'nl')
             if childname == 'startdatum':
-                bhid = hf.genHash(tnode, self.sikbns, ['startdatum', 'einddatum'], 'E52_Time-Span')
+                bhid = hf.genHash(tnode, self.sikbns, ['startdatum', 'einddatum'], 'EHE0021_EHProjectTimespan')
                 bnode = hf.getNode(self.graph, bhid)
                 if bnode is not None:
                     hf.addProperty(self.graph, gnode, bnode, rdflib.URIRef(self.nss['crm'] + 'P4_has_time-span'))
@@ -227,12 +230,11 @@ class Protocol0102:
                 bnode = rdflib.URIRef(self.basens + hid + bhid)
                 hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E40_Legal_Body'))
                 hf.addProperty(self.graph, gnode, bnode, rdflib.URIRef(self.nss['crm'] + 'P14_carried_out_by'))
-                hf.addLabel(self.graph, bnode,\
-                            re.sub(self.sikbns, '', child.tag).title() + ' behorende bij {}'.format(hf.getLabel(self.graph, gnode)), 'nl')
                 inode = rdflib.Literal(hid + bhid, datatype=rdflib.URIRef(self.nss['xsd'] + 'ID'))
                 hf.addProperty(self.graph, bnode, inode, rdflib.URIRef(self.nss['crm'] + 'P48_has_preferred_identifier'))
 
                 parentname = childname
+                uitvoerdercode = ''
                 for element in child:
                     childname = re.sub(self.sikbns, '', element.tag)
                     if childname == 'uitvoerdercode':  #
@@ -240,12 +242,18 @@ class Protocol0102:
                         enode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(element.text))
                         hf.addSchemaType(self.graph, self.ontns, enode, bnode, childname, parentname)
                         hf.addRefIfExists(self, enode, element)
+
+                        uitvoerdercode = hf.rawString(element.text) + ' '
                     if childname == 'opgravingsleiderPersoonId':
                         enode = self.persoonHandler(hf.getTreeNodeByID(self.troot, self.sikbns, element.text), gnode).node
                         hf.addProperty(self.graph, bnode, enode, rdflib.URIRef(self.nss['crm'] + 'P107_has_current_or_former_member'))
                     if childname == 'depotContactPersoonId':
                         enode = self.persoonHandler(hf.getTreeNodeByID(self.troot, self.sikbns, element.text), gnode).node
                         hf.addProperty(self.graph, bnode, enode, rdflib.URIRef(self.nss['crm'] + 'P107_has_current_or_former_member'))
+
+                hf.addLabel(self.graph, bnode,\
+                            re.sub(self.sikbns, '', child.tag).title() + ' {}behorende bij {}'.format(\
+                            uitvoerdercode, hf.getLabel(self.graph, gnode)), 'nl')
 
         # add unexisting concept: 'production' and 'bestanden'
         bhid = hf.genHash(None, None, [], salt='E12_Production')
@@ -547,9 +555,10 @@ class Protocol0102:
                                                                        parentname + '_' + childname))
                 hf.updateLabel(self.graph, gnode, "('{}'".format(hf.rawString(child.text)), 'nl')
             if childname == 'auteur':
-                cnode = hf.fuzzyTextMatchElseNew(self.graph, self.basens, rdflib.URIRef(self.nss['crm'] + 'E21_Person'),\
+                cnode = al.fuzzyTextMatchElseNew(self.graph, self.basens, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_Persoon'),\
                                                                             [rdflib.URIRef(self.nss['rdfs'] + 'label')],\
-                                                                            hf.rawString(child.text))
+                                                                            hf.rawString(child.text), allign=self.allign,\
+                                                                            endpoint=self.endpoint)
 
                 hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
                                                                        parentname + '_' + childname))
@@ -567,9 +576,11 @@ class Protocol0102:
                 hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
                                                                        parentname + '_' + childname))
             if childname == 'uitgever':
-                cnode = hf.fuzzyTextMatchElseNew(self.graph, self.basens, rdflib.URIRef(self.nss['crm'] + 'E40_Legal_Body'),\
+                cnode = al.fuzzyTextMatchElseNew(self.graph, self.basens, rdflib.URIRef(self.nss['crm'] + 'E40_Legal_Body'),\
                                                                             [rdflib.URIRef(self.nss['rdfs'] + 'label')],\
-                                                                            hf.rawString(child.text))
+                                                                            hf.rawString(child.text), allign=self.allign,\
+                                                                            endpoint=self.endpoint)
+
                 hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
                                                                        parentname + '_' + childname))
             if childname == 'uitgavePlaats':
@@ -577,9 +588,10 @@ class Protocol0102:
                 hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
                                                                        parentname + '_' + childname))
             if childname == 'redacteur':
-                cnode = hf.fuzzyTextMatchElseNew(self.graph, self.basens, rdflib.URIRef(self.nss['crm'] + 'E21_Person'),\
+                cnode = al.fuzzyTextMatchElseNew(self.graph, self.basens, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_Persoon'),\
                                                                             [rdflib.URIRef(self.nss['rdfs'] + 'label')],\
-                                                                            hf.rawString(child.text))
+                                                                            hf.rawString(child.text), allign=self.allign,\
+                                                                            endpoint=self.endpoint)
 
                 hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
                                                                        parentname + '_' + childname))
@@ -732,9 +744,10 @@ class Protocol0102:
                 hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname, parentname)
                 hf.addRefIfExists(self, cnode, child)
             if childname == 'tekenaar':
-                cnode = hf.fuzzyTextMatchElseNew(self.graph, self.basens, rdflib.URIRef(self.nss['crm'] + 'E21_Person'),\
+                cnode = al.fuzzyTextMatchElseNew(self.graph, self.basens, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_Persoon'),\
                                                                             [rdflib.URIRef(self.nss['rdfs'] + 'label')],\
-                                                                            hf.rawString(child.text))
+                                                                            hf.rawString(child.text), allign=self.allign,\
+                                                                            endpoint=self.endpoint)
 
                 hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
                                                                        parentname + '_' + childname))
@@ -801,9 +814,10 @@ class Protocol0102:
                 hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
                                                                        parentname + '_' + childname))
             if childname == 'fotograaf':
-                cnode = hf.fuzzyTextMatchElseNew(self.graph, self.basens, rdflib.URIRef(self.nss['crm'] + 'E21_Person'),\
+                cnode = al.fuzzyTextMatchElseNew(self.graph, self.basens, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_Persoon'),\
                                                                             [rdflib.URIRef(self.nss['rdfs'] + 'label')],\
-                                                                            hf.rawString(child.text))
+                                                                            hf.rawString(child.text), allign=self.allign,\
+                                                                            endpoint=self.endpoint)
 
                 hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
                                                                        parentname + '_' + childname))
@@ -1796,7 +1810,7 @@ class Protocol0102:
 
         gnode = rdflib.URIRef(self.basens + hid)
         hf.extractBasisTypeFields(self.graph, gnode, tnode, self.sikbns, nolabel=True, gpnode=gproject)
-        hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crm'] + 'E21_Person'))
+        hf.addType(self.graph, gnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_Persoon'))
 
         achternaam = ''
         initialen = ''
