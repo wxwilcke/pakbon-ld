@@ -1,0 +1,1064 @@
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix crmeh: <http://purl.org/crmeh#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix geosparql: <http://www.opengis.net/ont/geosparql#> .
+@prefix gn: <http://www.geonames.org/ontology#> .
+@prefix locn: <http://www.w3.org/ns/locn#> .
+@prefix ns1: <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/> .
+@prefix ns2: <http://pakbon-ld.spider.d2s.labs.vu.nl/res/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prism: <http://prismstandard.org/namespaces/basic/2.1/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix wgs84: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ns2:P1432e7a6b958f2043a02227c4faf04243f4f3eeb a owl:ObjectProperty ;
+    rdfs:label "Objectrelatie specificeert relatie 'Ligttegen' tussen object 'Vaktype' (lhs) en object 'Vaktype' (rhs)"@nl ;
+    crm:P1_is_identified_by "BC388:83423"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "P1432e7a6b958f2043a02227c4faf04243f4f3eeb"^^xsd:ID ;
+    rdfs:comment "Ligttegen(Vaktype, Vaktype)"@nl ;
+    rdfs:domain crmeh:EHE0007_Context ;
+    rdfs:range crmeh:EHE0007_Context .
+
+ns2:P234bf6dac9c8c5c696af39cf52d65f05d84bb7e6 a owl:ObjectProperty ;
+    rdfs:label "Objectrelatie specificeert relatie 'Ouderdan' tussen object 'Spoortype' (lhs) en object 'Spoortype' (rhs)"@nl ;
+    crm:P1_is_identified_by "BC388:3458374"^^xsd:ID ;
+    crm:P3_has_note "Dit is bepaald d.m.v. koolstofdatering."@nl ;
+    crm:P48_has_preferred_identifier "P234bf6dac9c8c5c696af39cf52d65f05d84bb7e6"^^xsd:ID ;
+    rdfs:comment "Ouderdan(Spoortype, Spoortype)"@nl ;
+    rdfs:domain crmeh:EHE0007_Context ;
+    rdfs:range crmeh:EHE0007_Context .
+
+ns2:P9ee9467227c48622653422ca3d13b080183e3f54 a owl:DataProperty ;
+    rdfs:label "Attribuuttype (gebruiker-gedefinieerd) 'Projectduur'"@nl ;
+    ns1:SIKB0102_Schema_attribuuttype_waardetype <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Waardetype_Geheelgetal> ;
+    crm:P3_has_note "De project duur in dagen."@nl ;
+    crm:P48_has_preferred_identifier "P9ee9467227c48622653422ca3d13b080183e3f54"^^xsd:ID ;
+    rdfs:domain ns1:SIKB0102_Schema_Project ;
+    rdfs:range xsd:integer .
+
+ns2:Pe8a67ab65f56c399bb34b570873672fff2866b21 a owl:DataProperty ;
+    rdfs:label "Attribuuttype (gebruiker-gedefinieerd) 'TotaleKosten'"@nl ;
+    ns1:SIKB0102_Schema_attribuuttype_waardetype <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Waardetype_Decimaalgetal> ;
+    crm:P3_has_note "De totale kosten van het project."@nl ;
+    crm:P48_has_preferred_identifier "Pe8a67ab65f56c399bb34b570873672fff2866b21"^^xsd:ID ;
+    rdfs:domain ns1:SIKB0102_Schema_Project ;
+    rdfs:range xsd:decimal .
+
+ns2:R31ae7d5bd6d1d54f6e47d83f60b795f79f19b54d a crm:E54_Dimension ;
+    rdfs:label "Diepte van 50 cm"@nl ;
+    crm:P48_has_preferred_identifier "R31ae7d5bd6d1d54f6e47d83f60b795f79f19b54d"^^xsd:ID ;
+    crm:P90_has_value 50.0 ;
+    crm:P91_has_unit "cm"^^xsd:string .
+
+ns2:R90af58bdcd1eae4efbe5769b447e6588ceee5351 a crm:E40_Legal_Body ;
+    rdfs:label "Organisatie (Archol BV)"@nl ;
+    ns1:SIKB0102_Schema_organisatie_adres ns2:R90af58bdcd1eae4efbe5769b447e6588ceee5351Rda39a3ee5e6b4b0d3255bfef95601890afd80709 ;
+    ns1:SIKB0102_Schema_organisatie_email "info@archol.nl"^^xsd:string ;
+    ns1:SIKB0102_Schema_organisatie_naam "Archol BV"^^xsd:string ;
+    ns1:SIKB0102_Schema_organisatie_telefoon "071-5273313"^^xsd:string ;
+    crm:P1_is_identified_by "BC388:4566"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "R90af58bdcd1eae4efbe5769b447e6588ceee5351"^^xsd:ID ;
+    locn:geometry ns2:R876e6556ba4da8a41f909ab9f8fba1186573b806 .
+
+ns2:Ra1838b18dcbcda8dcad476b2e3e951ee919de837 a crm:E54_Dimension ;
+    rdfs:label "Diepte van 3.6 m"@nl ;
+    crm:P48_has_preferred_identifier "Ra1838b18dcbcda8dcad476b2e3e951ee919de837"^^xsd:ID ;
+    crm:P90_has_value 3.6 ;
+    crm:P91_has_unit "m"^^xsd:string .
+
+ns2:Rd243f51b3414ccbbcb1b5fb2c6f832cdf98bf10e a crm:E31_Document ;
+    rdfs:label "RDF-compliant SIKB Archaeological Protocol 0102 (aka Pakbon)"@en,
+        "SIKB Archeologisch Protocol 0102 (ofwel Pakbon) conform de RDF standaard"@nl ;
+    prism:versionIdentifier "3.1.0"^^xsd:string ;
+    dcterms:issued "2001-12-17T09:30:47+00:00"^^xsd:dateTime ;
+    crm:P48_has_preferred_identifier "Rd243f51b3414ccbbcb1b5fb2c6f832cdf98bf10e"^^xsd:ID ;
+    crm:P67_refers_to ns2:Rad9042ffaab89c9acb30bcf41d524ffbe41e8a2bR3c12ef097a3d744e15b2c9d36506579626961c00,
+        ns2:Rd079ed12a8c96f6810250a826c807553e4c34d89R43655092742c3cade5249e5ebc3a1344ff55a721,
+        ns2:Rd079ed12a8c96f6810250a826c807553e4c34d89R6ac028ae0f08e350824e91fdb40486384c06f3d1,
+        ns2:Rd079ed12a8c96f6810250a826c807553e4c34d89Re23b3c8ecae9032074787b99d2fa1b2f598e490f,
+        ns2:Rd079ed12a8c96f6810250a826c807553e4c34d89Rf3b2d6a2470c74c590464c86746c0efbb4fa1404 ;
+    crm:P70_documents ns2:R37518dcab4af66fa810e796c7fc55e127d265391 .
+
+ns2:R05049bf154241d5293ef55c541923e76ae804ca7 a ns1:SIKB0102_Schema_Codereferentie.Broncodelijst .
+
+ns2:R051f5e464189793572ad29b34a4f8e840e852470 a crmeh:E52_Time-Span ;
+    rdfs:label "Tijdspanne (van periode PALEOM tot periode PALEOM)"@nl ;
+    ns1:SIKB0102_Schema_vondst_beginperiode <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Periode_PALEOM> ;
+    ns1:SIKB0102_Schema_vondst_eindperiode <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Periode_PALEOM> ;
+    crm:P48_has_preferred_identifier "R051f5e464189793572ad29b34a4f8e840e852470"^^xsd:ID .
+
+ns2:R06853b6e1b5996173b03c5571b4ce980b6ce1612 a crm:E54_Dimension ;
+    rdfs:label "0.5 m Normaal Amsterdams Peil (NAP)"@nl ;
+    crm:P48_has_preferred_identifier "R06853b6e1b5996173b03c5571b4ce980b6ce1612"^^xsd:ID ;
+    crm:P90_has_value 0.5 ;
+    crm:P91_has_unit "m"^^xsd:string .
+
+ns2:R09dbb44258e2ec6e97eb6b3b7067ac4324a3f9c3 a crmeh:E52_Time-Span ;
+    rdfs:label "Tijdspanne (van periode NTV tot periode NTV)"@nl ;
+    ns1:SIKB0102_Schema_spoor_beginperiode <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Periode_NTV> ;
+    ns1:SIKB0102_Schema_spoor_eindperiode <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Periode_NTV> ;
+    crm:P48_has_preferred_identifier "R09dbb44258e2ec6e97eb6b3b7067ac4324a3f9c3"^^xsd:ID .
+
+ns2:R15c73054e2eecb0c7239cb7d0c7bc78f5a6cee90 a crm:E54_Dimension ;
+    rdfs:label "Dikte van 90 cm"@nl ;
+    crm:P48_has_preferred_identifier "R15c73054e2eecb0c7239cb7d0c7bc78f5a6cee90"^^xsd:ID ;
+    crm:P90_has_value 90.0 ;
+    crm:P91_has_unit "cm"^^xsd:string .
+
+ns2:R2ae8fed2bfe2c2d655687d7abc1d6d86d013904d a crmeh:EHE0021_EHProjectTimespan ;
+    rdfs:label "Tijdspanne (van 2003-02-01 tot 2003-08-02)"@nl ;
+    ns1:SIKB0102_Schema_project_einddatum "2003-08-02"^^xsd:date ;
+    ns1:SIKB0102_Schema_project_startdatum "2003-02-01"^^xsd:date ;
+    crm:P48_has_preferred_identifier "R2ae8fed2bfe2c2d655687d7abc1d6d86d013904d"^^xsd:ID .
+
+ns2:R322653cb87411c8572491e1b89853159c607c7f3 a wgs84:Point,
+        locn:Geometry ;
+    rdfs:label "WGS84 puntcoordinaat van 'Leiden, Netherlands'"@nl ;
+    wgs84:lat "52.1598645" ;
+    wgs84:long "4.4824271" .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391 a crmeh:EHE0001_EHProject ;
+    rdfs:label "Project (Schipluiden - Harnaschpolder)"@nl ;
+    ns1:SIKB0102_Schema_project_omschrijving "In het kader van de aanleg van de Afvalwaterzuiveringsinstallatie Haagse Regio (AHR) heeft in de periode mei – oktober 2003 een opgraving plaatsgevonden van een Neolithisch nederzettingsterrein."@nl ;
+    ns1:SIKB0102_Schema_project_onderzoeksmeldingsnummer "4257"@nl ;
+    ns1:SIKB0102_Schema_project_onderzoektype <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Verwerving_ABU> ;
+    ns1:SIKB0102_Schema_project_projectnaam "Schipluiden - Harnaschpolder"@nl ;
+    ns2:P9ee9467227c48622653422ca3d13b080183e3f54 30 ;
+    ns2:Pe8a67ab65f56c399bb34b570873672fff2866b21 30000.00 ;
+    crm:P11_had_participant ns2:R37518dcab4af66fa810e796c7fc55e127d265391R5b9d8a025b27fd3e55ca7083ca2f2cabe38b041a ;
+    crm:P14_carried_out_by ns2:R37518dcab4af66fa810e796c7fc55e127d265391R4efd6dff48de39b5c29ee7a17a3b267eb5d071be,
+        ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rc9fea1dee7138b9906685c99b9818885d2f8e9fc ;
+    crm:P1_is_identified_by "BC388"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391"^^xsd:ID ;
+    crm:P4_has_time-span ns2:R2ae8fed2bfe2c2d655687d7abc1d6d86d013904d ;
+    crm:P7_took_place_at ns2:R37518dcab4af66fa810e796c7fc55e127d265391R14152af87134fa86c6ae3f008a7bfda7e7ed09f0,
+        ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rad4f340692df0075c73a826f5c277e86ca4a7738,
+        ns2:Rbee28c3e882fffc48ef12647f429359dfb0f90f4 ;
+    crm:P9_consists_of ns2:R37518dcab4af66fa810e796c7fc55e127d265391R47b2a378a4808e0f6c1fe6e6de83c9726eb70434,
+        ns2:R37518dcab4af66fa810e796c7fc55e127d265391R558be71358752ef827b41d8b8d33111dac435d68,
+        ns2:R37518dcab4af66fa810e796c7fc55e127d265391R70eea2f94e045c8152d9d8e91c245a1dc97acbb4 .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R0ab9a2610026dd383607373e50efcc380b47c063R7641182c49fd51c7f067b31e2976d5cc98bb7a33 a ns1:SIKB0102_Schema_Vak.Nap ;
+    rdfs:label "Meting van Normaal Amsterdams Peil (NAP) behorende bij Vak (BC388:2367)"@nl ;
+    crm:P40_observed_dimension ns2:R06853b6e1b5996173b03c5571b4ce980b6ce1612 ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R0ab9a2610026dd383607373e50efcc380b47c063R7641182c49fd51c7f067b31e2976d5cc98bb7a33"^^xsd:ID .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R0ab9a2610026dd383607373e50efcc380b47c063R88cc8b78b9a46abd9552997ff2a6f27c7ecd7cfe a ns1:SIKB0102_Schema_Vak.Dikte ;
+    rdfs:label "Meting van dikte behorende bij Vak (BC388:2367)"@nl ;
+    crm:P40_observed_dimension ns2:R80f342ad95b310c8b4128e944c324ce6b57312e8 ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R0ab9a2610026dd383607373e50efcc380b47c063R88cc8b78b9a46abd9552997ff2a6f27c7ecd7cfe"^^xsd:ID .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R1d84e65ad0321a3efdc925441b63e58d12cbe337 a crmeh:EHE0018_ContextSample ;
+    rdfs:label "Monster (BC388:55343)"@nl ;
+    crm:P1_is_identified_by "BC388:55343"^^xsd:ID,
+        "BC388:55343"^^xsd:string ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R1d84e65ad0321a3efdc925441b63e58d12cbe337"^^xsd:ID ;
+    crm:P53_has_former_or_current_location ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rb1a0c29e40ff591f9e2e41fa1d734f4f82b724ce .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R2e37dd7d9e1160cb961050296a213f8562c107fa a crmeh:EHE0008_ContextStuff ;
+    rdfs:label "Vulling (BC388:V732)"@nl ;
+    ns1:SIKB0102_Schema_vulling_kleur "Zwart"^^xsd:string ;
+    ns1:SIKB0102_Schema_vulling_vorm "Driehoek"^^xsd:string ;
+    crmeh:EHP3 ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rcda5bf1e4ae8ff296b108b5f2cd27b044ffe662d ;
+    crm:P1_is_identified_by "BC388:V732"^^xsd:ID,
+        "BC388:V732"^^xsd:string ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R2e37dd7d9e1160cb961050296a213f8562c107fa"^^xsd:ID .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R3b0ceed15eff906e891ff12a86d71480c42417ca a crmeh:EHE0008_ContextStuff ;
+    rdfs:label "Stort (BC388:954)"@nl ;
+    crmeh:EHP3 ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rb6ae6e9b9f67ce97795b6cba9dc5151ba6383f9a ;
+    crm:P1_is_identified_by "BC388:954"^^xsd:ID,
+        "BC388:954"^^xsd:string ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R3b0ceed15eff906e891ff12a86d71480c42417ca"^^xsd:ID .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R47b2a378a4808e0f6c1fe6e6de83c9726eb70434 a crm:E12_Production ;
+    rdfs:label "Documentatie (Digitaal) behorende bij Project (Schipluiden - Harnaschpolder)"@nl ;
+    crm:P108_has_produced ns2:R37518dcab4af66fa810e796c7fc55e127d265391R9cc64ba6feeb786e7ffdda1cfd3aba54127d226f .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R4efd6dff48de39b5c29ee7a17a3b267eb5d071be a crm:E40_Legal_Body ;
+    rdfs:label "Uitvoerder SAGRO behorende bij Project (Schipluiden - Harnaschpolder)"@nl ;
+    ns1:SIKB0102_Schema_uitvoerder_uitvoerdercode <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Uitvoerder_SAGRO> ;
+    crm:P107_has_current_or_former_member ns2:R1baf2bc1e210ac6866c8d7b655198240e3741380,
+        ns2:R619ca81a40135e1bc83b92e07cddd56255543000 ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R4efd6dff48de39b5c29ee7a17a3b267eb5d071be"^^xsd:ID .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R5ac121c4347321165ff92ce517a78baaf62194ab a crm:E13_Attribute_Assignment ;
+    rdfs:label "Hoogtemeting (BC388:90545)"@nl ;
+    ns1:SIKB0102_Schema_hoogtemeting_methode <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Hoogtemetingmethode_WP> ;
+    ns1:SIKB0102_Schema_hoogtemeting_nap ns2:R5ac121c4347321165ff92ce517a78baaf62194abR54811ac693f324a5bc2045aefdc4eb12556f2c92 ;
+    crm:P1_is_identified_by "BC388:90545"^^xsd:ID,
+        "BC388:90545"^^xsd:string ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R5ac121c4347321165ff92ce517a78baaf62194ab"^^xsd:ID ;
+    crm:P7_took_place_at ns2:R6ea783e1f9d19384e158b080762d5b0ce8ec212a .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R5b9d8a025b27fd3e55ca7083ca2f2cabe38b041a a crm:E40_Legal_Body ;
+    rdfs:label "Bevoegdgezag behorende bij Project (Schipluiden - Harnaschpolder)"@nl ;
+    crm:P107_has_current_or_former_member ns2:R7e187a79c22ce11e1b6904ac17326606c308eb86,
+        ns2:R8709bd7ba9e7288ad54ebcfdee83a8afc525fc27 ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R5b9d8a025b27fd3e55ca7083ca2f2cabe38b041a"^^xsd:ID .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R68e23b63f4378092a4b892aec104fcdaf7071cee a crm:E13_Attribute_Assignment ;
+    rdfs:label "Hoogtemeting (BC388:36443)"@nl ;
+    ns1:SIKB0102_Schema_hoogtemeting_methode <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Hoogtemetingmethode_GPS> ;
+    ns1:SIKB0102_Schema_hoogtemeting_nap ns2:R68e23b63f4378092a4b892aec104fcdaf7071ceeR5a7b9ced01764cfe686777bf2c05156d78136cee ;
+    crm:P1_is_identified_by "BC388:36443"^^xsd:ID,
+        "BC388:36443"^^xsd:string ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R68e23b63f4378092a4b892aec104fcdaf7071cee"^^xsd:ID ;
+    crm:P7_took_place_at ns2:R6ea783e1f9d19384e158b080762d5b0ce8ec212a .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R6d4029e6b9563b7d244de5152eb1464c7c85528fR6cb289a40702f059da303fdbe34fd21ca5a74592 a crm:E13_Attribute_Assignment ;
+    rdfs:label "Datering van Vondst (BC388:10665) behorende bij Project (Schipluiden - Harnaschpolder)"@nl ;
+    crm:P140_assigned_attribute_to ns2:R37518dcab4af66fa810e796c7fc55e127d265391R6d4029e6b9563b7d244de5152eb1464c7c85528f ;
+    crm:P141_assigned ns2:R051f5e464189793572ad29b34a4f8e840e852470 .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R6dcd3dc8ffc94bdf386ccd89f5a0a911021645edR24ea4ad59fd950e957b98e9bb95f0486e2aec1f3 a crm:E13_Attribute_Assignment ;
+    rdfs:label "Datering van Structuur (BC388:785) behorende bij Project (Schipluiden - Harnaschpolder)"@nl ;
+    crm:P140_assigned_attribute_to ns2:R37518dcab4af66fa810e796c7fc55e127d265391R6dcd3dc8ffc94bdf386ccd89f5a0a911021645ed ;
+    crm:P141_assigned ns2:R9dd3cd6265188e0f8db753a2d93f48d9bc413e87 .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R7ec66b98677be879b19a4b473739e7ef3dbb1badR8b84a5929b3c688c404f3663c92a553ae1c12476 a crm:E13_Attribute_Assignment ;
+    rdfs:label "Datering van Structuur (BC388:568) behorende bij Project (Schipluiden - Harnaschpolder)"@nl ;
+    crm:P140_assigned_attribute_to ns2:R37518dcab4af66fa810e796c7fc55e127d265391R7ec66b98677be879b19a4b473739e7ef3dbb1bad ;
+    crm:P141_assigned ns2:R622c3ececfe4a9e99962a2b9f35dbcee2b301abc .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R7faf5fcb462eb5d0c66992bbe5b2b0e4ffdbc661R735e3b97330f0fe368b590224c2c1084daaecfd5 a crm:E13_Attribute_Assignment ;
+    rdfs:label "Datering van Vondst (BC388:190434) behorende bij Project (Schipluiden - Harnaschpolder)"@nl ;
+    crm:P140_assigned_attribute_to ns2:R37518dcab4af66fa810e796c7fc55e127d265391R7faf5fcb462eb5d0c66992bbe5b2b0e4ffdbc661 ;
+    crm:P141_assigned ns2:Recddda534c52d9a9851ac55451cbfaddebd5be75 .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R8162300529c2328968c8473dd7a01d75804b6de1R15a89d9090f131c96ac13c13e9f44898621b696b a ns1:SIKB0102_Schema_Spoor.Diepte ;
+    rdfs:label "Meting van diepte behorende bij Spoor (BC388:5899)"@nl ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R8162300529c2328968c8473dd7a01d75804b6de1R15a89d9090f131c96ac13c13e9f44898621b696b"^^xsd:ID .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R8162300529c2328968c8473dd7a01d75804b6de1Rde3870c9a7ae9a3b06388e7dc083792c1491108d a crm:E13_Attribute_Assignment ;
+    rdfs:label "Datering van Spoor (BC388:5899) behorende bij Project (Schipluiden - Harnaschpolder)"@nl ;
+    crm:P140_assigned_attribute_to ns2:R37518dcab4af66fa810e796c7fc55e127d265391R8162300529c2328968c8473dd7a01d75804b6de1 ;
+    crm:P141_assigned ns2:R09dbb44258e2ec6e97eb6b3b7067ac4324a3f9c3 .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R93c77cf4059b9cfb11701921ee774ff19de5ca97R0597e71f0fefa6ff119ef3937b6bcc406f1632da a ns1:SIKB0102_Schema_Vak.Nap ;
+    rdfs:label "Meting van Normaal Amsterdams Peil (NAP) behorende bij Vak (BC388:8531)"@nl ;
+    crm:P40_observed_dimension ns2:R3c203c9cd971f70e4cb9ee1a118f59430533a97e ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R93c77cf4059b9cfb11701921ee774ff19de5ca97R0597e71f0fefa6ff119ef3937b6bcc406f1632da"^^xsd:ID .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R93c77cf4059b9cfb11701921ee774ff19de5ca97Rbd99ba1ecaa87a8e3638776db8a194f3321ef3c5 a ns1:SIKB0102_Schema_Vak.Dikte ;
+    rdfs:label "Meting van dikte behorende bij Vak (BC388:8531)"@nl ;
+    crm:P40_observed_dimension ns2:R15c73054e2eecb0c7239cb7d0c7bc78f5a6cee90 ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R93c77cf4059b9cfb11701921ee774ff19de5ca97Rbd99ba1ecaa87a8e3638776db8a194f3321ef3c5"^^xsd:ID .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R9d0348b71b8312d2b95ae7edccac41d153e6d6c4 a crmeh:EHE0017_RecordPhotograph ;
+    rdfs:label "Foto (BC388:AHR39F348) met betrekking tot 'vaas'"@nl ;
+    ns1:SIKB0102_Schema_foto_fotograaf ns2:Raf1d010d94408e925e0803e9dbcc6e1c76b9677f ;
+    ns1:SIKB0102_Schema_foto_fotoonderwerp "vaas"@nl ;
+    ns1:SIKB0102_Schema_foto_opnamedatum "2003-06-09"^^xsd:date ;
+    ns1:SIKB0102_Schema_foto_opnamemedium "DIG"^^xsd:string ;
+    ns1:SIKB0102_Schema_foto_opnametype <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Tekeningfototype_COU> ;
+    crm:P129_is_about ns2:R37518dcab4af66fa810e796c7fc55e127d265391R7faf5fcb462eb5d0c66992bbe5b2b0e4ffdbc661 ;
+    crm:P129i_is_subject_of ns2:R37518dcab4af66fa810e796c7fc55e127d265391R3dd41b8a9e986f42019a2f5ecb0e7f64285b28ed ;
+    crm:P1_is_identified_by "BC388:AHR39F348"^^xsd:ID,
+        "BC388:AHR39F348"^^xsd:string ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R9d0348b71b8312d2b95ae7edccac41d153e6d6c4"^^xsd:ID .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rbb9ecc8f0990b7c38be663236b22c44387d131b4R4524f4659e2465e4851480ff3c96029d690904e5 a crm:EHE2021_BulkFindAssessment ;
+    rdfs:label "Datering van Verpakkingseenheid (BC388:347961) behorende bij Project (Schipluiden - Harnaschpolder)"@nl ;
+    crm:P140_assigned_attribute_to ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rbb9ecc8f0990b7c38be663236b22c44387d131b4 ;
+    crm:P141_assigned ns2:Rb2876c7295a3d912e9953bd18a5b5aa35c6d6b7c .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rc9fea1dee7138b9906685c99b9818885d2f8e9fc a crm:E40_Legal_Body ;
+    rdfs:label "Uitvoerder HAZEN behorende bij Project (Schipluiden - Harnaschpolder)"@nl ;
+    ns1:SIKB0102_Schema_uitvoerder_uitvoerdercode <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Uitvoerder_HAZEN> ;
+    crm:P107_has_current_or_former_member ns2:R1baf2bc1e210ac6866c8d7b655198240e3741380,
+        ns2:R619ca81a40135e1bc83b92e07cddd56255543000 ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391Rc9fea1dee7138b9906685c99b9818885d2f8e9fc"^^xsd:ID .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rcda5bf1e4ae8ff296b108b5f2cd27b044ffe662dR738fc28f77fda4b5f9a8b5448c382feb0a5f2d8e a crm:E13_Attribute_Assignment ;
+    rdfs:label "Datering van Spoor (BC388:5932) behorende bij Project (Schipluiden - Harnaschpolder)"@nl ;
+    crm:P140_assigned_attribute_to ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rcda5bf1e4ae8ff296b108b5f2cd27b044ffe662d ;
+    crm:P141_assigned ns2:R4f31ba0813b96dc3be2ed5bf1b24c6b7920815ca .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rcda5bf1e4ae8ff296b108b5f2cd27b044ffe662dReb1b2fab3a3681c6067b4d0cd8f2c1850e808804 a ns1:SIKB0102_Schema_Spoor.Diepte ;
+    rdfs:label "Meting van diepte behorende bij Spoor (BC388:5932)"@nl ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391Rcda5bf1e4ae8ff296b108b5f2cd27b044ffe662dReb1b2fab3a3681c6067b4d0cd8f2c1850e808804"^^xsd:ID .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rd7e73a8a739e293f80548fb92c6ccc6dd068f615 a crmeh:EHE0017_RecordPhotograph ;
+    rdfs:label "Foto (BC388:AHR39F347) met betrekking tot 'coupe spoor 109'"@nl ;
+    ns1:SIKB0102_Schema_foto_fotograaf ns2:Raf1d010d94408e925e0803e9dbcc6e1c76b9677f ;
+    ns1:SIKB0102_Schema_foto_fotoonderwerp "coupe spoor 109"@nl ;
+    ns1:SIKB0102_Schema_foto_opnamedatum "2003-06-09"^^xsd:date ;
+    ns1:SIKB0102_Schema_foto_opnamemedium "DIG"^^xsd:string ;
+    ns1:SIKB0102_Schema_foto_opnametype <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Tekeningfototype_COU> ;
+    crm:P129_is_about ns2:R37518dcab4af66fa810e796c7fc55e127d265391R7faf5fcb462eb5d0c66992bbe5b2b0e4ffdbc661 ;
+    crm:P129i_is_subject_of ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rc0b6bf9a91b340689f0e71edcd20221d2944555c ;
+    crm:P1_is_identified_by "BC388:AHR39F347"^^xsd:ID,
+        "BC388:AHR39F347"^^xsd:string ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391Rd7e73a8a739e293f80548fb92c6ccc6dd068f615"^^xsd:ID ;
+    crm:P70_documents ns2:R37518dcab4af66fa810e796c7fc55e127d265391R2bcb31359ff23ccced08e69cb45be5e4679cb0f0 .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391Re671252ea8d53c293ce8d1993dfa00738520e2f2R539e580be1b89821d0aaeb4bf9354632139b7626 a crm:EHE2021_BulkFindAssessment ;
+    rdfs:label "Datering van Verpakkingseenheid (BC388:678343) behorende bij Project (Schipluiden - Harnaschpolder)"@nl ;
+    crm:P140_assigned_attribute_to ns2:R37518dcab4af66fa810e796c7fc55e127d265391Re671252ea8d53c293ce8d1993dfa00738520e2f2 ;
+    crm:P141_assigned ns2:Rb2876c7295a3d912e9953bd18a5b5aa35c6d6b7c .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rf7b58a3ce51c9e99c05b4c1371c2f8fffbf165f4 a crmeh:EHE0016_RecordDrawing ;
+    rdfs:label "Tekening (BC388:AHR39T022) met betrekking tot 'spoor 109'"@nl ;
+    ns1:SIKB0102_Schema_tekening_schaal "1:20"^^xsd:string ;
+    ns1:SIKB0102_Schema_tekening_tekenaar ns2:Rcdb7dc6bb48136522154ef8f7df6f82702e62ce8 ;
+    ns1:SIKB0102_Schema_tekening_tekeningdatum "2003-06-08"^^xsd:date ;
+    ns1:SIKB0102_Schema_tekening_tekeningformaat <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Papierformaat_A4> ;
+    ns1:SIKB0102_Schema_tekening_tekeningmateriaal "houtvrij mm papier"^^xsd:string ;
+    ns1:SIKB0102_Schema_tekening_tekeningonderwerp "spoor 109"@nl ;
+    ns1:SIKB0102_Schema_tekening_tekeningtype <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Tekeningfototype_COU> ;
+    crm:P129_is_about ns2:R37518dcab4af66fa810e796c7fc55e127d265391R6d4029e6b9563b7d244de5152eb1464c7c85528f ;
+    crm:P129i_is_subject_of ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rc0b6bf9a91b340689f0e71edcd20221d2944555c ;
+    crm:P1_is_identified_by "BC388:AHR39T022"^^xsd:ID,
+        "BC388:AHR39T022"^^xsd:string ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391Rf7b58a3ce51c9e99c05b4c1371c2f8fffbf165f4"^^xsd:ID ;
+    crm:P70_documents ns2:R37518dcab4af66fa810e796c7fc55e127d265391R2bcb31359ff23ccced08e69cb45be5e4679cb0f0 .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rff861b5ff47b382c01948412db539bdedacdf1a7 a crmeh:EHE0008_ContextStuff ;
+    rdfs:label "Vulling (BC388:V683)"@nl ;
+    ns1:SIKB0102_Schema_vulling_kleur "Bruin"^^xsd:string ;
+    ns1:SIKB0102_Schema_vulling_textuur "Vezelachtig"^^xsd:string ;
+    ns1:SIKB0102_Schema_vulling_vorm "Ovaal"^^xsd:string ;
+    crmeh:EHP3 ns2:R37518dcab4af66fa810e796c7fc55e127d265391R8162300529c2328968c8473dd7a01d75804b6de1 ;
+    crm:P1_is_identified_by "BC388:V683"^^xsd:ID,
+        "BC388:V683"^^xsd:string ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391Rff861b5ff47b382c01948412db539bdedacdf1a7"^^xsd:ID .
+
+ns2:R4f31ba0813b96dc3be2ed5bf1b24c6b7920815ca a crmeh:E52_Time-Span ;
+    rdfs:label "Tijdspanne (van periode NEOM tot periode NEOM)"@nl ;
+    ns1:SIKB0102_Schema_spoor_beginperiode <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Periode_NEOM> ;
+    ns1:SIKB0102_Schema_spoor_eindperiode <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Periode_NEOM> ;
+    crm:P48_has_preferred_identifier "R4f31ba0813b96dc3be2ed5bf1b24c6b7920815ca"^^xsd:ID .
+
+ns2:R50186b3d4722572e30c05613415c9bd2be3b27ca a crm:E40_Legal_Body ;
+    rdfs:label "R.U.L."@nl .
+
+ns2:R56ab98b5f7f19317cdd23bcca97ad12f6758a766 a ns1:SIKB0102_Schema_document_uitgavePlaats ;
+    rdfs:label "Leiden"@nl ;
+    locn:geometry ns2:R322653cb87411c8572491e1b89853159c607c7f3 .
+
+ns2:R59616d74772f91f79bdf7c5c5428fc340d520a7c a crm:E84_Information_Carrier ;
+    rdfs:label "Digitaalmedium (USB-stick)"@nl ;
+    ns1:SIKB0102_Schema_digitaalmedium_digitaalmediumtype "USB-stick"^^xsd:string ;
+    crm:P1_is_identified_by "BC388:34920"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "R59616d74772f91f79bdf7c5c5428fc340d520a7c"^^xsd:ID .
+
+ns2:R5a7b9ced01764cfe686777bf2c05156d78136cee a crm:E54_Dimension ;
+    rdfs:label "1.2 m Normaal Amsterdams Peil (NAP)"@nl ;
+    crm:P48_has_preferred_identifier "R475d90ee5dec15dc3142e0530c207514487564ca"^^xsd:ID ;
+    crm:P90_has_value 1.2 ;
+    crm:P91_has_unit "m"^^xsd:string .
+
+ns2:R5ac121c4347321165ff92ce517a78baaf62194abR54811ac693f324a5bc2045aefdc4eb12556f2c92 a ns1:SIKB0102_Schema_Hoogtemeting.Nap ;
+    rdfs:label "Meting van Normaal Amsterdams Peil (NAP) behorende bij Hoogtemeting (BC388:90545)"@nl ;
+    crm:P40_observed_dimension ns2:R3c203c9cd971f70e4cb9ee1a118f59430533a97e ;
+    crm:P48_has_preferred_identifier "R5ac121c4347321165ff92ce517a78baaf62194abR54811ac693f324a5bc2045aefdc4eb12556f2c92"^^xsd:ID .
+
+ns2:R622c3ececfe4a9e99962a2b9f35dbcee2b301abc a crmeh:E52_Time-Span ;
+    rdfs:label "Tijdspanne (van periode ROMM tot periode ROMM)"@nl ;
+    ns1:SIKB0102_Schema_structuur_beginperiode <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Periode_ROMM> ;
+    ns1:SIKB0102_Schema_structuur_eindperiode <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Periode_ROMM> ;
+    crm:P48_has_preferred_identifier "R622c3ececfe4a9e99962a2b9f35dbcee2b301abc"^^xsd:ID .
+
+ns2:R68e23b63f4378092a4b892aec104fcdaf7071ceeR5a7b9ced01764cfe686777bf2c05156d78136cee a ns1:SIKB0102_Schema_Hoogtemeting.Nap ;
+    rdfs:label "Meting van Normaal Amsterdams Peil (NAP) behorende bij Hoogtemeting (BC388:36443)"@nl ;
+    crm:P40_observed_dimension ns2:R5a7b9ced01764cfe686777bf2c05156d78136cee ;
+    crm:P48_has_preferred_identifier "R68e23b63f4378092a4b892aec104fcdaf7071ceeR5a7b9ced01764cfe686777bf2c05156d78136cee"^^xsd:ID .
+
+ns2:R6a7f410b80230c3d1e85ce676eb2e136db7b089d a ns1:SIKB0102_Schema_document_uitgavePlaats ;
+    rdfs:label "Amsterdam"@nl .
+
+ns2:R6ea783e1f9d19384e158b080762d5b0ce8ec212aR5637702e136803a5fa8933e59c49c74272b8c906 a ns1:SIKB0102_Schema_Geolocatie.Geometrie ;
+    rdfs:label "Geometrie [Point] (Harnaschpolder; Noordhoornse weg)"@nl ;
+    crm:P87_is_identified_by "HP_2"^^xsd:ID ;
+    geosparql:asGML "<gml:PointType xmlns:gml=\\\"http://www.opengis.net/gml/3.2\\\" gml:id=\\\"HP_2\\\" srsDimension=\\\"2\\\" axisLabels=\\\"x y\\\"><gml:pos xmlns:gml=\\\"http://www.opengis.net/gml/3.2\\\" axisLabels=\\\"x y\\\" srsDimension=\\\"2\\\">81620 44832</gml:pos></gml:PointType>"^^geosparql:GMLLiteral .
+
+ns2:R7e187a79c22ce11e1b6904ac17326606c308eb86 a ns1:SIKB0102_Schema_Persoon ;
+    rdfs:label "Proos, R."@nl ;
+    ns1:SIKB0102_Schema_persoon_achternaam "Proos"^^xsd:string ;
+    ns1:SIKB0102_Schema_persoon_email "rhp.proos@pzh.nl"^^xsd:string ;
+    ns1:SIKB0102_Schema_persoon_initialen "R."^^xsd:string ;
+    ns1:SIKB0102_Schema_persoon_telefoon "070-4418445"^^xsd:string ;
+    crm:P1_is_identified_by "BC388:4564"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "R7e187a79c22ce11e1b6904ac17326606c308eb86"^^xsd:ID .
+
+ns2:R80f342ad95b310c8b4128e944c324ce6b57312e8 a crm:E54_Dimension ;
+    rdfs:label "Dikte van 20 cm"@nl ;
+    crm:P48_has_preferred_identifier "R80f342ad95b310c8b4128e944c324ce6b57312e8"^^xsd:ID ;
+    crm:P90_has_value 20.0 ;
+    crm:P91_has_unit "cm"^^xsd:string .
+
+ns2:R8709bd7ba9e7288ad54ebcfdee83a8afc525fc27 a crm:E40_Legal_Body ;
+    rdfs:label "Organisatie (Provincie Zuid-Holland, Bureau Cultuur)"@nl ;
+    ns1:SIKB0102_Schema_organisatie_adres ns2:R8709bd7ba9e7288ad54ebcfdee83a8afc525fc27Rda39a3ee5e6b4b0d3255bfef95601890afd80709 ;
+    ns1:SIKB0102_Schema_organisatie_naam "Provincie Zuid-Holland, Bureau Cultuur"^^xsd:string ;
+    crm:P1_is_identified_by "BC388:3543"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "R8709bd7ba9e7288ad54ebcfdee83a8afc525fc27"^^xsd:ID .
+
+ns2:R8709bd7ba9e7288ad54ebcfdee83a8afc525fc27Rda39a3ee5e6b4b0d3255bfef95601890afd80709 a ns1:SIKB0102_Schema_Organisatie.Adres ;
+    rdfs:label "Adres behorende bij Organisatie (Provincie Zuid-Holland, Bureau Cultuur)"@nl ;
+    ns1:SIKB0102_Schema_adres_huisnummer "16"^^xsd:positiveInteger ;
+    ns1:SIKB0102_Schema_adres_plaatsnaam "Den Haag"^^xsd:string ;
+    ns1:SIKB0102_Schema_adres_postcode "2509 LP"^^xsd:string ;
+    ns1:SIKB0102_Schema_adres_straat "Postbus 90602"^^xsd:string ;
+    crm:P48_has_preferred_identifier "R8709bd7ba9e7288ad54ebcfdee83a8afc525fc27Rda39a3ee5e6b4b0d3255bfef95601890afd80709"^^xsd:ID .
+
+ns2:R876e6556ba4da8a41f909ab9f8fba1186573b806 a wgs84:Point,
+        locn:Geometry ;
+    rdfs:label "WGS84 puntcoordinaat van 'Reuvensplaats 16, 2300 RA, Leiden, Nederland'"@nl ;
+    wgs84:lat "52.1583275" ;
+    wgs84:long "4.4825699" .
+
+ns2:R90af58bdcd1eae4efbe5769b447e6588ceee5351Rda39a3ee5e6b4b0d3255bfef95601890afd80709 a ns1:SIKB0102_Schema_Organisatie.Adres ;
+    rdfs:label "Adres behorende bij Organisatie (Archol BV)"@nl ;
+    ns1:SIKB0102_Schema_adres_gemeente "Leiden"^^xsd:string ;
+    ns1:SIKB0102_Schema_adres_huisnummer "16"^^xsd:positiveInteger ;
+    ns1:SIKB0102_Schema_adres_land "Nederland"^^xsd:string ;
+    ns1:SIKB0102_Schema_adres_plaatsnaam "Leiden"^^xsd:string ;
+    ns1:SIKB0102_Schema_adres_postcode "2300 RA"^^xsd:string ;
+    ns1:SIKB0102_Schema_adres_provincie "Zuid-Holland"^^xsd:string ;
+    ns1:SIKB0102_Schema_adres_straat "Reuvensplaats"^^xsd:string ;
+    crm:P48_has_preferred_identifier "R90af58bdcd1eae4efbe5769b447e6588ceee5351Rda39a3ee5e6b4b0d3255bfef95601890afd80709"^^xsd:ID .
+
+ns2:R9dd3cd6265188e0f8db753a2d93f48d9bc413e87 a crmeh:E52_Time-Span ;
+    rdfs:label "Tijdspanne (van periode ROMVB tot periode ROMVB)"@nl ;
+    ns1:SIKB0102_Schema_structuur_beginperiode <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Periode_ROMVB> ;
+    ns1:SIKB0102_Schema_structuur_eindperiode <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Periode_ROMVB> ;
+    crm:P48_has_preferred_identifier "R9dd3cd6265188e0f8db753a2d93f48d9bc413e87"^^xsd:ID .
+
+ns2:R9de80799cf766332184d16a52cd55adbcf8016f4 a crm:E31_Document ;
+    rdfs:label "Document ('Publicatiewijzer Voor De Archeologie' ; Marian Diepeveen-Jansen) ; J. Kaarsemaker)"@nl ;
+    ns1:SIKB0102_Schema_document_auteur ns2:R62c859f94a6791294c5a294f71575fa42e5d014b,
+        ns2:Rbaf10b3ac519811ef04bf7b78615bcd8fcdfc751 ;
+    ns1:SIKB0102_Schema_document_documenttype <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Documenttype_XXX> ;
+    ns1:SIKB0102_Schema_document_isbn "9053566937"^^xsd:string ;
+    ns1:SIKB0102_Schema_document_jaar "2004"^^xsd:gYear ;
+    ns1:SIKB0102_Schema_document_paginas "126"^^xsd:positiveInteger ;
+    ns1:SIKB0102_Schema_document_redacteur ns2:R62c859f94a6791294c5a294f71575fa42e5d014b,
+        ns2:Rbaf10b3ac519811ef04bf7b78615bcd8fcdfc751 ;
+    ns1:SIKB0102_Schema_document_titel "Publicatiewijzer Voor De Archeologie"^^xsd:string ;
+    ns1:SIKB0102_Schema_document_uitgavePlaats ns2:R6a7f410b80230c3d1e85ce676eb2e136db7b089d ;
+    ns1:SIKB0102_Schema_document_uitgever ns2:Rf7273b7cd1adb62fa071ad9668f80072592029e9 ;
+    crm:P128i_is_carried_by ns2:R37518dcab4af66fa810e796c7fc55e127d265391R340fb7dfa09d9571dcf55d749c7e703376461497 ;
+    crm:P1_is_identified_by "BC388:45675"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "R9de80799cf766332184d16a52cd55adbcf8016f4"^^xsd:ID .
+
+ns2:Rad9042ffaab89c9acb30bcf41d524ffbe41e8a2b a ns1:SIKB0102_Schema_Codereferentie.Naamcodelijst .
+
+ns2:Rbbd46a3f101901a161e29ab4adaf90de46b363da a ns1:SIKB0102_Schema_Vondst.Gewicht ;
+    rdfs:label "Gewicht van 180 gr"@nl ;
+    crm:P48_has_preferred_identifier "Rbbd46a3f101901a161e29ab4adaf90de46b363da"^^xsd:ID ;
+    crm:P90_has_value 180.0 ;
+    crm:P91_has_unit "gr"^^xsd:string .
+
+ns2:Rbcc4e423b57beef1ebbf5715a928f1c86eea677f a ns1:SIKB0102_Schema_Verpakkingseenheid.Aantal ;
+    rdfs:label "Hoeveelheid van 2 stuks"@nl ;
+    crm:P48_has_preferred_identifier "Rbcc4e423b57beef1ebbf5715a928f1c86eea677f"^^xsd:ID ;
+    crm:P90_has_value "2"^^xsd:positiveInteger ;
+    crm:P91_has_unit "number of units"^^xsd:string .
+
+ns2:Rcdb7dc6bb48136522154ef8f7df6f82702e62ce8 a ns1:SIKB0102_Schema_Persoon ;
+    rdfs:label "P.A. Pier"@nl .
+
+ns2:Rd079ed12a8c96f6810250a826c807553e4c34d89R43655092742c3cade5249e5ebc3a1344ff55a721 a crm:E32_Authority_Document ;
+    rdfs:label "Codereferentie van concept 'Couperen'"@nl ;
+    ns1:SIKB0102_Schema_codereferentie_bronCode "Couperen"^^xsd:string ;
+    ns1:SIKB0102_Schema_codereferentie_bronCodelijst ns2:R4f4ed84c2525e0f1e5947d57c8192e57d6a544df ;
+    ns1:SIKB0102_Schema_codereferentie_bronOmschrijving "Verzameld bij couperen"@nl ;
+    ns1:SIKB0102_Schema_codereferentie_naamCodelijst ns2:Rd079ed12a8c96f6810250a826c807553e4c34d89 ;
+    ns1:SIKB0102_Schema_codereferentie_standaardCode "COUPE"^^xsd:string ;
+    crm:P48_has_preferred_identifier "Rd079ed12a8c96f6810250a826c807553e4c34d89R43655092742c3cade5249e5ebc3a1344ff55a721"^^xsd:ID .
+
+ns2:Rd079ed12a8c96f6810250a826c807553e4c34d89R6ac028ae0f08e350824e91fdb40486384c06f3d1 a crm:E32_Authority_Document ;
+    rdfs:label "Codereferentie van concept 'Zwaard-B'"@nl ;
+    ns1:SIKB0102_Schema_codereferentie_bronCode "Zwaard-B"^^xsd:string ;
+    ns1:SIKB0102_Schema_codereferentie_bronCodelijst ns2:R4f4ed84c2525e0f1e5947d57c8192e57d6a544df ;
+    ns1:SIKB0102_Schema_codereferentie_bronOmschrijving "Zwaard, type B"@nl ;
+    ns1:SIKB0102_Schema_codereferentie_naamCodelijst ns2:Rd079ed12a8c96f6810250a826c807553e4c34d89 ;
+    ns1:SIKB0102_Schema_codereferentie_standaardCode "ZWAARD"^^xsd:string ;
+    crm:P48_has_preferred_identifier "Rd079ed12a8c96f6810250a826c807553e4c34d89R6ac028ae0f08e350824e91fdb40486384c06f3d1"^^xsd:ID ;
+    rdfs:subClassOf ns2:Rd079ed12a8c96f6810250a826c807553e4c34d89Rf3b2d6a2470c74c590464c86746c0efbb4fa1404 .
+
+ns2:Rd079ed12a8c96f6810250a826c807553e4c34d89Re23b3c8ecae9032074787b99d2fa1b2f598e490f a crm:E32_Authority_Document ;
+    rdfs:label "Codereferentie van concept 'Zwaard-A'"@nl ;
+    ns1:SIKB0102_Schema_codereferentie_bronCode "Zwaard-A"^^xsd:string ;
+    ns1:SIKB0102_Schema_codereferentie_bronCodelijst ns2:R4f4ed84c2525e0f1e5947d57c8192e57d6a544df ;
+    ns1:SIKB0102_Schema_codereferentie_bronOmschrijving "Zwaard, type A"@nl ;
+    ns1:SIKB0102_Schema_codereferentie_naamCodelijst ns2:Rd079ed12a8c96f6810250a826c807553e4c34d89 ;
+    ns1:SIKB0102_Schema_codereferentie_standaardCode "ZWAARD"^^xsd:string ;
+    crm:P48_has_preferred_identifier "Rd079ed12a8c96f6810250a826c807553e4c34d89Re23b3c8ecae9032074787b99d2fa1b2f598e490f"^^xsd:ID ;
+    rdfs:subClassOf ns2:Rd079ed12a8c96f6810250a826c807553e4c34d89Rf3b2d6a2470c74c590464c86746c0efbb4fa1404 .
+
+ns2:Re57286e644eef02391c8d37a7a7c2c309cc62d1f a ns1:SIKB0102_Schema_Persoon ;
+    rdfs:label "L.P. Jongste"@nl .
+
+ns2:Rea5148dd1ec620e542c11fc6f0a3a23d0796d382 a ns1:SIKB0102_Schema_Verpakkingseenheid.Gewicht ;
+    rdfs:label "Gewicht van 160 gr"@nl ;
+    crm:P48_has_preferred_identifier "Rea5148dd1ec620e542c11fc6f0a3a23d0796d382"^^xsd:ID ;
+    crm:P90_has_value 160.0 ;
+    crm:P91_has_unit "gr"^^xsd:string .
+
+ns2:Recddda534c52d9a9851ac55451cbfaddebd5be75 a crmeh:E52_Time-Span ;
+    rdfs:label "Tijdspanne (van periode PALEO tot periode PALEO)"@nl ;
+    ns1:SIKB0102_Schema_vondst_beginperiode <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Periode_PALEO> ;
+    ns1:SIKB0102_Schema_vondst_eindperiode <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Periode_PALEO> ;
+    crm:P48_has_preferred_identifier "Recddda534c52d9a9851ac55451cbfaddebd5be75"^^xsd:ID .
+
+ns2:Red287fcae465557a4fb55a9eae0a1d732023c176 a crm:E84_Information_Carrier ;
+    rdfs:label "Digitaalmedium (DVD)"@nl ;
+    ns1:SIKB0102_Schema_digitaalmedium_digitaalmediumtype "DVD"^^xsd:string ;
+    crm:P1_is_identified_by "BC388:52920"^^xsd:ID ;
+    crm:P3_has_note "De DVD heeft krassen en wordt niet door alle cd-rom speler gelezen."@nl ;
+    crm:P48_has_preferred_identifier "Red287fcae465557a4fb55a9eae0a1d732023c176"^^xsd:ID .
+
+ns2:Rf2bb8b513336a525a4dcddb87133b79b872faf96 a ns1:SIKB0102_Schema_Verpakkingseenheid.Gewicht ;
+    rdfs:label "Gewicht van 150 gr"@nl ;
+    crm:P48_has_preferred_identifier "Rf2bb8b513336a525a4dcddb87133b79b872faf96"^^xsd:ID ;
+    crm:P90_has_value 150.0 ;
+    crm:P91_has_unit "gr"^^xsd:string .
+
+ns2:Rf7273b7cd1adb62fa071ad9668f80072592029e9 a crm:E40_Legal_Body ;
+    rdfs:label "Amsterdam University Press"@nl .
+
+ns2:Rf923c81ccdef4b6d303177ea20d65858e5801022 a ns1:SIKB0102_Schema_Vondst.Gewicht ;
+    rdfs:label "Gewicht van 1.5 gr"@nl ;
+    crm:P48_has_preferred_identifier "Rf923c81ccdef4b6d303177ea20d65858e5801022"^^xsd:ID ;
+    crm:P90_has_value 1.5 ;
+    crm:P91_has_unit "gr"^^xsd:string .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Artefacttype_ANDKAN> a ns1:SIKB0102_Schema_Vondst.Artefacttype .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Artefacttype_AOOBEKER.2IID-BKR> a ns1:SIKB0102_Schema_Vondst.Artefacttype .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Complextype_APVV.DP> a ns1:SIKB0102_Schema_Vindplaats.Vindplaatstype .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Complextype_BGV.GHV> a ns1:SIKB0102_Schema_Vindplaats.Vindplaatstype .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Contexttype_PUNTLOCATIE> a ns1:SIKB0102_Schema_Vondstcontext.Contexttype .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Contexttype_SPOOR> a ns1:SIKB0102_Schema_Vondstcontext.Contexttype .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Documenttype_EINDRAP> a ns1:SIKB0102_Schema_Document.Documenttype .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Documenttype_XXX> a ns1:SIKB0102_Schema_Document.Documenttype .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Gemeente_1842> a ns1:SIKB0102_Schema_Projectlocatie.Gemeentecode .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Grondspoortype_BEERPUT> a ns1:SIKB0102_Schema_Spoor.Grondspoortype .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Grondspoortype_KUIL.HAARDKL> a ns1:SIKB0102_Schema_Spoor.Grondspoortype .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Hoogtemetingmethode_GPS> a ns1:SIKB0102_Schema_Hoogtemeting.Methode .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Hoogtemetingmethode_WP> a ns1:SIKB0102_Schema_Hoogtemeting.Methode .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Kaartblad_37E> a ns1:SIKB0102_Schema_Projectlocatie.Kaartblad .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Materiaalcategorie_GLS> a ns1:SIKB0102_Schema_Vondst.Materiaalcategorie .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Materiaalcategorie_SGI> a ns1:SIKB0102_Schema_Vondst.Materiaalcategorie .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Papierformaat_A4> a ns1:SIKB0102_Schema_Tekening.Tekeningformaat .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Plaats_2807> a ns1:SIKB0102_Schema_Projectlocatie.Plaatscode .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Planumtype_Profiel> a ns1:SIKB0102_Schema_Planum.Planumtype .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Planumtype_Vlak> a ns1:SIKB0102_Schema_Planum.Planumtype .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Provincie_28> a ns1:SIKB0102_Schema_Projectlocatie.Provinciecode .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Structuurtype_BRUG> a ns1:SIKB0102_Schema_Structuur.Structuurtype .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Structuurtype_WEG> a ns1:SIKB0102_Schema_Structuur.Structuurtype .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Uitvoerder_HAZEN> a ns1:SIKB0102_Schema_Uitvoerder.Uitvoerdercode .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Uitvoerder_SAGRO> a ns1:SIKB0102_Schema_Uitvoerder.Uitvoerdercode .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Verwerving_ABU> a ns1:SIKB0102_Schema_Project.Onderzoektype .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Verzamelwijze_HASCHA> a ns1:SIKB0102_Schema_Veldvondst.Verzamelwijze .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Verzamelwijze_ZF4> a ns1:SIKB0102_Schema_Veldvondst.Verzamelwijze .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Waardetype_Decimaalgetal> a ns1:SIKB0102_Schema_Waardetype.Decimaalgetal .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Waardetype_Geheelgetal> a ns1:SIKB0102_Schema_Waardetype.Geheelgetal .
+
+ns2:R1baf2bc1e210ac6866c8d7b655198240e3741380 a ns1:SIKB0102_Schema_Persoon ;
+    rdfs:label "Allen, A."@nl ;
+    ns1:SIKB0102_Schema_persoon_achternaam "Allen"^^xsd:string ;
+    ns1:SIKB0102_Schema_persoon_email "info@archol.nl"^^xsd:string ;
+    ns1:SIKB0102_Schema_persoon_initialen "A."^^xsd:string ;
+    ns1:SIKB0102_Schema_persoon_telefoon "071-5273313"^^xsd:string ;
+    crm:P1_is_identified_by "BC388:6536"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "R1baf2bc1e210ac6866c8d7b655198240e3741380"^^xsd:ID .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R14152af87134fa86c6ae3f008a7bfda7e7ed09f0 a crmeh:EHE0004_SiteSubDivision ;
+    rdfs:label "Vindplaats"@nl ;
+    ns1:SIKB0102_Schema_vindplaats_vindplaatstype <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Complextype_APVV.DP> ;
+    ns1:SIKB0102_Schema_vindplaats_vondstmeldingsnummer "547334"^^xsd:positiveInteger ;
+    ns1:SIKB0102_Schema_vindplaats_waarnemingsnummer "456673"^^xsd:positiveInteger ;
+    crm:P1_is_identified_by "BC388:21045"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R14152af87134fa86c6ae3f008a7bfda7e7ed09f0"^^xsd:ID ;
+    crm:P4_has_time-span ns2:Ra1fab3c274a44956aea59b9d882be0763870933a ;
+    crm:P87_is_identified_by ns2:R6ea783e1f9d19384e158b080762d5b0ce8ec212a .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R1e57f202f586f01ff30553946c20e6ecc4d9c830 a crmeh:EHE0007_Context ;
+    rdfs:label "Segment (BC388:90367)"@nl ;
+    crm:P1_is_identified_by "BC388:90367"^^xsd:ID,
+        "BC388:90367"^^xsd:string ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R1e57f202f586f01ff30553946c20e6ecc4d9c830"^^xsd:ID ;
+    crm:P87_is_identified_by ns2:R6ea783e1f9d19384e158b080762d5b0ce8ec212a ;
+    crm:P89_falls_within ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rcda5bf1e4ae8ff296b108b5f2cd27b044ffe662d .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R340fb7dfa09d9571dcf55d749c7e703376461497 a crm:E84_Information_Carrier ;
+    rdfs:label "Dossier (BC388:AHR39-69) behorende bij Project (Schipluiden - Harnaschpolder)"@nl ;
+    ns1:SIKB0102_Schema_dossier_dossiertype "Archiefdoos"^^xsd:string ;
+    crm:P108i_was_produced_by ns2:R37518dcab4af66fa810e796c7fc55e127d265391R70eea2f94e045c8152d9d8e91c245a1dc97acbb4 ;
+    crm:P128_carries ns2:R9de80799cf766332184d16a52cd55adbcf8016f4 ;
+    crm:P1_is_identified_by "BC388:AHR39-69"^^xsd:ID,
+        "BC388:AHR39-69"^^xsd:string ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R340fb7dfa09d9571dcf55d749c7e703376461497"^^xsd:ID .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R358da776e20cb1c1098930dc146a559031566634 a crm:E78_Collection ;
+    rdfs:label "Doos (BC388:9425)"@nl ;
+    ns1:SIKB0102_Schema_doos_bewaarTemperatuur "20"^^xsd:string ;
+    ns1:SIKB0102_Schema_doos_breekbaar false ;
+    ns1:SIKB0102_Schema_doos_lichtgevoelig false ;
+    crm:P108i_was_produced_by ns2:R37518dcab4af66fa810e796c7fc55e127d265391R558be71358752ef827b41d8b8d33111dac435d68 ;
+    crm:P1_is_identified_by "BC388:9425"^^xsd:ID,
+        "BC388:9425"^^xsd:string ;
+    crm:P46_is_composed_of ns2:R37518dcab4af66fa810e796c7fc55e127d265391Re671252ea8d53c293ce8d1993dfa00738520e2f2 ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R358da776e20cb1c1098930dc146a559031566634"^^xsd:ID .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R6dcd3dc8ffc94bdf386ccd89f5a0a911021645ed a crmeh:EHE0008_ContextStuff ;
+    rdfs:label "Structuur (BC388:785)"@nl ;
+    ns1:SIKB0102_Schema_structuur_structuurtype <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Structuurtype_BRUG> ;
+    crm:P140i_was_attributed_by ns2:R37518dcab4af66fa810e796c7fc55e127d265391R6dcd3dc8ffc94bdf386ccd89f5a0a911021645edR24ea4ad59fd950e957b98e9bb95f0486e2aec1f3 ;
+    crm:P1_is_identified_by "BC388:785"^^xsd:ID,
+        "BC388:785"^^xsd:string ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R6dcd3dc8ffc94bdf386ccd89f5a0a911021645ed"^^xsd:ID ;
+    crm:P53_has_former_or_current_location ns2:R37518dcab4af66fa810e796c7fc55e127d265391R8162300529c2328968c8473dd7a01d75804b6de1 .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R7863d6b6e7897e7638cf7d88496bb9e0ed033a42 a crmeh:EHE0007_Context ;
+    rdfs:label "Segment (BC388:90253)"@nl ;
+    crm:P1_is_identified_by "BC388:90253"^^xsd:ID,
+        "BC388:90253"^^xsd:string ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R7863d6b6e7897e7638cf7d88496bb9e0ed033a42"^^xsd:ID ;
+    crm:P87_is_identified_by ns2:R6ea783e1f9d19384e158b080762d5b0ce8ec212a ;
+    crm:P89_falls_within ns2:R37518dcab4af66fa810e796c7fc55e127d265391R8162300529c2328968c8473dd7a01d75804b6de1 .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R7ec66b98677be879b19a4b473739e7ef3dbb1bad a crmeh:EHE0008_ContextStuff ;
+    rdfs:label "Structuur (BC388:568)"@nl ;
+    ns1:SIKB0102_Schema_structuur_structuurtype <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Structuurtype_WEG> ;
+    crm:P140i_was_attributed_by ns2:R37518dcab4af66fa810e796c7fc55e127d265391R7ec66b98677be879b19a4b473739e7ef3dbb1badR8b84a5929b3c688c404f3663c92a553ae1c12476 ;
+    crm:P1_is_identified_by "BC388:568"^^xsd:ID,
+        "BC388:568"^^xsd:string ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R7ec66b98677be879b19a4b473739e7ef3dbb1bad"^^xsd:ID ;
+    crm:P53_has_former_or_current_location ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rcda5bf1e4ae8ff296b108b5f2cd27b044ffe662d .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R93c77cf4059b9cfb11701921ee774ff19de5ca97 a crmeh:EHE0007_Context ;
+    rdfs:label "Vak (BC388:8531)"@nl ;
+    ns1:SIKB0102_Schema_vak_dikte ns2:R37518dcab4af66fa810e796c7fc55e127d265391R93c77cf4059b9cfb11701921ee774ff19de5ca97Rbd99ba1ecaa87a8e3638776db8a194f3321ef3c5 ;
+    ns1:SIKB0102_Schema_vak_nap ns2:R37518dcab4af66fa810e796c7fc55e127d265391R93c77cf4059b9cfb11701921ee774ff19de5ca97R0597e71f0fefa6ff119ef3937b6bcc406f1632da ;
+    ns1:SIKB0102_Schema_vak_vaknummer "12"^^xsd:positiveInteger ;
+    ns2:P1432e7a6b958f2043a02227c4faf04243f4f3eeb ns2:R37518dcab4af66fa810e796c7fc55e127d265391R0ab9a2610026dd383607373e50efcc380b47c063 ;
+    crm:P1_is_identified_by "BC388:8531"^^xsd:ID,
+        "BC388:8531"^^xsd:string ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R93c77cf4059b9cfb11701921ee774ff19de5ca97"^^xsd:ID ;
+    crm:P87_is_identified_by ns2:R6ea783e1f9d19384e158b080762d5b0ce8ec212a ;
+    crm:P89_falls_within ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rbd5a429aaf71ef75c1f9e0559bb92094fa0c34e6 .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R9d15e823c2d443ecc7e29bd689f51d246230b39a a crm:E84_Information_Carrier ;
+    rdfs:label "Dossier (BC388:AHR39-13) behorende bij Project (Schipluiden - Harnaschpolder)"@nl ;
+    ns1:SIKB0102_Schema_dossier_dossiertype "Ordner"^^xsd:string ;
+    crm:P108i_was_produced_by ns2:R37518dcab4af66fa810e796c7fc55e127d265391R70eea2f94e045c8152d9d8e91c245a1dc97acbb4 ;
+    crm:P128_carries ns2:R3aafdb9668e1567330730c997c97670b34d195eb ;
+    crm:P1_is_identified_by "BC388:AHR39-13"^^xsd:ID,
+        "BC388:AHR39-13"^^xsd:string ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R9d15e823c2d443ecc7e29bd689f51d246230b39a"^^xsd:ID .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R9f8d7c7b9324e6ed6f6f88356612fbeb4d8d8ecd a crmeh:EHE0018_ContextSample ;
+    rdfs:label "Monster (BC388:559871)"@nl ;
+    crm:P1_is_identified_by "BC388:559871"^^xsd:ID,
+        "BC388:559871"^^xsd:string ;
+    crm:P46i_forms_part_of ns2:R37518dcab4af66fa810e796c7fc55e127d265391Re671252ea8d53c293ce8d1993dfa00738520e2f2 ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R9f8d7c7b9324e6ed6f6f88356612fbeb4d8d8ecd"^^xsd:ID ;
+    crm:P53_has_former_or_current_location ns2:R37518dcab4af66fa810e796c7fc55e127d265391R2bcb31359ff23ccced08e69cb45be5e4679cb0f0 .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391Ra05fa7e971a69e65be7d4fa21591f0e9bad6e2b2 a crm:E78_Collection ;
+    rdfs:label "Veldvondst (BC388:6734521)"@nl ;
+    ns1:SIKB0102_Schema_veldvondst_verzamelwijze <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Verzamelwijze_ZF4> ;
+    crm:P1_is_identified_by "BC388:6734521"^^xsd:ID,
+        "BC388:6734521"^^xsd:string ;
+    crm:P46_is_composed_of ns2:R37518dcab4af66fa810e796c7fc55e127d265391R6d4029e6b9563b7d244de5152eb1464c7c85528f ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391Ra05fa7e971a69e65be7d4fa21591f0e9bad6e2b2"^^xsd:ID ;
+    crm:P53_has_former_or_current_location ns2:R37518dcab4af66fa810e796c7fc55e127d265391R2bcb31359ff23ccced08e69cb45be5e4679cb0f0 .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rad4f340692df0075c73a826f5c277e86ca4a7738 a crmeh:EHE0004_SiteSubDivision ;
+    rdfs:label "Vindplaats"@nl ;
+    ns1:SIKB0102_Schema_vindplaats_vindplaatstype <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Complextype_BGV.GHV> ;
+    ns1:SIKB0102_Schema_vindplaats_vondstmeldingsnummer "54345"^^xsd:positiveInteger ;
+    ns1:SIKB0102_Schema_vindplaats_waarnemingsnummer "34565"^^xsd:positiveInteger ;
+    crm:P1_is_identified_by "BC388:39604"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391Rad4f340692df0075c73a826f5c277e86ca4a7738"^^xsd:ID ;
+    crm:P4_has_time-span ns2:Ra1fab3c274a44956aea59b9d882be0763870933a ;
+    crm:P87_is_identified_by ns2:R6ea783e1f9d19384e158b080762d5b0ce8ec212a .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rb8bf2a1f63b7ca6c682de3b1d8253ce51a8ea2c6 a crm:E78_Collection ;
+    rdfs:label "Doos (BC388:8542)"@nl ;
+    ns1:SIKB0102_Schema_doos_bewaarTemperatuur "10"^^xsd:string ;
+    ns1:SIKB0102_Schema_doos_bewaarVochtigheid "50-60%"^^xsd:string ;
+    ns1:SIKB0102_Schema_doos_breekbaar true ;
+    ns1:SIKB0102_Schema_doos_gevaarlijkeStoffen false ;
+    ns1:SIKB0102_Schema_doos_lichtgevoelig true ;
+    crm:P108i_was_produced_by ns2:R37518dcab4af66fa810e796c7fc55e127d265391R558be71358752ef827b41d8b8d33111dac435d68 ;
+    crm:P1_is_identified_by "BC388:8542"^^xsd:ID,
+        "BC388:8542"^^xsd:string ;
+    crm:P46_is_composed_of ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rbb9ecc8f0990b7c38be663236b22c44387d131b4 ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391Rb8bf2a1f63b7ca6c682de3b1d8253ce51a8ea2c6"^^xsd:ID .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391Re423815a4a2ecf80e52f99a94b5f0aedfb320944 a crm:E78_Collection ;
+    rdfs:label "Veldvondst (BC388:782342)"@nl ;
+    ns1:SIKB0102_Schema_veldvondst_verzamelwijze <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Verzamelwijze_HASCHA> ;
+    crm:P1_is_identified_by "BC388:782342"^^xsd:ID,
+        "BC388:782342"^^xsd:string ;
+    crm:P46_is_composed_of ns2:R37518dcab4af66fa810e796c7fc55e127d265391R7faf5fcb462eb5d0c66992bbe5b2b0e4ffdbc661 ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391Re423815a4a2ecf80e52f99a94b5f0aedfb320944"^^xsd:ID ;
+    crm:P53_has_former_or_current_location ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rb1a0c29e40ff591f9e2e41fa1d734f4f82b724ce .
+
+ns2:R3c203c9cd971f70e4cb9ee1a118f59430533a97e a crm:E54_Dimension ;
+    rdfs:label "-0.5 m Normaal Amsterdams Peil (NAP)"@nl ;
+    crm:P48_has_preferred_identifier "R3c203c9cd971f70e4cb9ee1a118f59430533a97e"^^xsd:ID ;
+    crm:P90_has_value -0.5 ;
+    crm:P91_has_unit "m"^^xsd:string .
+
+ns2:R62c859f94a6791294c5a294f71575fa42e5d014b a ns1:SIKB0102_Schema_Persoon ;
+    rdfs:label "J. Kaarsemaker"@nl .
+
+ns2:Ra1fab3c274a44956aea59b9d882be0763870933a a crmeh:E52_Time-Span ;
+    rdfs:label "Tijdspanne (van periode STEEN tot periode STEEN)"@nl ;
+    ns1:SIKB0102_Schema_vindplaats_beginperiode <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Periode_STEEN> ;
+    ns1:SIKB0102_Schema_vindplaats_eindperiode <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Periode_STEEN> ;
+    crm:P48_has_preferred_identifier "Ra1fab3c274a44956aea59b9d882be0763870933a"^^xsd:ID .
+
+ns2:Rad9042ffaab89c9acb30bcf41d524ffbe41e8a2bR3c12ef097a3d744e15b2c9d36506579626961c00 a crm:E32_Authority_Document ;
+    rdfs:label "Codereferentie van concept 'Coupe'"@nl ;
+    ns1:SIKB0102_Schema_codereferentie_bronCode "Coupe"^^xsd:string ;
+    ns1:SIKB0102_Schema_codereferentie_bronCodelijst ns2:R05049bf154241d5293ef55c541923e76ae804ca7 ;
+    ns1:SIKB0102_Schema_codereferentie_bronOmschrijving "Couperen"@nl ;
+    ns1:SIKB0102_Schema_codereferentie_naamCodelijst ns2:Rad9042ffaab89c9acb30bcf41d524ffbe41e8a2b ;
+    ns1:SIKB0102_Schema_codereferentie_standaardCode "COU"^^xsd:string ;
+    crm:P48_has_preferred_identifier "Rad9042ffaab89c9acb30bcf41d524ffbe41e8a2bR3c12ef097a3d744e15b2c9d36506579626961c00"^^xsd:ID .
+
+ns2:Raf1d010d94408e925e0803e9dbcc6e1c76b9677f a ns1:SIKB0102_Schema_Persoon ;
+    rdfs:label "C. Breton"@nl .
+
+ns2:Rb2876c7295a3d912e9953bd18a5b5aa35c6d6b7c a crmeh:E52_Time-Span ;
+    rdfs:label "Tijdspanne (van periode PREH tot periode PREH)"@nl ;
+    ns1:SIKB0102_Schema_verpakkingseenheid_beginperiode <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Periode_PREH> ;
+    ns1:SIKB0102_Schema_verpakkingseenheid_eindperiode <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Periode_PREH> ;
+    crm:P48_has_preferred_identifier "Rb2876c7295a3d912e9953bd18a5b5aa35c6d6b7c"^^xsd:ID .
+
+ns2:Rbaf10b3ac519811ef04bf7b78615bcd8fcdfc751 a ns1:SIKB0102_Schema_Persoon ;
+    rdfs:label "Marian Diepeveen-Jansen"@nl .
+
+ns2:Rbee28c3e882fffc48ef12647f429359dfb0f90f4 a crmeh:EHE0003_AreaOfInvestigation ;
+    rdfs:label "Projectlocatie (Harnaschpolder; Noordhoornse weg)"@nl ;
+    ns1:SIKB0102_Schema_projectlocatie_gemeentecode <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Gemeente_1842> ;
+    ns1:SIKB0102_Schema_projectlocatie_kaartblad <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Kaartblad_37E> ;
+    ns1:SIKB0102_Schema_projectlocatie_plaatscode <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Plaats_2807> ;
+    ns1:SIKB0102_Schema_projectlocatie_provinciecode <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Provincie_28> ;
+    ns1:SIKB0102_Schema_projectlocatie_toponiem "Harnaschpolder; Noordhoornse weg"@nl ;
+    crm:P1_is_identified_by "BC388:9624"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "Rbee28c3e882fffc48ef12647f429359dfb0f90f4"^^xsd:ID ;
+    crm:P87_is_identified_by ns2:R6ea783e1f9d19384e158b080762d5b0ce8ec212a .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Periode_NEOM> a ns1:SIKB0102_Schema_Spoor.Beginperiode,
+        ns1:SIKB0102_Schema_Spoor.Eindperiode .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Periode_NTV> a ns1:SIKB0102_Schema_Spoor.Beginperiode,
+        ns1:SIKB0102_Schema_Spoor.Eindperiode .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Periode_PALEO> a ns1:SIKB0102_Schema_Vondst.Beginperiode,
+        ns1:SIKB0102_Schema_Vondst.Eindperiode .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Periode_PALEOM> a ns1:SIKB0102_Schema_Vondst.Beginperiode,
+        ns1:SIKB0102_Schema_Vondst.Eindperiode .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Periode_PREH> a ns1:SIKB0102_Schema_Verpakkingseenheid.Beginperiode,
+        ns1:SIKB0102_Schema_Verpakkingseenheid.Eindperiode .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Periode_ROMM> a ns1:SIKB0102_Schema_Structuur.Beginperiode,
+        ns1:SIKB0102_Schema_Structuur.Eindperiode .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Periode_ROMVB> a ns1:SIKB0102_Schema_Structuur.Beginperiode,
+        ns1:SIKB0102_Schema_Structuur.Eindperiode .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Periode_STEEN> a ns1:SIKB0102_Schema_Vindplaats.Beginperiode,
+        ns1:SIKB0102_Schema_Vindplaats.Eindperiode .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R0ab9a2610026dd383607373e50efcc380b47c063 a crmeh:EHE0007_Context ;
+    rdfs:label "Vak (BC388:2367)"@nl ;
+    ns1:SIKB0102_Schema_vak_dikte ns2:R37518dcab4af66fa810e796c7fc55e127d265391R0ab9a2610026dd383607373e50efcc380b47c063R88cc8b78b9a46abd9552997ff2a6f27c7ecd7cfe ;
+    ns1:SIKB0102_Schema_vak_nap ns2:R37518dcab4af66fa810e796c7fc55e127d265391R0ab9a2610026dd383607373e50efcc380b47c063R7641182c49fd51c7f067b31e2976d5cc98bb7a33 ;
+    ns1:SIKB0102_Schema_vak_vaknummer "13"^^xsd:positiveInteger ;
+    crm:P1_is_identified_by "BC388:2367"^^xsd:ID,
+        "BC388:2367"^^xsd:string ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R0ab9a2610026dd383607373e50efcc380b47c063"^^xsd:ID ;
+    crm:P87_is_identified_by ns2:R6ea783e1f9d19384e158b080762d5b0ce8ec212a ;
+    crm:P89_falls_within ns2:R37518dcab4af66fa810e796c7fc55e127d265391Ra29fbdcdfe34923bd86c211b4281699f018f9539 .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R3dd41b8a9e986f42019a2f5ecb0e7f64285b28ed a crm:E73_Information_Object ;
+    rdfs:label "Bestand (Beschrijving van sporen.)"@nl ;
+    ns1:SIKB0102_Schema_bestand_bestandsinhoud "Beschrijving van sporen."@nl ;
+    ns1:SIKB0102_Schema_bestand_bestandsnaam "KL8432.doc"^^xsd:string ;
+    ns1:SIKB0102_Schema_bestand_bestandtype "Word"^^xsd:string ;
+    ns1:SIKB0102_Schema_bestand_software "Microsoft Word 2007"^^xsd:string ;
+    dcterms:medium ns2:Red287fcae465557a4fb55a9eae0a1d732023c176 ;
+    crm:P128i_is_carried_by ns2:R37518dcab4af66fa810e796c7fc55e127d265391R9cc64ba6feeb786e7ffdda1cfd3aba54127d226f ;
+    crm:P129_is_about ns2:R37518dcab4af66fa810e796c7fc55e127d265391R9d0348b71b8312d2b95ae7edccac41d153e6d6c4 ;
+    crm:P1_is_identified_by "BC388:KL8432.doc"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R3dd41b8a9e986f42019a2f5ecb0e7f64285b28ed"^^xsd:ID ;
+    crm:P67i_is_referred_to_by ns2:R3aafdb9668e1567330730c997c97670b34d195eb .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R558be71358752ef827b41d8b8d33111dac435d68 a crm:E12_Production ;
+    rdfs:label "Verzamelde objecten behorende bij Project (Schipluiden - Harnaschpolder)"@nl ;
+    crm:P108_has_produced ns2:R37518dcab4af66fa810e796c7fc55e127d265391R358da776e20cb1c1098930dc146a559031566634,
+        ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rb8bf2a1f63b7ca6c682de3b1d8253ce51a8ea2c6 .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R70eea2f94e045c8152d9d8e91c245a1dc97acbb4 a crm:E12_Production ;
+    rdfs:label "Documentatie (Analoog) behorende bij Project (Schipluiden - Harnaschpolder)"@nl ;
+    crm:P108_has_produced ns2:R37518dcab4af66fa810e796c7fc55e127d265391R340fb7dfa09d9571dcf55d749c7e703376461497,
+        ns2:R37518dcab4af66fa810e796c7fc55e127d265391R9d15e823c2d443ecc7e29bd689f51d246230b39a .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R9cc64ba6feeb786e7ffdda1cfd3aba54127d226f a crm:E84_Information_Carrier ;
+    rdfs:label "Bestanden behorende bij Project (Schipluiden - Harnaschpolder)"@nl ;
+    crm:P128_carries ns2:R37518dcab4af66fa810e796c7fc55e127d265391R3dd41b8a9e986f42019a2f5ecb0e7f64285b28ed,
+        ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rc0b6bf9a91b340689f0e71edcd20221d2944555c .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391Ra29fbdcdfe34923bd86c211b4281699f018f9539 a crmeh:EHE0007_Context ;
+    rdfs:label "Planum (BC388:8524)"@nl ;
+    ns1:SIKB0102_Schema_planum_planumtype <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Planumtype_Vlak> ;
+    crm:P1_is_identified_by "BC388:8524"^^xsd:ID,
+        "BC388:8524"^^xsd:string ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391Ra29fbdcdfe34923bd86c211b4281699f018f9539"^^xsd:ID ;
+    crm:P87_is_identified_by ns2:R6ea783e1f9d19384e158b080762d5b0ce8ec212a ;
+    crm:P89_falls_within ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rb6ae6e9b9f67ce97795b6cba9dc5151ba6383f9a ;
+    crm:P89i_contains ns2:R37518dcab4af66fa810e796c7fc55e127d265391R0ab9a2610026dd383607373e50efcc380b47c063 .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rb1a0c29e40ff591f9e2e41fa1d734f4f82b724ce a crmeh:EHE0009_ContextFind ;
+    rdfs:label "Vondstcontext (BC388:37432)"@nl ;
+    ns1:SIKB0102_Schema_vondstcontext_contexttype <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Contexttype_PUNTLOCATIE> ;
+    crm:P1_is_identified_by "BC388:37432"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391Rb1a0c29e40ff591f9e2e41fa1d734f4f82b724ce"^^xsd:ID ;
+    crm:P53_is_former_or_current_location_of ns2:R37518dcab4af66fa810e796c7fc55e127d265391Re423815a4a2ecf80e52f99a94b5f0aedfb320944 ;
+    crm:P53i_is_former_or_current_location_of ns2:R37518dcab4af66fa810e796c7fc55e127d265391R1d84e65ad0321a3efdc925441b63e58d12cbe337 ;
+    crm:P87_is_identified_by ns2:R6ea783e1f9d19384e158b080762d5b0ce8ec212a .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rbb9ecc8f0990b7c38be663236b22c44387d131b4 a crmeh:EHE0010_BulkFind ;
+    rdfs:label "Verpakkingseenheid (BC388:347961)"@nl ;
+    ns1:SIKB0102_Schema_verpakkingseenheid_aantal ns2:Rbcc4e423b57beef1ebbf5715a928f1c86eea677f ;
+    ns1:SIKB0102_Schema_verpakkingseenheid_gewicht ns2:Rf2bb8b513336a525a4dcddb87133b79b872faf96 ;
+    crm:P140i_was_attributed_by ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rbb9ecc8f0990b7c38be663236b22c44387d131b4R4524f4659e2465e4851480ff3c96029d690904e5 ;
+    crm:P1_is_identified_by "BC388:347961"^^xsd:ID,
+        "BC388:347961"^^xsd:string ;
+    crm:P46_is_composed_of ns2:R37518dcab4af66fa810e796c7fc55e127d265391R7faf5fcb462eb5d0c66992bbe5b2b0e4ffdbc661 ;
+    crm:P46i_forms_part_of ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rb8bf2a1f63b7ca6c682de3b1d8253ce51a8ea2c6 ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391Rbb9ecc8f0990b7c38be663236b22c44387d131b4"^^xsd:ID .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rbd5a429aaf71ef75c1f9e0559bb92094fa0c34e6 a crmeh:EHE0007_Context ;
+    rdfs:label "Planum (BC388:8534)"@nl ;
+    ns1:SIKB0102_Schema_planum_planumtype <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Planumtype_Profiel> ;
+    crm:P1_is_identified_by "BC388:8534"^^xsd:ID,
+        "BC388:8534"^^xsd:string ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391Rbd5a429aaf71ef75c1f9e0559bb92094fa0c34e6"^^xsd:ID ;
+    crm:P87_is_identified_by ns2:R6ea783e1f9d19384e158b080762d5b0ce8ec212a ;
+    crm:P89_falls_within ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rb6ae6e9b9f67ce97795b6cba9dc5151ba6383f9a ;
+    crm:P89i_contains ns2:R37518dcab4af66fa810e796c7fc55e127d265391R93c77cf4059b9cfb11701921ee774ff19de5ca97 .
+
+ns2:R3aafdb9668e1567330730c997c97670b34d195eb a crm:E31_Document ;
+    rdfs:label "Document ('Schipluiden, Een Neolithische nederzetting aan de Nederlandse Noordzeekust, c. 3500 cal BC' ; Louwe Kooijmans) ; L.P. Jongste)"@nl ;
+    ns1:SIKB0102_Schema_document_auteur ns2:R619ca81a40135e1bc83b92e07cddd56255543000,
+        ns2:Re57286e644eef02391c8d37a7a7c2c309cc62d1f ;
+    ns1:SIKB0102_Schema_document_documenttype <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Documenttype_EINDRAP> ;
+    ns1:SIKB0102_Schema_document_jaar "2006"^^xsd:gYear ;
+    ns1:SIKB0102_Schema_document_paginas "518"^^xsd:positiveInteger ;
+    ns1:SIKB0102_Schema_document_serie "Analecta Praehistorica Leidensia (APL) 37-38"^^xsd:string ;
+    ns1:SIKB0102_Schema_document_titel "Schipluiden, Een Neolithische nederzetting aan de Nederlandse Noordzeekust, c. 3500 cal BC"^^xsd:string ;
+    ns1:SIKB0102_Schema_document_uitgavePlaats ns2:R56ab98b5f7f19317cdd23bcca97ad12f6758a766 ;
+    ns1:SIKB0102_Schema_document_uitgever ns2:R50186b3d4722572e30c05613415c9bd2be3b27ca ;
+    crm:P128i_is_carried_by ns2:R37518dcab4af66fa810e796c7fc55e127d265391R9d15e823c2d443ecc7e29bd689f51d246230b39a ;
+    crm:P1_is_identified_by "BC388:BC388"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "R3aafdb9668e1567330730c997c97670b34d195eb"^^xsd:ID ;
+    crm:P67_refers_to ns2:R37518dcab4af66fa810e796c7fc55e127d265391R3dd41b8a9e986f42019a2f5ecb0e7f64285b28ed,
+        ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rc0b6bf9a91b340689f0e71edcd20221d2944555c .
+
+ns2:R619ca81a40135e1bc83b92e07cddd56255543000 a ns1:SIKB0102_Schema_Persoon ;
+    rdfs:label "Louwe Kooijmans, L.P."@nl ;
+    ns1:SIKB0102_Schema_persoon_achternaam "Louwe Kooijmans"^^xsd:string ;
+    ns1:SIKB0102_Schema_persoon_email "info@archol.nl"^^xsd:string ;
+    ns1:SIKB0102_Schema_persoon_initialen "L.P."^^xsd:string ;
+    ns1:SIKB0102_Schema_persoon_telefoon "071-5273313"^^xsd:string ;
+    crm:P48_has_preferred_identifier "R619ca81a40135e1bc83b92e07cddd56255543000"^^xsd:ID .
+
+ns2:R86053daae4e92a62b364e444fda0bccb0bf99800 a ns1:SIKB0102_Schema_Verpakkingseenheid.Aantal,
+        ns1:SIKB0102_Schema_Vondst.Aantal ;
+    rdfs:label "Hoeveelheid van 1 stuks"@nl ;
+    crm:P48_has_preferred_identifier "R86053daae4e92a62b364e444fda0bccb0bf99800"^^xsd:ID ;
+    crm:P90_has_value "1"^^xsd:positiveInteger ;
+    crm:P91_has_unit "number of units"^^xsd:string .
+
+ns2:Rd079ed12a8c96f6810250a826c807553e4c34d89Rf3b2d6a2470c74c590464c86746c0efbb4fa1404 a crm:E32_Authority_Document ;
+    rdfs:label "Codereferentie"@nl,
+        "Codereferentie van concept 'Zwaard'"@nl ;
+    ns1:SIKB0102_Schema_codereferentie_bronCode "Zwaard"^^xsd:string ;
+    ns1:SIKB0102_Schema_codereferentie_bronCodelijst ns2:R4f4ed84c2525e0f1e5947d57c8192e57d6a544df ;
+    ns1:SIKB0102_Schema_codereferentie_bronOmschrijving "Zwaard (wapen)"@nl ;
+    ns1:SIKB0102_Schema_codereferentie_naamCodelijst ns2:Rd079ed12a8c96f6810250a826c807553e4c34d89 ;
+    ns1:SIKB0102_Schema_codereferentie_standaardCode "ZWAARD"^^xsd:string ;
+    crm:P48_has_preferred_identifier "Rd079ed12a8c96f6810250a826c807553e4c34d89Rf3b2d6a2470c74c590464c86746c0efbb4fa1404"^^xsd:ID .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Tekeningfototype_COU> a ns1:SIKB0102_Schema_Foto.Opnametype,
+        ns1:SIKB0102_Schema_Tekening.Tekeningtype ;
+    crm:P71i_is_listed_in ns2:Rad9042ffaab89c9acb30bcf41d524ffbe41e8a2bR3c12ef097a3d744e15b2c9d36506579626961c00 .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R6d4029e6b9563b7d244de5152eb1464c7c85528f a crmeh:EHE0009_ContextFind ;
+    rdfs:label "Vondst (BC388:10665)"@nl ;
+    ns1:SIKB0102_Schema_vondst_aantal ns2:R86053daae4e92a62b364e444fda0bccb0bf99800 ;
+    ns1:SIKB0102_Schema_vondst_artefacttype <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Artefacttype_ANDKAN> ;
+    ns1:SIKB0102_Schema_vondst_exposabel false ;
+    ns1:SIKB0102_Schema_vondst_geconserveerd false ;
+    ns1:SIKB0102_Schema_vondst_gedeselecteerd false ;
+    ns1:SIKB0102_Schema_vondst_gewicht ns2:Rbbd46a3f101901a161e29ab4adaf90de46b363da ;
+    ns1:SIKB0102_Schema_vondst_materiaalcategorie <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Materiaalcategorie_GLS> ;
+    crm:P140i_was_attributed_by ns2:R37518dcab4af66fa810e796c7fc55e127d265391R6d4029e6b9563b7d244de5152eb1464c7c85528fR6cb289a40702f059da303fdbe34fd21ca5a74592 ;
+    crm:P1_is_identified_by "BC388:10665"^^xsd:ID,
+        "BC388:10665"^^xsd:string ;
+    crm:P46i_forms_part_of ns2:R37518dcab4af66fa810e796c7fc55e127d265391Ra05fa7e971a69e65be7d4fa21591f0e9bad6e2b2,
+        ns2:R37518dcab4af66fa810e796c7fc55e127d265391Re671252ea8d53c293ce8d1993dfa00738520e2f2 ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R6d4029e6b9563b7d244de5152eb1464c7c85528f"^^xsd:ID .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rb6ae6e9b9f67ce97795b6cba9dc5151ba6383f9a a crmeh:EHE0007_Context ;
+    rdfs:label "Boring (BC388:34925)"@nl ;
+    crmeh:EHP3i ns2:R37518dcab4af66fa810e796c7fc55e127d265391R3b0ceed15eff906e891ff12a86d71480c42417ca ;
+    crm:P1_is_identified_by "BC388:34925"^^xsd:ID,
+        "BC388:34925"^^xsd:string ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391Rb6ae6e9b9f67ce97795b6cba9dc5151ba6383f9a"^^xsd:ID ;
+    crm:P87_is_identified_by ns2:R6ea783e1f9d19384e158b080762d5b0ce8ec212a ;
+    crm:P89i_contains ns2:R37518dcab4af66fa810e796c7fc55e127d265391Ra29fbdcdfe34923bd86c211b4281699f018f9539,
+        ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rbd5a429aaf71ef75c1f9e0559bb92094fa0c34e6 .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rc0b6bf9a91b340689f0e71edcd20221d2944555c a crm:E73_Information_Object ;
+    rdfs:label "Bestand (kopgegevens van boringen)"@nl ;
+    ns1:SIKB0102_Schema_bestand_bestandsinhoud "kopgegevens van boringen"@nl ;
+    ns1:SIKB0102_Schema_bestand_bestandsnaam "boringen.dbf"^^xsd:string ;
+    ns1:SIKB0102_Schema_bestand_bestandtype "databasetabel"^^xsd:string ;
+    ns1:SIKB0102_Schema_bestand_codeboek "datadictionary.pdf"^^xsd:string ;
+    ns1:SIKB0102_Schema_bestand_software "dbase IV"^^xsd:string ;
+    dcterms:medium ns2:R59616d74772f91f79bdf7c5c5428fc340d520a7c ;
+    crm:P128i_is_carried_by ns2:R37518dcab4af66fa810e796c7fc55e127d265391R9cc64ba6feeb786e7ffdda1cfd3aba54127d226f ;
+    crm:P129_is_about ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rd7e73a8a739e293f80548fb92c6ccc6dd068f615,
+        ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rf7b58a3ce51c9e99c05b4c1371c2f8fffbf165f4 ;
+    crm:P1_is_identified_by "BC388:boringen.dbf"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391Rc0b6bf9a91b340689f0e71edcd20221d2944555c"^^xsd:ID ;
+    crm:P67i_is_referred_to_by ns2:R3aafdb9668e1567330730c997c97670b34d195eb .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391Re671252ea8d53c293ce8d1993dfa00738520e2f2 a crmeh:EHE0010_BulkFind ;
+    rdfs:label "Verpakkingseenheid (BC388:678343)"@nl ;
+    ns1:SIKB0102_Schema_verpakkingseenheid_aantal ns2:R86053daae4e92a62b364e444fda0bccb0bf99800 ;
+    ns1:SIKB0102_Schema_verpakkingseenheid_gewicht ns2:Rea5148dd1ec620e542c11fc6f0a3a23d0796d382 ;
+    crm:P140i_was_attributed_by ns2:R37518dcab4af66fa810e796c7fc55e127d265391Re671252ea8d53c293ce8d1993dfa00738520e2f2R539e580be1b89821d0aaeb4bf9354632139b7626 ;
+    crm:P1_is_identified_by "BC388:678343"^^xsd:ID,
+        "BC388:678343"^^xsd:string ;
+    crm:P46_is_composed_of ns2:R37518dcab4af66fa810e796c7fc55e127d265391R6d4029e6b9563b7d244de5152eb1464c7c85528f,
+        ns2:R37518dcab4af66fa810e796c7fc55e127d265391R9f8d7c7b9324e6ed6f6f88356612fbeb4d8d8ecd ;
+    crm:P46i_forms_part_of ns2:R37518dcab4af66fa810e796c7fc55e127d265391R358da776e20cb1c1098930dc146a559031566634 ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391Re671252ea8d53c293ce8d1993dfa00738520e2f2"^^xsd:ID .
+
+ns2:R4f4ed84c2525e0f1e5947d57c8192e57d6a544df a ns1:SIKB0102_Schema_Codereferentie.Broncodelijst .
+
+ns2:Rd079ed12a8c96f6810250a826c807553e4c34d89 a ns1:SIKB0102_Schema_Codereferentie.Naamcodelijst .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R2bcb31359ff23ccced08e69cb45be5e4679cb0f0 a crmeh:EHE0009_ContextFind ;
+    rdfs:label "Vondstcontext (BC388:27342)"@nl ;
+    ns1:SIKB0102_Schema_vondstcontext_contexttype <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Contexttype_SPOOR> ;
+    crm:P1_is_identified_by "BC388:27342"^^xsd:ID ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R2bcb31359ff23ccced08e69cb45be5e4679cb0f0"^^xsd:ID ;
+    crm:P53_is_former_or_current_location_of ns2:R37518dcab4af66fa810e796c7fc55e127d265391Ra05fa7e971a69e65be7d4fa21591f0e9bad6e2b2 ;
+    crm:P53i_is_former_or_current_location_of ns2:R37518dcab4af66fa810e796c7fc55e127d265391R9f8d7c7b9324e6ed6f6f88356612fbeb4d8d8ecd ;
+    crm:P89i_contains ns2:R37518dcab4af66fa810e796c7fc55e127d265391R8162300529c2328968c8473dd7a01d75804b6de1 .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R7faf5fcb462eb5d0c66992bbe5b2b0e4ffdbc661 a crmeh:EHE0009_ContextFind ;
+    rdfs:label "Vondst (BC388:190434)"@nl ;
+    ns1:SIKB0102_Schema_vondst_aantal ns2:R86053daae4e92a62b364e444fda0bccb0bf99800 ;
+    ns1:SIKB0102_Schema_vondst_artefacttype <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Artefacttype_AOOBEKER.2IID-BKR> ;
+    ns1:SIKB0102_Schema_vondst_exposabel false ;
+    ns1:SIKB0102_Schema_vondst_geconserveerd false ;
+    ns1:SIKB0102_Schema_vondst_gedeselecteerd false ;
+    ns1:SIKB0102_Schema_vondst_gewicht ns2:Rf923c81ccdef4b6d303177ea20d65858e5801022 ;
+    ns1:SIKB0102_Schema_vondst_materiaalcategorie <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Materiaalcategorie_SGI> ;
+    crm:P140i_was_attributed_by ns2:R37518dcab4af66fa810e796c7fc55e127d265391R7faf5fcb462eb5d0c66992bbe5b2b0e4ffdbc661R735e3b97330f0fe368b590224c2c1084daaecfd5 ;
+    crm:P1_is_identified_by "BC388:190434"^^xsd:ID,
+        "BC388:190434"^^xsd:string ;
+    crm:P46i_forms_part_of ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rbb9ecc8f0990b7c38be663236b22c44387d131b4,
+        ns2:R37518dcab4af66fa810e796c7fc55e127d265391Re423815a4a2ecf80e52f99a94b5f0aedfb320944 ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R7faf5fcb462eb5d0c66992bbe5b2b0e4ffdbc661"^^xsd:ID .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391R8162300529c2328968c8473dd7a01d75804b6de1 a crmeh:EHE0007_Context ;
+    rdfs:label "Spoor (BC388:5899)"@nl ;
+    ns1:SIKB0102_Schema_spoor_diepte ns2:R37518dcab4af66fa810e796c7fc55e127d265391R8162300529c2328968c8473dd7a01d75804b6de1R15a89d9090f131c96ac13c13e9f44898621b696b ;
+    ns1:SIKB0102_Schema_spoor_grondspoortype <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Grondspoortype_BEERPUT> ;
+    ns2:P234bf6dac9c8c5c696af39cf52d65f05d84bb7e6 ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rcda5bf1e4ae8ff296b108b5f2cd27b044ffe662d ;
+    crmeh:EHP3i ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rff861b5ff47b382c01948412db539bdedacdf1a7 ;
+    crm:P140i_was_attributed_by ns2:R37518dcab4af66fa810e796c7fc55e127d265391R8162300529c2328968c8473dd7a01d75804b6de1Rde3870c9a7ae9a3b06388e7dc083792c1491108d ;
+    crm:P1_is_identified_by "BC388:5899"^^xsd:ID,
+        "BC388:5899"^^xsd:string ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391R8162300529c2328968c8473dd7a01d75804b6de1"^^xsd:ID ;
+    crm:P53i_is_former_or_current_location_of ns2:R37518dcab4af66fa810e796c7fc55e127d265391R6dcd3dc8ffc94bdf386ccd89f5a0a911021645ed ;
+    crm:P87_is_identified_by ns2:R6ea783e1f9d19384e158b080762d5b0ce8ec212a ;
+    crm:P89_falls_within ns2:R37518dcab4af66fa810e796c7fc55e127d265391R2bcb31359ff23ccced08e69cb45be5e4679cb0f0 ;
+    crm:P89i_contains ns2:R37518dcab4af66fa810e796c7fc55e127d265391R7863d6b6e7897e7638cf7d88496bb9e0ed033a42 .
+
+ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rcda5bf1e4ae8ff296b108b5f2cd27b044ffe662d a crmeh:EHE0007_Context ;
+    rdfs:label "Spoor (BC388:5932)"@nl ;
+    ns1:SIKB0102_Schema_spoor_diepte ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rcda5bf1e4ae8ff296b108b5f2cd27b044ffe662dReb1b2fab3a3681c6067b4d0cd8f2c1850e808804 ;
+    ns1:SIKB0102_Schema_spoor_grondspoortype <http://pakbon-ld.spider.d2s.labs.vu.nl/voc/SIKB_Code_Grondspoortype_KUIL.HAARDKL> ;
+    crmeh:EHP3i ns2:R37518dcab4af66fa810e796c7fc55e127d265391R2e37dd7d9e1160cb961050296a213f8562c107fa ;
+    crm:P140i_was_attributed_by ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rcda5bf1e4ae8ff296b108b5f2cd27b044ffe662dR738fc28f77fda4b5f9a8b5448c382feb0a5f2d8e ;
+    crm:P1_is_identified_by "BC388:5932"^^xsd:ID,
+        "BC388:5932"^^xsd:string ;
+    crm:P48_has_preferred_identifier "R37518dcab4af66fa810e796c7fc55e127d265391Rcda5bf1e4ae8ff296b108b5f2cd27b044ffe662d"^^xsd:ID ;
+    crm:P53i_is_former_or_current_location_of ns2:R37518dcab4af66fa810e796c7fc55e127d265391R7ec66b98677be879b19a4b473739e7ef3dbb1bad ;
+    crm:P87_is_identified_by ns2:R6ea783e1f9d19384e158b080762d5b0ce8ec212a ;
+    crm:P89i_contains ns2:R37518dcab4af66fa810e796c7fc55e127d265391R1e57f202f586f01ff30553946c20e6ecc4d9c830 .
+
+ns2:R6ea783e1f9d19384e158b080762d5b0ce8ec212a a crm:E44_Place_Appellation ;
+    rdfs:label "Geolocatie (Harnaschpolder; Noordhoornse weg)"@nl ;
+    ns1:SIKB0102_Schema_geolocatie_geometrie ns2:R6ea783e1f9d19384e158b080762d5b0ce8ec212aR5637702e136803a5fa8933e59c49c74272b8c906 ;
+    crm:P48_has_preferred_identifier "R6ea783e1f9d19384e158b080762d5b0ce8ec212a"^^xsd:ID ;
+    crm:P7i_witnessed ns2:R37518dcab4af66fa810e796c7fc55e127d265391R5ac121c4347321165ff92ce517a78baaf62194ab,
+        ns2:R37518dcab4af66fa810e796c7fc55e127d265391R68e23b63f4378092a4b892aec104fcdaf7071cee ;
+    crm:P87i_identifies ns2:R37518dcab4af66fa810e796c7fc55e127d265391R0ab9a2610026dd383607373e50efcc380b47c063,
+        ns2:R37518dcab4af66fa810e796c7fc55e127d265391R14152af87134fa86c6ae3f008a7bfda7e7ed09f0,
+        ns2:R37518dcab4af66fa810e796c7fc55e127d265391R1e57f202f586f01ff30553946c20e6ecc4d9c830,
+        ns2:R37518dcab4af66fa810e796c7fc55e127d265391R7863d6b6e7897e7638cf7d88496bb9e0ed033a42,
+        ns2:R37518dcab4af66fa810e796c7fc55e127d265391R8162300529c2328968c8473dd7a01d75804b6de1,
+        ns2:R37518dcab4af66fa810e796c7fc55e127d265391R93c77cf4059b9cfb11701921ee774ff19de5ca97,
+        ns2:R37518dcab4af66fa810e796c7fc55e127d265391Ra29fbdcdfe34923bd86c211b4281699f018f9539,
+        ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rad4f340692df0075c73a826f5c277e86ca4a7738,
+        ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rb1a0c29e40ff591f9e2e41fa1d734f4f82b724ce,
+        ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rb6ae6e9b9f67ce97795b6cba9dc5151ba6383f9a,
+        ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rbd5a429aaf71ef75c1f9e0559bb92094fa0c34e6,
+        ns2:R37518dcab4af66fa810e796c7fc55e127d265391Rcda5bf1e4ae8ff296b108b5f2cd27b044ffe662d,
+        ns2:Rbee28c3e882fffc48ef12647f429359dfb0f90f4 .
+

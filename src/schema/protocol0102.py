@@ -136,7 +136,7 @@ class Protocol0102:
             self.codereferentieHandler(child)
 
     def projectHandler(self, tnode):
-        hid = hf.genHash(tnode, self.sikbns, ['onderzoeksmeldingsnummer'])
+        hid = hf.genHash(tnode, self.sikbns, ['onderzoeksmeldingsnummer', 'onderzoektype'])
 
         gnode = hf.getNode(self.graph, hid)
         if gnode is not None:
