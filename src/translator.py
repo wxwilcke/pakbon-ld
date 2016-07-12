@@ -5,12 +5,13 @@ from schema.vocab0102 import Vocabulary0102
 from schema.schema0102 import Schema0102
 import data.reader
 import rdflib
+import re
 
 
 # compatible with SIKB protocol 0102 - version 3.1.0
 
-def translate(ifile='', nsDefault=None, sikb_zip=None, gen_ontology=False, gen_vocabulary=False, ignore_version=False,\
-             allign='off', endpoint=''):
+def translate(ifile='', default_graphs=[], nsDefault=None, sikb_zip=None, gen_ontology=False, gen_vocabulary=False, ignore_version=False,\
+             align='off', endpoint='', geosolv=False, interactive=True):
     et = data_raw = None
     gversion = ''
     if ifile != '':
@@ -30,8 +31,22 @@ def translate(ifile='', nsDefault=None, sikb_zip=None, gen_ontology=False, gen_v
     if not ignore_version and ((ifile != '' and gen_ontology and gversion != sversion) or (ifile != '' and gen_vocabulary and gversion != vversion)):
         print('Warning: Version discrepancy between sources.')
 
+    if len(default_graphs) > 0:
+        default_graphs = graphImport(default_graphs)
+
     (nss, sikbns) = genGraphNamespaces(gversion, nsDefault)
-    return convert(et, data_raw, nss, sikbns, schema0102_raw, vocab0102_raw, allign, endpoint)
+    return convert(et, data_raw, default_graphs, nss, sikbns, schema0102_raw, vocab0102_raw, align, endpoint, geosolv,\
+                   interactive)
+
+def graphImport(graphs=[]):
+    importedGraphs = []
+    for i, path in enumerate(graphs, 1):
+        print("Importing graph {} of {}...".format(i, len(graphs), end=' '))
+        g = rdflib.Graph(identifier=re.sub('(.*/)?(.*)\..*', r'\2', path))
+        importedGraphs.append(g.parse(path, format=rdflib.util.guess_format(path)))
+        print('done')
+
+    return importedGraphs
 
 
 def genTreeNamespaces(et, version):
@@ -57,18 +72,21 @@ def genGraphNamespaces(version, nsDefault):
         ('rdf', rdflib.namespace.RDF),
         ('rdfs', rdflib.namespace.RDFS),
         ('skos', rdflib.namespace.SKOS),
+        ('wgs84', rdflib.Namespace('http://www.w3.org/2003/01/geo/wgs84_pos#')),
         ('xsd', rdflib.namespace.XSD)]),\
         'http://www.sikb.nl/sikb0102/{0}'.format(version))
 
 
-def convert(et, data_raw, nss, sikbns, schema0102_raw, vocab0102_raw, allign, endpoint):
+def convert(et, data_raw, default_graphs, nss, sikbns, schema0102_raw, vocab0102_raw, align, endpoint, geosolv,\
+            interactive):
     s0102 = Schema0102(schema0102_raw, nss) if schema0102_raw is not None else None
     schmGraph = s0102.graph if s0102 is not None else None
 
     v0102 = Vocabulary0102(vocab0102_raw, nss) if vocab0102_raw is not None else None
     vocbGraph = v0102.graph if v0102 is not None else None
 
-    p0102 = Protocol0102(et, data_raw, nss, sikbns, vocbGraph, allign, endpoint) if data_raw is not None else None
+    p0102 = Protocol0102(et, data_raw, default_graphs, nss, sikbns, vocbGraph, align, endpoint, geosolv, interactive)\
+            if data_raw is not None else None
     dataGraph = p0102.graph if p0102 is not None else None
 
     return (dataGraph, schmGraph, vocbGraph)

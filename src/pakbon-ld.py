@@ -2,7 +2,7 @@
 
 import sys
 import os
-import getopt
+import argparse
 import re
 import data.writer as writer
 import translator
@@ -10,77 +10,45 @@ import translator
 supported_version = '3.1.0'
 version = '0.2'
 
-
-def main(argv):
+def main(parser):
     sikb_zip = re.sub('src/pakbon-ld.py', 'if/SIKB0102 versie 3.1.0 XSD en Lookup domeintabellen.zip', os.path.realpath(__file__))
-    ifile = ''
-    ofile = ''
-    default_ns = 'http://www.example.org/'
-    endpoint = default_ns + 'sparql/'
-    sformat = 'turtle'
-    allign = 'off' # off | local | global | both
-    ignore_version = False
-    gen_ontology = False
-    gen_vocabulary = False
 
-    try:
-        opts, args = getopt.getopt(argv, "d:f:hi:o:", ["if=", "of=", "allign=", "endpoint=", "format=", "default_namespace=",\
-                                                         "ignore_version", "generate_ontology", "generate_vocabulary", "version"])
-    except getopt.GetoptError:
-        print('pakbon-ld.py -i <inputfile> [-d <default namespace> -o <outputfile> -f <serialization format> \
-              --allign = <off | local | global | both> --endpoint = <SPARQL endpoint URI> --ignore_version --generate_ontology\
-              --generate_vocabulary --version]')
-        sys.exit(2)
+    args = parser.parse_args()
 
-    for opt, arg in opts:
-        if opt == '-h':
-            print(str('A tools to translate the SIKB archaeological protocol, aka the Pakbon, to its Semantic Web ' +
-                      'equivalent.\nNote that only version {0} of this protocol is supported, and that the used data '.format(supported_version) +
-                      'model may change in subsequent updates.\nUsage:\n\t' +
-                      'pakbon-ld.py -i <inputfile> [-d <default namespace> -o <outputfile> -f <serialization format>' +
-                      '--allign = <off | local | global | both> --endpoint = <SPARQL endpoint URI>' +
-                      ' --ignore_version --generate_ontology --version]'))
-            sys.exit(0)
-        elif opt in ("-i", "--ifile"):
-            ifile = arg
-        elif opt in ("-o", "--ofile"):
-            ofile = arg
-        elif opt in ("-d", "--default_namespace"):
-            default_ns = arg
-        elif opt in ("-f", "--format"):
-            sformat = arg
-        elif opt in ("--allign"):
-            allign = arg
-        elif opt in ("--endpoint"):
-            endpoint = arg
-        elif opt in ("--ignore_version"):
-            ignore_version = True
-        elif opt in ("--generate_ontology"):
-            gen_ontology = True
-        elif opt in ("--generate_vocabulary"):
-            gen_vocabulary = True
-        elif opt in ("--version"):
-            print('Pakbon-ld v{0}'.format(version))
-            sys.exit(0)
+    if args.version:
+        print('Pakbon-ld v{0}'.format(version))
+        sys.exit(0)
 
-    if ifile == '' and gen_ontology is False and gen_vocabulary is False:
+    if args.endpoint == '':
+        args.endpoint = args.default_namespace + 'sparql/'
+
+    if args.input_path == '' and args.generate_ontology is False and args.generate_ontology is False:
         print('Missing required input (flags).\nUse \'pakbon-ld.py -h\' for help.')
         sys.exit(1)
 
-    if ofile == '' and ifile != '' :
-        ofile = os.getcwd() + '/' + re.sub(r'^(?:.*/)?(.*)\..*$', r'\1', ifile)
+    if args.output_path == '' and args.input_path != '' :
+        args.output_path = os.getcwd() + '/' + re.sub(r'^(?:.*/)?(.*)\..*$', r'\1', args.input_path)
     else:
-        ofile = os.getcwd() + '/' + 'SIKB0102'
+        args.output_path = os.getcwd() + '/' + 'SIKB0102'
 
-    (graph, ontology, vocabulary) = translator.translate(ifile, default_ns, sikb_zip, gen_ontology, gen_vocabulary, \
-                                                         ignore_version, allign, endpoint)
+    (graph, ontology, vocabulary) = translator.translate(args.input_path,\
+                                                         args.align_with,\
+                                                         args.default_namespace,\
+                                                         sikb_zip,\
+                                                         args.generate_ontology,\
+                                                         args.generate_vocabulary,\
+                                                         args.ignore_version,\
+                                                         args.align,\
+                                                         args.endpoint,\
+                                                         args.enable_georesolver,\
+                                                         args.interactive)
 
     if graph is not None:
-        writer.write(graph, ofile + extOf(sformat), sformat)
+        writer.write(graph, args.output_path + extOf(args.serialization_format), args.serialization_format)
     if ontology is not None:
-        writer.write(ontology, ofile + '_Ontology' + extOf(sformat), sformat)
+        writer.write(ontology, args.output_path + '_Ontology' + extOf(args.serialization_format), args.serialization_format)
     if vocabulary is not None:
-        writer.write(vocabulary, ofile + '_Vocabulary' + extOf(sformat), sformat)
+        writer.write(vocabulary, args.output_path + '_Vocabulary' + extOf(args.serialization_format), args.serialization_format)
 
 
 def extOf(sformat=None):
@@ -88,7 +56,7 @@ def extOf(sformat=None):
         return '.n3'
     elif sformat == 'nquads':
         return '.nq'
-    elif sformat == 'nt':
+    elif sformat == 'ntriples':
         return '.nt'
     elif sformat == 'pretty-xml':
         return '.xml'
@@ -111,4 +79,25 @@ def translate(tree=None):
     return translate.translate(tree)
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-i", "--input_path", help="input path", default='')
+    parser.add_argument("-o", "--output_path", help="output path", default='')
+    parser.add_argument("-d", "--default_namespace", help="default namespace of graph",\
+                        default="http://www.example.org/")
+    parser.add_argument("-f", "--serialization_format", help="serialization format of output",\
+                        choices=["n3", "nquads", "ntriples", "pretty-xml", "trig", "trix", "turtle", "xml"], default='turtle')
+    parser.add_argument("--version", help="version of this tool", action="store_true")
+    parser.add_argument("--ignore_version", help="force processing unsupported version of pakbon",\
+                        action="store_true")
+    parser.add_argument("--align", help="align encountered resources with default graph, via endpoint, or both",\
+                        choices=["local", "global", "both"], default="off")
+    parser.add_argument("--enable_georesolver", help="resolve and link geospatial resources",\
+                        action="store_true")
+    parser.add_argument("--align_with", help="one or more graphs to align with if align is set to 'local' or 'both'",\
+                        nargs="*", default=[])
+    parser.add_argument("--endpoint", help="SPARQL endpoint to align with if align is set to 'global' or 'both'", default='')
+    parser.add_argument("--interactive", help="alignment mode", action="store_true")
+    parser.add_argument("--generate_ontology", help="generate and write ontology", action="store_true")
+    parser.add_argument("--generate_vocabulary", help="generate and write vocabulary", action="store_true")
+                        
+    main(parser)

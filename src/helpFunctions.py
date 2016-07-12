@@ -3,6 +3,7 @@
 import rdflib
 import re
 import hashlib
+import geoSolv as geos
 
 
 def genHash(tnode, sikbns, features=[], salt='', pre='R'):
@@ -283,6 +284,34 @@ def extractBasisLocatieNaamTypeFields(graph, gnode, tnode, sikbns, gpnode=None):
 
     extractBasisLocatieTypeFields(graph, gnode, tnode, sikbns, label, gpnode=gpnode, gid=nid)
 
+def genGeoRef(graph, basens, housenumber='', streetname='', placename='', countryname='Netherlands', postalcode='',\
+              interactive=True):
+    wgs84 = geos.fuzzyTextMatch(housenumber=housenumber, streetname=streetname, placename=placename, countryname=countryname,\
+                 postalcode=postalcode, interactive=interactive)
+
+    if wgs84 is None:
+        return None
+
+    nss = dict(ns for ns in graph.namespace_manager.namespaces())
+
+    # unique ID because we dont know elevation wrt address
+    bhid = genHash(None, None, [], salt=str(wgs84[0]) + str(wgs84[1]) + 'POINT')
+    node = getNode(graph, bhid)
+    if node is not None:
+       return node
+
+    point = rdflib.URIRef(basens + bhid)
+    addType(graph, point, rdflib.URIRef(nss['locn'] + 'Geometry'))
+    addType(graph, point, rdflib.URIRef(nss['wgs84'] + 'Point'))
+    streethouse = ' '.join([streetname, housenumber]) if housenumber != '' else streetname
+    label = ', '.join([term for term in [streethouse, postalcode, placename, countryname]\
+                       if term != ''])
+    addLabel(graph, point, "WGS84 puntcoordinaat van '{}'".format(label), 'nl')
+
+    addProperty(graph, point, rdflib.Literal(wgs84[0]), rdflib.URIRef(nss['wgs84'] + 'lat'))
+    addProperty(graph, point, rdflib.Literal(wgs84[1]), rdflib.URIRef(nss['wgs84'] + 'long'))
+
+    return point
 
 def rawString(string):
     return re.sub('\s+', ' ', re.sub(r'\"', r'\\"', re.sub(r'\\', r'\\\\', string)))
