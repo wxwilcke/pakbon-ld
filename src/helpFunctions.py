@@ -10,12 +10,14 @@ def genHash(tnode, sikbns, features=[], salt='', pre='R'):
     while len(features) > 0:
         tag = features.pop()
         if type(tag) is str:
-            salt += ''.join([value.text for value in tnode.iter(sikbns + tag)])
+            values = [value.text for value in tnode.iter(sikbns+tag)]
+            salt += ''.join([value for value in values if value is not None])
         elif type(tag) is dict:
             for k, v in tag.items():
                 subnode = tnode.find(sikbns + k)
                 if subnode is not None:
-                    salt += ''.join([value.text for subtag in v for value in subnode.iter(sikbns + subtag)])
+                    values = [value.text for subtag in v for value in subnode.iter(sikbns + subtag)]
+                    salt += ''.join([value for value in values if value is not None])
 
     return pre + hashlib.sha1(salt.encode()).hexdigest()
 
@@ -135,9 +137,9 @@ def getNodeClass(graph, node):
     return btnode
 
 
-def addSchemaType(graph, ns, node, parentnode, name, parentname):
-    addType(graph, node, rdflib.URIRef(ns + 'SIKB0102_Schema_' + parentname.title() + '.' + name.title()))
-    addProperty(graph, parentnode, node, rdflib.URIRef(ns + 'SIKB0102_Schema_' + parentname + '_' + name))
+def addSchemaType(graph, ns, node, parentnode, name):
+    addType(graph, node, rdflib.URIRef(ns + 'SIKB0102S' + '_' + name.title()))
+    addProperty(graph, parentnode, node, rdflib.URIRef(ns + 'SIKB0102S' + '_' + name))
 
 def addSubPropertyIfExists(graph, basens, parent, child, subpropname, superprop):
     nss = dict(ns for ns in graph.namespace_manager.namespaces())
@@ -234,6 +236,8 @@ def extractBasisTypeFields(graph, gnode, tnode, sikbns, label='', nolabel=False,
 
     for attr in tnode.getchildren():
         if attr.tag == attrib[1]:  # informatie
+            if attr.text is None:
+                continue
             child = rdflib.Literal(attr.text, lang='nl')
             addProperty(graph, gnode, child, rdflib.URIRef(nss['crm'] + 'P3_has_note'))
 

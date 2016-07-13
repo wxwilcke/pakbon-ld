@@ -41,10 +41,11 @@ def translate(ifile='', default_graphs=[], nsDefault=None, sikb_zip=None, gen_on
 def graphImport(graphs=[]):
     importedGraphs = []
     for i, path in enumerate(graphs, 1):
-        print("Importing graph {} of {}...".format(i, len(graphs), end=' '))
+        print("Importing graph {} of {}...".format(i, len(graphs)), end="\r", flush=True)
         g = rdflib.Graph(identifier=re.sub('(.*/)?(.*)\..*', r'\2', path))
         importedGraphs.append(g.parse(path, format=rdflib.util.guess_format(path)))
-        print('done')
+
+    print()
 
     return importedGraphs
 

@@ -19,17 +19,24 @@ def main(parser):
         print('Pakbon-ld v{0}'.format(version))
         sys.exit(0)
 
+    if args.ignore_version:
+        print('WARNING: version discrepancy may result in errors')
+
     if args.endpoint == '':
-        args.endpoint = args.default_namespace + 'sparql/'
+        args.endpoint = args.default_namespace + '/sparql/'
+
+    if len(args.align_with) > 0:
+        args.align_with = args.align_with[0].split()
 
     if args.input_path == '' and args.generate_ontology is False and args.generate_ontology is False:
         print('Missing required input (flags).\nUse \'pakbon-ld.py -h\' for help.')
         sys.exit(1)
 
-    if args.output_path == '' and args.input_path != '' :
-        args.output_path = os.getcwd() + '/' + re.sub(r'^(?:.*/)?(.*)\..*$', r'\1', args.input_path)
-    else:
-        args.output_path = os.getcwd() + '/' + 'SIKB0102'
+    if args.output_path == '':
+        if args.input_path != '' :
+            args.output_path = os.getcwd() + '/' + re.sub(r'^(?:.*/)?(.*)\..*$', r'\1', args.input_path)
+        else:
+            args.output_path = os.getcwd() + '/' + 'SIKB0102'
 
     (graph, ontology, vocabulary) = translator.translate(args.input_path,\
                                                          args.align_with,\
@@ -83,7 +90,7 @@ if __name__ == "__main__":
     parser.add_argument("-i", "--input_path", help="input path", default='')
     parser.add_argument("-o", "--output_path", help="output path", default='')
     parser.add_argument("-d", "--default_namespace", help="default namespace of graph",\
-                        default="http://www.example.org/")
+                        default="http://www.example.org")
     parser.add_argument("-f", "--serialization_format", help="serialization format of output",\
                         choices=["n3", "nquads", "ntriples", "pretty-xml", "trig", "trix", "turtle", "xml"], default='turtle')
     parser.add_argument("--version", help="version of this tool", action="store_true")

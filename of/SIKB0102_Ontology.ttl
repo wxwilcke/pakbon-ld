@@ -16,1122 +16,1077 @@
 @prefix xml: <http://www.w3.org/XML/1998/namespace> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema> a owl:Ontology ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S> a owl:Ontology ;
     dcterms:description "An automatically generated ontology based on the elements defined by the SIKB Archaeological Protocol 0102 (aka Pakbon)."@en ;
     dcterms:title "Pakbon-ld Ontology"@en .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Adres.Gemeente> rdfs:label "Adres.Gemeente"@nl ;
-    dcterms:description "Gemeentenaam conform BAG indien Nederlands adres."@nl ;
-    rdfs:subClassOf gn:Feature .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Adres.Land> rdfs:label "Adres.Land"@nl ;
-    dcterms:description "Land"@nl ;
-    rdfs:subClassOf gn:Feature .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Adres.Plaatsnaam> rdfs:label "Adres.Plaatsnaam"@nl ;
-    dcterms:description "Plaatsnaam conform BAG indien Nederlands adres."@nl ;
-    rdfs:subClassOf gn:Feature .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Adres.Provincie> rdfs:label "Adres.Provincie"@nl ;
-    dcterms:description "Provincienaam conform BAG indien Nederlands adres."@nl ;
-    rdfs:subClassOf gn:Feature .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Adres.Straat> rdfs:label "Adres.Straat"@nl ;
-    dcterms:description "Straatnaam"@nl ;
-    rdfs:subClassOf gn:Feature .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Attribuut> rdfs:label "Attribuut"@nl ;
-    dcterms:description "Opslag van specialistische attributen."@nl ;
-    rdfs:subClassOf crm:E1_CRM_Entity .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Attribuuttype.Waardetype> rdfs:label "Attribuuttype.Waardetype"@nl ;
-    dcterms:description "Beschrijft welk type informatie in het attribuut wordt opgeslagen. Alleen codes uit de SIKB-codelijst Waardetype zijn toegestaan."@nl ;
-    rdfs:subClassOf crm:E55_Type .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Bevoegdgezag> rdfs:label "Bevoegdgezag"@nl ;
-    dcterms:description "Gegevens bevoegd gezag."@nl ;
-    rdfs:subClassOf crm:E40_Legal_Body .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Boring> rdfs:label "Boring"@nl ;
-    dcterms:description "Grondboringen moeten aangemaakt worden indien er naar verwezen is vanuit het context object."@nl ;
-    rdfs:subClassOf crmeh:EHE0007_Context .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Codereferentie.Broncode> rdfs:label "Codereferentie.Broncode"@nl ;
-    dcterms:description "Code opgraver."@nl ;
-    rdfs:subClassOf crm:E33_Linguistic_Object .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Codereferentie.Broncodelijst> rdfs:label "Codereferentie.Broncodelijst"@nl ;
-    dcterms:description "Naam codelijst opgraver."@nl ;
-    rdfs:subClassOf crm:E32_Authority_Document .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Codereferentie.Naamcodelijst> rdfs:label "Codereferentie.Naamcodelijst"@nl ;
-    dcterms:description "De naam van de codelijst waar de standaardcode aan gerelateerd is. Alleen verplicht als het om een SIKB0102-codelijst gaat."@nl ;
-    rdfs:subClassOf crm:E32_Authority_Document .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Codereferentie.Standaardcode> rdfs:label "Codereferentie.Standaardcode"@nl ;
-    dcterms:description "Geharmoniseerde code."@nl ;
-    rdfs:subClassOf crm:E75_Conceptual_Object_Appellation .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Digitaalmedium.Digitaalmediumtype> rdfs:label "Digitaalmedium.Digitaalmediumtype"@nl ;
-    dcterms:description "Soort opslagmedium."@nl ;
-    rdfs:subClassOf crm:E55_Type .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Document.Documenttype> rdfs:label "Document.Documenttype"@nl ;
-    dcterms:description "KNA gespecificeerde documentatie type. Alleen codes uit de SIKB-codelijst Documenttype zijn toegestaan."@nl ;
-    rdfs:subClassOf crm:E55_Type .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Doos.Bewaartemperatuur> rdfs:label "Doos.Bewaartemperatuur"@nl ;
-    dcterms:description "Beschrijven conform KNA protocol depotbeheer."@nl ;
-    rdfs:subClassOf crmeh:EHE0041_ContextFindTreatmentProcedure .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Doos.Bewaarvochtigheid> rdfs:label "Doos.Bewaarvochtigheid"@nl ;
-    dcterms:description "Beschrijven conform KNA protocol depotbeheer."@nl ;
-    rdfs:subClassOf crmeh:EHE0041_ContextFindTreatmentProcedure .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Doos.Breekbaar> rdfs:label "Doos.Breekbaar"@nl ;
-    dcterms:description "Aangeven of breekbare objecten in doos aanwezig zijn."@nl ;
-    rdfs:subClassOf crmeh:EHE0041_ContextFindTreatmentProcedure .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Doos.Gevaarlijkestoffen> rdfs:label "Doos.Gevaarlijkestoffen"@nl ;
-    dcterms:description "Indien relevant, aangeven met welke schadelijke stof(fen) object behandeld is."@nl ;
-    rdfs:subClassOf crmeh:EHE0041_ContextFindTreatmentProcedure .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Doos.Lichtgevoelig> rdfs:label "Doos.Lichtgevoelig"@nl ;
-    dcterms:description "Aangeven of objecten beschermd dienen te worden tegen licht."@nl ;
-    rdfs:subClassOf crmeh:EHE0041_ContextFindTreatmentProcedure .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Dossier.Dossiertype> rdfs:label "Dossier.Dossiertype"@nl ;
-    dcterms:description "Type dossier."@nl ;
-    rdfs:subClassOf crm:E55_Type .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Foto.Opnametype> rdfs:label "Foto.Opnametype"@nl ;
-    dcterms:description "Type waarop tekening of foto betrekking heeft conform KNA. Alleen codes uit de SIKB-codelijst Tekening- en Fototype zijn toegestaan."@nl ;
-    rdfs:subClassOf crmeh:EHE0085_RecordPhotographReferenceType .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Geolocatie.Geometrie> rdfs:label "Geolocatie.Geometrie"@nl ;
-    dcterms:description " Geometrie (begrenzing) van de locatie (gml:AbstractGeometryType). Mag alleen de volgende types bevatten: - gml:PointType - gml:PolygonType - gml:LineStringType - gml:SurfaceType - gml:MultiPointType - gml:MultiLineStringType - gml:MultiSurfaceType "@nl ;
-    rdfs:subClassOf geosparql:Geometry .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Hoogtemeting.Methode> rdfs:label "Hoogtemeting.Methode"@nl ;
-    dcterms:description "De methode hoe de hoogtemeting is bepaald. Alleen codes uit de SIKB-codelijst Hoogtemetingmethode zijn toegestaan."@nl ;
-    rdfs:subClassOf crm:E55_Type .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Hoogtemeting.Nap> rdfs:label "Hoogtemeting.Nap"@nl ;
-    dcterms:description "NAP is hier de hoogte van de bovenkant van het vak, dus de hoogte die is gemeten voor het uitscheppen van het vak op een bepaald vlak."@nl ;
-    rdfs:subClassOf crm:E54_Dimension .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Monster.Beginperiode> rdfs:label "Monster.Beginperiode"@nl ;
-    dcterms:description "Beginperiode van het monster. Alleen codes uit de SIKB-codelijst Periode zijn toegestaan."@nl ;
-    rdfs:subClassOf crmeh:EHE0091_Timestamp .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Monster.Eindperiode> rdfs:label "Monster.Eindperiode"@nl ;
-    dcterms:description "Eindperiode van het monster. Alleen codes uit de SIKB-codelijst Periode zijn toegestaan."@nl ;
-    rdfs:subClassOf crm:EHE0091_Timestamp .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Monster.Monstertype> rdfs:label "Monster.Monstertype"@nl ;
-    dcterms:description "Verzamelwijze monster(s) conform KNA. Alleen codes uit de SIKB-codelijst Monstertype zijn toegestaan."@nl ;
-    rdfs:subClassOf crmeh:EHE0053_ContextSampleType .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Naam> rdfs:label "Naam"@nl ;
-    dcterms:description "Naam contactpersoon."@nl ;
-    rdfs:subClassOf crm:E21_Person .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Organisatie.Adres> rdfs:label "Organisatie.Adres"@nl ;
-    dcterms:description "Adres van de organisatie."@nl ;
-    rdfs:subClassOf locn:Address .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Organisatie.Email> rdfs:label "Organisatie.Email"@nl ;
-    dcterms:description "Algemeen e-mailadres van de organisatie."@nl ;
-    rdfs:subClassOf crm:E51_Contact_Point .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Organisatie.Naam> rdfs:label "Organisatie.Naam"@nl ;
-    dcterms:description "Organisatienaam"@nl ;
-    rdfs:subClassOf crm:E82_Actor_Appellation .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Organisatie.Telefoon> rdfs:label "Organisatie.Telefoon"@nl ;
-    dcterms:description "Algemeen telefoonnummer van de organisatie."@nl ;
-    rdfs:subClassOf crm:E51_Contact_Point .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Persoon.Email> rdfs:label "Persoon.Email"@nl ;
-    dcterms:description "E-mailadres"@nl ;
-    rdfs:subClassOf crm:E51_Contact_Point .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Persoon.Naam> rdfs:label "Persoon.Naam"@nl ;
-    dcterms:description "Volledige naam van contactpersoon."@nl ;
-    rdfs:subClassOf foaf:Person .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Persoon.Telefoon> rdfs:label "Persoon.Telefoon"@nl ;
-    dcterms:description "Telefoonnummer"@nl ;
-    rdfs:subClassOf crm:E51_Contact_Point .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Planum.Planumtype> rdfs:label "Planum.Planumtype"@nl ;
-    dcterms:description "Het planumtype. Alleen codes uit de SIKB-codelijst planumtype zijn toegestaan."@nl ;
-    rdfs:subClassOf crm:E55_Type .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Project.Einddatum> rdfs:label "Project.Einddatum"@nl ;
-    dcterms:description "Einddatum van het veldwerk."@nl ;
-    rdfs:subClassOf crm:EHE0091_Timestamp .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Project.Onderzoeksmeldingsnummer> rdfs:label "Project.Onderzoeksmeldingsnummer"@nl ;
-    dcterms:description "Archis onderzoeksmeldingsnummer."@nl ;
-    rdfs:subClassOf crm:E42_Identifier .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Project.Onderzoektype> rdfs:label "Project.Onderzoektype"@nl ;
-    dcterms:description "Wijze van verwerving conform indeling ABR. Alleen codes uit de SIKB-codelijst Verwervingtype zijn toegestaan."@nl ;
-    rdfs:subClassOf crm:E55_Type .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Project.Projectnaam> rdfs:label "Project.Projectnaam"@nl ;
-    dcterms:description "Naam van het project."@nl ;
-    rdfs:subClassOf crm:E41_Appellation .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Project.Startdatum> rdfs:label "Project.Startdatum"@nl ;
-    dcterms:description "Startdatum van het veldwerk."@nl ;
-    rdfs:subClassOf crmeh:EHE0091_Timestamp .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Projectlocatie.Gemeentecode> rdfs:label "Projectlocatie.Gemeentecode"@nl ;
-    dcterms:description "Gemeentecode waarbinnen onderzoek heeft plaatsgevonden conform indeling BAG. Alleen codes uit de SIKB-codelijst Gemeente zijn toegestaan."@nl ;
-    rdfs:subClassOf crm:E44_Place_Appellation .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Projectlocatie.Kaartblad> rdfs:label "Projectlocatie.Kaartblad"@nl ;
-    dcterms:description "Kaartblad confrom indeling 2004 Topografische dienst van het Kadaster 1 op 25.000. Alleen codes uit de SIKB-codelijst Kaartblad zijn toegestaan."@nl ;
-    rdfs:subClassOf crm:E46_Section_Definition .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Projectlocatie.Plaatscode> rdfs:label "Projectlocatie.Plaatscode"@nl ;
-    dcterms:description "Plaatscode waarbinnen onderzoek heeft plaatsgevonden conform indeling BAG. Alleen codes uit de SIKB-codelijst Plaats zijn toegestaan."@nl ;
-    rdfs:subClassOf crm:E44_Place_Appellation .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Projectlocatie.Provinciecode> rdfs:label "Projectlocatie.Provinciecode"@nl ;
-    dcterms:description "Provincie waarbinnen onderzoek heeft plaatsgevonden. Alleen codes uit de SIKB-codelijst Provincie zijn toegestaan."@nl ;
-    rdfs:subClassOf crm:E44_Place_Appellation .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Projectlocatie.Toponiem> rdfs:label "Projectlocatie.Toponiem"@nl ;
-    dcterms:description "Vrij tekstveld voor toponiem."@nl ;
-    rdfs:subClassOf crmeh:EHE0002_ArchaeologicalSite .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Put> rdfs:label "Put"@nl ;
-    dcterms:description " Een opgravingsput, administratief gegeven. KNA-bouwsteen: put "@nl ;
-    rdfs:subClassOf crmeh:EHE0007_Context .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Segment> rdfs:label "Segment"@nl ;
-    dcterms:description " Administratieve sectie van een spoor. KNA-bouwsteen: segment "@nl ;
-    rdfs:subClassOf crmeh:EHE0007_Context .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Spoor.Beginperiode> rdfs:label "Spoor.Beginperiode"@nl ;
-    dcterms:description "De beginperiode van het spoor. Alleen codes uit de SIKB-codelijst Periode zijn toegestaan."@nl ;
-    rdfs:subClassOf crmeh:EHE0091_Timestamp .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Spoor.Diepte> rdfs:label "Spoor.Diepte"@nl ;
-    dcterms:description "De diepte van het spoor."@nl ;
-    rdfs:subClassOf crm:E54_Dimension .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Spoor.Eindperiode> rdfs:label "Spoor.Eindperiode"@nl ;
-    dcterms:description "De eindperiode van het spoor. Alleen codes uit de SIKB-codelijst Periode zijn toegestaan."@nl ;
-    rdfs:subClassOf crm:EHE0091_Timestamp .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Spoor.Grondspoortype> rdfs:label "Spoor.Grondspoortype"@nl ;
-    dcterms:description "Het grondspoortype. Alleen codes uit de SIKB-codelijst Grondspoortype zijn toegestaan."@nl ;
-    rdfs:subClassOf crm:E55_Type .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Stort> rdfs:label "Stort"@nl ;
-    dcterms:description "De \\\"stort\\\" is het volume aan grond dat uit een put is gegraven om een vlak aan te leggen."@nl ;
-    rdfs:subClassOf crmeh:EHE0008_ContextStuff .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Structuur.Beginperiode> rdfs:label "Structuur.Beginperiode"@nl ;
-    dcterms:description "De beginperiode van de structuur. Alleen codes uit de SIKB-codelijst Periode zijn toegestaan."@nl ;
-    rdfs:subClassOf crmeh:EHE0091_Timestamp .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Structuur.Eindperiode> rdfs:label "Structuur.Eindperiode"@nl ;
-    dcterms:description "De eindperiode van de structuur. Alleen codes uit de SIKB-codelijst Periode zijn toegestaan."@nl ;
-    rdfs:subClassOf crm:EHE0091_Timestamp .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Structuur.Structuurtype> rdfs:label "Structuur.Structuurtype"@nl ;
-    dcterms:description "Het structuurtype. Alleen codes uit de SIKB-codelijst Structuurtype zijn toegestaan."@nl ;
-    rdfs:subClassOf crm:E55_Type .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Tekening.Schaal> rdfs:label "Tekening.Schaal"@nl ;
-    dcterms:description "Schaal van de tekening."@nl ;
-    rdfs:subClassOf crmeh:EHE0079_RecordDrawingNote .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Tekening.Tekeningformaat> rdfs:label "Tekening.Tekeningformaat"@nl ;
-    dcterms:description "Papierformaat conform ISO 216. Alleen codes uit de SIKB-codelijst Papierformaat zijn toegestaan."@nl ;
-    rdfs:subClassOf crmeh:EHE0079_RecordDrawingNote .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Tekening.Tekeningtype> rdfs:label "Tekening.Tekeningtype"@nl ;
-    dcterms:description "Type waarop tekening of foto betrekking heeft conform KNA. Alleen codes uit de SIKB-codelijst Tekening- en Fototype zijn toegestaan."@nl ;
-    rdfs:subClassOf crmeh:EHE0081_RecordDrawingReferenceType .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Uitvoerder.Uitvoerdercode> rdfs:label "Uitvoerder.Uitvoerdercode"@nl ;
-    dcterms:description "De code van de uitvoerende organisatie zoals in Archis gedefiniëerd. Alleen codes uit de SIKB-codelijst Uitvoerder zijn toegestaan."@nl ;
-    rdfs:subClassOf crm:E42_Identifier .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vak.Dikte> rdfs:label "Vak.Dikte"@nl ;
-    dcterms:description "De dikte van het vak."@nl ;
-    rdfs:subClassOf crm:E54_Dimension .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vak.Nap> rdfs:label "Vak.Nap"@nl ;
-    dcterms:description "NAP is hier de hoogte van de bovenkant van het vak, dus de hoogte die is gemeten voor het uitscheppen van het vak op een bepaald vlak."@nl ;
-    rdfs:subClassOf crm:E54_Dimension .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vak.Vaknummer> rdfs:label "Vak.Vaknummer"@nl ;
-    dcterms:description "Vaknummer"@nl ;
-    rdfs:subClassOf crm:E41_Appellation .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Veldvondst.Verzamelwijze> rdfs:label "Veldvondst.Verzamelwijze"@nl ;
-    dcterms:description "De wijze waarop de vondst is verzameld. Alleen codes uit de SIKB-codelijst Verzamelwijze zijn toegestaan."@nl ;
-    rdfs:subClassOf crmeh:EHE0046_ContextNote .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Verpakkingseenheid.Beginperiode> rdfs:label "Verpakkingseenheid.Beginperiode"@nl ;
-    dcterms:description "De beginperiode van het oudste object in de verpakking conform de ABR. Alleen codes uit de SIKB-codelijst Periode zijn toegestaan."@nl ;
-    rdfs:subClassOf crmeh:EHE0091_Timestamp .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Verpakkingseenheid.Eindperiode> rdfs:label "Verpakkingseenheid.Eindperiode"@nl ;
-    dcterms:description "De eindperiode van het jongste object in de verpakking conform de ABR. Alleen codes uit de SIKB-codelijst Periode zijn toegestaan."@nl ;
-    rdfs:subClassOf crm:EHE0091_Timestamp .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Verpakkingseenheid.Gewicht> rdfs:label "Verpakkingseenheid.Gewicht"@nl ;
-    dcterms:description "Gewicht van de objecten in de verpakking."@nl ;
-    rdfs:subClassOf crm:E54_Dimension .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vindplaats.Beginperiode> rdfs:label "Vindplaats.Beginperiode"@nl ;
-    dcterms:description "Periode conform indeling ABR. Alleen codes uit de SIKB-codelijst Periode zijn toegestaan."@nl ;
-    rdfs:subClassOf crmeh:EHE0091_Timestamp .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vindplaats.Eindperiode> rdfs:label "Vindplaats.Eindperiode"@nl ;
-    dcterms:description "Periode conform indeling ABR. Alleen codes uit de SIKB-codelijst Periode zijn toegestaan."@nl ;
-    rdfs:subClassOf crm:EHE0091_Timestamp .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vindplaats.Vindplaatstype> rdfs:label "Vindplaats.Vindplaatstype"@nl ;
-    dcterms:description "Complextype conform indeling ABR. Alleen codes uit de SIKB-codelijst Complextype zijn toegestaan."@nl ;
-    rdfs:subClassOf crm:E55_Type .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vindplaats.Vondstmeldingsnummer> rdfs:label "Vindplaats.Vondstmeldingsnummer"@nl ;
-    dcterms:description "Archis vondstmeldingnummer."@nl ;
-    rdfs:subClassOf crm:E42_Identifier .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vindplaats.Waarnemingsnummer> rdfs:label "Vindplaats.Waarnemingsnummer"@nl ;
-    dcterms:description "Archis waarnemingsnummer. verplichting geldt enkel indien RCE waarnemingsnummer tijdig heeft afgegeven."@nl ;
-    rdfs:subClassOf crm:E42_Identifier .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vondst.Aantal> rdfs:label "Vondst.Aantal"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Aantal> a rdf:Resource ;
+    rdfs:label "Aantal"@nl ;
     dcterms:description "Het aantal objecten dat bij de vondst hoort."@nl ;
     rdfs:subClassOf crmeh:EHE0031_ContextFindMeasurement .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vondst.Artefacttype> rdfs:label "Vondst.Artefacttype"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Artefacttype> a rdf:Resource ;
+    rdfs:label "Artefacttype"@nl ;
     dcterms:description "Dit is uitgewerkt in het uitwisselingsprotocol. Per doos wordt een lijst aangeleverd met een typering van het artefacttype per vondstnummer. Alleen codes uit de SIKB-codelijst Artefacttype zijn toegestaan."@nl ;
     rdfs:subClassOf crm:E55_Type .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vondst.Beginperiode> rdfs:label "Vondst.Beginperiode"@nl ;
-    dcterms:description "Beginperiode van de vondst. Alleen codes uit de SIKB-codelijst Periode zijn toegestaan."@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Attribuut> a rdf:Resource ;
+    rdfs:label "Attribuut"@nl ;
+    dcterms:description "Opslag van specialistische attributen."@nl ;
+    rdfs:subClassOf crm:E1_CRM_Entity .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Beginperiode> a rdf:Resource ;
+    rdfs:label "Beginperiode"@nl ;
+    dcterms:description "Beginperiode conform indeling ABR. Alleen codes uit de SIKB-codelijst Periode zijn toegestaan."@nl ;
     rdfs:subClassOf crmeh:EHE0091_Timestamp .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vondst.Eindperiode> rdfs:label "Vondst.Eindperiode"@nl ;
-    dcterms:description "Eindperiode van de vondst. Alleen codes uit de SIKB-codelijst Periode zijn toegestaan."@nl ;
-    rdfs:subClassOf crm:EHE0091_Timestamp .
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Bevoegdgezag> a rdf:Resource ;
+    rdfs:label "Bevoegdgezag"@nl ;
+    dcterms:description "Gegevens bevoegd gezag."@nl ;
+    rdfs:subClassOf crm:E40_Legal_Body .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vondst.Exposabel> rdfs:label "Vondst.Exposabel"@nl ;
-    dcterms:description "Keuzemogelijkheid of vondsten naar inzicht van de uitvoerende organisatie exposabel zijn."@nl ;
-    rdfs:subClassOf crm:E87_Curation_Activity .
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Bewaartemperatuur> a rdf:Resource ;
+    rdfs:label "Bewaartemperatuur"@nl ;
+    dcterms:description "Beschrijven conform KNA protocol depotbeheer."@nl ;
+    rdfs:subClassOf crmeh:EHE0041_ContextFindTreatmentProcedure .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vondst.Geconserveerd> rdfs:label "Vondst.Geconserveerd"@nl ;
-    dcterms:description "Ja/nee veld, waarin aangegeven wordt of vondst is geconserveerd."@nl ;
-    rdfs:subClassOf crm:E87_Curation_Activity .
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Bewaarvochtigheid> a rdf:Resource ;
+    rdfs:label "Bewaarvochtigheid"@nl ;
+    dcterms:description "Beschrijven conform KNA protocol depotbeheer."@nl ;
+    rdfs:subClassOf crmeh:EHE0041_ContextFindTreatmentProcedure .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vondst.Gedeselecteerd> rdfs:label "Vondst.Gedeselecteerd"@nl ;
-    dcterms:description "Ja/nee veld, waarin aangegeven wordt of vondst is gedeselecteerd voor deponeren."@nl ;
-    rdfs:subClassOf crm:E87_Curation_Activity .
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Boring> a rdf:Resource ;
+    rdfs:label "Boring"@nl ;
+    dcterms:description "Grondboringen moeten aangemaakt worden indien er naar verwezen is vanuit het context object."@nl ;
+    rdfs:subClassOf crmeh:EHE0007_Context .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vondst.Gewicht> rdfs:label "Vondst.Gewicht"@nl ;
-    dcterms:description "Totaalgewicht van de objecten."@nl ;
-    rdfs:subClassOf crmeh:EHE0031_ContextFindMeasurement .
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Breekbaar> a rdf:Resource ;
+    rdfs:label "Breekbaar"@nl ;
+    dcterms:description "Aangeven of breekbare objecten in doos aanwezig zijn."@nl ;
+    rdfs:subClassOf crmeh:EHE0041_ContextFindTreatmentProcedure .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vondst.Materiaalcategorie> rdfs:label "Vondst.Materiaalcategorie"@nl ;
-    dcterms:description "Dit is uitgewerkt in het uitwisselingsprotocol. Per doos wordt een lijst aangeleverd met een typering van de materiaalcategorie of categoriën per vondstnummer. Alleen codes uit de SIKB-codelijst Materiaalcategorie zijn toegestaan."@nl ;
-    rdfs:subClassOf crmeh:EHE0030_ContextFindMaterial .
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Broncode> a rdf:Resource ;
+    rdfs:label "Broncode"@nl ;
+    dcterms:description "Code opgraver."@nl ;
+    rdfs:subClassOf crm:E33_Linguistic_Object .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vondstcontext.Contexttype> rdfs:label "Vondstcontext.Contexttype"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Broncodelijst> a rdf:Resource ;
+    rdfs:label "Broncodelijst"@nl ;
+    dcterms:description "Naam codelijst opgraver."@nl ;
+    rdfs:subClassOf crm:E32_Authority_Document .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Contexttype> a rdf:Resource ;
+    rdfs:label "Contexttype"@nl ;
     dcterms:description "Het type context. Alleen codes uit de SIKB-codelijst Contextype zijn toegestaan."@nl ;
     rdfs:subClassOf crm:E55_Type .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vulling.Kleur> rdfs:label "Vulling.Kleur"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Diepte> a rdf:Resource ;
+    rdfs:label "Diepte"@nl ;
+    dcterms:description "De diepte van het spoor."@nl ;
+    rdfs:subClassOf crm:E54_Dimension .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Digitaalmediumtype> a rdf:Resource ;
+    rdfs:label "Digitaalmediumtype"@nl ;
+    dcterms:description "Soort opslagmedium."@nl ;
+    rdfs:subClassOf crm:E55_Type .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Dikte> a rdf:Resource ;
+    rdfs:label "Dikte"@nl ;
+    dcterms:description "De dikte van het vak."@nl ;
+    rdfs:subClassOf crm:E54_Dimension .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Documenttype> a rdf:Resource ;
+    rdfs:label "Documenttype"@nl ;
+    dcterms:description "KNA gespecificeerde documentatie type. Alleen codes uit de SIKB-codelijst Documenttype zijn toegestaan."@nl ;
+    rdfs:subClassOf crm:E55_Type .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Dossiertype> a rdf:Resource ;
+    rdfs:label "Dossiertype"@nl ;
+    dcterms:description "Type dossier."@nl ;
+    rdfs:subClassOf crm:E55_Type .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Einddatum> a rdf:Resource ;
+    rdfs:label "Einddatum"@nl ;
+    dcterms:description "Einddatum van het veldwerk."@nl ;
+    rdfs:subClassOf crm:EHE0091_Timestamp .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Eindperiode> a rdf:Resource ;
+    rdfs:label "Eindperiode"@nl ;
+    dcterms:description "Eindperiode conform indeling ABR. Alleen codes uit de SIKB-codelijst Periode zijn toegestaan."@nl ;
+    rdfs:subClassOf crm:EHE0091_Timestamp .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Email> a rdf:Resource ;
+    rdfs:label "Email"@nl ;
+    dcterms:description "E-mailadres"@nl ;
+    rdfs:subClassOf crm:E51_Contact_Point .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Exposabel> a rdf:Resource ;
+    rdfs:label "Exposabel"@nl ;
+    dcterms:description "Keuzemogelijkheid of vondsten naar inzicht van de uitvoerende organisatie exposabel zijn."@nl ;
+    rdfs:subClassOf crm:E87_Curation_Activity .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Geconserveerd> a rdf:Resource ;
+    rdfs:label "Geconserveerd"@nl ;
+    dcterms:description "Ja/nee veld, waarin aangegeven wordt of vondst is geconserveerd."@nl ;
+    rdfs:subClassOf crm:E87_Curation_Activity .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Gedeselecteerd> a rdf:Resource ;
+    rdfs:label "Gedeselecteerd"@nl ;
+    dcterms:description "Ja/nee veld, waarin aangegeven wordt of vondst is gedeselecteerd voor deponeren."@nl ;
+    rdfs:subClassOf crm:E87_Curation_Activity .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Gemeente> a rdf:Resource ;
+    rdfs:label "Gemeente"@nl ;
+    dcterms:description "Gemeentenaam conform BAG indien Nederlands adres."@nl ;
+    rdfs:subClassOf gn:Feature .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Gemeentecode> a rdf:Resource ;
+    rdfs:label "Gemeentecode"@nl ;
+    dcterms:description "Gemeentecode waarbinnen onderzoek heeft plaatsgevonden conform indeling BAG. Alleen codes uit de SIKB-codelijst Gemeente zijn toegestaan."@nl ;
+    rdfs:subClassOf crm:E44_Place_Appellation .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Geometrie> a rdf:Resource ;
+    rdfs:label "Geometrie"@nl ;
+    dcterms:description " Geometrie (begrenzing) van de locatie (gml:AbstractGeometryType). Mag alleen de volgende types bevatten: - gml:PointType - gml:PolygonType - gml:LineStringType - gml:SurfaceType - gml:MultiPointType - gml:MultiLineStringType - gml:MultiSurfaceType "@nl ;
+    rdfs:subClassOf geosparql:Geometry .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Gevaarlijkestoffen> a rdf:Resource ;
+    rdfs:label "Gevaarlijkestoffen"@nl ;
+    dcterms:description "Indien relevant, aangeven met welke schadelijke stof(fen) object behandeld is."@nl ;
+    rdfs:subClassOf crmeh:EHE0041_ContextFindTreatmentProcedure .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Gewicht> a rdf:Resource ;
+    rdfs:label "Gewicht"@nl ;
+    dcterms:description "Totaalgewicht van de objecten."@nl ;
+    rdfs:subClassOf crmeh:EHE0031_ContextFindMeasurement,
+        crm:E54_Dimension .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Grondspoortype> a rdf:Resource ;
+    rdfs:label "Grondspoortype"@nl ;
+    dcterms:description "Het grondspoortype. Alleen codes uit de SIKB-codelijst Grondspoortype zijn toegestaan."@nl ;
+    rdfs:subClassOf crm:E55_Type .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Kaartblad> a rdf:Resource ;
+    rdfs:label "Kaartblad"@nl ;
+    dcterms:description "Kaartblad confrom indeling 2004 Topografische dienst van het Kadaster 1 op 25.000. Alleen codes uit de SIKB-codelijst Kaartblad zijn toegestaan."@nl ;
+    rdfs:subClassOf crm:E46_Section_Definition .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Kleur> a rdf:Resource ;
+    rdfs:label "Kleur"@nl ;
     dcterms:description "De kleur van de vulling."@nl ;
     rdfs:subClassOf crmeh:EHE0059_ContextStuffNote .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vulling.Textuur> rdfs:label "Vulling.Textuur"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Land> a rdf:Resource ;
+    rdfs:label "Land"@nl ;
+    dcterms:description "Land"@nl ;
+    rdfs:subClassOf gn:Feature .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Lichtgevoelig> a rdf:Resource ;
+    rdfs:label "Lichtgevoelig"@nl ;
+    dcterms:description "Aangeven of objecten beschermd dienen te worden tegen licht."@nl ;
+    rdfs:subClassOf crmeh:EHE0041_ContextFindTreatmentProcedure .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Materiaalcategorie> a rdf:Resource ;
+    rdfs:label "Materiaalcategorie"@nl ;
+    dcterms:description "Dit is uitgewerkt in het uitwisselingsprotocol. Per doos wordt een lijst aangeleverd met een typering van de materiaalcategorie of categoriën per vondstnummer. Alleen codes uit de SIKB-codelijst Materiaalcategorie zijn toegestaan."@nl ;
+    rdfs:subClassOf crmeh:EHE0030_ContextFindMaterial .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Methode> a rdf:Resource ;
+    rdfs:label "Methode"@nl ;
+    dcterms:description "De methode hoe de hoogtemeting is bepaald. Alleen codes uit de SIKB-codelijst Hoogtemetingmethode zijn toegestaan."@nl ;
+    rdfs:subClassOf crm:E55_Type .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Monstertype> a rdf:Resource ;
+    rdfs:label "Monstertype"@nl ;
+    dcterms:description "Verzamelwijze monster(s) conform KNA. Alleen codes uit de SIKB-codelijst Monstertype zijn toegestaan."@nl ;
+    rdfs:subClassOf crmeh:EHE0053_ContextSampleType .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Naam> a rdf:Resource ;
+    rdfs:label "Naam"@nl ;
+    dcterms:description "Naam"@nl ;
+    rdfs:subClassOf crm:E21_Person,
+        crm:E82_Actor_Appellation,
+        foaf:Person .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Naamcodelijst> a rdf:Resource ;
+    rdfs:label "Naamcodelijst"@nl ;
+    dcterms:description "De naam van de codelijst waar de standaardcode aan gerelateerd is. Alleen verplicht als het om een SIKB0102-codelijst gaat."@nl ;
+    rdfs:subClassOf crm:E32_Authority_Document .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Nap> a rdf:Resource ;
+    rdfs:label "Nap"@nl ;
+    dcterms:description "NAP is hier de hoogte van de bovenkant van het vak, dus de hoogte die is gemeten voor het uitscheppen van het vak op een bepaald vlak."@nl ;
+    rdfs:subClassOf crm:E54_Dimension .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Onderzoeksmeldingsnummer> a rdf:Resource ;
+    rdfs:label "Onderzoeksmeldingsnummer"@nl ;
+    dcterms:description "Archis onderzoeksmeldingsnummer."@nl ;
+    rdfs:subClassOf crm:E42_Identifier .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Onderzoektype> a rdf:Resource ;
+    rdfs:label "Onderzoektype"@nl ;
+    dcterms:description "Wijze van verwerving conform indeling ABR. Alleen codes uit de SIKB-codelijst Verwervingtype zijn toegestaan."@nl ;
+    rdfs:subClassOf crm:E55_Type .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Opnametype> a rdf:Resource ;
+    rdfs:label "Opnametype"@nl ;
+    dcterms:description "Type waarop tekening of foto betrekking heeft conform KNA. Alleen codes uit de SIKB-codelijst Tekening- en Fototype zijn toegestaan."@nl ;
+    rdfs:subClassOf crmeh:EHE0085_RecordPhotographReferenceType .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Plaatscode> a rdf:Resource ;
+    rdfs:label "Plaatscode"@nl ;
+    dcterms:description "Plaatscode waarbinnen onderzoek heeft plaatsgevonden conform indeling BAG. Alleen codes uit de SIKB-codelijst Plaats zijn toegestaan."@nl ;
+    rdfs:subClassOf crm:E44_Place_Appellation .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Plaatsnaam> a rdf:Resource ;
+    rdfs:label "Plaatsnaam"@nl ;
+    dcterms:description "Plaatsnaam conform BAG indien Nederlands adres."@nl ;
+    rdfs:subClassOf gn:Feature .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Planumtype> a rdf:Resource ;
+    rdfs:label "Planumtype"@nl ;
+    dcterms:description "Het planumtype. Alleen codes uit de SIKB-codelijst planumtype zijn toegestaan."@nl ;
+    rdfs:subClassOf crm:E55_Type .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Projectnaam> a rdf:Resource ;
+    rdfs:label "Projectnaam"@nl ;
+    dcterms:description "Naam van het project."@nl ;
+    rdfs:subClassOf crm:E41_Appellation .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Provincie> a rdf:Resource ;
+    rdfs:label "Provincie"@nl ;
+    dcterms:description "Provincienaam conform BAG indien Nederlands adres."@nl ;
+    rdfs:subClassOf gn:Feature .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Provinciecode> a rdf:Resource ;
+    rdfs:label "Provinciecode"@nl ;
+    dcterms:description "Provincie waarbinnen onderzoek heeft plaatsgevonden. Alleen codes uit de SIKB-codelijst Provincie zijn toegestaan."@nl ;
+    rdfs:subClassOf crm:E44_Place_Appellation .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Put> a rdf:Resource ;
+    rdfs:label "Put"@nl ;
+    dcterms:description " Een opgravingsput, administratief gegeven. KNA-bouwsteen: put "@nl ;
+    rdfs:subClassOf crmeh:EHE0007_Context .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Schaal> a rdf:Resource ;
+    rdfs:label "Schaal"@nl ;
+    dcterms:description "Schaal van de tekening."@nl ;
+    rdfs:subClassOf crmeh:EHE0079_RecordDrawingNote .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Segment> a rdf:Resource ;
+    rdfs:label "Segment"@nl ;
+    dcterms:description " Administratieve sectie van een spoor. KNA-bouwsteen: segment "@nl ;
+    rdfs:subClassOf crmeh:EHE0007_Context .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Standaardcode> a rdf:Resource ;
+    rdfs:label "Standaardcode"@nl ;
+    dcterms:description "Geharmoniseerde code."@nl ;
+    rdfs:subClassOf crm:E75_Conceptual_Object_Appellation .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Startdatum> a rdf:Resource ;
+    rdfs:label "Startdatum"@nl ;
+    dcterms:description "Startdatum van het veldwerk."@nl ;
+    rdfs:subClassOf crmeh:EHE0091_Timestamp .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Stort> a rdf:Resource ;
+    rdfs:label "Stort"@nl ;
+    dcterms:description "De \\\"stort\\\" is het volume aan grond dat uit een put is gegraven om een vlak aan te leggen."@nl ;
+    rdfs:subClassOf crmeh:EHE0008_ContextStuff .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Straat> a rdf:Resource ;
+    rdfs:label "Straat"@nl ;
+    dcterms:description "Straatnaam"@nl ;
+    rdfs:subClassOf gn:Feature .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Structuurtype> a rdf:Resource ;
+    rdfs:label "Structuurtype"@nl ;
+    dcterms:description "Het structuurtype. Alleen codes uit de SIKB-codelijst Structuurtype zijn toegestaan."@nl ;
+    rdfs:subClassOf crm:E55_Type .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Tekeningformaat> a rdf:Resource ;
+    rdfs:label "Tekeningformaat"@nl ;
+    dcterms:description "Papierformaat conform ISO 216. Alleen codes uit de SIKB-codelijst Papierformaat zijn toegestaan."@nl ;
+    rdfs:subClassOf crmeh:EHE0079_RecordDrawingNote .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Tekeningtype> a rdf:Resource ;
+    rdfs:label "Tekeningtype"@nl ;
+    dcterms:description "Type waarop tekening of foto betrekking heeft conform KNA. Alleen codes uit de SIKB-codelijst Tekening- en Fototype zijn toegestaan."@nl ;
+    rdfs:subClassOf crmeh:EHE0081_RecordDrawingReferenceType .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Telefoon> a rdf:Resource ;
+    rdfs:label "Telefoon"@nl ;
+    dcterms:description "Algemeen telefoonnummer van de organisatie."@nl,
+        "Telefoonnummer"@nl ;
+    rdfs:subClassOf crm:E51_Contact_Point .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Textuur> a rdf:Resource ;
+    rdfs:label "Textuur"@nl ;
     dcterms:description "De textuur van de vulling."@nl ;
     rdfs:subClassOf crmeh:EHE0059_ContextStuffNote .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vulling.Vorm> rdfs:label "Vulling.Vorm"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Toponiem> a rdf:Resource ;
+    rdfs:label "Toponiem"@nl ;
+    dcterms:description "Vrij tekstveld voor toponiem."@nl ;
+    rdfs:subClassOf crmeh:EHE0002_ArchaeologicalSite .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Uitvoerdercode> a rdf:Resource ;
+    rdfs:label "Uitvoerdercode"@nl ;
+    dcterms:description "De code van de uitvoerende organisatie zoals in Archis gedefiniëerd. Alleen codes uit de SIKB-codelijst Uitvoerder zijn toegestaan."@nl ;
+    rdfs:subClassOf crm:E42_Identifier .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vaknummer> a rdf:Resource ;
+    rdfs:label "Vaknummer"@nl ;
+    dcterms:description "Vaknummer"@nl ;
+    rdfs:subClassOf crm:E41_Appellation .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Verzamelwijze> a rdf:Resource ;
+    rdfs:label "Verzamelwijze"@nl ;
+    dcterms:description "De wijze waarop de vondst is verzameld. Alleen codes uit de SIKB-codelijst Verzamelwijze zijn toegestaan."@nl ;
+    rdfs:subClassOf crmeh:EHE0046_ContextNote .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vindplaatstype> a rdf:Resource ;
+    rdfs:label "Vindplaatstype"@nl ;
+    dcterms:description "Complextype conform indeling ABR. Alleen codes uit de SIKB-codelijst Complextype zijn toegestaan."@nl ;
+    rdfs:subClassOf crm:E55_Type .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vondstmeldingsnummer> a rdf:Resource ;
+    rdfs:label "Vondstmeldingsnummer"@nl ;
+    dcterms:description "Archis vondstmeldingnummer."@nl ;
+    rdfs:subClassOf crm:E42_Identifier .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vorm> a rdf:Resource ;
+    rdfs:label "Vorm"@nl ;
     dcterms:description "De vorm van de vulling."@nl ;
     rdfs:subClassOf crmeh:EHE0059_ContextStuffNote .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_adres_gemeente> a rdf:Property ;
-    rdfs:label "gemeente van adres"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Adres> ;
-    rdfs:range gn:Feature ;
-    rdfs:subpropertyOf gn:parentADM2 .
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Waardetype> a rdf:Resource ;
+    rdfs:label "Waardetype"@nl ;
+    dcterms:description "Beschrijft welk type informatie in het attribuut wordt opgeslagen. Alleen codes uit de SIKB-codelijst Waardetype zijn toegestaan."@nl ;
+    rdfs:subClassOf crm:E55_Type .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_adres_huisnummer> a rdf:Property ;
-    rdfs:label "huisnummer van adres"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Adres> ;
-    rdfs:subpropertyOf locn:locatorDesignator .
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Waarnemingsnummer> a rdf:Resource ;
+    rdfs:label "Waarnemingsnummer"@nl ;
+    dcterms:description "Archis waarnemingsnummer. verplichting geldt enkel indien RCE waarnemingsnummer tijdig heeft afgegeven."@nl ;
+    rdfs:subClassOf crm:E42_Identifier .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_adres_land> a rdf:Property ;
-    rdfs:label "land van adres"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Adres> ;
-    rdfs:range gn:Feature ;
-    rdfs:subpropertyOf gn:parentCountry .
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_aantal> a rdf:Property ;
+    rdfs:label "aantal"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Verpakkingseenheid>,
+        <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vondst> ;
+    rdfs:range crmeh:EHE0031_ContextFindMeasurement ;
+    rdfs:subpropertyOf crm:P43_has_dimension,
+        crm:P57_has_number_of_parts .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_adres_plaatsnaam> a rdf:Property ;
-    rdfs:label "plaatsnaam van adres"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Adres> ;
-    rdfs:range gn:Feature ;
-    rdfs:subpropertyOf locn:postName .
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_achternaam> a rdf:Property ;
+    rdfs:label "achternaam van persoon"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Persoon> ;
+    rdfs:subpropertyOf foaf:familyName .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_adres_postcode> a rdf:Property ;
-    rdfs:label "postcode van adres"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Adres> ;
-    rdfs:subpropertyOf locn:postCode .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_adres_provincie> a rdf:Property ;
-    rdfs:label "provincie van adres"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Adres> ;
-    rdfs:range gn:Feature ;
-    rdfs:subpropertyOf gn:parentADM1 .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_adres_straat> a rdf:Property ;
-    rdfs:label "straat van adres"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Adres> ;
-    rdfs:range gn:Feature ;
-    rdfs:subpropertyOf locn:thoroughfare .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_attribuuttype_informatie> a rdf:Property ;
-    rdfs:label "informatie van attribuuttype"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Attribuuttype> ;
-    rdfs:subpropertyOf rdfs:comment .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_attribuuttype_waardetype> a rdf:Property ;
-    rdfs:label "waardetype van attribuuttype"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Attribuuttype> ;
-    rdfs:range crm:E55_Type ;
-    rdfs:subpropertyOf crm:P2_has_type .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_bestand_bestandsinhoud> a rdf:Property ;
-    rdfs:label "bestandsinhoud van bestand"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Bestand> ;
-    rdfs:subpropertyOf dcterms:description .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_bestand_bestandsnaam> a rdf:Property ;
-    rdfs:label "bestandsnaam van bestand"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Bestand> ;
-    rdfs:subpropertyOf dcterms:title .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_bestand_bestandtype> a rdf:Property ;
-    rdfs:label "bestandtype van bestand"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Bestand> ;
-    rdfs:subpropertyOf dcterms:format .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_bestand_codeboek> a rdf:Property ;
-    rdfs:label "codeboek van bestand"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Bestand> ;
-    rdfs:subpropertyOf crm:P67_refers_to .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_bestand_software> a rdf:Property ;
-    rdfs:label "software van bestand"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Bestand> ;
-    rdfs:subpropertyOf dcterms:description .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_codereferentie_bronCode> a rdf:Property ;
-    rdfs:label "bronCode van codereferentie"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Codereferentie> ;
-    rdfs:range crm:E33_Linguistic_Object ;
-    rdfs:subpropertyOf crm:P129_is_about .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_codereferentie_bronCodelijst> a rdf:Property ;
-    rdfs:label "bronCodelijst van codereferentie"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Codereferentie> ;
-    rdfs:range crm:E32_Authority_Document ;
-    rdfs:subpropertyOf crm:P71i_is_listed_in .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_codereferentie_bronOmschrijving> a rdf:Property ;
-    rdfs:label "bronOmschrijving van codereferentie"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Codereferentie> ;
-    rdfs:subpropertyOf dcterms:description .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_codereferentie_naamCodelijst> a rdf:Property ;
-    rdfs:label "naamCodelijst van codereferentie"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Codereferentie> ;
-    rdfs:range crm:E32_Authority_Document ;
-    rdfs:subpropertyOf crm:P71i_is_listed_in .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_codereferentie_standaardCode> a rdf:Property ;
-    rdfs:label "standaardCode van codereferentie"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Codereferentie> ;
-    rdfs:range crm:E75_Conceptual_Object_Appellation ;
-    rdfs:subpropertyOf crm:P1_is_identified_by .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_digitaalmedium_digitaalmediumtype> a rdf:Property ;
-    rdfs:label "digitaalmediumtype van digitaalmedium"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Digitaalmedium> ;
-    rdfs:range crm:E55_Type ;
-    rdfs:subpropertyOf crm:P2_has_type .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_document_auteur> a rdf:Property ;
-    rdfs:label "auteur van document"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Document> ;
-    rdfs:subpropertyOf dcterms:creator .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_document_documenttype> a rdf:Property ;
-    rdfs:label "documenttype van document"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Document> ;
-    rdfs:range crm:E55_Type ;
-    rdfs:subpropertyOf crm:P2_has_type .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_document_isbn> a rdf:Property ;
-    rdfs:label "isbn van document"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Document> ;
-    rdfs:subpropertyOf prism:isbn .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_document_issn> a rdf:Property ;
-    rdfs:label "issn van document"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Document> ;
-    rdfs:subpropertyOf prism:issn .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_document_jaar> a rdf:Property ;
-    rdfs:label "jaar van document"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Document> ;
-    rdfs:subpropertyOf prism:publicationDate .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_document_paginas> a rdf:Property ;
-    rdfs:label "paginas van document"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Document> ;
-    rdfs:subpropertyOf prism:pageCount .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_document_redacteur> a rdf:Property ;
-    rdfs:label "redacteur van document"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Document> ;
-    rdfs:subpropertyOf bibo:editor .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_document_serie> a rdf:Property ;
-    rdfs:label "serie van document"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Document> ;
-    rdfs:subpropertyOf prism:seriesTitle .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_document_titel> a rdf:Property ;
-    rdfs:label "titel van document"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Document> ;
-    rdfs:subpropertyOf dcterms:title .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_document_titelContainer> a rdf:Property ;
-    rdfs:label "titelContainer van document"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Document> ;
-    rdfs:subpropertyOf prism:publicationName .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_document_uitgavePlaats> a rdf:Property ;
-    rdfs:label "uitgavePlaats van document"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Document> ;
-    rdfs:subpropertyOf dcterms:spatial .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_document_uitgever> a rdf:Property ;
-    rdfs:label "uitgever van document"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Document> ;
-    rdfs:subpropertyOf dcterms:publisher .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_doos_bewaarTemperatuur> a rdf:Property ;
-    rdfs:label "bewaarTemperatuur van doos"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Doos> ;
-    rdfs:range crmeh:EHE0041_ContextFindTreatmentProcedure ;
-    rdfs:subpropertyOf crm:P129i_is_subject_of .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_doos_bewaarVochtigheid> a rdf:Property ;
-    rdfs:label "bewaarVochtigheid van doos"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Doos> ;
-    rdfs:range crmeh:EHE0041_ContextFindTreatmentProcedure ;
-    rdfs:subpropertyOf crm:P129i_is_subject_of .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_doos_breekbaar> a rdf:Property ;
-    rdfs:label "breekbaar van doos"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Doos> ;
-    rdfs:range crmeh:EHE0041_ContextFindTreatmentProcedure ;
-    rdfs:subpropertyOf crm:P129i_is_subject_of .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_doos_gevaarlijkeStoffen> a rdf:Property ;
-    rdfs:label "gevaarlijkeStoffen van doos"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Doos> ;
-    rdfs:range crmeh:EHE0041_ContextFindTreatmentProcedure ;
-    rdfs:subpropertyOf crm:P129i_is_subject_of .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_doos_lichtgevoelig> a rdf:Property ;
-    rdfs:label "lichtgevoelig van doos"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Doos> ;
-    rdfs:range crmeh:EHE0041_ContextFindTreatmentProcedure ;
-    rdfs:subpropertyOf crm:P129i_is_subject_of .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_dossier_dossiertype> a rdf:Property ;
-    rdfs:label "dossiertype van dossier"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Dossier> ;
-    rdfs:range crm:E55_Type ;
-    rdfs:subpropertyOf crm:P2_has_type .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_foto_fotograaf> a rdf:Property ;
-    rdfs:label "fotograaf van foto"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Foto> ;
-    rdfs:subpropertyOf dcterms:creator .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_foto_fotoonderwerp> a rdf:Property ;
-    rdfs:label "fotoonderwerp van foto"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Foto> ;
-    rdfs:subpropertyOf dcterms:description .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_foto_opnamedatum> a rdf:Property ;
-    rdfs:label "opnamedatum van foto"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Foto> ;
-    rdfs:subpropertyOf dcterms:date .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_foto_opnamemedium> a rdf:Property ;
-    rdfs:label "opnamemedium van foto"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Foto> ;
-    rdfs:subpropertyOf dcterms:medium .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_foto_opnametype> a rdf:Property ;
-    rdfs:label "opnametype van foto"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Foto> ;
-    rdfs:range crmeh:EHE0085_RecordPhotographReferenceType ;
-    rdfs:subpropertyOf crm:P2_has_type .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_geolocatie_geometrie> a rdf:Property ;
-    rdfs:label "geometrie van geolocatie"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Geolocatie> ;
-    rdfs:range geosparql:Geometry ;
-    rdfs:subpropertyOf crm:P87_is_identified_by .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_hoogtemeting_methode> a rdf:Property ;
-    rdfs:label "methode van hoogtemeting"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Hoogtemeting> ;
-    rdfs:range crm:E55_Type ;
-    rdfs:subpropertyOf crm:P2_has_type .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_hoogtemeting_nap> a rdf:Property ;
-    rdfs:label "nap van hoogtemeting"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Hoogtemeting> ;
-    rdfs:range crm:E54_Dimension ;
-    rdfs:subpropertyOf crm:P40_observed_dimension .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_monster_beginperiode> a rdf:Property ;
-    rdfs:label "beginperiode van monster"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Monster> ;
-    rdfs:range crmeh:EHE0091_Timestamp ;
-    rdfs:subpropertyOf crmeh:EXP1 .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_monster_eindperiode> a rdf:Property ;
-    rdfs:label "eindperiode van monster"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Monster> ;
-    rdfs:range crm:EHE0091_Timestamp ;
-    rdfs:subpropertyOf crmeh:EXP2 .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_monster_monstertype> a rdf:Property ;
-    rdfs:label "monstertype van monster"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Monster> ;
-    rdfs:range crmeh:EHE0053_ContextSampleType ;
-    rdfs:subpropertyOf crm:P2_has_type .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_monster_monsterverwerking> a rdf:Property ;
-    rdfs:label "monsterverwerking van monster"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Monster> ;
-    rdfs:subpropertyOf crm:P3_has_note .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_objectrelatie_objectrelatietype> a rdf:Property ;
-    rdfs:label "objectrelatietype van objectrelatie"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Objectrelatie> ;
-    rdfs:subpropertyOf rdfs:comment .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_organisatie_adres> a rdf:Property ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_adres> a rdf:Property ;
     rdfs:label "adres van organisatie"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Organisatie> ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Organisatie> ;
     rdfs:range locn:Address ;
     rdfs:subpropertyOf locn:address .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_organisatie_email> a rdf:Property ;
-    rdfs:label "email van organisatie"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Organisatie> ;
-    rdfs:range crm:E51_Contact_Point ;
-    rdfs:subpropertyOf crm:P76_has_contact_point .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_organisatie_naam> a rdf:Property ;
-    rdfs:label "naam van organisatie"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Organisatie> ;
-    rdfs:range crm:E82_Actor_Appellation ;
-    rdfs:subpropertyOf crm:P131_is_identified_by .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_organisatie_telefoon> a rdf:Property ;
-    rdfs:label "telefoon van organisatie"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Organisatie> ;
-    rdfs:range crm:E51_Contact_Point ;
-    rdfs:subpropertyOf crm:P76_has_contact_point .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_persoon_achternaam> a rdf:Property ;
-    rdfs:label "achternaam van persoon"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Persoon> ;
-    rdfs:subpropertyOf foaf:familyName .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_persoon_email> a rdf:Property ;
-    rdfs:label "email van persoon"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Persoon> ;
-    rdfs:range crm:E51_Contact_Point ;
-    rdfs:subpropertyOf crm:P76_has_contact_point .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_persoon_initialen> a rdf:Property ;
-    rdfs:label "initialen van persoon"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Persoon> ;
-    rdfs:subpropertyOf foaf:givenName .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_persoon_naam> a rdf:Property ;
-    rdfs:label "naam van persoon"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Persoon> ;
-    rdfs:range foaf:Person ;
-    rdfs:subpropertyOf crm:P131_is_identified_by .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_persoon_telefoon> a rdf:Property ;
-    rdfs:label "telefoon van persoon"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Persoon> ;
-    rdfs:range crm:E51_Contact_Point ;
-    rdfs:subpropertyOf crm:P76_has_contact_point .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_persoon_titel> a rdf:Property ;
-    rdfs:label "titel van persoon"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Persoon> ;
-    rdfs:subpropertyOf foaf:title .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_persoon_tussenvoegsel> a rdf:Property ;
-    rdfs:label "tussenvoegsel van persoon"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Persoon> ;
-    rdfs:subpropertyOf foaf:givenName .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_persoon_voornaam> a rdf:Property ;
-    rdfs:label "voornaam van persoon"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Persoon> ;
-    rdfs:subpropertyOf foaf:givenName .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_planum_planumtype> a rdf:Property ;
-    rdfs:label "planumtype van planum"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Planum> ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_artefacttype> a rdf:Property ;
+    rdfs:label "artefacttype van vondst"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vondst> ;
     rdfs:range crm:E55_Type ;
     rdfs:subpropertyOf crm:P2_has_type .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_project_einddatum> a rdf:Property ;
-    rdfs:label "einddatum van project"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Project> ;
-    rdfs:range crm:EHE0091_Timestamp ;
-    rdfs:subpropertyOf crmeh:EXP2 .
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_auteur> a rdf:Property ;
+    rdfs:label "auteur van document"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Document> ;
+    rdfs:subpropertyOf dcterms:creator .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_project_omschrijving> a rdf:Property ;
-    rdfs:label "omschrijving van project"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Project> ;
-    rdfs:subpropertyOf crm:P3_has_note .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_project_onderzoeksmeldingsnummer> a rdf:Property ;
-    rdfs:label "onderzoeksmeldingsnummer van project"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Project> ;
-    rdfs:range crm:E42_Identifier ;
-    rdfs:subpropertyOf crm:P48_has_preferred_identifier .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_project_onderzoektype> a rdf:Property ;
-    rdfs:label "onderzoektype van project"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Project> ;
-    rdfs:range crm:E55_Type ;
-    rdfs:subpropertyOf crm:P2_has_type .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_project_projectnaam> a rdf:Property ;
-    rdfs:label "projectnaam van project"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Project> ;
-    rdfs:range crm:E41_Appellation ;
-    rdfs:subpropertyOf crm:P1_is_identified_by .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_project_startdatum> a rdf:Property ;
-    rdfs:label "startdatum van project"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Project> ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_beginperiode> a rdf:Property ;
+    rdfs:label "beginperiode"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Monster>,
+        <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Spoor>,
+        <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Structuur>,
+        <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Verpakkingseenheid>,
+        <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vindplaats>,
+        <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vondst> ;
     rdfs:range crmeh:EHE0091_Timestamp ;
     rdfs:subpropertyOf crmeh:EXP1 .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_projectlocatie_gemeentecode> a rdf:Property ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_bestandsinhoud> a rdf:Property ;
+    rdfs:label "bestandsinhoud van bestand"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Bestand> ;
+    rdfs:subpropertyOf dcterms:description .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_bestandsnaam> a rdf:Property ;
+    rdfs:label "bestandsnaam van bestand"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Bestand> ;
+    rdfs:subpropertyOf dcterms:title .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_bestandtype> a rdf:Property ;
+    rdfs:label "bestandtype van bestand"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Bestand> ;
+    rdfs:subpropertyOf dcterms:format .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_bewaarTemperatuur> a rdf:Property ;
+    rdfs:label "bewaarTemperatuur van doos"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Doos> ;
+    rdfs:range crmeh:EHE0041_ContextFindTreatmentProcedure ;
+    rdfs:subpropertyOf crm:P129i_is_subject_of .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_bewaarVochtigheid> a rdf:Property ;
+    rdfs:label "bewaarVochtigheid van doos"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Doos> ;
+    rdfs:range crmeh:EHE0041_ContextFindTreatmentProcedure ;
+    rdfs:subpropertyOf crm:P129i_is_subject_of .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_breekbaar> a rdf:Property ;
+    rdfs:label "breekbaar van doos"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Doos> ;
+    rdfs:range crmeh:EHE0041_ContextFindTreatmentProcedure ;
+    rdfs:subpropertyOf crm:P129i_is_subject_of .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_bronCode> a rdf:Property ;
+    rdfs:label "bronCode van codereferentie"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Codereferentie> ;
+    rdfs:range crm:E33_Linguistic_Object ;
+    rdfs:subpropertyOf crm:P129_is_about .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_bronCodelijst> a rdf:Property ;
+    rdfs:label "bronCodelijst van codereferentie"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Codereferentie> ;
+    rdfs:range crm:E32_Authority_Document ;
+    rdfs:subpropertyOf crm:P71i_is_listed_in .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_bronOmschrijving> a rdf:Property ;
+    rdfs:label "bronOmschrijving van codereferentie"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Codereferentie> ;
+    rdfs:subpropertyOf dcterms:description .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_codeboek> a rdf:Property ;
+    rdfs:label "codeboek van bestand"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Bestand> ;
+    rdfs:subpropertyOf crm:P67_refers_to .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_contexttype> a rdf:Property ;
+    rdfs:label "contexttype van vondstcontext"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vondstcontext> ;
+    rdfs:range crm:E55_Type ;
+    rdfs:subpropertyOf crm:P2_has_type .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_diepte> a rdf:Property ;
+    rdfs:label "diepte van spoor"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Spoor> ;
+    rdfs:range crm:E54_Dimension ;
+    rdfs:subpropertyOf crm:P43_has_dimension .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_digitaalmediumtype> a rdf:Property ;
+    rdfs:label "digitaalmediumtype van digitaalmedium"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Digitaalmedium> ;
+    rdfs:range crm:E55_Type ;
+    rdfs:subpropertyOf crm:P2_has_type .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_dikte> a rdf:Property ;
+    rdfs:label "dikte van vak"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vak> ;
+    rdfs:range crm:E54_Dimension ;
+    rdfs:subpropertyOf crm:P43_has_dimension .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_documenttype> a rdf:Property ;
+    rdfs:label "documenttype van document"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Document> ;
+    rdfs:range crm:E55_Type ;
+    rdfs:subpropertyOf crm:P2_has_type .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_dossiertype> a rdf:Property ;
+    rdfs:label "dossiertype van dossier"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Dossier> ;
+    rdfs:range crm:E55_Type ;
+    rdfs:subpropertyOf crm:P2_has_type .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_einddatum> a rdf:Property ;
+    rdfs:label "einddatum van project"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Project> ;
+    rdfs:range crm:EHE0091_Timestamp ;
+    rdfs:subpropertyOf crmeh:EXP2 .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_eindperiode> a rdf:Property ;
+    rdfs:label "eindperiode"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Monster>,
+        <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Spoor>,
+        <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Structuur>,
+        <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Verpakkingseenheid>,
+        <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vindplaats>,
+        <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vondst> ;
+    rdfs:range crm:EHE0091_Timestamp ;
+    rdfs:subpropertyOf crmeh:EXP2 .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_email> a rdf:Property ;
+    rdfs:label "email"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Organisatie>,
+        <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Persoon> ;
+    rdfs:range crm:E51_Contact_Point ;
+    rdfs:subpropertyOf crm:P76_has_contact_point .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_exposabel> a rdf:Property ;
+    rdfs:label "exposabel van vondst"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vondst> ;
+    rdfs:range crm:E87_Curation_Activity ;
+    rdfs:subpropertyOf crm:P147i_was_curated_by .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_fotograaf> a rdf:Property ;
+    rdfs:label "fotograaf van foto"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Foto> ;
+    rdfs:subpropertyOf dcterms:creator .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_fotoonderwerp> a rdf:Property ;
+    rdfs:label "fotoonderwerp van foto"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Foto> ;
+    rdfs:subpropertyOf dcterms:description .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_geconserveerd> a rdf:Property ;
+    rdfs:label "geconserveerd van vondst"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vondst> ;
+    rdfs:range crm:E87_Curation_Activity ;
+    rdfs:subpropertyOf crm:P147i_was_curated_by .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_gedeselecteerd> a rdf:Property ;
+    rdfs:label "gedeselecteerd van vondst"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vondst> ;
+    rdfs:range crm:E87_Curation_Activity ;
+    rdfs:subpropertyOf crm:P147i_was_curated_by .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_gemeente> a rdf:Property ;
+    rdfs:label "gemeente van adres"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Adres> ;
+    rdfs:range gn:Feature ;
+    rdfs:subpropertyOf gn:parentADM2 .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_gemeentecode> a rdf:Property ;
     rdfs:label "gemeentecode van projectlocatie"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Projectlocatie> ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Projectlocatie> ;
     rdfs:range crm:E44_Place_Appellation ;
     rdfs:subpropertyOf crm:P89_falls_within .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_projectlocatie_kaartblad> a rdf:Property ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_geometrie> a rdf:Property ;
+    rdfs:label "geometrie van geolocatie"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Geolocatie> ;
+    rdfs:range geosparql:Geometry ;
+    rdfs:subpropertyOf crm:P87_is_identified_by .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_gevaarlijkeStoffen> a rdf:Property ;
+    rdfs:label "gevaarlijkeStoffen van doos"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Doos> ;
+    rdfs:range crmeh:EHE0041_ContextFindTreatmentProcedure ;
+    rdfs:subpropertyOf crm:P129i_is_subject_of .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_gewicht> a rdf:Property ;
+    rdfs:label "gewicht"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Verpakkingseenheid>,
+        <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vondst> ;
+    rdfs:range crmeh:EHE0031_ContextFindMeasurement,
+        crm:E54_Dimension ;
+    rdfs:subpropertyOf crm:P43_has_dimension .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_grondspoortype> a rdf:Property ;
+    rdfs:label "grondspoortype van spoor"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Spoor> ;
+    rdfs:range crm:E55_Type ;
+    rdfs:subpropertyOf crm:P2_has_type .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_huisnummer> a rdf:Property ;
+    rdfs:label "huisnummer van adres"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Adres> ;
+    rdfs:subpropertyOf locn:locatorDesignator .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_informatie> a rdf:Property ;
+    rdfs:label "informatie van attribuuttype"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Attribuuttype> ;
+    rdfs:subpropertyOf rdfs:comment .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_initialen> a rdf:Property ;
+    rdfs:label "initialen van persoon"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Persoon> ;
+    rdfs:subpropertyOf foaf:givenName .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_isbn> a rdf:Property ;
+    rdfs:label "isbn van document"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Document> ;
+    rdfs:subpropertyOf prism:isbn .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_issn> a rdf:Property ;
+    rdfs:label "issn van document"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Document> ;
+    rdfs:subpropertyOf prism:issn .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_jaar> a rdf:Property ;
+    rdfs:label "jaar van document"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Document> ;
+    rdfs:subpropertyOf prism:publicationDate .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_kaartblad> a rdf:Property ;
     rdfs:label "kaartblad van projectlocatie"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Projectlocatie> ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Projectlocatie> ;
     rdfs:range crm:E46_Section_Definition ;
     rdfs:subpropertyOf crm:P87_is_identified_by .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_projectlocatie_plaatscode> a rdf:Property ;
-    rdfs:label "plaatscode van projectlocatie"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Projectlocatie> ;
-    rdfs:range crm:E44_Place_Appellation ;
-    rdfs:subpropertyOf crm:P89_falls_within .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_projectlocatie_provinciecode> a rdf:Property ;
-    rdfs:label "provinciecode van projectlocatie"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Projectlocatie> ;
-    rdfs:range crm:E44_Place_Appellation ;
-    rdfs:subpropertyOf crm:P89_falls_within .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_projectlocatie_toponiem> a rdf:Property ;
-    rdfs:label "toponiem van projectlocatie"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Projectlocatie> ;
-    rdfs:range crmeh:EHE0002_ArchaeologicalSite ;
-    rdfs:subpropertyOf crm:P59i_is_located_on_or_within .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_spoor_beginperiode> a rdf:Property ;
-    rdfs:label "beginperiode van spoor"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Spoor> ;
-    rdfs:range crmeh:EHE0091_Timestamp ;
-    rdfs:subpropertyOf crmeh:EXP1 .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_spoor_diepte> a rdf:Property ;
-    rdfs:label "diepte van spoor"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Spoor> ;
-    rdfs:range crm:E54_Dimension ;
-    rdfs:subpropertyOf crm:P43_has_dimension .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_spoor_eindperiode> a rdf:Property ;
-    rdfs:label "eindperiode van spoor"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Spoor> ;
-    rdfs:range crm:EHE0091_Timestamp ;
-    rdfs:subpropertyOf crmeh:EXP2 .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_spoor_grondspoortype> a rdf:Property ;
-    rdfs:label "grondspoortype van spoor"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Spoor> ;
-    rdfs:range crm:E55_Type ;
-    rdfs:subpropertyOf crm:P2_has_type .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_structuur_beginperiode> a rdf:Property ;
-    rdfs:label "beginperiode van structuur"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Structuur> ;
-    rdfs:range crmeh:EHE0091_Timestamp ;
-    rdfs:subpropertyOf crmeh:EXP1 .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_structuur_eindperiode> a rdf:Property ;
-    rdfs:label "eindperiode van structuur"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Structuur> ;
-    rdfs:range crm:EHE0091_Timestamp ;
-    rdfs:subpropertyOf crmeh:EXP2 .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_structuur_structuurtype> a rdf:Property ;
-    rdfs:label "structuurtype van structuur"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Structuur> ;
-    rdfs:range crm:E55_Type ;
-    rdfs:subpropertyOf crm:P2_has_type .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_tekening_schaal> a rdf:Property ;
-    rdfs:label "schaal van tekening"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Tekening> ;
-    rdfs:range crmeh:EHE0079_RecordDrawingNote ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_kleur> a rdf:Property ;
+    rdfs:label "kleur van vulling"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vulling> ;
+    rdfs:range crmeh:EHE0059_ContextStuffNote ;
     rdfs:subpropertyOf crm:P3_has_note .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_tekening_tekenaar> a rdf:Property ;
-    rdfs:label "tekenaar van tekening"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Tekening> ;
-    rdfs:subpropertyOf dcterms:creator .
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_land> a rdf:Property ;
+    rdfs:label "land van adres"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Adres> ;
+    rdfs:range gn:Feature ;
+    rdfs:subpropertyOf gn:parentCountry .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_tekening_tekeningdatum> a rdf:Property ;
-    rdfs:label "tekeningdatum van tekening"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Tekening> ;
-    rdfs:subpropertyOf dcterms:date .
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_lichtgevoelig> a rdf:Property ;
+    rdfs:label "lichtgevoelig van doos"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Doos> ;
+    rdfs:range crmeh:EHE0041_ContextFindTreatmentProcedure ;
+    rdfs:subpropertyOf crm:P129i_is_subject_of .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_tekening_tekeningformaat> a rdf:Property ;
-    rdfs:label "tekeningformaat van tekening"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Tekening> ;
-    rdfs:range crmeh:EHE0079_RecordDrawingNote ;
-    rdfs:subpropertyOf crm:P3_has_note .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_tekening_tekeningmateriaal> a rdf:Property ;
-    rdfs:label "tekeningmateriaal van tekening"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Tekening> ;
-    rdfs:subpropertyOf dcterms:medium .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_tekening_tekeningonderwerp> a rdf:Property ;
-    rdfs:label "tekeningonderwerp van tekening"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Tekening> ;
-    rdfs:subpropertyOf dcterms:description .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_tekening_tekeningtype> a rdf:Property ;
-    rdfs:label "tekeningtype van tekening"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Tekening> ;
-    rdfs:range crmeh:EHE0081_RecordDrawingReferenceType ;
-    rdfs:subpropertyOf crm:P2_has_type .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_uitvoerder_uitvoerdercode> a rdf:Property ;
-    rdfs:label "uitvoerdercode van uitvoerder"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Uitvoerder> ;
-    rdfs:range crm:E42_Identifier ;
-    rdfs:subpropertyOf crm:P1_is_identified_by .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_vak_dikte> a rdf:Property ;
-    rdfs:label "dikte van vak"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vak> ;
-    rdfs:range crm:E54_Dimension ;
-    rdfs:subpropertyOf crm:P43_has_dimension .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_vak_nap> a rdf:Property ;
-    rdfs:label "nap van vak"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vak> ;
-    rdfs:range crm:E54_Dimension ;
-    rdfs:subpropertyOf crm:P43_has_dimension .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_vak_vaknummer> a rdf:Property ;
-    rdfs:label "vaknummer van vak"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vak> ;
-    rdfs:range crm:E41_Appellation ;
-    rdfs:subpropertyOf crm:P1_is_identified_by .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_veldvondst_verzamelwijze> a rdf:Property ;
-    rdfs:label "verzamelwijze van veldvondst"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Veldvondst> ;
-    rdfs:range crmeh:EHE0046_ContextNote ;
-    rdfs:subpropertyOf crm:P3_has_note .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_verpakkingseenheid_aantal> a rdf:Property ;
-    rdfs:label "aantal van verpakkingseenheid"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Verpakkingseenheid> ;
-    rdfs:subpropertyOf crm:P57_has_number_of_parts .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_verpakkingseenheid_beginperiode> a rdf:Property ;
-    rdfs:label "beginperiode van verpakkingseenheid"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Verpakkingseenheid> ;
-    rdfs:range crmeh:EHE0091_Timestamp ;
-    rdfs:subpropertyOf crmeh:EXP1 .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_verpakkingseenheid_eindperiode> a rdf:Property ;
-    rdfs:label "eindperiode van verpakkingseenheid"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Verpakkingseenheid> ;
-    rdfs:range crm:EHE0091_Timestamp ;
-    rdfs:subpropertyOf crmeh:EXP2 .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_verpakkingseenheid_gewicht> a rdf:Property ;
-    rdfs:label "gewicht van verpakkingseenheid"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Verpakkingseenheid> ;
-    rdfs:range crm:E54_Dimension ;
-    rdfs:subpropertyOf crm:P43_has_dimension .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_vindplaats_beginperiode> a rdf:Property ;
-    rdfs:label "beginperiode van vindplaats"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vindplaats> ;
-    rdfs:range crmeh:EHE0091_Timestamp ;
-    rdfs:subpropertyOf crmeh:EXP1 .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_vindplaats_eindperiode> a rdf:Property ;
-    rdfs:label "eindperiode van vindplaats"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vindplaats> ;
-    rdfs:range crm:EHE0091_Timestamp ;
-    rdfs:subpropertyOf crmeh:EXP2 .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_vindplaats_vindplaatstype> a rdf:Property ;
-    rdfs:label "vindplaatstype van vindplaats"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vindplaats> ;
-    rdfs:range crm:E55_Type ;
-    rdfs:subpropertyOf crm:P2_has_type .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_vindplaats_vondstmeldingsnummer> a rdf:Property ;
-    rdfs:label "vondstmeldingsnummer van vindplaats"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vindplaats> ;
-    rdfs:range crm:E42_Identifier ;
-    rdfs:subpropertyOf crm:P1_is_identified_by .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_vindplaats_waarnemingsnummer> a rdf:Property ;
-    rdfs:label "waarnemingsnummer van vindplaats"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vindplaats> ;
-    rdfs:range crm:E42_Identifier ;
-    rdfs:subpropertyOf crm:P1_is_identified_by .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_vondst_aantal> a rdf:Property ;
-    rdfs:label "aantal van vondst"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vondst> ;
-    rdfs:range crmeh:EHE0031_ContextFindMeasurement ;
-    rdfs:subpropertyOf crm:P43_has_dimension .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_vondst_artefacttype> a rdf:Property ;
-    rdfs:label "artefacttype van vondst"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vondst> ;
-    rdfs:range crm:E55_Type ;
-    rdfs:subpropertyOf crm:P2_has_type .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_vondst_beginperiode> a rdf:Property ;
-    rdfs:label "beginperiode van vondst"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vondst> ;
-    rdfs:range crmeh:EHE0091_Timestamp ;
-    rdfs:subpropertyOf crmeh:EXP1 .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_vondst_eindperiode> a rdf:Property ;
-    rdfs:label "eindperiode van vondst"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vondst> ;
-    rdfs:range crm:EHE0091_Timestamp ;
-    rdfs:subpropertyOf crmeh:EXP2 .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_vondst_exposabel> a rdf:Property ;
-    rdfs:label "exposabel van vondst"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vondst> ;
-    rdfs:range crm:E87_Curation_Activity ;
-    rdfs:subpropertyOf crm:P147i_was_curated_by .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_vondst_geconserveerd> a rdf:Property ;
-    rdfs:label "geconserveerd van vondst"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vondst> ;
-    rdfs:range crm:E87_Curation_Activity ;
-    rdfs:subpropertyOf crm:P147i_was_curated_by .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_vondst_gedeselecteerd> a rdf:Property ;
-    rdfs:label "gedeselecteerd van vondst"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vondst> ;
-    rdfs:range crm:E87_Curation_Activity ;
-    rdfs:subpropertyOf crm:P147i_was_curated_by .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_vondst_gewicht> a rdf:Property ;
-    rdfs:label "gewicht van vondst"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vondst> ;
-    rdfs:range crmeh:EHE0031_ContextFindMeasurement ;
-    rdfs:subpropertyOf crm:P43_has_dimension .
-
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_vondst_materiaalcategorie> a rdf:Property ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_materiaalcategorie> a rdf:Property ;
     rdfs:label "materiaalcategorie van vondst"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vondst> ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vondst> ;
     rdfs:range crmeh:EHE0030_ContextFindMaterial ;
     rdfs:subpropertyOf crm:P45_consists_of .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_vondstcontext_contexttype> a rdf:Property ;
-    rdfs:label "contexttype van vondstcontext"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vondstcontext> ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_methode> a rdf:Property ;
+    rdfs:label "methode van hoogtemeting"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Hoogtemeting> ;
     rdfs:range crm:E55_Type ;
     rdfs:subpropertyOf crm:P2_has_type .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_vulling_kleur> a rdf:Property ;
-    rdfs:label "kleur van vulling"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vulling> ;
-    rdfs:range crmeh:EHE0059_ContextStuffNote ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_monstertype> a rdf:Property ;
+    rdfs:label "monstertype van monster"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Monster> ;
+    rdfs:range crmeh:EHE0053_ContextSampleType ;
+    rdfs:subpropertyOf crm:P2_has_type .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_monsterverwerking> a rdf:Property ;
+    rdfs:label "monsterverwerking van monster"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Monster> ;
     rdfs:subpropertyOf crm:P3_has_note .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_vulling_textuur> a rdf:Property ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_naam> a rdf:Property ;
+    rdfs:label "naam"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Organisatie>,
+        <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Persoon> ;
+    rdfs:range crm:E82_Actor_Appellation,
+        foaf:Person ;
+    rdfs:subpropertyOf crm:P131_is_identified_by .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_naamCodelijst> a rdf:Property ;
+    rdfs:label "naamCodelijst van codereferentie"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Codereferentie> ;
+    rdfs:range crm:E32_Authority_Document ;
+    rdfs:subpropertyOf crm:P71i_is_listed_in .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_nap> a rdf:Property ;
+    rdfs:label "nap"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Hoogtemeting>,
+        <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vak> ;
+    rdfs:range crm:E54_Dimension ;
+    rdfs:subpropertyOf crm:P40_observed_dimension,
+        crm:P43_has_dimension .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_objectrelatietype> a rdf:Property ;
+    rdfs:label "objectrelatietype van objectrelatie"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Objectrelatie> ;
+    rdfs:subpropertyOf rdfs:comment .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_omschrijving> a rdf:Property ;
+    rdfs:label "omschrijving van project"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Project> ;
+    rdfs:subpropertyOf crm:P3_has_note .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_onderzoeksmeldingsnummer> a rdf:Property ;
+    rdfs:label "onderzoeksmeldingsnummer van project"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Project> ;
+    rdfs:range crm:E42_Identifier ;
+    rdfs:subpropertyOf crm:P48_has_preferred_identifier .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_onderzoektype> a rdf:Property ;
+    rdfs:label "onderzoektype van project"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Project> ;
+    rdfs:range crm:E55_Type ;
+    rdfs:subpropertyOf crm:P2_has_type .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_opnamedatum> a rdf:Property ;
+    rdfs:label "opnamedatum van foto"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Foto> ;
+    rdfs:subpropertyOf dcterms:date .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_opnamemedium> a rdf:Property ;
+    rdfs:label "opnamemedium van foto"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Foto> ;
+    rdfs:subpropertyOf dcterms:medium .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_opnametype> a rdf:Property ;
+    rdfs:label "opnametype van foto"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Foto> ;
+    rdfs:range crmeh:EHE0085_RecordPhotographReferenceType ;
+    rdfs:subpropertyOf crm:P2_has_type .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_paginas> a rdf:Property ;
+    rdfs:label "paginas van document"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Document> ;
+    rdfs:subpropertyOf prism:pageCount .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_plaatscode> a rdf:Property ;
+    rdfs:label "plaatscode van projectlocatie"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Projectlocatie> ;
+    rdfs:range crm:E44_Place_Appellation ;
+    rdfs:subpropertyOf crm:P89_falls_within .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_plaatsnaam> a rdf:Property ;
+    rdfs:label "plaatsnaam van adres"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Adres> ;
+    rdfs:range gn:Feature ;
+    rdfs:subpropertyOf locn:postName .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_planumtype> a rdf:Property ;
+    rdfs:label "planumtype van planum"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Planum> ;
+    rdfs:range crm:E55_Type ;
+    rdfs:subpropertyOf crm:P2_has_type .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_postcode> a rdf:Property ;
+    rdfs:label "postcode van adres"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Adres> ;
+    rdfs:subpropertyOf locn:postCode .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_projectnaam> a rdf:Property ;
+    rdfs:label "projectnaam van project"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Project> ;
+    rdfs:range crm:E41_Appellation ;
+    rdfs:subpropertyOf crm:P1_is_identified_by .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_provincie> a rdf:Property ;
+    rdfs:label "provincie van adres"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Adres> ;
+    rdfs:range gn:Feature ;
+    rdfs:subpropertyOf gn:parentADM1 .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_provinciecode> a rdf:Property ;
+    rdfs:label "provinciecode van projectlocatie"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Projectlocatie> ;
+    rdfs:range crm:E44_Place_Appellation ;
+    rdfs:subpropertyOf crm:P89_falls_within .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_redacteur> a rdf:Property ;
+    rdfs:label "redacteur van document"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Document> ;
+    rdfs:subpropertyOf bibo:editor .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_schaal> a rdf:Property ;
+    rdfs:label "schaal van tekening"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Tekening> ;
+    rdfs:range crmeh:EHE0079_RecordDrawingNote ;
+    rdfs:subpropertyOf crm:P3_has_note .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_serie> a rdf:Property ;
+    rdfs:label "serie van document"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Document> ;
+    rdfs:subpropertyOf prism:seriesTitle .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_software> a rdf:Property ;
+    rdfs:label "software van bestand"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Bestand> ;
+    rdfs:subpropertyOf dcterms:description .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_standaardCode> a rdf:Property ;
+    rdfs:label "standaardCode van codereferentie"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Codereferentie> ;
+    rdfs:range crm:E75_Conceptual_Object_Appellation ;
+    rdfs:subpropertyOf crm:P1_is_identified_by .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_startdatum> a rdf:Property ;
+    rdfs:label "startdatum van project"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Project> ;
+    rdfs:range crmeh:EHE0091_Timestamp ;
+    rdfs:subpropertyOf crmeh:EXP1 .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_straat> a rdf:Property ;
+    rdfs:label "straat van adres"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Adres> ;
+    rdfs:range gn:Feature ;
+    rdfs:subpropertyOf locn:thoroughfare .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_structuurtype> a rdf:Property ;
+    rdfs:label "structuurtype van structuur"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Structuur> ;
+    rdfs:range crm:E55_Type ;
+    rdfs:subpropertyOf crm:P2_has_type .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_tekenaar> a rdf:Property ;
+    rdfs:label "tekenaar van tekening"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Tekening> ;
+    rdfs:subpropertyOf dcterms:creator .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_tekeningdatum> a rdf:Property ;
+    rdfs:label "tekeningdatum van tekening"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Tekening> ;
+    rdfs:subpropertyOf dcterms:date .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_tekeningformaat> a rdf:Property ;
+    rdfs:label "tekeningformaat van tekening"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Tekening> ;
+    rdfs:range crmeh:EHE0079_RecordDrawingNote ;
+    rdfs:subpropertyOf crm:P3_has_note .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_tekeningmateriaal> a rdf:Property ;
+    rdfs:label "tekeningmateriaal van tekening"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Tekening> ;
+    rdfs:subpropertyOf dcterms:medium .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_tekeningonderwerp> a rdf:Property ;
+    rdfs:label "tekeningonderwerp van tekening"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Tekening> ;
+    rdfs:subpropertyOf dcterms:description .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_tekeningtype> a rdf:Property ;
+    rdfs:label "tekeningtype van tekening"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Tekening> ;
+    rdfs:range crmeh:EHE0081_RecordDrawingReferenceType ;
+    rdfs:subpropertyOf crm:P2_has_type .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_telefoon> a rdf:Property ;
+    rdfs:label "telefoon"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Organisatie>,
+        <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Persoon> ;
+    rdfs:range crm:E51_Contact_Point ;
+    rdfs:subpropertyOf crm:P76_has_contact_point .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_textuur> a rdf:Property ;
     rdfs:label "textuur van vulling"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vulling> ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vulling> ;
     rdfs:range crmeh:EHE0059_ContextStuffNote ;
     rdfs:subpropertyOf crm:P3_has_note .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_vulling_vorm> a rdf:Property ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_titel> a rdf:Property ;
+    rdfs:label "titel"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Document>,
+        <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Persoon> ;
+    rdfs:subpropertyOf dcterms:title,
+        foaf:title .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_titelContainer> a rdf:Property ;
+    rdfs:label "titelContainer van document"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Document> ;
+    rdfs:subpropertyOf prism:publicationName .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_toponiem> a rdf:Property ;
+    rdfs:label "toponiem van projectlocatie"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Projectlocatie> ;
+    rdfs:range crmeh:EHE0002_ArchaeologicalSite ;
+    rdfs:subpropertyOf crm:P59i_is_located_on_or_within .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_tussenvoegsel> a rdf:Property ;
+    rdfs:label "tussenvoegsel van persoon"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Persoon> ;
+    rdfs:subpropertyOf foaf:givenName .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_uitgavePlaats> a rdf:Property ;
+    rdfs:label "uitgavePlaats van document"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Document> ;
+    rdfs:subpropertyOf dcterms:spatial .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_uitgever> a rdf:Property ;
+    rdfs:label "uitgever van document"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Document> ;
+    rdfs:subpropertyOf dcterms:publisher .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_uitvoerdercode> a rdf:Property ;
+    rdfs:label "uitvoerdercode van uitvoerder"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Uitvoerder> ;
+    rdfs:range crm:E42_Identifier ;
+    rdfs:subpropertyOf crm:P1_is_identified_by .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_vaknummer> a rdf:Property ;
+    rdfs:label "vaknummer van vak"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vak> ;
+    rdfs:range crm:E41_Appellation ;
+    rdfs:subpropertyOf crm:P1_is_identified_by .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_verzamelwijze> a rdf:Property ;
+    rdfs:label "verzamelwijze van veldvondst"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Veldvondst> ;
+    rdfs:range crmeh:EHE0046_ContextNote ;
+    rdfs:subpropertyOf crm:P3_has_note .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_vindplaatstype> a rdf:Property ;
+    rdfs:label "vindplaatstype van vindplaats"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vindplaats> ;
+    rdfs:range crm:E55_Type ;
+    rdfs:subpropertyOf crm:P2_has_type .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_vondstmeldingsnummer> a rdf:Property ;
+    rdfs:label "vondstmeldingsnummer van vindplaats"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vindplaats> ;
+    rdfs:range crm:E42_Identifier ;
+    rdfs:subpropertyOf crm:P1_is_identified_by .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_voornaam> a rdf:Property ;
+    rdfs:label "voornaam van persoon"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Persoon> ;
+    rdfs:subpropertyOf foaf:givenName .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_vorm> a rdf:Property ;
     rdfs:label "vorm van vulling"@nl ;
-    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vulling> ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vulling> ;
     rdfs:range crmeh:EHE0059_ContextStuffNote ;
     rdfs:subpropertyOf crm:P3_has_note .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Digitaalmedium> rdfs:label "Digitaalmedium"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_waardetype> a rdf:Property ;
+    rdfs:label "waardetype van attribuuttype"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Attribuuttype> ;
+    rdfs:range crm:E55_Type ;
+    rdfs:subpropertyOf crm:P2_has_type .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_waarnemingsnummer> a rdf:Property ;
+    rdfs:label "waarnemingsnummer van vindplaats"@nl ;
+    rdfs:domain <http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vindplaats> ;
+    rdfs:range crm:E42_Identifier ;
+    rdfs:subpropertyOf crm:P1_is_identified_by .
+
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Digitaalmedium> a rdf:Resource ;
+    rdfs:label "Digitaalmedium"@nl ;
     dcterms:description "Hier wordt de metainformatie en inhoud van elke digitale informatiedrager (CD/DVD/etc) beschreven. KNA-bouwsteen digitaal_medium."@nl ;
     rdfs:subClassOf crm:E84_Information_Carrier .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Dossier> rdfs:label "Dossier"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Dossier> a rdf:Resource ;
+    rdfs:label "Dossier"@nl ;
     dcterms:description "Hier wordt een overzicht gegeven (inventarislijst) van alle analoge lijsten en formulieren (puttenlijst, sporenlijst, vondstenlijst, dagrapporten , eventueel per opslageenheid (ordner, snelhechtmap, archiefdoos etc.). KNA-bouwsteen: ordner, ordner_inhoud"@nl ;
     rdfs:subClassOf crm:E12_Production .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Geolocatie> rdfs:label "Geolocatie"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Geolocatie> a rdf:Resource ;
+    rdfs:label "Geolocatie"@nl ;
     dcterms:description "Een geo-locatie."@nl ;
     rdfs:subClassOf crm:E44_Place_Appellation .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Objectrelatie> rdfs:label "Objectrelatie"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Objectrelatie> a rdf:Resource ;
+    rdfs:label "Objectrelatie"@nl ;
     dcterms:description "Generieke tabel voor object-relaties, te gebruiken voor alle niet direct te leggen relaties"@nl ;
     rdfs:subClassOf owl:ObjectProperty .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Planum> rdfs:label "Planum"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Planum> a rdf:Resource ;
+    rdfs:label "Planum"@nl ;
     dcterms:description " Generieke entiteit voor een putvlak (profiel of aanlegvlak), administratief en inhoudelijk gegeven. KNA-bouwstenen: profiel, coupe, vlak "@nl ;
     rdfs:subClassOf crmeh:EHE0007_Context .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Uitvoerder> rdfs:label "Uitvoerder"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Uitvoerder> a rdf:Resource ;
+    rdfs:label "Uitvoerder"@nl ;
     dcterms:description "Gegevens van de uitvoerder."@nl ;
     rdfs:subClassOf crm:E40_Legal_Body .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Veldvondst> rdfs:label "Veldvondst"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Veldvondst> a rdf:Resource ;
+    rdfs:label "Veldvondst"@nl ;
     dcterms:description " Aanduiding van vondst in het veld met de beschrijving van de verzamelwijze en relatie met vondstcontext. KNA-bouwsteen: vondst_veld "@nl ;
     rdfs:subClassOf crm:E78_Collection .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vondstcontext> rdfs:label "Vondstcontext"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vondstcontext> a rdf:Resource ;
+    rdfs:label "Vondstcontext"@nl ;
     dcterms:description "Relatieobject om de context van vondsten en monsters te duiden."@nl ;
     rdfs:subClassOf crmeh:EHE0009_ContextFind .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Hoogtemeting> rdfs:label "Hoogtemeting"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Hoogtemeting> a rdf:Resource ;
+    rdfs:label "Hoogtemeting"@nl ;
     dcterms:description "NAP-hoogtemeting"@nl ;
     rdfs:subClassOf crm:E13_Attribute_Assignment .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Structuur> rdfs:label "Structuur"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Structuur> a rdf:Resource ;
+    rdfs:label "Structuur"@nl ;
     dcterms:description " Structuur is de groepering van sporen tot archelogische structuren. KNA-bouwsteen: spoor_structuur "@nl ;
     rdfs:subClassOf crmeh:EHE0008_ContextStuff .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vak> rdfs:label "Vak"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vak> a rdf:Resource ;
+    rdfs:label "Vak"@nl ;
     dcterms:description " Een vak. KNA-bouwstenen: vak, vak_meting "@nl ;
     rdfs:subClassOf crmeh:EHE0007_Context .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vulling> rdfs:label "Vulling"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vulling> a rdf:Resource ;
+    rdfs:label "Vulling"@nl ;
     dcterms:description " 3D volume waaruit spoor is opgebouwd. KNA-bouwsteen: vulling "@nl ;
     rdfs:subClassOf crmeh:EHE0008_ContextStuff .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Monster> rdfs:label "Monster"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Monster> a rdf:Resource ;
+    rdfs:label "Monster"@nl ;
     dcterms:description " Monsters volgen het stramien van vondsten. KNA-bouwsteen: monster "@nl ;
     rdfs:subClassOf crmeh:EHE0018_ContextSample .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Organisatie> rdfs:label "Organisatie"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Organisatie> a rdf:Resource ;
+    rdfs:label "Organisatie"@nl ;
     dcterms:description "Organisatie"@nl ;
     rdfs:subClassOf crm:E40_Legal_Body .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Spoor> rdfs:label "Spoor"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Spoor> a rdf:Resource ;
+    rdfs:label "Spoor"@nl ;
     dcterms:description " Beschrijving van de sporen. KNA-bouwsteen: spoor "@nl ;
     rdfs:subClassOf crmeh:EHE0007_Context .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Verpakkingseenheid> rdfs:label "Verpakkingseenheid"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Verpakkingseenheid> a rdf:Resource ;
+    rdfs:label "Verpakkingseenheid"@nl ;
     dcterms:description " Verpakkingseenheid die een of meerdere vondsten kan bevatten. KNA-bouwsteen: doos_inhoud "@nl ;
     rdfs:subClassOf crmeh:EHE0010_BulkFind .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Bestand> rdfs:label "Bestand"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Bestand> a rdf:Resource ;
+    rdfs:label "Bestand"@nl ;
     dcterms:description "Bestand"@nl ;
     rdfs:subClassOf crm:E73_Information_Object .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Codereferentie> rdfs:label "Codereferentie"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Codereferentie> a rdf:Resource ;
+    rdfs:label "Codereferentie"@nl ;
     dcterms:description "Codereferentielijst ten behoeve van omschrijven gebruikte coderingen, harmonisatie en historie wijzigingen."@nl ;
     rdfs:subClassOf crm:E32_Authority_Document .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Doos> rdfs:label "Doos"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Doos> a rdf:Resource ;
+    rdfs:label "Doos"@nl ;
     dcterms:description "Een doos is een fysieke opslageenheid voor vondsten en/of monsters. KNA-bouwsteen: doos."@nl ;
     rdfs:subClassOf crm:E78_Collection .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Foto> rdfs:label "Foto"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Foto> a rdf:Resource ;
+    rdfs:label "Foto"@nl ;
     dcterms:description " Een foto is een beeldopname, analoog of digitaal. KNA-bouwstenen: foto, foto_onderwerp "@nl ;
     rdfs:subClassOf crmeh:EHE0017_RecordPhotograph .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Projectlocatie> rdfs:label "Projectlocatie"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Projectlocatie> a rdf:Resource ;
+    rdfs:label "Projectlocatie"@nl ;
     dcterms:description "Locatie van het project"@nl ;
     rdfs:subClassOf crmeh:EHE0003_AreaOfInvestigation .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vindplaats> rdfs:label "Vindplaats"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vindplaats> a rdf:Resource ;
+    rdfs:label "Vindplaats"@nl ;
     dcterms:description "Gegevens van vindplaats."@nl ;
     rdfs:subClassOf crmeh:EHE0004_SiteSubDivision .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Project> rdfs:label "Project"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Project> a rdf:Resource ;
+    rdfs:label "Project"@nl ;
     dcterms:description "KNA-bouwsteen: project"@nl ;
     rdfs:subClassOf crmeh:EHE0001_EHProject .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Adres> rdfs:label "Adres"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Adres> a rdf:Resource ;
+    rdfs:label "Adres"@nl ;
     dcterms:description "Adres"@nl ;
     rdfs:subClassOf locn:Address .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Tekening> rdfs:label "Tekening"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Tekening> a rdf:Resource ;
+    rdfs:label "Tekening"@nl ;
     dcterms:description " Een tekening is hier een fysieke, handgemaakte of uitgeprinte archeologische tekening van vondsten, sporen, vullingen, vlakken, putten, profielen, coupes en/of structuren. KNA-bouwstenen: tekening, tekening_onderwerp "@nl ;
     rdfs:subClassOf crmeh:EHE0016_RecordDrawing .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Persoon> rdfs:label "Persoon"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Persoon> a rdf:Resource ;
+    rdfs:label "Persoon"@nl ;
     dcterms:description "Contactpersoon"@nl ;
     rdfs:subClassOf crm:E21_Person .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Vondst> rdfs:label "Vondst"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Vondst> a rdf:Resource ;
+    rdfs:label "Vondst"@nl ;
     dcterms:description " Een vondst is een logische verzameleenheid bestaande uit minimaal 1 fysiek object. Vondsten worden per doos aangeboden aan het depot. KNA-bouwsteen: vondst_verwerking "@nl ;
     rdfs:subClassOf crmeh:EHE0009_ContextFind .
 
-<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102_Schema_Document> rdfs:label "Document"@nl ;
+<http://pakbon-ld.spider.d2s.labs.vu.nl/ont/SIKB0102S_Document> a rdf:Resource ;
+    rdfs:label "Document"@nl ;
     dcterms:description "Dit kan onder andere een rapport of een document zijn. KNA-bouwsteen: rapport."@nl ;
     rdfs:subClassOf crm:E31_Document .
 

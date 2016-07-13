@@ -57,7 +57,7 @@ def fuzzyTextMatchElseNew(graph, default_graphs, basens, ctype, attrs=[], string
         label = rdflib.Literal(string, datatype=rdflib.URIRef(nss['xsd'] + 'string'))
         hf.addLabel(graph, node, label, lang)
 
-    if exnode is not None:
+    if exnode is not None and exnode.toPython() != node.toPython():
         hf.addProperty(graph, node, exnode, rdflib.URIRef(nss['rdfs'] + 'sameAs'))
         hf.addProperty(graph, exnode, node, rdflib.URIRef(nss['rdfs'] + 'sameAs'))
 

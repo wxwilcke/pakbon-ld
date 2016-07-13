@@ -12,7 +12,7 @@ class Schema0102:
         self.basens = namespace['base'] + '/ont/'
         self.ns = re.sub(r'(\{.*\})schema', r'\1', troot.tag)
 
-        self.baseid = 'SIKB0102_Schema'
+        self.baseid = 'SIKB0102S'
 
         # new graph
         self.graph = rdflib.Graph(identifier=self.baseid)
@@ -42,12 +42,13 @@ class Schema0102:
 
     def classHandler(self, ctype, name, superclass):
         node = rdflib.URIRef(self.basens + self.baseid + '_' + name)
+        hf.addType(self.graph, node, rdflib.URIRef(self.nss['rdf'] + 'Resource'))
         hf.addSubClassOf(self.graph, node, superclass)
         hf.addLabel(self.graph, node, name, 'nl')
         self.addDoc(ctype, node)
 
     def propertyHandler(self, element, basename, superprop, proprange=None):
-        node = rdflib.URIRef(self.basens + self.baseid + '_' + basename + '_' + element.attrib['name'])
+        node = rdflib.URIRef(self.basens + self.baseid + '_' + element.attrib['name'])
         hf.addType(self.graph, node, rdflib.URIRef(self.nss['rdf'] + 'Property'))
         hf.addProperty(self.graph, node, superprop, rdflib.URIRef(self.nss['rdfs'] + 'subpropertyOf'))
         hf.addLabel(self.graph, node, element.attrib['name'] + ' van ' + basename, 'nl')
@@ -96,7 +97,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -122,7 +123,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -152,7 +153,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -186,7 +187,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -215,7 +216,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -235,7 +236,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -270,7 +271,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -293,7 +294,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -335,7 +336,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -363,7 +364,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -383,7 +384,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -410,7 +411,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -442,7 +443,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -470,7 +471,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -502,7 +503,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -525,7 +526,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -559,7 +560,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -587,7 +588,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -625,7 +626,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -648,7 +649,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -674,7 +675,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -700,7 +701,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -726,7 +727,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -746,7 +747,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -766,7 +767,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -789,7 +790,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -833,7 +834,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -856,7 +857,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -876,7 +877,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 
@@ -908,7 +909,7 @@ class Schema0102:
 
             if name != '' and supprop is not None and supclass is not None:
                 self.propertyHandler(element, basename, supprop, supclass)
-                self.classHandler(element, basename.title() + '.' + name.title(), supclass)
+                self.classHandler(element, name.title(), supclass)
             elif name != '' and supprop is not None:
                 self.propertyHandler(element, basename, supprop)
 

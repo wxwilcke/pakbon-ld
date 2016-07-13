@@ -149,16 +149,22 @@ class Protocol0102:
 
         hf.addProperty(self.graph, self.groot, gnode, rdflib.URIRef(self.nss['crm'] + 'P70_documents'))
 
-        parentname = re.sub(self.sikbns, '', tnode.tag)
+        
         for child in tnode.getchildren():
             childname = re.sub(self.sikbns, '', child.tag)
             if childname == 'projectnaam':
+                if child.text is None:
+                    continue
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), lang='nl')
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
 
                 hf.updateLabel(self.graph, gnode, "({})".format(hf.rawString(child.text)), 'nl')
             if childname == 'startdatum':
+                if child.text is None:
+                    continue
                 bhid = hf.genHash(tnode, self.sikbns, ['startdatum', 'einddatum'], 'EHE0021_EHProjectTimespan')
                 bnode = hf.getNode(self.graph, bhid)
                 if bnode is not None:
@@ -172,37 +178,46 @@ class Protocol0102:
                 hf.addProperty(self.graph, bnode, inode, rdflib.URIRef(self.nss['crm'] + 'P48_has_preferred_identifier'))
 
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'date'))
-                hf.addProperty(self.graph, bnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, bnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
 
+                dnode = None
                 snode = tnode.find(self.sikbns + 'einddatum')
                 if snode is not None:
                     childname = re.sub(self.sikbns, '', snode.tag)
                     dnode = rdflib.Literal(hf.rawString(snode.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'date'))
-                    hf.addProperty(self.graph, bnode, dnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                           parentname + '_' + childname))
+                    hf.addProperty(self.graph, bnode, dnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                           childname))
 
                 enddate = dnode.value if dnode is not None else '?'
                 hf.addLabel(self.graph, bnode,\
                             'Tijdspanne (van {} tot {})'.format(cnode.value, enddate), 'nl')
 
             if childname == 'onderzoeksmeldingsnummer':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), lang='nl')
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
 
             if childname == 'onderzoektype':
+                if child.text is None:
+                    continue
                 key = 'verwerving'  # needed for inconsistent labeling by SIKB
                 cnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
-                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname)
 
                 hf.addRefIfExists(self, cnode, child)
             if childname == 'omschrijving':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), lang='nl')
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
 
             if childname == 'bevoegdGezag':
+                if child.text is None:
+                    continue
                 bhid = hf.genHash(child, self.sikbns, ['organisatieId', 'persoonId'])
                 bnode = hf.getNode(self.graph, bhid)
                 if bnode is not None:
@@ -226,6 +241,8 @@ class Protocol0102:
                         hf.addProperty(self.graph, bnode, enode, rdflib.URIRef(self.nss['crm'] + 'P107_has_current_or_former_member'))
 
             if childname == 'uitvoerder':
+                if child.text is None:
+                    continue
                 bhid = hf.genHash(child, self.sikbns, ['uitvoerdercode', 'opgravingsleiderPersoonId',\
                                                        'depotContactPersoonId'])
                 bnode = hf.getNode(self.graph, bhid)
@@ -239,21 +256,27 @@ class Protocol0102:
                 inode = rdflib.Literal(hid + bhid, datatype=rdflib.URIRef(self.nss['xsd'] + 'ID'))
                 hf.addProperty(self.graph, bnode, inode, rdflib.URIRef(self.nss['crm'] + 'P48_has_preferred_identifier'))
 
-                parentname = childname
+                
                 uitvoerdercode = ''
                 for element in child:
                     childname = re.sub(self.sikbns, '', element.tag)
                     if childname == 'uitvoerdercode':  #
+                        if child.text is None:
+                            continue
                         key = 'uitvoerder'  # needed for inconsistent labeling by SIKB
                         enode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(element.text))
-                        hf.addSchemaType(self.graph, self.ontns, enode, bnode, childname, parentname)
+                        hf.addSchemaType(self.graph, self.ontns, enode, bnode, childname)
                         hf.addRefIfExists(self, enode, element)
 
                         uitvoerdercode = hf.rawString(element.text) + ' '
                     if childname == 'opgravingsleiderPersoonId':
+                        if child.text is None:
+                            continue
                         enode = self.persoonHandler(hf.getTreeNodeByID(self.troot, self.sikbns, element.text), gnode).node
                         hf.addProperty(self.graph, bnode, enode, rdflib.URIRef(self.nss['crm'] + 'P107_has_current_or_former_member'))
                     if childname == 'depotContactPersoonId':
+                        if child.text is None:
+                            continue
                         enode = self.persoonHandler(hf.getTreeNodeByID(self.troot, self.sikbns, element.text), gnode).node
                         hf.addProperty(self.graph, bnode, enode, rdflib.URIRef(self.nss['crm'] + 'P107_has_current_or_former_member'))
 
@@ -301,35 +324,45 @@ class Protocol0102:
             hf.addProperty(self.graph, gnode, geonode, rdflib.URIRef(self.nss['crm'] + 'P87_is_identified_by'))
             hf.addProperty(self.graph, geonode, gnode, rdflib.URIRef(self.nss['crm'] + 'P87i_identifies'))
 
-        parentname = re.sub(self.sikbns, '', tnode.tag)
+        
         for child in tnode.getchildren():
             childname = re.sub(self.sikbns, '', child.tag)
             if childname == 'provinciecode':
+                if child.text is None:
+                    continue
                 key = 'provincie'  # needed for inconsistent labeling by SIKB
                 cnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
-                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname)
                 hf.addRefIfExists(self, cnode, child)
             if childname == 'gemeentecode':
+                if child.text is None:
+                    continue
                 key = 'gemeente'  # needed for inconsistent labeling by SIKB
                 cnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
-                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname)
                 hf.addRefIfExists(self, cnode, child)
             if childname == 'plaatscode':
+                if child.text is None:
+                    continue
                 key = 'plaats'  # needed for inconsistent labeling by SIKB
                 cnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
-                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname)
                 hf.addRefIfExists(self, cnode, child)
             if childname == 'toponiem':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), lang='nl')
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
                 hf.addLabel(self.graph, gnode, "Projectlocatie ({})".format(hf.rawString(child.text)), 'nl')
                 hf.updateLabel(self.graph, geonode, "({})".format(hf.rawString(child.text)), 'nl')
                 hf.updateLabel(self.graph, geomnode, "({})".format(hf.rawString(child.text)), 'nl')
             if childname == 'kaartblad':
+                if child.text is None:
+                    continue
                 key = 'kaartblad'  # needed for inconsistent labeling by SIKB
                 cnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
-                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname)
                 hf.addRefIfExists(self, cnode, child)
             if childname == 'geolocatieId':
                 continue
@@ -363,20 +396,26 @@ class Protocol0102:
             hf.addProperty(self.graph, geonode, gnode, rdflib.URIRef(self.nss['crm'] + 'P87i_identifies'))
 
 
-        parentname = re.sub(self.sikbns, '', tnode.tag)
+        
         for child in tnode.getchildren():
             childname = re.sub(self.sikbns, '', child.tag)
-            if childname == 'vondstmeldingsnummer':  # until direct linking in Archis is possible
+            if childname == 'vondstmeldingsnummer':
+                if child.text is None:
+                    continue  # until direct linking in Archis is possible
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + \
                                                                                         'positiveInteger'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
-            if childname == 'waarnemingsnummer':  # until direct linking in Archis is possible
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
+            if childname == 'waarnemingsnummer':
+                if child.text is None:
+                    continue  # until direct linking in Archis is possible
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + \
                                                                                         'positiveInteger'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'beginperiode':
+                if child.text is None:
+                    continue
                 bhid = hf.genHash(tnode, self.sikbns, ['beginperiode', 'eindperiode'], 'E52_Time-Span')
                 bnode = hf.getNode(self.graph, bhid)
                 if bnode is not None:
@@ -393,15 +432,16 @@ class Protocol0102:
 
                 key = 'periode'  # needed for inconsistent labeling by SIKB
                 cnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
-                hf.addSchemaType(self.graph, self.ontns, cnode, bnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, cnode, bnode, childname)
                 hf.addRefIfExists(self, cnode, child)
 
+                dnode = None
                 snode = tnode.find(self.sikbns + 'eindperiode')
                 if snode is not None:
                     childname = re.sub(self.sikbns, '', snode.tag)
                     key = 'periode'  # needed for inconsistent labeling by SIKB
                     dnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(snode.text))
-                    hf.addSchemaType(self.graph, self.ontns, dnode, bnode, childname, parentname)
+                    hf.addSchemaType(self.graph, self.ontns, dnode, bnode, childname)
                     hf.addRefIfExists(self, dnode, snode)
 
                 startdate = hf.getLabel(self.vocab, cnode) if (cnode is not None and self.vocab is not None)\
@@ -411,9 +451,11 @@ class Protocol0102:
                 hf.addLabel(self.graph, bnode, 'Tijdspanne (van {} tot {})'.format(startdate, enddate), 'nl')
 
             if childname == 'vindplaatstype':
+                if child.text is None:
+                    continue
                 key = 'complextype'  # needed for inconsistent labeling by SIKB
                 cnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
-                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname)
                 hf.addRefIfExists(self, cnode, child)
             if childname == 'geolocatieId':
                 continue
@@ -457,13 +499,12 @@ class Protocol0102:
                 hf.addProperty(self.graph, doc, gnode, rdflib.URIRef(self.nss['crm'] + 'P128i_is_carried_by'))
 
 
-            parentname = re.sub(self.sikbns, '', tnode.tag)
             for child in tnode.getchildren():
                 childname = re.sub(self.sikbns, '', child.tag)
                 if childname == 'dossiertype':
                     cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                    hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                           parentname + '_' + childname))
+                    hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                           childname))
                 if childname == 'documentId':
                     continue
 
@@ -481,36 +522,49 @@ class Protocol0102:
         hf.addProperty(self.graph, self.gproject.altnode, gnode, rdflib.URIRef(self.nss['crm'] + 'P128_carries'))
         hf.addProperty(self.graph, gnode, self.gproject.altnode, rdflib.URIRef(self.nss['crm'] + 'P128i_is_carried_by'))
 
-        parentname = re.sub(self.sikbns, '', tnode.tag)
         for child in tnode.getchildren():
             childname = re.sub(self.sikbns, '', child.tag)
             if childname == 'bestandId':
+                if child.text is None:
+                    continue
                 enode = self.bestandHandler(hf.getTreeNodeByID(self.troot, self.sikbns, child.text)).node
 
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['dcterms'] + 'isPartOf'))
                 hf.addProperty(self.graph, enode, gnode, rdflib.URIRef(self.nss['dcterms'] + 'hasPart'))
             if childname == 'bestandsnaam':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'bestandtype':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'bestandsinhoud':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), lang='nl')
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
                 hf.updateLabel(self.graph, gnode, "({})".format(hf.rawString(child.text)), 'nl')
             if childname == 'software':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'codeboek':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'digitaalmediumId':
+                if child.text is None:
+                    continue
                 enode = self.digitaalmediumHandler(hf.getTreeNodeByID(self.troot, self.sikbns, child.text)).node
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['dcterms'] + 'medium'))
 
@@ -526,13 +580,14 @@ class Protocol0102:
         hf.extractBasisTypeFields(self.graph, gnode, tnode, self.sikbns, gpnode=self.gproject.node)
         hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crm'] + 'E84_Information_Carrier'))
 
-        parentname = re.sub(self.sikbns, '', tnode.tag)
         for child in tnode.getchildren():
             childname = re.sub(self.sikbns, '', child.tag)
             if childname == 'digitaalmediumtype':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
                 hf.updateLabel(self.graph, gnode, "({})".format(hf.rawString(child.text)), 'nl')
 
         return self.ReturnValues(node=gnode, altnode=None)
@@ -547,82 +602,108 @@ class Protocol0102:
         hf.extractBasisTypeFields(self.graph, gnode, tnode, self.sikbns, gpnode=self.gproject.node)
         hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crm'] + 'E31_Document'))
 
-        parentname = re.sub(self.sikbns, '', tnode.tag)
+        
         for child in tnode.getchildren():
             childname = re.sub(self.sikbns, '', child.tag)
             if childname == 'documenttype':
+                if child.text is None:
+                    continue
                 key = 'documenttype'  # needed for inconsistent labeling by SIKB
                 cnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
-                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname)
                 hf.addRefIfExists(self, cnode, child)
             if childname == 'titel':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
                 hf.updateLabel(self.graph, gnode, "('{}'".format(hf.rawString(child.text)), 'nl')
             if childname == 'auteur':
-                cnode = al.fuzzyTextMatchElseNew(self.graph, self.default_graphs, self.basens, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_Persoon'),\
+                if child.text is None:
+                    continue
+                cnode = al.fuzzyTextMatchElseNew(self.graph, self.default_graphs, self.basens, rdflib.URIRef(self.ontns + 'SIKB0102S_Persoon'),\
                                                                             [rdflib.URIRef(self.nss['rdfs'] + 'label')],\
                                                                             hf.rawString(child.text), align=self.align,\
                                                                             endpoint=self.endpoint, interactive=self.interactive)
 
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
                 hf.updateLabel(self.graph, gnode, "; {})".format(hf.rawString(child.text)), 'nl')
             if childname == 'jaar':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'gYear'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'serie':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'paginas':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'positiveInteger'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'uitgever':
+                if child.text is None:
+                    continue
                 cnode = al.fuzzyTextMatchElseNew(self.graph, self.default_graphs, self.basens, rdflib.URIRef(self.nss['crm'] + 'E40_Legal_Body'),\
                                                                             [rdflib.URIRef(self.nss['rdfs'] + 'label')],\
                                                                             hf.rawString(child.text), align=self.align,\
                                                                             endpoint=self.endpoint, interactive=self.interactive)
 
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'uitgavePlaats':
-                cnode = al.fuzzyTextMatchElseNew(self.graph, self.default_graphs, self.basens, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_'\
-                                                                                       + parentname + '_' + childname),\
+                if child.text is None:
+                    continue
+                cnode = al.fuzzyTextMatchElseNew(self.graph, self.default_graphs, self.basens, rdflib.URIRef(self.ontns + 'SIKB0102S_'\
+                                                                                       + childname),\
                                                                             [rdflib.URIRef(self.nss['rdfs'] + 'label')],\
                                                                             hf.rawString(child.text), align=self.align,\
                                                                             endpoint=self.endpoint, interactive=self.interactive)
 
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
                 if self.geoRef:
                     point = hf.genGeoRef(self.graph, self.basens, placename=child.text, interactive=self.interactive)
                     if point is not None:
                         hf.addProperty(self.graph, cnode, point, rdflib.URIRef(self.nss['locn'] + 'geometry'))
             if childname == 'redacteur':
-                cnode = al.fuzzyTextMatchElseNew(self.graph, self.default_graphs, self.basens, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_Persoon'),\
+                if child.text is None:
+                    continue
+                cnode = al.fuzzyTextMatchElseNew(self.graph, self.default_graphs, self.basens, rdflib.URIRef(self.ontns + 'SIKB0102S_Persoon'),\
                                                                             [rdflib.URIRef(self.nss['rdfs'] + 'label')],\
                                                                             hf.rawString(child.text), align=self.align,\
                                                                             endpoint=self.endpoint, interactive=self.interactive)
 
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'titelContainer':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'issn':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'isbn':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'bestandId':
+                if child.text is None:
+                    continue
                 enode = self.bestandHandler(hf.getTreeNodeByID(self.troot, self.sikbns, child.text)).node
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P67_refers_to'))
                 hf.addProperty(self.graph, enode, gnode, rdflib.URIRef(self.nss['crm'] + 'P67i_is_referred_to_by'))
@@ -641,36 +722,45 @@ class Protocol0102:
         hf.extractBasisTypeFields(self.graph, gnode, tnode, self.sikbns, nolabel=True, gpnode=gproject)
         hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crm'] + 'E40_Legal_Body'))
 
-        parentname = re.sub(self.sikbns, '', tnode.tag)
+        
         for child in tnode.getchildren():
             childname = re.sub(self.sikbns, '', child.tag)
             if childname == 'naam':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
                 hf.addLabel(self.graph, gnode, "Organisatie ({})".format(hf.rawString(child.text)), 'nl')
             if childname == 'telefoon':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'email':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'contactpersoonId':
+                if child.text is None:
+                    continue
                 enode = self.persoonHandler(hf.getTreeNodeByID(self.troot, self.sikbns, child.text)).node
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P107_has_current_or_former_member'))
             if childname == 'adres':
+                if child.text is None:
+                    continue
                 bhid = hf.genHash(child, self.basens, ['straat', 'huisnummer', 'postcode', 'plaatsnaam', 'gemeente',\
                                                        'provincie', 'land'])
                 bnode = rdflib.URIRef(self.basens + hid + bhid)
                 inode = rdflib.Literal(hid + bhid, datatype=rdflib.URIRef(self.nss['xsd'] + 'ID'))
                 hf.addProperty(self.graph, bnode, inode, rdflib.URIRef(self.nss['crm'] + 'P48_has_preferred_identifier'))
-                hf.addSchemaType(self.graph, self.ontns, bnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, bnode, gnode, childname)
                 hf.addLabel(self.graph, bnode,\
                             'Adres behorende bij {}'.format(hf.getLabel(self.graph, gnode)), 'nl')
 
-                pname = childname
                 streetname = ''
                 housenumber = ''
                 postalcode = ''
@@ -679,44 +769,58 @@ class Protocol0102:
                 for element in child:
                     childname = re.sub(self.sikbns, '', element.tag)
                     if element.tag == self.sikbns + 'straat':  # until index is available
+                        if element.text is None:
+                            continue
                         cnode = rdflib.Literal(hf.rawString(element.text), datatype=rdflib.URIRef(self.nss['xsd'] + \
                                                                                                   'string'))
-                        hf.addProperty(self.graph, bnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                               pname + '_' + childname))
+                        hf.addProperty(self.graph, bnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                               childname))
                         streetname = element.text
                     if element.tag == self.sikbns + 'huisnummer':
+                        if element.text is None:
+                            continue
                         cnode = rdflib.Literal(hf.rawString(element.text), datatype=rdflib.URIRef(self.nss['xsd'] + \
                                                                                                   'positiveInteger'))
-                        hf.addProperty(self.graph, bnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                               pname + '_' + childname))
+                        hf.addProperty(self.graph, bnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                               childname))
                         housenumber = element.text
                     if element.tag == self.sikbns + 'postcode':
+                        if element.text is None:
+                            continue
                         cnode = rdflib.Literal(hf.rawString(element.text), datatype=rdflib.URIRef(self.nss['xsd'] + \
                                                                                                   'string'))
-                        hf.addProperty(self.graph, bnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                               pname + '_' + childname))
+                        hf.addProperty(self.graph, bnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                               childname))
                         postalcode = element.text
                     if element.tag == self.sikbns + 'plaatsnaam':  # until index is available
+                        if element.text is None:
+                            continue
                         cnode = rdflib.Literal(hf.rawString(element.text), datatype=rdflib.URIRef(self.nss['xsd'] + \
                                                                                                   'string'))
-                        hf.addProperty(self.graph, bnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                               pname + '_' + childname))
+                        hf.addProperty(self.graph, bnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                               childname))
                         placename = element.text
                     if element.tag == self.sikbns + 'gemeente':  # until index is available
+                        if element.text is None:
+                            continue
                         cnode = rdflib.Literal(hf.rawString(element.text), datatype=rdflib.URIRef(self.nss['xsd'] + \
                                                                                                   'string'))
-                        hf.addProperty(self.graph, bnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                               pname + '_' + childname))
+                        hf.addProperty(self.graph, bnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                               childname))
                     if element.tag == self.sikbns + 'provincie':  # until index is available
+                        if element.text is None:
+                            continue
                         cnode = rdflib.Literal(hf.rawString(element.text), datatype=rdflib.URIRef(self.nss['xsd'] + \
                                                                                                   'string'))
-                        hf.addProperty(self.graph, bnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                               pname + '_' + childname))
+                        hf.addProperty(self.graph, bnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                               childname))
                     if element.tag == self.sikbns + 'land':  # until index is available
+                        if element.text is None:
+                            continue
                         cnode = rdflib.Literal(hf.rawString(element.text), datatype=rdflib.URIRef(self.nss['xsd'] + \
                                                                                                   'string'))
-                        hf.addProperty(self.graph, bnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                               pname + '_' + childname))
+                        hf.addProperty(self.graph, bnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                               childname))
                         countryname = element.text
 
                 if self.geoRef:
@@ -753,13 +857,15 @@ class Protocol0102:
             hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P129i_is_subject_of'))
             hf.addProperty(self.graph, enode, gnode, rdflib.URIRef(self.nss['crm'] + 'P129_is_about'))  # for easy navigation
 
-        parentname = re.sub(self.sikbns, '', tnode.tag)
+        
         for child in tnode.getchildren():
             childname = re.sub(self.sikbns, '', child.tag)
             if childname == 'tekeningtype':
+                if child.text is None:
+                    continue
                 key = 'tekeningfototype'  # needed for inconsistent labeling by SIKB
                 cnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
-                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname)
 
                 if 'codereferentieId' in child.attrib:
                     treeNode = hf.getTreeNodeByID(self.troot, self.sikbns, child.attrib['codereferentieId'])
@@ -767,42 +873,58 @@ class Protocol0102:
                     if crnode is not None:
                         hf.addProperty(self.graph, cnode, crnode, rdflib.URIRef(self.nss['crm'] + 'P71i_is_listed_in'))
             if childname == 'tekeningmateriaal':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'tekeningformaat':
+                if child.text is None:
+                    continue
                 key = 'papierformaat'  # needed for inconsistent labeling by SIKB
                 cnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
-                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname)
                 hf.addRefIfExists(self, cnode, child)
             if childname == 'tekenaar':
-                cnode = al.fuzzyTextMatchElseNew(self.graph, self.default_graphs, self.basens, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_Persoon'),\
+                if child.text is None:
+                    continue
+                cnode = al.fuzzyTextMatchElseNew(self.graph, self.default_graphs, self.basens, rdflib.URIRef(self.ontns + 'SIKB0102S_Persoon'),\
                                                                             [rdflib.URIRef(self.nss['rdfs'] + 'label')],\
                                                                             hf.rawString(child.text), align=self.align,\
                                                                             endpoint=self.endpoint, interactive=self.interactive)
 
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'schaal':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'tekeningdatum':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'date'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'tekeningonderwerp':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), lang='nl')
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
                 hf.updateLabel(self.graph, gnode, "met betrekking tot '{}'".format(hf.rawString(child.text)), 'nl')
             if childname == 'bestandId':
                 continue
             if childname == 'vondstcontextId':
+                if child.text is None:
+                    continue
                 enode = self.vondstcontextHandler(hf.getTreeNodeByID(self.troot, self.sikbns, child.text)).node
 
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P70_documents'))
             if childname == 'vondstId':
+                if child.text is None:
+                    continue
                 enode = self.vondstHandler(hf.getTreeNodeByID(self.troot, self.sikbns, child.text)).node
 
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P129_is_about'))
@@ -833,42 +955,56 @@ class Protocol0102:
             hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P129i_is_subject_of'))
             hf.addProperty(self.graph, enode, gnode, rdflib.URIRef(self.nss['crm'] + 'P129_is_about'))  # for easy navigation
 
-        parentname = re.sub(self.sikbns, '', tnode.tag)
+        
         for child in tnode.getchildren():
             childname = re.sub(self.sikbns, '', child.tag)
             if childname == 'opnametype':
+                if child.text is None:
+                    continue
                 key = 'tekeningfototype'  # needed for inconsistent labeling by SIKB
                 cnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
-                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname)
                 hf.addRefIfExists(self, cnode, child)
             if childname == 'opnamedatum':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'date'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'fotograaf':
-                cnode = al.fuzzyTextMatchElseNew(self.graph, self.default_graphs, self.basens, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_Persoon'),\
+                if child.text is None:
+                    continue
+                cnode = al.fuzzyTextMatchElseNew(self.graph, self.default_graphs, self.basens, rdflib.URIRef(self.ontns + 'SIKB0102S_Persoon'),\
                                                                             [rdflib.URIRef(self.nss['rdfs'] + 'label')],\
                                                                             hf.rawString(child.text), align=self.align,\
                                                                             endpoint=self.endpoint, interactive=self.interactive)
 
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'opnamemedium':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'fotoonderwerp':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), lang='nl')
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
                 hf.updateLabel(self.graph, gnode, "met betrekking tot '{}'".format(hf.rawString(child.text)), 'nl')
             if childname == 'bestandId':
                 continue
             if childname == 'vondstcontextId':
+                if child.text is None:
+                    continue
                 enode = self.vondstcontextHandler(hf.getTreeNodeByID(self.troot, self.sikbns, child.text)).node
 
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P70_documents'))
             if childname == 'vondstId':
+                if child.text is None:
+                    continue
                 enode = self.vondstHandler(hf.getTreeNodeByID(self.troot, self.sikbns, child.text)).node
 
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P129_is_about'))
@@ -902,29 +1038,38 @@ class Protocol0102:
         hf.addProperty(self.graph, bnode, gnode, rdflib.URIRef(self.nss['crm'] + 'P108_has_produced'))
         hf.addProperty(self.graph, gnode, bnode, rdflib.URIRef(self.nss['crm'] + 'P108i_was_produced_by'))
 
-        parentname = re.sub(self.sikbns, '', tnode.tag)
         for child in tnode.getchildren():
             childname = re.sub(self.sikbns, '', child.tag)
             if childname == 'bewaarTemperatuur':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'bewaarVochtigheid':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'lichtgevoelig':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'boolean'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'breekbaar':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'boolean'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'gevaarlijkeStoffen':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'boolean'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
         return self.ReturnValues(node=gnode, altnode=None)
 
     def verpakkingseenheidHandler(self, tnode):
@@ -938,15 +1083,17 @@ class Protocol0102:
         hf.extractBasisNaamTypeFields(self.graph, gnode, tnode, self.sikbns, gpnode=self.gproject.node)
         hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0010_BulkFind'))
 
-        parentname = re.sub(self.sikbns, '', tnode.tag)
+        
         for child in tnode.getchildren():
             childname = re.sub(self.sikbns, '', child.tag)
             if childname == 'aantal':
-                bhid = hf.genHash(None, None, [], salt=childname + child.text)
+                if child.text is None:
+                    continue
+                bhid = hf.genHash(tnode, self.sikbns, [childname], salt=childname)
                 bnode = rdflib.URIRef(self.basens + bhid)
                 inode = rdflib.Literal(bhid, datatype=rdflib.URIRef(self.nss['xsd'] + 'ID'))
                 hf.addProperty(self.graph, bnode, inode, rdflib.URIRef(self.nss['crm'] + 'P48_has_preferred_identifier'))
-                hf.addSchemaType(self.graph, self.ontns, bnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, bnode, gnode, childname)
                 hf.addLabel(self.graph, bnode,\
                             'Hoeveelheid van {} stuks'.format(hf.rawString(child.text)), 'nl')
 
@@ -955,13 +1102,15 @@ class Protocol0102:
                 inode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'positiveInteger'))
                 hf.addProperty(self.graph, bnode, inode, rdflib.URIRef(self.nss['crm'] + 'P90_has_value'))
             if childname == 'gewicht':
+                if child.text is None:
+                    continue
                 uomvalue = child.attrib['uom'] if 'uom' in child.attrib else 'eenheden'
 
-                bhid = hf.genHash(None, None, [], salt=childname + uomvalue + child.text)
+                bhid = hf.genHash(tnode, self.sikbns, [childname], salt='E54_Dimension' + uomvalue)
                 bnode = rdflib.URIRef(self.basens + bhid)
                 inode = rdflib.Literal(bhid, datatype=rdflib.URIRef(self.nss['xsd'] + 'ID'))
                 hf.addProperty(self.graph, bnode, inode, rdflib.URIRef(self.nss['crm'] + 'P48_has_preferred_identifier'))
-                hf.addSchemaType(self.graph, self.ontns, bnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, bnode, gnode, childname)
                 hf.addLabel(self.graph, bnode,\
                             'Gewicht van {} {}'.format(hf.rawString(child.text), uomvalue), 'nl')
 
@@ -970,9 +1119,9 @@ class Protocol0102:
 
                 inode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'decimal'))
                 hf.addProperty(self.graph, bnode, inode, rdflib.URIRef(self.nss['crm'] + 'P90_has_value'))
-
-                hf.addLabel(self.graph, bnode, 'Gewicht van {} {}'.format(inode.value, uomvalue), 'nl')
             if childname == 'beginperiode':
+                if child.text is None:
+                    continue
                 bhid = hf.genHash(None, None, [], salt=hid + 'EHE2021_BulkFindAssessment')
                 bnode = rdflib.URIRef(self.basens + hid + bhid)
                 hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'EHE2021_BulkFindAssessment'))
@@ -996,15 +1145,16 @@ class Protocol0102:
 
                 key = 'periode'  # needed for inconsistent labeling by SIKB
                 cnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
-                hf.addSchemaType(self.graph, self.ontns, cnode, bnode2, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, cnode, bnode2, childname)
                 hf.addRefIfExists(self, cnode, child)
 
+                dnode = None
                 snode = tnode.find(self.sikbns + 'eindperiode')
                 if snode is not None:
                     childname = re.sub(self.sikbns, '', snode.tag)
                     key = 'periode'  # needed for inconsistent labeling by SIKB
                     dnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(snode.text))
-                    hf.addSchemaType(self.graph, self.ontns, dnode, bnode2, childname, parentname)
+                    hf.addSchemaType(self.graph, self.ontns, dnode, bnode2, childname)
                     hf.addRefIfExists(self, dnode, snode)
 
                 startdate = hf.getLabel(self.vocab, cnode) if (cnode is not None and self.vocab is not None)\
@@ -1013,6 +1163,8 @@ class Protocol0102:
                                 else key + ' ' + hf.rawString(snode.text)
                 hf.addLabel(self.graph, bnode2, 'Tijdspanne (van {} tot {})'.format(startdate, enddate), 'nl')
             if childname == 'doosId':
+                if child.text is None:
+                    continue
                 enode = self.doosHandler(hf.getTreeNodeByID(self.troot, self.sikbns, child.text)).node
 
                 hf.addProperty(self.graph, enode, gnode, rdflib.URIRef(self.nss['crm'] + 'P46_is_composed_of'))
@@ -1051,21 +1203,24 @@ class Protocol0102:
             hf.addProperty(self.graph, enode, gnode, rdflib.URIRef(self.nss['crm'] + 'P53i_is_former_or_current_location_of'))
             hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P53_has_former_or_current_location'))
 
-        return self.ReturnValues(node=gnode, altnode=None)
-
-        parentname = re.sub(self.sikbns, '', tnode.tag)
         for child in tnode.getchildren():
             childname = re.sub(self.sikbns, '', child.tag)
             if childname == 'monstertype':
+                if child.text is None:
+                    continue
                 key = 'monstertype'  # needed for inconsistent labeling by SIKB
                 cnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
-                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname)
                 hf.addRefIfExists(self, cnode, child)
             if childname == 'monsterverwerking':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), lang='nl')
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'beginperiode':
+                if child.text is None:
+                    continue
                 bhid = hf.genHash(None, None, [], salt=hid + 'E13_Attribute_Assignment')
                 bnode = rdflib.URIRef(self.basens + hid + bhid)
                 hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E13_Attribute_Assignment'))
@@ -1089,15 +1244,16 @@ class Protocol0102:
 
                 key = 'periode'  # needed for inconsistent labeling by SIKB
                 cnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
-                hf.addSchemaType(self.graph, self.ontns, cnode, bnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, cnode, bnode, childname)
                 hf.addRefIfExists(self, cnode, child)
 
+                dnode = None
                 snode = tnode.find(self.sikbns + 'eindperiode')
                 if snode is not None:
                     childname = re.sub(self.sikbns, '', snode.tag)
                     key = 'periode'  # needed for inconsistent labeling by SIKB
                     dnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(snode.text))
-                    hf.addSchemaType(self.graph, self.ontns, dnode, bnode, childname, parentname)
+                    hf.addSchemaType(self.graph, self.ontns, dnode, bnode, childname)
                     hf.addRefIfExists(self, dnode, snode)
 
                 startdate = hf.getLabel(self.vocab, cnode) if (cnode is not None and self.vocab is not None)\
@@ -1124,15 +1280,17 @@ class Protocol0102:
         hf.extractBasisNaamTypeFields(self.graph, gnode, tnode, self.sikbns, gpnode=self.gproject.node)
         hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0009_ContextFind'))
 
-        parentname = re.sub(self.sikbns, '', tnode.tag)
+        
         for child in tnode.getchildren():
             childname = re.sub(self.sikbns, '', child.tag)
             if childname == 'aantal':
+                if child.text is None:
+                    continue
                 bhid = hf.genHash(tnode, self.sikbns, [childname], salt=childname)
                 bnode = rdflib.URIRef(self.basens + bhid)
                 inode = rdflib.Literal(bhid, datatype=rdflib.URIRef(self.nss['xsd'] + 'ID'))
                 hf.addProperty(self.graph, bnode, inode, rdflib.URIRef(self.nss['crm'] + 'P48_has_preferred_identifier'))
-                hf.addSchemaType(self.graph, self.ontns, bnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, bnode, gnode, childname)
                 hf.addLabel(self.graph, bnode,\
                             'Hoeveelheid van {} stuks'.format(hf.rawString(child.text)), 'nl')
 
@@ -1141,13 +1299,15 @@ class Protocol0102:
                 inode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'positiveInteger'))
                 hf.addProperty(self.graph, bnode, inode, rdflib.URIRef(self.nss['crm'] + 'P90_has_value'))
             if childname == 'gewicht':
+                if child.text is None:
+                    continue
                 uomvalue = child.attrib['uom'] if 'uom' in child.attrib else 'eenheden'
 
                 bhid = hf.genHash(tnode, self.sikbns, [childname], salt='E54_Dimension' + uomvalue)
                 bnode = rdflib.URIRef(self.basens + bhid)
                 inode = rdflib.Literal(bhid, datatype=rdflib.URIRef(self.nss['xsd'] + 'ID'))
                 hf.addProperty(self.graph, bnode, inode, rdflib.URIRef(self.nss['crm'] + 'P48_has_preferred_identifier'))
-                hf.addSchemaType(self.graph, self.ontns, bnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, bnode, gnode, childname)
                 hf.addLabel(self.graph, bnode,\
                             'Gewicht van {} {}'.format(hf.rawString(child.text), uomvalue), 'nl')
 
@@ -1156,19 +1316,23 @@ class Protocol0102:
 
                 inode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'decimal'))
                 hf.addProperty(self.graph, bnode, inode, rdflib.URIRef(self.nss['crm'] + 'P90_has_value'))
-
-                hf.addLabel(self.graph, bnode, 'Gewicht van {} {}'.format(inode.value, uomvalue), 'nl')
             if childname == 'materiaalcategorie':
+                if child.text is None:
+                    continue
                 key = 'materiaalcategorie'  # needed for inconsistent labeling by SIKB
                 cnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
-                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname)
                 hf.addRefIfExists(self, cnode, child)
             if childname == 'artefacttype':
+                if child.text is None:
+                    continue
                 key = 'artefacttype'  # needed for inconsistent labeling by SIKB
                 cnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
-                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname)
                 hf.addRefIfExists(self, cnode, child)
             if childname == 'beginperiode':
+                if child.text is None:
+                    continue
                 bhid = hf.genHash(None, None, [], salt=hid + 'E13_Attribute_Assignment')
                 bnode = rdflib.URIRef(self.basens + hid + bhid)
                 hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E13_Attribute_Assignment'))
@@ -1192,15 +1356,16 @@ class Protocol0102:
 
                 key = 'periode'  # needed for inconsistent labeling by SIKB
                 cnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
-                hf.addSchemaType(self.graph, self.ontns, cnode, bnode2, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, cnode, bnode2, childname)
                 hf.addRefIfExists(self, cnode, child)
 
+                dnode = None
                 snode = tnode.find(self.sikbns + 'eindperiode')
                 if snode is not None:
                     childname = re.sub(self.sikbns, '', snode.tag)
                     key = 'periode'  # needed for inconsistent labeling by SIKB
                     dnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(snode.text))
-                    hf.addSchemaType(self.graph, self.ontns, dnode, bnode2, childname, parentname)
+                    hf.addSchemaType(self.graph, self.ontns, dnode, bnode2, childname)
                     hf.addRefIfExists(self, dnode, snode)
 
                 startdate = hf.getLabel(self.vocab, cnode) if (cnode is not None and self.vocab is not None)\
@@ -1209,23 +1374,33 @@ class Protocol0102:
                                 else key + ' ' + hf.rawString(snode.text)
                 hf.addLabel(self.graph, bnode2, 'Tijdspanne (van {} tot {})'.format(startdate, enddate), 'nl')
             if childname == 'geconserveerd':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'boolean'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'exposabel':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'boolean'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'gedeselecteerd':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'boolean'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'verpakkingseenheidId':
+                if child.text is None:
+                    continue
                 enode = self.verpakkingseenheidHandler(hf.getTreeNodeByID(self.troot, self.sikbns, child.text)).node
 
                 hf.addProperty(self.graph, enode, gnode, rdflib.URIRef(self.nss['crm'] + 'P46_is_composed_of'))
                 hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.nss['crm'] + 'P46i_forms_part_of'))
             if childname == 'veldvondstId':
+                if child.text is None:
+                    continue
                 enode = self.veldvondstHandler(hf.getTreeNodeByID(self.troot, self.sikbns, child.text)).node
 
                 hf.addProperty(self.graph, enode, gnode, rdflib.URIRef(self.nss['crm'] + 'P46_is_composed_of'))
@@ -1254,13 +1429,15 @@ class Protocol0102:
         hf.extractBasisNaamTypeFields(self.graph, gnode, tnode, self.sikbns, gpnode=self.gproject.node)
         hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crm'] + 'E78_Collection'))
 
-        parentname = re.sub(self.sikbns, '', tnode.tag)
+        
         for child in tnode.getchildren():
             childname = re.sub(self.sikbns, '', child.tag)
             if childname == 'verzamelwijze':
+                if child.text is None:
+                    continue
                 key = 'verzamelwijze'  # needed for inconsistent labeling by SIKB
                 cnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
-                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname)
                 hf.addRefIfExists(self, cnode, child)
             if childname == 'vondstcontextId' and vnode is not None:
                 hf.addProperty(self.graph, gnode, vnode, rdflib.URIRef(self.nss['crm'] + 'P53_has_former_or_current_location'))
@@ -1270,45 +1447,61 @@ class Protocol0102:
 
     def vondstcontextHandler(self, tnode):
         contexts = []
-        parentname = re.sub(self.sikbns, '', tnode.tag)
+        
         for child in tnode.getchildren():
             childname = re.sub(self.sikbns, '', child.tag)
             if childname == 'spoorId':
+                if child.text is None:
+                    continue
                 enode = self.spoorHandler(hf.getTreeNodeByID(self.troot, self.sikbns, child.text)).node
 
                 contexts.append((enode, rdflib.URIRef(self.nss['crm'] + 'P89i_contains'),\
                                 rdflib.URIRef(self.nss['crm'] + 'P89_falls_within')))
             if childname == 'stortId':
+                if child.text is None:
+                    continue
                 enode = self.stortHandler(hf.getTreeNodeByID(self.troot, self.sikbns, child.text)).node
 
                 contexts.append((enode, rdflib.URIRef(self.nss['crmeh'] + 'EHP3i'),\
                                 rdflib.URIRef(self.nss['crmeh'] + 'EHP3')))
             if childname == 'planumId':
+                if child.text is None:
+                    continue
                 enode = self.planumHandler(hf.getTreeNodeByID(self.troot, self.sikbns, child.text)).node
 
                 contexts.append((enode, rdflib.URIRef(self.nss['crm'] + 'P89i_contains'),\
                                 rdflib.URIRef(self.nss['crm'] + 'P89_falls_within')))
             if childname == 'vullingId':
+                if child.text is None:
+                    continue
                 enode = self.vullingHandler(hf.getTreeNodeByID(self.troot, self.sikbns, child.text)).node
 
                 contexts.append((enode, rdflib.URIRef(self.nss['crmeh'] + 'EHP3i'),\
                                 rdflib.URIRef(self.nss['crmeh'] + 'EHP3')))
             if childname == 'segmentId':
+                if child.text is None:
+                    continue
                 enode = self.segmentHandler(hf.getTreeNodeByID(self.troot, self.sikbns, child.text)).node
 
                 contexts.append((enode, rdflib.URIRef(self.nss['crm'] + 'P89i_contains'),\
                                 rdflib.URIRef(self.nss['crm'] + 'P89_falls_within')))
             if childname == 'vakId':
+                if child.text is None:
+                    continue
                 enode = self.vakHandler(hf.getTreeNodeByID(self.troot, self.sikbns, child.text)).node
 
                 contexts.append((enode, rdflib.URIRef(self.nss['crm'] + 'P89i_contains'),\
                                 rdflib.URIRef(self.nss['crm'] + 'P89_falls_within')))
             if childname == 'boringId':
+                if child.text is None:
+                    continue
                 enode = self.boringHandler(hf.getTreeNodeByID(self.troot, self.sikbns, child.text)).node
 
                 contexts.append((enode, rdflib.URIRef(self.nss['crm'] + 'P89i_contains'),\
                                 rdflib.URIRef(self.nss['crm'] + 'P89_falls_within')))
             if childname == 'geolocatieId':
+                if child.text is None:
+                    continue
                 enode = self.geolocatieHandler(hf.getTreeNodeByID(self.troot, self.sikbns, child.text)).node
 
                 contexts.append((enode, rdflib.URIRef(self.nss['crm'] + 'P87_is_identified_by'),\
@@ -1341,7 +1534,7 @@ class Protocol0102:
         if child is not None:
             key = 'contexttype'  # needed for inconsistent labeling by SIKB
             cnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
-            hf.addSchemaType(self.graph, self.ontns, cnode, gnode, 'contexttype', parentname)
+            hf.addSchemaType(self.graph, self.ontns, cnode, gnode, 'contexttype')
             hf.addRefIfExists(self, cnode, child)
 
         return self.ReturnValues(node=gnode, altnode=None)
@@ -1391,22 +1584,29 @@ class Protocol0102:
         hf.extractBasisNaamTypeFields(self.graph, gnode, tnode, self.sikbns, gpnode=self.gproject.node)
         hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0008_ContextStuff'))
 
-        parentname = re.sub(self.sikbns, '', tnode.tag)
         for child in tnode.getchildren():
             childname = re.sub(self.sikbns, '', child.tag)
             if childname == 'vorm':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'kleur':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'textuur':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'spoorId':
+                if child.text is None:
+                    continue
                 hf.addProperty(self.graph, gnode, snode, rdflib.URIRef(self.nss['crmeh'] + 'EHP3'))
                 hf.addProperty(self.graph, snode, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHP3i'))
 
@@ -1432,15 +1632,19 @@ class Protocol0102:
         hf.extractBasisNaamTypeFields(self.graph, gnode, tnode, self.sikbns, gpnode=self.gproject.node)
         hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0008_ContextStuff'))
 
-        parentname = re.sub(self.sikbns, '', tnode.tag)
+        
         for child in tnode.getchildren():
             childname = re.sub(self.sikbns, '', child.tag)
             if childname == 'structuurtype':
+                if child.text is None:
+                    continue
                 key = 'structuurtype'  # needed for inconsistent labeling by SIKB
                 cnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
-                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname)
                 hf.addRefIfExists(self, cnode, child)
             if childname == 'beginperiode':
+                if child.text is None:
+                    continue
                 bhid = hf.genHash(None, None, [], salt=hid + 'E13_Attribute_Assignment')
                 bnode = rdflib.URIRef(self.basens + hid + bhid)
                 hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E13_Attribute_Assignment'))
@@ -1465,15 +1669,16 @@ class Protocol0102:
 
                 key = 'periode'  # needed for inconsistent labeling by SIKB
                 cnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
-                hf.addSchemaType(self.graph, self.ontns, cnode, bnode2, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, cnode, bnode2, childname)
                 hf.addRefIfExists(self, cnode, child)
 
+                dnode = None
                 snode = tnode.find(self.sikbns + 'eindperiode')
                 if snode is not None:
                     childname = re.sub(self.sikbns, '', snode.tag)
                     key = 'periode'  # needed for inconsistent labeling by SIKB
                     dnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(snode.text))
-                    hf.addSchemaType(self.graph, self.ontns, dnode, bnode2, childname, parentname)
+                    hf.addSchemaType(self.graph, self.ontns, dnode, bnode2, childname)
                     hf.addRefIfExists(self, dnode, snode)
 
                 startdate = hf.getLabel(self.vocab, cnode) if (cnode is not None and self.vocab is not None)\
@@ -1514,9 +1719,13 @@ class Protocol0102:
         for child in tnode.getchildren():
             childname = re.sub(self.sikbns, '', child.tag)
             if childname == 'spoorId':
+                if child.text is None:
+                    continue
                 hf.addProperty(self.graph, gnode, snode, rdflib.URIRef(self.nss['crm'] + 'P89_falls_within'))
                 hf.addProperty(self.graph, snode, gnode, rdflib.URIRef(self.nss['crm'] + 'P89i_contains'))
             if childname == 'geolocatieId':
+                if child.text is None:
+                    continue
                 geonode = self.geolocatieHandler(hf.getTreeNodeByID(self.troot, self.sikbns, child.text)).node
                 if geonode is not None:
                     hf.addProperty(self.graph, gnode, geonode, rdflib.URIRef(self.nss['crm'] + 'P87_is_identified_by'))
@@ -1574,15 +1783,19 @@ class Protocol0102:
         hf.extractBasisLocatieNaamTypeFields(self.graph, gnode, tnode, self.sikbns, self.gproject.node)
         hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0007_Context'))
 
-        parentname = re.sub(self.sikbns, '', tnode.tag)
+        
         for child in tnode.getchildren():
             childname = re.sub(self.sikbns, '', child.tag)
             if childname == 'planumtype':
+                if child.text is None:
+                    continue
                 key = 'planumtype'  # needed for inconsistent labeling by SIKB
                 cnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
-                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname)
                 hf.addRefIfExists(self, cnode, child)
             if childname == 'geolocatieId':
+                if child.text is None:
+                    continue
                 geonode = self.geolocatieHandler(hf.getTreeNodeByID(self.troot, self.sikbns, child.text)).node
                 if geonode is not None:
                     hf.addProperty(self.graph, gnode, geonode, rdflib.URIRef(self.nss['crm'] + 'P87_is_identified_by'))
@@ -1618,20 +1831,24 @@ class Protocol0102:
             hf.addProperty(self.graph, gnode, geonode, rdflib.URIRef(self.nss['crm'] + 'P87_is_identified_by'))
             hf.addProperty(self.graph, geonode, gnode, rdflib.URIRef(self.nss['crm'] + 'P87i_identifies'))
 
-        parentname = re.sub(self.sikbns, '', tnode.tag)
+        
         for child in tnode.getchildren():
             childname = re.sub(self.sikbns, '', child.tag)
             if childname == 'grondspoortype':
+                if child.text is None:
+                    continue
                 key = 'grondspoortype'  # needed for inconsistent labeling by SIKB
                 cnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
-                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname)
                 hf.addRefIfExists(self, cnode, child)
             if childname == 'diepte':
+                if child.text is None:
+                    continue
                 bhid = hf.genHash(None, None, [], salt=hid + childname)
                 bnode = rdflib.URIRef(self.basens + hid + bhid)
                 inode = rdflib.Literal(hid + bhid, datatype=rdflib.URIRef(self.nss['xsd'] + 'ID'))
                 hf.addProperty(self.graph, bnode, inode, rdflib.URIRef(self.nss['crm'] + 'P48_has_preferred_identifier'))
-                hf.addSchemaType(self.graph, self.ontns, bnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, bnode, gnode, childname)
                 hf.addLabel(self.graph, bnode,\
                             'Meting van diepte behorende bij {}'.format(hf.getLabel(self.graph, gnode)), 'nl')
 
@@ -1643,7 +1860,7 @@ class Protocol0102:
                     continue
 
                 bnode2 = rdflib.URIRef(self.basens + bhid2)
-                hf.addType(self.graph, bnode2, rdflib.URIRef(self.nss['crm'] + 'E54_Dimension'))
+                hf.addType(self.graph, bnode2, rdflib.URIRef(self.ontns + 'SIKB0102S_Diepte'))
                 inode = rdflib.Literal(bhid2, datatype=rdflib.URIRef(self.nss['xsd'] + 'ID'))
                 hf.addProperty(self.graph, bnode2, inode, rdflib.URIRef(self.nss['crm'] + 'P48_has_preferred_identifier'))
 
@@ -1658,6 +1875,8 @@ class Protocol0102:
                 uom = uomnode.value if uomnode is not None else 'eenheden'
                 hf.addLabel(self.graph, bnode2, 'Diepte van {} {}'.format(inode.value, uom), 'nl')
             if childname == 'beginperiode':
+                if child.text is None:
+                    continue
                 bhid = hf.genHash(None, None, [], salt=hid + 'E13_Attribute_Assignment')
                 bnode = rdflib.URIRef(self.basens + hid + bhid)
                 hf.addType(self.graph, bnode, rdflib.URIRef(self.nss['crm'] + 'E13_Attribute_Assignment'))
@@ -1681,15 +1900,16 @@ class Protocol0102:
 
                 key = 'periode'  # needed for inconsistent labeling by SIKB
                 cnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
-                hf.addSchemaType(self.graph, self.ontns, cnode, bnode2, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, cnode, bnode2, childname)
                 hf.addRefIfExists(self, cnode, child)
 
+                dnode = None
                 snode = tnode.find(self.sikbns + 'eindperiode')
                 if snode is not None:
                     childname = re.sub(self.sikbns, '', snode.tag)
                     key = 'periode'  # needed for inconsistent labeling by SIKB
                     dnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(snode.text))
-                    hf.addSchemaType(self.graph, self.ontns, dnode, bnode2, childname, parentname)
+                    hf.addSchemaType(self.graph, self.ontns, dnode, bnode2, childname)
                     hf.addRefIfExists(self, dnode, snode)
 
                 startdate = hf.getLabel(self.vocab, cnode) if (cnode is not None and self.vocab is not None)\
@@ -1746,20 +1966,24 @@ class Protocol0102:
         hf.extractBasisLocatieNaamTypeFields(self.graph, gnode, tnode, self.sikbns, self.gproject.node)
         hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crmeh'] + 'EHE0007_Context'))
 
-        parentname = re.sub(self.sikbns, '', tnode.tag)
+        
         for child in tnode.getchildren():
             childname = re.sub(self.sikbns, '', child.tag)
             if childname == 'vaknummer':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + \
                                                                                         'positiveInteger'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'dikte':
+                if child.text is None:
+                    continue
                 bhid = hf.genHash(None, None, [], salt=hid + childname)
                 bnode = rdflib.URIRef(self.basens + hid + bhid)
                 inode = rdflib.Literal(hid + bhid, datatype=rdflib.URIRef(self.nss['xsd'] + 'ID'))
                 hf.addProperty(self.graph, bnode, inode, rdflib.URIRef(self.nss['crm'] + 'P48_has_preferred_identifier'))
-                hf.addSchemaType(self.graph, self.ontns, bnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, bnode, gnode, childname)
                 hf.addLabel(self.graph, bnode,\
                             'Meting van dikte behorende bij {}'.format(hf.getLabel(self.graph, gnode)), 'nl')
 
@@ -1786,11 +2010,13 @@ class Protocol0102:
                 uom = uomnode.value if uomnode is not None else 'eenheden'
                 hf.addLabel(self.graph, bnode2, 'Dikte van {} {}'.format(inode.value, uom), 'nl')
             if childname == 'nap':
+                if child.text is None:
+                    continue
                 bhid = hf.genHash(None, None, [], salt=hid + childname)
                 bnode = rdflib.URIRef(self.basens + hid + bhid)
                 inode = rdflib.Literal(hid + bhid, datatype=rdflib.URIRef(self.nss['xsd'] + 'ID'))
                 hf.addProperty(self.graph, bnode, inode, rdflib.URIRef(self.nss['crm'] + 'P48_has_preferred_identifier'))
-                hf.addSchemaType(self.graph, self.ontns, bnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, bnode, gnode, childname)
                 hf.addLabel(self.graph, bnode,\
                             'Meting van Normaal Amsterdams Peil (NAP) behorende bij {}'.format(\
                                                                                         hf.getLabel(self.graph, gnode)),\
@@ -1821,6 +2047,8 @@ class Protocol0102:
             if childname == 'planumId':
                 continue
             if childname == 'geolocatieId':
+                if child.text is None:
+                    continue
                 geonode = self.geolocatieHandler(hf.getTreeNodeByID(self.troot, self.sikbns, child.text)).node
                 if geonode is not None:
                     hf.addProperty(self.graph, gnode, geonode, rdflib.URIRef(self.nss['crm'] + 'P87_is_identified_by'))
@@ -1842,51 +2070,71 @@ class Protocol0102:
 
         gnode = rdflib.URIRef(self.basens + hid)
         hf.extractBasisTypeFields(self.graph, gnode, tnode, self.sikbns, nolabel=True, gpnode=gproject)
-        hf.addType(self.graph, gnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_Persoon'))
+        hf.addType(self.graph, gnode, rdflib.URIRef(self.ontns + 'SIKB0102S_Persoon'))
 
+        voornaam = ''
         achternaam = ''
         initialen = ''
         titel = ''
-        parentname = re.sub(self.sikbns, '', tnode.tag)
         for child in tnode.getchildren():
             childname = re.sub(self.sikbns, '', child.tag)
             if childname == 'telefoon':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'email':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'naam':
+                if child.text is None:
+                    continue
                 for element in child:
                     childname = re.sub(self.sikbns, '', element.tag)
                     if childname == 'achternaam':
+                        if element.text is None:
+                            continue
                         snode = child.find(self.sikbns + 'tussenvoegsel')
-                        achternaam = element.text + ', ' + snode.text if snode is not None else element.text  # extract 'tussenvoegsel' if available
+                        if snode is not None and snode.text is not None:
+                            achternaam = element.text + ', ' + snode.text
+                        else:
+                            achternaam = element.text  # extract 'tussenvoegsel' if available
 
                         enode = rdflib.Literal(achternaam, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                        hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                               parentname + '_' + childname))
+                        hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                               childname))
                     if childname == 'voornaam':
+                        if element.text is None:
+                            continue
                         snode = child.find(self.sikbns + 'initialen')
-                        voornaam = element.text + ', ' + snode.text if snode is not None else element.text  # extract 'initialen' if available
+                        if snode is not None and snode.text is not None:
+                            voornaam = element.text + ', ' + snode.text  # extract 'initialen' if available
+                        else:
+                            voornaam = element.text
 
                         enode = rdflib.Literal(voornaam, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                        hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                               parentname + '_' + childname))
+                        hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                               childname))
                     if childname == 'initialen':
+                        if element.text is None:
+                            continue
                         snode = child.find(self.sikbns + 'voornaam')
-                        if snode is None:
+                        if snode is None or snode.text is None:
                             initialen = hf.rawString(element.text)
                             enode = rdflib.Literal(initialen, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                            hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                                   parentname + '_' + childname))
+                            hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                                   childname))
                     if childname == 'titel':
+                        if element.text is None:
+                            continue
                         titel = hf.rawString(element.text)
                         enode = rdflib.Literal(titel, datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                        hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                               parentname + '_' + childname))
+                        hf.addProperty(self.graph, gnode, enode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                               childname))
                 name = voornaam if initialen == '' else initialen
                 titel = titel if titel == '' else titel + ' '
             hf.addLabel(self.graph, gnode,\
@@ -1905,16 +2153,18 @@ class Protocol0102:
         hf.extractGeoObjectFields(self.graph, gnode, tnode, self.sikbns)
         hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crm'] + 'E44_Place_Appellation'))
 
-        parentname = re.sub(self.sikbns, '', tnode.tag)
+        
         cnode = None
         for child in tnode.getchildren():
             childname = re.sub(self.sikbns, '', child.tag)
             if childname == 'geometrie':
+                if child.text is None:
+                    continue
                 (gmlString, gmlID, gmlType) = hf.gmlLiteralOf(self.et, child)
 
                 bhid = hf.genHash(tnode, self.sikbns, ['geometrie'], salt=gmlType)
                 cnode = rdflib.URIRef(self.basens + hid + bhid)
-                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname)
 
                 gmlnode = rdflib.Literal(gmlString, datatype=rdflib.URIRef(self.nss['geosparql'] + 'GMLLiteral'))
                 hf.addProperty(self.graph, cnode, gmlnode, rdflib.URIRef(self.nss['geosparql'] + 'asGML'))
@@ -1945,20 +2195,24 @@ class Protocol0102:
         hf.extractBasisLocatieNaamTypeFields(self.graph, gnode, tnode, self.sikbns, self.gproject.node)
         hf.addType(self.graph, gnode, rdflib.URIRef(self.nss['crm'] + 'E13_Attribute_Assignment'))
 
-        parentname = re.sub(self.sikbns, '', tnode.tag)
+        
         for child in tnode.getchildren():
             childname = re.sub(self.sikbns, '', child.tag)
             if childname == 'methode':
+                if child.text is None:
+                    continue
                 key = 'hoogtemetingmethode'  # needed for inconsistent labeling by SIKB
                 cnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
-                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, cnode, gnode, childname)
                 hf.addRefIfExists(self, cnode, child)
             if childname == 'nap':
+                if child.text is None:
+                    continue
                 bhid = hf.genHash(None, None, [], salt=hid + childname)
                 bnode = rdflib.URIRef(self.basens + hid + bhid)
                 inode = rdflib.Literal(hid + bhid, datatype=rdflib.URIRef(self.nss['xsd'] + 'ID'))
                 hf.addProperty(self.graph, bnode, inode, rdflib.URIRef(self.nss['crm'] + 'P48_has_preferred_identifier'))
-                hf.addSchemaType(self.graph, self.ontns, bnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, bnode, gnode, childname)
                 hf.addLabel(self.graph, bnode,\
                             'Meting van Normaal Amsterdams Peil (NAP) behorende bij {}'.format(\
                                                                                         hf.getLabel(self.graph, gnode)),\
@@ -1989,6 +2243,8 @@ class Protocol0102:
                 uom = uomnode.value if uomnode is not None else 'eenheden'
                 hf.addLabel(self.graph, bnode2, '{} {} Normaal Amsterdams Peil (NAP)'.format(inode.value, uom), 'nl')
             if childname == 'geolocatieId':
+                if child.text is None:
+                    continue
                 hf.addProperty(self.graph, gnode, node, rdflib.URIRef(self.nss['crm'] + 'P7_took_place_at'))
                 hf.addProperty(self.graph, node, gnode, rdflib.URIRef(self.nss['crm'] + 'P7i_witnessed'))
 
@@ -2007,21 +2263,27 @@ class Protocol0102:
         for child in tnode.getchildren():
             childname = re.sub(self.sikbns, '', child.tag)
             if childname == 'attribuutnaam':
+                if child.text is None:
+                    continue
                 hf.updateLabel(self.graph, gnode, "(gebruiker-gedefinieerd) '{}'".format(hf.rawString(child.text)),'nl')
             if childname == 'informatie':
                 continue  # base type extractor covers this as well
                 #info = rdflib.Literal(hf.rawString(child.text), lang='nl')
                 #hf.addProperty(self.graph, gnode, info, rdflib.URIRef(self.nss['rdfs'] + 'comment'))
             if childname == 'klassenaam':
-                cnode = rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + hf.rawString(child.text).rstrip('Type'))
+                if child.text is None:
+                    continue
+                cnode = rdflib.URIRef(self.ontns + 'SIKB0102S_' + hf.rawString(child.text).rstrip('Type'))
                 hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.nss['rdfs'] + 'domain'))
             if childname == 'waardetype':
+                if child.text is None:
+                    continue
                 key = 'waardetype'  # needed for inconsistent labeling by SIKB
                 cnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(child.text))
-                hf.addType(self.graph, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + childname.title() \
+                hf.addType(self.graph, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + childname.title() \
                                                          + '.' + hf.rawString(child.text.title())))
                 hf.addProperty(self.graph, gnode, cnode, \
-                               rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + 'attribuuttype' + '_' + childname))
+                               rdflib.URIRef(self.ontns + 'SIKB0102S_' + 'attribuuttype' + '_' + childname))
 
                 if hf.rawString(child.text) == 'Geheelgetal':
                     datatype = rdflib.URIRef(self.nss['xsd'] + 'integer')
@@ -2084,6 +2346,8 @@ class Protocol0102:
         for child in tnode.getchildren():
             childname = re.sub(self.sikbns, '', child.tag)
             if childname == 'objectrelatietype':
+                if child.text is None:
+                    continue
                 relation = child.text.title()
                 object1Class = 'Thing'
                 object2Class = 'Thing'
@@ -2148,7 +2412,7 @@ class Protocol0102:
 
         # concat code ID after code list ID
         # 'naamCodelijst' gets priority
-        parentname = re.sub(self.sikbns, '', tnode.tag)
+        
         tag = 'naamCodelijst'
         ttnode = tnode.find(self.sikbns + tag)
         usedBronCode = False
@@ -2178,19 +2442,27 @@ class Protocol0102:
         for child in tnode.getchildren():
             childname = re.sub(self.sikbns, '', child.tag)
             if childname == 'bronCode':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
                 hf.updateLabel(self.graph, gnode, "van concept '{}'".format(hf.rawString(child.text)), 'nl')
             if childname == 'standaardCode':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), datatype=rdflib.URIRef(self.nss['xsd'] + 'string'))
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'bronOmschrijving':
+                if child.text is None:
+                    continue
                 cnode = rdflib.Literal(hf.rawString(child.text), lang='nl')
-                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102_Schema_' + \
-                                                                       parentname + '_' + childname))
+                hf.addProperty(self.graph, gnode, cnode, rdflib.URIRef(self.ontns + 'SIKB0102S_' + \
+                                                                       childname))
             if childname == 'bronCodelijst':
+                if child.text is None:
+                    continue
                 bnode = cbnode
                 if not usedBronCode:
                     bhid = hf.genHash(None, None, [], salt=childname + child.text)
@@ -2198,9 +2470,11 @@ class Protocol0102:
                     if bnode is None:
                         bnode = rdflib.URIRef(self.basens + bhid)
 
-                hf.addSchemaType(self.graph, self.ontns, bnode, gnode, childname, parentname)
+                hf.addSchemaType(self.graph, self.ontns, bnode, gnode, childname)
             if childname == 'naamCodelijst':
-                hf.addSchemaType(self.graph, self.ontns, cbnode, gnode, childname, parentname)
+                if child.text is None:
+                    continue
+                hf.addSchemaType(self.graph, self.ontns, cbnode, gnode, childname)
             if childname == 'historyId':
                 pass
 
