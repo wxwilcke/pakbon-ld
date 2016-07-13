@@ -15,3 +15,11 @@ To minimize the possible ambiguity between project documentation, Dutch archaeol
 In order for the conversion tool to ensure uniqueness of URIs, we generate a hash value from each concept instances’ properties. These values are crosschecked together with the online data cloud to see whether this exact instance has already been converted at an earlier stage. If such a clash occurs, then the processing of that instance will be skipped and the already-processed version will be used instead. If no clash occurs, then that instance and its properties will be converted in a depth-first approach. If desired, a separate ontology and vocabulary graph could be created as well. Once completed, the user may decide whether or not to add the newly-created graph to the data cloud.
 
 Those wanting to experiment, a live test server is running on pakbon-ld.spider.d2s.labs.vu.nl.
+
+## Dependencies
+- python >= 3.4
+- python library rdflib
+
+## Usage
+`pakbon-ld.py [-h] [-i INPUT_PATH] [-o OUTPUT_PATH] [-d DEFAULT_NAMESPACE] [-f {n3,nquads,ntriples,pretty-xml,trig,trix,turtle,xml}] [--version] [--ignore_version] [--align {local,global,both}] [--enable_georesolver] [--align_with [ALIGN_WITH [ALIGN_WITH ...]]] [--endpoint ENDPOINT] [--interactive] [--generate_ontology] [--generate_vocabulary]`
+
