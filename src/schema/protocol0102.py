@@ -435,6 +435,7 @@ class Protocol0102:
                 hf.addSchemaType(self.graph, self.ontns, cnode, bnode, childname)
                 hf.addRefIfExists(self, cnode, child)
 
+                enddate = "?"
                 dnode = None
                 snode = tnode.find(self.sikbns + 'eindperiode')
                 if snode is not None:
@@ -443,11 +444,12 @@ class Protocol0102:
                     dnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(snode.text))
                     hf.addSchemaType(self.graph, self.ontns, dnode, bnode, childname)
                     hf.addRefIfExists(self, dnode, snode)
+                    
+                    enddate = hf.getLabel(self.vocab, dnode) if (dnode is not None and self.vocab is not None)\
+                                    else key + ' ' + hf.rawString(snode.text)
 
                 startdate = hf.getLabel(self.vocab, cnode) if (cnode is not None and self.vocab is not None)\
                                 else key + ' ' + hf.rawString(child.text)
-                enddate = hf.getLabel(self.vocab, dnode) if (dnode is not None and self.vocab is not None)\
-                                else key + ' ' + hf.rawString(snode.text)
                 hf.addLabel(self.graph, bnode, 'Tijdspanne (van {} tot {})'.format(startdate, enddate), 'nl')
 
             if childname == 'vindplaatstype':
@@ -1148,6 +1150,7 @@ class Protocol0102:
                 hf.addSchemaType(self.graph, self.ontns, cnode, bnode2, childname)
                 hf.addRefIfExists(self, cnode, child)
 
+                enddate = "?"
                 dnode = None
                 snode = tnode.find(self.sikbns + 'eindperiode')
                 if snode is not None:
@@ -1157,10 +1160,11 @@ class Protocol0102:
                     hf.addSchemaType(self.graph, self.ontns, dnode, bnode2, childname)
                     hf.addRefIfExists(self, dnode, snode)
 
+                    enddate = hf.getLabel(self.vocab, dnode) if (dnode is not None and self.vocab is not None)\
+                                    else key + ' ' + hf.rawString(snode.text)
+
                 startdate = hf.getLabel(self.vocab, cnode) if (cnode is not None and self.vocab is not None)\
                                 else key + ' ' + hf.rawString(child.text)
-                enddate = hf.getLabel(self.vocab, dnode) if (dnode is not None and self.vocab is not None)\
-                                else key + ' ' + hf.rawString(snode.text)
                 hf.addLabel(self.graph, bnode2, 'Tijdspanne (van {} tot {})'.format(startdate, enddate), 'nl')
             if childname == 'doosId':
                 if child.text is None:
@@ -1247,6 +1251,7 @@ class Protocol0102:
                 hf.addSchemaType(self.graph, self.ontns, cnode, bnode, childname)
                 hf.addRefIfExists(self, cnode, child)
 
+                enddate = "?"
                 dnode = None
                 snode = tnode.find(self.sikbns + 'eindperiode')
                 if snode is not None:
@@ -1255,11 +1260,12 @@ class Protocol0102:
                     dnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(snode.text))
                     hf.addSchemaType(self.graph, self.ontns, dnode, bnode, childname)
                     hf.addRefIfExists(self, dnode, snode)
+                
+                    enddate = hf.getLabel(self.vocab, dnode) if (dnode is not None and self.vocab is not None)\
+                                    else key + ' ' + hf.rawString(snode.text)
 
                 startdate = hf.getLabel(self.vocab, cnode) if (cnode is not None and self.vocab is not None)\
                                 else key + ' ' + hf.rawString(child.text)
-                enddate = hf.getLabel(self.vocab, dnode) if (dnode is not None and self.vocab is not None)\
-                                else key + ' ' + hf.rawString(snode.text)
                 hf.addLabel(self.graph, bnode2, 'Tijdspanne (van {} tot {})'.format(startdate, enddate), 'nl')
             if childname == 'verpakkingseenheidId':
                 continue
@@ -1359,6 +1365,7 @@ class Protocol0102:
                 hf.addSchemaType(self.graph, self.ontns, cnode, bnode2, childname)
                 hf.addRefIfExists(self, cnode, child)
 
+                enddate = "?"
                 dnode = None
                 snode = tnode.find(self.sikbns + 'eindperiode')
                 if snode is not None:
@@ -1367,11 +1374,12 @@ class Protocol0102:
                     dnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(snode.text))
                     hf.addSchemaType(self.graph, self.ontns, dnode, bnode2, childname)
                     hf.addRefIfExists(self, dnode, snode)
+                    
+                    enddate = hf.getLabel(self.vocab, dnode) if (dnode is not None and self.vocab is not None)\
+                                    else key + ' ' + hf.rawString(snode.text)
 
                 startdate = hf.getLabel(self.vocab, cnode) if (cnode is not None and self.vocab is not None)\
                                 else key + ' ' + hf.rawString(child.text)
-                enddate = hf.getLabel(self.vocab, dnode) if (dnode is not None and self.vocab is not None)\
-                                else key + ' ' + hf.rawString(snode.text)
                 hf.addLabel(self.graph, bnode2, 'Tijdspanne (van {} tot {})'.format(startdate, enddate), 'nl')
             if childname == 'geconserveerd':
                 if child.text is None:
@@ -1672,6 +1680,7 @@ class Protocol0102:
                 hf.addSchemaType(self.graph, self.ontns, cnode, bnode2, childname)
                 hf.addRefIfExists(self, cnode, child)
 
+                enddate = "?"
                 dnode = None
                 snode = tnode.find(self.sikbns + 'eindperiode')
                 if snode is not None:
@@ -1680,11 +1689,12 @@ class Protocol0102:
                     dnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(snode.text))
                     hf.addSchemaType(self.graph, self.ontns, dnode, bnode2, childname)
                     hf.addRefIfExists(self, dnode, snode)
+                
+                    enddate = hf.getLabel(self.vocab, dnode) if (dnode is not None and self.vocab is not None)\
+                                    else key + ' ' + hf.rawString(snode.text)
 
                 startdate = hf.getLabel(self.vocab, cnode) if (cnode is not None and self.vocab is not None)\
                                 else key + ' ' + hf.rawString(child.text)
-                enddate = hf.getLabel(self.vocab, dnode) if (dnode is not None and self.vocab is not None)\
-                                else key + ' ' + hf.rawString(snode.text)
                 hf.addLabel(self.graph, bnode2, 'Tijdspanne (van {} tot {})'.format(startdate, enddate), 'nl')
             if childname == 'spoorId':
                 continue
@@ -1903,6 +1913,7 @@ class Protocol0102:
                 hf.addSchemaType(self.graph, self.ontns, cnode, bnode2, childname)
                 hf.addRefIfExists(self, cnode, child)
 
+                enddate = "?"
                 dnode = None
                 snode = tnode.find(self.sikbns + 'eindperiode')
                 if snode is not None:
@@ -1911,11 +1922,12 @@ class Protocol0102:
                     dnode = rdflib.URIRef(self.vocns + 'SIKB_Code_' + key.title() + '_' + hf.rawString(snode.text))
                     hf.addSchemaType(self.graph, self.ontns, dnode, bnode2, childname)
                     hf.addRefIfExists(self, dnode, snode)
+                
+                    enddate = hf.getLabel(self.vocab, dnode) if (dnode is not None and self.vocab is not None)\
+                                    else key + ' ' + hf.rawString(snode.text)
 
                 startdate = hf.getLabel(self.vocab, cnode) if (cnode is not None and self.vocab is not None)\
                                 else key + ' ' + hf.rawString(child.text)
-                enddate = hf.getLabel(self.vocab, dnode) if (dnode is not None and self.vocab is not None)\
-                                else key + ' ' + hf.rawString(snode.text)
                 hf.addLabel(self.graph, bnode2, 'Tijdspanne (van {} tot {})'.format(startdate, enddate), 'nl')
 
         return self.ReturnValues(node=gnode, altnode=None)
